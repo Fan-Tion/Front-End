@@ -26,14 +26,17 @@ const SubImage = styled.img`
 
 export default function ImageModule() {
 
+  // 테스트용 더미 이미지
+  const imageSrc = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Definitions_of_TV_standards.jpg/220px-Definitions_of_TV_standards.jpg'
+
   return (
     <>
-      <MainImage src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png' />
+      <MainImage src={imageSrc} />
       <SubImageContainer>
-        <SubImage src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png' />
-        <SubImage src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png' />
-        <SubImage src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png' />
-        <SubImage src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png' />
+        <SubImage src={imageSrc} />
+        <SubImage src={imageSrc} />
+        <SubImage src={imageSrc} />
+        <SubImage src={imageSrc} />
       </SubImageContainer>
     </>
 

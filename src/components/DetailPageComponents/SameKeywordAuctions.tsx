@@ -8,19 +8,42 @@ const Container = styled.div`
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
+`
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `
 
 export default function SameKeywordAuctions() {
   return (
     <Container>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. eius architecto?</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. eius architecto?</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. eius architecto?</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. eius architecto?</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. eius architecto?</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. eius architecto?</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. eius architecto?</p>
+      <Row>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <p>328,000 원</p>
+      </Row>
+      <Row>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <p>328,000 원</p>
+      </Row>
+      <Row>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <p>328,000 원</p>
+      </Row>
+      <Row>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <p>328,000 원</p>
+      </Row>
+      <Row>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <p>328,000 원</p>
+      </Row>
+      <Row>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <p>328,000 원</p>
+      </Row>
     </Container>
   )
 }

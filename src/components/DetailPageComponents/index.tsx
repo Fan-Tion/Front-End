@@ -31,6 +31,14 @@ const LeftContainer = styled.div`
 const RightContainer = styled.div`
 `
 
+const Functions = styled.div`
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  gap: 16px;
+`
+
 export default function DetailPageComponents() {
   return (
     <Container>
@@ -43,8 +51,10 @@ export default function DetailPageComponents() {
           <SameKeywordAuctions />
         </RightContainer>
       </AuctionContainer>
-      <SellerRating />
-      <SteamedButton />
+      <Functions>
+        <SellerRating />
+        <SteamedButton />
+      </Functions>
       <ItemDescription />
     </Container >
   );
