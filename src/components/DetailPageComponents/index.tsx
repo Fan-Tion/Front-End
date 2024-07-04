@@ -14,11 +14,24 @@ const Container = styled.div`
   width: 80vw;
 `;
 
+const sizes = {
+  desktop: '1024px',
+  tablet: '768px',
+  phone: '576px',
+};
+
+const media = {
+  desktop: `(max-width: ${sizes.desktop})`,
+  tablet: `(max-width: ${sizes.tablet})`,
+  phone: `(max-width: ${sizes.phone})`,
+};
+
+// 스타일드 컴포넌트 정의
 const AuctionContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
-  @media (max-width: 768px) {
+  @media ${media.tablet} {
     grid-template-columns: 1fr;
   }
 `;
