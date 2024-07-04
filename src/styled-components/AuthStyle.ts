@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
   width: 500px;
 `;
 export const Title = styled.h1`
-  font-size: 50px;
+  font-size: 48px;
   align-self: center;
   font-weight : bold;
 `;
@@ -35,7 +35,7 @@ export const Input = styled.input`
   padding: 15px 20px;
   border-radius: 25px;
   border: 1px solid #ccc;
-  font-size: 18px;
+  font-size: 16px;
   font-size: 16px;
 
   &[type='submit'] {
