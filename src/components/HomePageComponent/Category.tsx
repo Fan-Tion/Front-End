@@ -11,7 +11,7 @@ const Image = styled.img`
   border-radius: 20px;
 `;
 const CategoryName = styled.div`
-  font-size: 16pt;
+  font-size: 20px;
   font-weight: bold;
   margin-top: 50px;
 `;
