@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 });
 */
 
-const API_BASE_URL = 'https://example.com/api';
+const API_BASE_URL = '';
 const API_TOKEN = 'your_api_token';
 
 // axios instance creation.
@@ -86,13 +86,16 @@ interface signInPayloadType {
   password: string;
 }
 
-const api = {
+export const api = {
   signUp: (payload: signUpPayloadType) =>
     axiosInstance.post('/members/signup', payload),
   signIn: (payload: signInPayloadType) =>
     axiosInstance.get('/members/signin', {
       params: payload, // GET 요청의 경우 params를 사용
     }),
-};
 
-export default api;
+  // 테스트용  API
+  testGetMembers: () => axiosInstance.get('/members'),
+  testPostMember: (payload: any) =>
+    axiosInstance.post('/members/signup', payload),
+};

@@ -29,6 +29,12 @@ export const handlers = [
     // response and send back the newly created post!
     return HttpResponse.json(newMember, { status: 201 });
   }),
+
+  // 테스트를 위해 생성한 코드
+  http.get('/members', () => {
+    console.log('Captured a "GET /members" request');
+    return HttpResponse.json(Array.from(members.values()));
+  }),
 ];
 
 // const allPosts = new Map();
