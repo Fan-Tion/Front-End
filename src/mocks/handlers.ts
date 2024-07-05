@@ -15,7 +15,7 @@ const members = new Map([
 
 export const handlers = [
   // 더미 이미지 URL 가로채지 않게 하기
-  http.get('https://via.placeholder.com/300', () => {
+  http.get('https://via.placeholder.com/', () => {
     return new HttpResponse(null, { status: 404 });
   }),
 
