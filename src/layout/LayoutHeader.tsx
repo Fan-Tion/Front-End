@@ -99,7 +99,7 @@ export default function LayoutHeader() {
         <Link to=''>
         <MenuButton>경매등록</MenuButton>
         </Link>
-        <Link to='/members/my-info'>
+        <Link to='/mypage'>
         <MenuButton>MyPage</MenuButton>
         </Link>
         </ButtonGroup>
