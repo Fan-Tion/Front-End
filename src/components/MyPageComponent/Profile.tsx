@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, Section, Title , EditButton ,Info } from '../../styled-components/MyPageStyle';
-
-
-
-
-
+import {
+  Container,
+  Section,
+  Title,
+  EditButton,
+  Info,
+} from '../../styled-components/MyPageStyle';
 
 export default function Profile() {
   return (

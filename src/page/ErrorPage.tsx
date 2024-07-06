@@ -31,10 +31,8 @@ const Description = styled.p`
   color : #888;
   line-height : 30px;
 `
-const ErrorImg = styled.span`
+const ErrorImg = styled.img`
   display : block;
-  background: url(	https://t1.daumcdn.net/daumtop_deco/images/mtop/2022/m640/img_error2.png) no-repeat;
-  background-size : 200px 170px;
   width : 200px;
   height : 170px;
   margin : 17px auto 0 ;
@@ -64,7 +62,7 @@ export default function ErrorPage() {
           주소가 잘못되었거나 바뀐것 같습니다.<br/>
           다시 확인해주시겠어요?
         </Description>
-        <ErrorImg/>
+        <ErrorImg src="/public/img/img_error.png"/>
         <Link to="/">
         <Button>홈으로</Button>
         </Link>

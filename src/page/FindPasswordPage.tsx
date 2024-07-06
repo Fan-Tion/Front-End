@@ -19,7 +19,6 @@ export default function FindPasswordPage() {
           <Input name="phone number" placeholder="phone number" />
           <Input type="submit" value="인증하기" />
         </Form>
-
         <Switcher>
           로그인페이지로 <Link to="/members/signin">로그인페이지로 이동</Link>
         </Switcher>
