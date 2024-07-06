@@ -11,12 +11,12 @@ import {
 export default function PopularCategory() {
   return (
     <Wrap>
-      <ProductBox bgColor="#c4c4c4">
+      <ProductBox $bgColor="#c4c4c4">
         <Category>
-          <Text fontSize="20px" fontColor="black">
+          <Text $fontSize="20px" $fontColor="black">
             인기 카테고리
           </Text>
-          <Text as="a" href="/" fontSize="16px" fontColor="#black">
+          <Text as="a" href="/" $fontSize="16px" $fontColor="#black">
             더 보기
           </Text>
         </Category>
