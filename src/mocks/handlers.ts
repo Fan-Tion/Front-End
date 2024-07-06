@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw';
 
 const members = new Map([
   [
-    '1',
+    'Test@email.com', // Map의 Key를 이메일로 저장하면 로그인 요청 Mock API에서 데이터를 빠르게 찾을 수 있을 것...
     {
       email: 'Test@email.com',
       password: 'testPassword123',
@@ -25,7 +25,6 @@ export const handlers = [
     const newMember = await request.json();
     members.set(newMember.email, newMember);
 
-    console.log(members);
     // Don't forget to declare a semantic "201 Created"
     // response and send back the newly created post!
     return HttpResponse.json(newMember, { status: 201 });
@@ -38,6 +37,9 @@ export const handlers = [
 
     console.log('Captured a "GET /members/signin" request : ', email, password);
 
+    /**
+     * @Todo : 사용자 정보를 Map에 저장하고, email을 key로 사용하도록 수정했음. 따라서 이 함수는 로직을 개선할 수 있음.
+     */
     const authenticateUser = (map, inputEmail, inputPassword) => {
       for (const [key, user] of map) {
         if (user.email === inputEmail && user.password === inputPassword) {

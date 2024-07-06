@@ -78,7 +78,7 @@ export const api = {
   signIn: (payload: any) => axiosInstance.post('/members/signin', payload),
 
   // 테스트용  API
-  testGetMembers: () => axiosInstance.get('/members'),
-  testPostMember: (payload: any) =>
-    axiosInstance.post('/members/signup', payload),
+  // testGetMembers: () => axiosInstance.get('/members'),
+  // testPostMember: (payload: any) =>
+  //   axiosInstance.post('/members/signup', payload),
 };
