@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { members, membersMapType } from './db';
+import { auctions, members, membersMapType } from './db';
 
 export const handlers = [
   // 더미 이미지 URL 가로채지 않게 하기
@@ -48,10 +48,12 @@ export const handlers = [
     return HttpResponse.json('로그인 성공', { status: 200 });
   }),
 
-  // 테스트를 위해 생성한 코드
-  http.get('/members', () => {
-    console.log('Captured a "GET /members" request');
-    return HttpResponse.json(Array.from(members.values()));
+  // 경매 생성
+  http.post('/auction', async ({ request }) => {
+    const auctionInfo = await request.json();
+    if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
+    auctions.set(`${new Date()}`, auctionInfo);
+    return HttpResponse.json(auctionInfo, { status: 201 });
   }),
 ];
 
