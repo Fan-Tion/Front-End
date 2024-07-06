@@ -9,6 +9,7 @@ import HomePage from '../page/HomePage';
 import SignUpPage from '../page/SignUpPage';
 import SignInPage from '../page/SignInPage';
 import FindPasswordPage from '../page/FindPasswordPage';
+import MyPage from '../page/MyPage';
 
 
 
@@ -26,23 +27,29 @@ export default function Routes() {
             <HomePage />
           ),
         },
-        
+        {
+          path: '/mypage',
+          element: (            
+              <MyPage/>           
+          ),
+        },  
       ],
     },
+    
     {
-      path: '/members/signup',
+      path: '/signup',
       element: (
         <SignUpPage/>
       ),
     },
     {
-      path: '/members/signin',
+      path: '/login',
       element: (
-        <SignInPage/>
+          <SignInPage/>
       ),
     },
     {
-      path: '/members/findpassword',
+      path: '/findpassword',
       element: (
         <FindPasswordPage/>
       ),
