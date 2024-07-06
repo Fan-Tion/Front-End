@@ -73,26 +73,9 @@ axiosInstance.interceptors.response.use(
 // });
 // console.log(result.message);
 
-interface signUpPayloadType {
-  email: string;
-  password: string;
-  nickname: string;
-  address: string;
-  profileImage: File | null;
-}
-
-interface signInPayloadType {
-  email: string;
-  password: string;
-}
-
 export const api = {
-  signUp: (payload: signUpPayloadType) =>
-    axiosInstance.post('/members/signup', payload),
-  signIn: (payload: signInPayloadType) =>
-    axiosInstance.get('/members/signin', {
-      params: payload, // GET 요청의 경우 params를 사용
-    }),
+  signUp: (payload: any) => axiosInstance.post('/members/signup', payload),
+  signIn: (payload: any) => axiosInstance.post('/members/signin', payload),
 
   // 테스트용  API
   testGetMembers: () => axiosInstance.get('/members'),

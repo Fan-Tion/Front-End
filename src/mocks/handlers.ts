@@ -19,15 +19,39 @@ export const handlers = [
     return new HttpResponse(null, { status: 404 });
   }),
 
+  // 회원가입 요청
   http.post('/members/signup', async ({ request }) => {
     // Read the intercepted request body as JSON.
     const newMember = await request.json();
+    members.set(newMember.email, newMember);
 
-    members.set(newMember.id, newMember);
-
+    console.log(members);
     // Don't forget to declare a semantic "201 Created"
     // response and send back the newly created post!
     return HttpResponse.json(newMember, { status: 201 });
+  }),
+
+  // 로그인 요청
+  http.post('/members/signin', async ({ request }) => {
+    const loginInfo = await request.json();
+    const { email, password } = loginInfo;
+
+    console.log('Captured a "GET /members/signin" request : ', email, password);
+
+    const authenticateUser = (map, inputEmail, inputPassword) => {
+      for (const [key, user] of map) {
+        if (user.email === inputEmail && user.password === inputPassword) {
+          return user; // 인증 성공 시 유저 객체 반환
+        }
+      }
+      return null; // 인증 실패 시 null 반환
+    };
+
+    const user = authenticateUser(members, email, password);
+
+    if (!user) return HttpResponse.json('로그인 실패', { status: 401 });
+
+    return HttpResponse.json('로그인 성공', { status: 200 });
   }),
 
   // 테스트를 위해 생성한 코드
