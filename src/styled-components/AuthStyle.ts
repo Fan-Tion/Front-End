@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 export const OuterWrapper = styled.div`
   height: 100vh;
@@ -19,7 +18,7 @@ export const Wrapper = styled.div`
 export const Title = styled.h1`
   font-size: 48px;
   align-self: center;
-  font-weight : bold;
+  font-weight: bold;
 `;
 
 export const Form = styled.form`
@@ -43,8 +42,8 @@ export const Input = styled.input`
     background-color: #fff;
     transition: background-color 0.3s ease;
     &:hover {
-      background-color: #007bff; 
-      color: white; 
+      background-color: #007bff;
+      color: white;
     }
 
     &:focus {
@@ -54,8 +53,8 @@ export const Input = styled.input`
   }
 `;
 export const Switcher = styled.span`
-  margin-top:20px;
-  a{
+  margin-top: 20px;
+  a {
     color: #1d9bf0;
     text-decoration-line: none;
   }

@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -10,8 +9,6 @@ import SignUpPage from '../page/SignUpPage';
 import SignInPage from '../page/SignInPage';
 import FindPasswordPage from '../page/FindPasswordPage';
 import MyPage from '../page/MyPage';
-
-
 
 export default function Routes() {
 
@@ -29,29 +26,29 @@ export default function Routes() {
         },
         {
           path: '/mypage',
-          element: (            
-              <MyPage/>           
+          element: (
+            <MyPage />
           ),
-        },  
+        },
       ],
     },
-    
+
     {
       path: '/signup',
       element: (
-        <SignUpPage/>
+        <SignUpPage />
       ),
     },
     {
       path: '/login',
       element: (
-          <SignInPage/>
+        <SignInPage />
       ),
     },
     {
       path: '/findpassword',
       element: (
-        <FindPasswordPage/>
+        <FindPasswordPage />
       ),
     },
   ]);

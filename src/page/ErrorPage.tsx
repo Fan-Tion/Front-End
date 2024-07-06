@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -59,12 +58,12 @@ export default function ErrorPage() {
       <WrapError>
         <Title>페이지가 없어요</Title>
         <Description>
-          주소가 잘못되었거나 바뀐것 같습니다.<br/>
+          주소가 잘못되었거나 바뀐것 같습니다.<br />
           다시 확인해주시겠어요?
         </Description>
-        <ErrorImg src="/public/img/img_error.png"/>
+        <ErrorImg src="/public/img/img_error.png" />
         <Link to="/">
-        <Button>홈으로</Button>
+          <Button>홈으로</Button>
         </Link>
       </WrapError>
     </Wrapper>

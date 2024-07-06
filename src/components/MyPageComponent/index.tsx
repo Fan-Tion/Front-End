@@ -1,4 +1,3 @@
-import React from 'react';
 import SideProfile from './SideProfile';
 import styled from 'styled-components';
 import Profile from './Profile';

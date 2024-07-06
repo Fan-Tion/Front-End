@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 //추후 api 연결시, 이부분 서버로부터 로그인 상태를 확인하도록 수정할 예정
 const user = {

@@ -1,4 +1,3 @@
-import React from "react"
 import styled from "styled-components"
 
 const Wrapper = styled.footer`
@@ -25,7 +24,7 @@ const FooterName = styled.div`
 `
 
 export default function LayoutFooter() {
-  return(
+  return (
     <Wrapper>
       <FooterBox>
         <FooterName>History</FooterName>
@@ -34,8 +33,8 @@ export default function LayoutFooter() {
         <FooterName>공지사항</FooterName>
       </FooterBox>
     </Wrapper>
-      
-    
+
+
   )
 
 }
