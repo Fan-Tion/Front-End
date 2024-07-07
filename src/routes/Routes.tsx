@@ -9,6 +9,7 @@ import SignUpPage from '../page/SignUpPage';
 import SignInPage from '../page/SignInPage';
 import FindPasswordPage from '../page/FindPasswordPage';
 import MyPage from '../page/MyPage';
+import AuctionCreatePage from '../page/AuctionCreatePage';
 
 export default function Routes() {
 
@@ -51,6 +52,12 @@ export default function Routes() {
         <FindPasswordPage />
       ),
     },
+    {
+      path: '/create-auction',
+      element: (
+        <AuctionCreatePage />
+      ),
+    }
   ]);
 
 

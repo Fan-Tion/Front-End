@@ -51,8 +51,11 @@ export const handlers = [
   // 경매 생성
   http.post('/auction', async ({ request }) => {
     const auctionInfo = await request.json();
+
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
+
     auctions.set(`${new Date()}`, auctionInfo);
+
     return HttpResponse.json(auctionInfo, { status: 201 });
   }),
 ];
