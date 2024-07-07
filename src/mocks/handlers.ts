@@ -1,17 +1,5 @@
 import { http, HttpResponse } from 'msw';
-
-const members = new Map([
-  [
-    'Test@email.com', // Map의 Key를 이메일로 저장하면 로그인 요청 Mock API에서 데이터를 빠르게 찾을 수 있을 것...
-    {
-      email: 'Test@email.com',
-      password: 'testPassword123',
-      nickname: '테스트',
-      address: '테스트 주소',
-      profileImage: '',
-    },
-  ],
-]);
+import { auctions, members, membersMapType } from './db';
 
 export const handlers = [
   // 더미 이미지 URL 가로채지 않게 하기
@@ -23,6 +11,9 @@ export const handlers = [
   http.post('/members/signup', async ({ request }) => {
     // Read the intercepted request body as JSON.
     const newMember = await request.json();
+
+    if (!newMember) return HttpResponse.json(newMember, { status: 401 });
+
     members.set(newMember.email, newMember);
 
     // Don't forget to declare a semantic "201 Created"
@@ -37,14 +28,15 @@ export const handlers = [
 
     console.log('Captured a "GET /members/signin" request : ', email, password);
 
-    /**
-     * @Todo : 사용자 정보를 Map에 저장하고, email을 key로 사용하도록 수정했음. 따라서 이 함수는 로직을 개선할 수 있음.
-     */
-    const authenticateUser = (map, inputEmail, inputPassword) => {
-      for (const [key, user] of map) {
-        if (user.email === inputEmail && user.password === inputPassword) {
-          return user; // 인증 성공 시 유저 객체 반환
-        }
+    const authenticateUser = (
+      map: Map<string, membersMapType>,
+      inputEmail: string,
+      inputPassword: string
+    ) => {
+      const user = map.get(inputEmail);
+
+      if (user && user.password === inputPassword) {
+        return user; // 인증 성공 시 유저 객체 반환
       }
       return null; // 인증 실패 시 null 반환
     };
@@ -56,10 +48,12 @@ export const handlers = [
     return HttpResponse.json('로그인 성공', { status: 200 });
   }),
 
-  // 테스트를 위해 생성한 코드
-  http.get('/members', () => {
-    console.log('Captured a "GET /members" request');
-    return HttpResponse.json(Array.from(members.values()));
+  // 경매 생성
+  http.post('/auction', async ({ request }) => {
+    const auctionInfo = await request.json();
+    if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
+    auctions.set(`${new Date()}`, auctionInfo);
+    return HttpResponse.json(auctionInfo, { status: 201 });
   }),
 ];
 

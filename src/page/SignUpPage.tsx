@@ -8,7 +8,7 @@ import {
   Input,
   Switcher,
 } from '../styled-components/AuthStyle';
-import { api } from '../api/axios';
+import { membersApi } from '../api/member';
 
 interface SignUpInterface {
   email: string;
@@ -37,7 +37,7 @@ export default function SignUpPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await api.signUp(formData);
+      const response = await membersApi.signUp(formData);
       console.log(response.data);
       // 성공 처리
     } catch (error) {

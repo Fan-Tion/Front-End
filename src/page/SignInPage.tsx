@@ -8,7 +8,7 @@ import {
   Input,
   Switcher,
 } from '../styled-components/AuthStyle';
-import { api } from '../api/axios';
+import { membersApi } from '../api/member';
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');
@@ -26,7 +26,7 @@ export default function SignInPage() {
     e.preventDefault();
     try {
 
-      const response = await api.signIn({ email, password });
+      const response = await membersApi.signIn({ email, password });
       console.log(response.data);
       // 로그인 성공 처리 (예: 페이지 리디렉션)
     } catch (error) {

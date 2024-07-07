@@ -15,7 +15,7 @@ const API_BASE_URL = '';
 const API_TOKEN = 'your_api_token';
 
 // axios instance creation.
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 1000,
   headers: {
@@ -72,13 +72,3 @@ axiosInstance.interceptors.response.use(
 //   itemId: id,
 // });
 // console.log(result.message);
-
-export const api = {
-  signUp: (payload: any) => axiosInstance.post('/members/signup', payload),
-  signIn: (payload: any) => axiosInstance.post('/members/signin', payload),
-
-  // 테스트용  API
-  // testGetMembers: () => axiosInstance.get('/members'),
-  // testPostMember: (payload: any) =>
-  //   axiosInstance.post('/members/signup', payload),
-};
