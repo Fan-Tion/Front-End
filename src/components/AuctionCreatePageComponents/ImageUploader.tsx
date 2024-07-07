@@ -32,8 +32,9 @@ export default function ImageUploader() {
 
   // 파일이 드롭되었을 때 호출되는 콜백 함수입니다.
   const onDrop = useCallback((acceptedFiles: File[]) => {
+    const filteredFiles = acceptedFiles.filter(file => file.size <= 5 * 1024 * 1024); // 5MB 이하 파일만 허용
     setFiles((prevFiles) => {
-      const newFiles = acceptedFiles.slice(0, 5 - prevFiles.length); // 최대 5개 파일만 허용합니다.
+      const newFiles = filteredFiles.slice(0, 5 - prevFiles.length); // 최대 5개 파일만 허용합니다.
       return [...prevFiles, ...newFiles];
     });
   }, []);
@@ -54,7 +55,11 @@ export default function ImageUploader() {
   };
 
   // useDropzone 훅을 사용하여 드롭존을 설정합니다.
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: { 'image/*': [] }, // 이미지 파일만 허용
+    maxSize: 5 * 1024 * 1024, // 파일 크기 5MB 제한
+  });
 
   return (
     // DndProvider로 드래그 앤 드롭 컨텍스트를 제공합니다.
