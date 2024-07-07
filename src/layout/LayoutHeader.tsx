@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 
@@ -76,33 +75,33 @@ export default function LayoutHeader() {
 
   return (
     <Wrapper>
-        <Link to='/'>
+      <Link to='/'>
         <MenuItem>
-        <MenuName>Logo</MenuName>
+          <MenuName>Logo</MenuName>
         </MenuItem>
-        </Link>
-        <Link to='/auction'>
+      </Link>
+      <Link to='/auction'>
         <MenuItem>
-        <MenuName>Auction</MenuName>
+          <MenuName>Auction</MenuName>
         </MenuItem>
-        </Link>
-        <Link to='/community'>
+      </Link>
+      <Link to='/community'>
         <MenuItem>
-        <MenuName>Community</MenuName>
+          <MenuName>Community</MenuName>
         </MenuItem>
-        </Link>
-        <SearchBar>
-          <SearchInput type="text" placeholder="검색"/>
-          <SearchButton >I</SearchButton>
-        </SearchBar>
-        <ButtonGroup>
+      </Link>
+      <SearchBar>
+        <SearchInput type="text" placeholder="검색" />
+        <SearchButton >I</SearchButton>
+      </SearchBar>
+      <ButtonGroup>
         <Link to=''>
-        <MenuButton>경매등록</MenuButton>
+          <MenuButton>경매등록</MenuButton>
         </Link>
-        <Link to='/members/my-info'>
-        <MenuButton>MyPage</MenuButton>
+        <Link to='/mypage'>
+          <MenuButton>MyPage</MenuButton>
         </Link>
-        </ButtonGroup>
+      </ButtonGroup>
     </Wrapper>
   )
 }

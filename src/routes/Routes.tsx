@@ -28,18 +28,23 @@ export default function Routes() {
           path: 'test2',
           element: <DepositHistoryPage />,
         },
+        {
+          path: '/mypage',
+          element: <MyPage />,
+        },
       ],
     },
+
     {
-      path: '/members/signup',
+      path: '/signup',
       element: <SignUpPage />,
     },
     {
-      path: '/members/signin',
+      path: '/login',
       element: <SignInPage />,
     },
     {
-      path: '/members/findpassword',
+      path: '/findpassword',
       element: <FindPasswordPage />,
     },
   ]);
