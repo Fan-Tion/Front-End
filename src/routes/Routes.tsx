@@ -43,7 +43,7 @@ export default function Routes() {
       ),
     },
     {
-      path: '/login',
+      path: '/signin',
       element: (
           <SignInPage/>
       ),

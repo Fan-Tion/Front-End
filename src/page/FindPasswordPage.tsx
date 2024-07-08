@@ -20,7 +20,7 @@ export default function FindPasswordPage() {
           <Input type="submit" value="인증하기" />
         </Form>
         <Switcher>
-          로그인페이지로 <Link to="/members/signin">로그인페이지로 이동</Link>
+          로그인페이지로 <Link to="/signin">로그인페이지로 이동</Link>
         </Switcher>
       </Wrapper>
     </OuterWrapper>
