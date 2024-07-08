@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link , useNavigate } from 'react-router-dom';
 import { OuterWrapper, Wrapper, Title , Form , Input, Switcher, ErrorMessage,} from '../../styled-components/AuthStyle';
-import { api } from '../../api/axios';
+import { membersApi } from '../../api/member';
 
 
 
@@ -26,7 +26,7 @@ export default function SignInForm() {
     e.preventDefault();
     try {
 
-      const response = await api.signIn({ email, password });
+      const response = await membersApi.signIn({ email, password });
       console.log(response.data);
       // 로그인 성공 처리
       navigate('/')

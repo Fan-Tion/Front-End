@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { api } from '../../api/axios';
+import { membersApi } from '../../api/member';
 import {
   OuterWrapper,
   Wrapper,
@@ -47,14 +47,42 @@ export default function SignUpForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({}); //오류 초기화
 
-    //오류 초기화
-    setErrors({});
+    const requiredFields = ['email', 'password', 'confirmPassword', 'nickname', 'phoneNumber', 'address'];
+    const emptyFields = requiredFields.filter(field => !formData[field as keyof SignUpInterface]); //filter 함수를 사용해서 formData 키 확인
+    if (emptyFields.length > 0) { // 
+      emptyFields.forEach(field => {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          [field]: '필수 입력 항목입니다.',
+        }));
+      });
+      return;
+    }
+    //비밀번호 길이 검사
+    if (formData.password.length < 6 || formData.password.length > 15) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        password: '비밀번호는 6자 이상 15자 이하로 입력해주세요.',
+      }));
+      return;
+    }
+
     // 비밀번호, 비밀번호 확인 값이 일치하지않으면 오류
     if (formData.password !== formData.confirmPassword) {
       setErrors(prevErrors => ({
         ...prevErrors,
         confirmPassword: '비밀번호가 일치하지 않습니다.',
+      }));
+      return;
+    }
+
+    //닉네임 길이 검사
+    if (formData.nickname.length < 2) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        nickname: '닉네임은 최소 2글자 이상이어야 합니다.',
       }));
       return;
     }
@@ -70,7 +98,7 @@ export default function SignUpForm() {
     }
 
     try {
-      const response = await api.signUp(formData);
+      const response = await membersApi.signUp(formData);
       console.log(response.data);
       navigate('/signin'); //회원가입 성공후 로그인 페이지로 이동
     } catch (error) {
@@ -95,6 +123,7 @@ export default function SignUpForm() {
             value={formData.email}
             onChange={handleChange}
           />
+          {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
           <Input
             name="password"
             placeholder="password"
@@ -102,6 +131,7 @@ export default function SignUpForm() {
             value={formData.password}
             onChange={handleChange}
           />
+          {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
           <Input
             name="confirmPassword"
             placeholder="confirm password"
@@ -114,10 +144,11 @@ export default function SignUpForm() {
           )}
           <Input
             name="nickname"
-            placeholder="username"
+            placeholder="nickname"
             value={formData.nickname}
             onChange={handleChange}
           />
+          {errors.nickname && <ErrorMessage>{errors.nickname}</ErrorMessage>}
           <Input
             name="phoneNumber"
             placeholder="phone number"
