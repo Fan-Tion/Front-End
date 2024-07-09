@@ -1,5 +1,22 @@
 import { http, HttpResponse } from 'msw';
+
+
+
+const members = new Map([
+  [
+    'Test@email.com', // Map의 Key를 이메일로 저장하면 로그인 요청 Mock API에서 데이터를 빠르게 찾을 수 있을 것...
+    {
+      email: 'Test@email.com',
+      password: 'testPassword123',
+      nickname: '테스트',
+      address: '테스트 주소',
+      profileImage: '',
+    },
+  ],
+]);
+
 import { auctions, members, membersMapType } from './db';
+
 
 export const handlers = [
   // 더미 이미지 URL 가로채지 않게 하기
@@ -48,12 +65,36 @@ export const handlers = [
     return HttpResponse.json('로그인 성공', { status: 200 });
   }),
 
+
+  //비밀번호 재설정 요청
+  http.post('/members/reset-password-request', async ({ request }) => {
+    const { email, phoneNumber } = await request.json();
+
+    console.log('Captured a "POST /members/reset-password-request" request : ', email, phoneNumber);
+
+    const user = members.get(email);
+
+    if (!user || user.phoneNumber !== phoneNumber) {
+      return HttpResponse.json('사용자를 찾을 수 없습니다.', { status: 404 });
+    }
+
+    // 여기서 비밀번호 재설정 로직 수정하기 , 메일 보내고 비밀번호 변경 페이지 보여주기.
+    // 테스트 코드여서 일단은 성공응답 반환 
+    return HttpResponse.json('비밀번호 재설정 요청이 성공했습니다.', { status: 200 });
+  }),
+
+  // 테스트를 위해 생성한 코드
+  http.get('/members', () => {
+    console.log('Captured a "GET /members" request');
+    return HttpResponse.json(Array.from(members.values()));
+
   // 경매 생성
   http.post('/auction', async ({ request }) => {
     const auctionInfo = await request.json();
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
     auctions.set(`${new Date()}`, auctionInfo);
     return HttpResponse.json(auctionInfo, { status: 201 });
+
   }),
 ];
 

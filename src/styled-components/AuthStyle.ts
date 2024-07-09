@@ -59,3 +59,21 @@ export const Switcher = styled.span`
     text-decoration-line: none;
   }
 `;
+
+export const ErrorMessage = styled.div`
+  color : red;
+  font-size : 16px;
+ text-align : center;
+`
+
+
+export const Styled = {
+  OuterWrapper,
+  Wrapper,
+  Title,
+  Form,
+  Input,
+  Switcher,
+  ErrorMessage,
+};
+
