@@ -70,6 +70,7 @@ export const handlers = [
   http.get('/members', () => {
     console.log('Captured a "GET /members" request');
     return HttpResponse.json(Array.from(members.values()));
+  }),
 
   // 경매 생성
   http.post('/auction', async ({ request }) => {
