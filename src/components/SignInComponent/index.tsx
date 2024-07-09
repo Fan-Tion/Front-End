@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 import { Link , useNavigate } from 'react-router-dom';
-import { OuterWrapper, Wrapper, Title , Form , Input, Switcher, ErrorMessage,} from '../../styled-components/AuthStyle';
+import { Styled } from '../../styled-components/AuthStyle';
 import { membersApi } from '../../api/member';
 
-
+const errorMessages = {
+  emptyFields : '이메일 또는 비밀번호가 올바르지 않습니다.'
+}
 
 export default function SignInForm() {
   const navigate = useNavigate();
- 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
   const [error, setError] = useState<string>('');
 
-
-
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = e.target;
+    setFormData((prevState)=> ({
+      ...prevState,
+      [name] : value,
+    }))
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const { email, password } = formData;
     try {
 
       const response = await membersApi.signIn({ email, password });
@@ -33,41 +35,41 @@ export default function SignInForm() {
     } catch (error) {
       console.error(error);
       // 로그인 실패 처리 (예: 에러 메시지 표시)
-      setError('이메일 또는 비밀번호가 올바르지 않습니다.');
+      setError(errorMessages.emptyFields);
     }
   };
 
   return (
-    <OuterWrapper>
-      <Wrapper>
-        <Title>로그인</Title>
-        <Form onSubmit={handleSubmit}>
-          <Input
+    <Styled.OuterWrapper>
+      <Styled.Wrapper>
+        <Styled.Title>로그인</Styled.Title>
+        <Styled.Form onSubmit={handleSubmit}>
+          <Styled.Input
             name="email"
             placeholder="email"
             type="email"
-            value={email } 
-            onChange={handleChangeEmail}
+            value={formData.email} 
+            onChange={handleChange}
           />
-          <Input
+          <Styled.Input
             name="password"
             placeholder="password"
             type="password"
-            value={password } 
-            onChange={handleChangePassword}
+            value={formData.password} 
+            onChange={handleChange}
           />
-           {error && <ErrorMessage>{error}</ErrorMessage>}
-          <Input type="submit" value="Sign In" />
-        </Form>
-        <Switcher>
+           {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
+          <Styled.Input type="submit" value="Sign In" />
+        </Styled.Form>
+        <Styled.Switcher>
           비밀번호를 잊어버리셨나요?{' '}
           <Link to="/findpassword">비밀번호 찾기</Link>
-        </Switcher>
-        <Switcher>
+        </Styled.Switcher>
+        <Styled.Switcher>
           회원이 아니신가요? <Link to="/signup">회원가입</Link>
-        </Switcher>
-      </Wrapper>
-    </OuterWrapper>
+        </Styled.Switcher>
+      </Styled.Wrapper>
+    </Styled.OuterWrapper>
   );
   
 }

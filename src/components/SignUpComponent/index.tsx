@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { membersApi } from '../../api/member';
-import {
-  OuterWrapper,
-  Wrapper,
-  Title,
-  Form,
-  Input,
-  Switcher,
-  ErrorMessage,
-} from '../../styled-components/AuthStyle';
+import { Styled } from '../../styled-components/AuthStyle';
 
 interface SignUpInterface {
   email: string;
@@ -19,6 +11,14 @@ interface SignUpInterface {
   phoneNumber: string;
   address: string;
 }
+const errorMessages = {
+  emptyFields: '필수 입력 항목입니다.',
+  passwordLength: '비밀번호는 6자 이상 15자 이하로 입력해주세요.',
+  passwordMismatch: '비밀번호가 일치하지 않습니다.',
+  nicknameLength: '닉네임은 최소 2글자 이상이어야 합니다.',
+  phoneNumberInvalid: '전화번호는 11자리 숫자여야 합니다.',
+  serverError: '서버에서 에러가 발생했습니다.',
+};
 
 export default function SignUpForm() {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ export default function SignUpForm() {
       emptyFields.forEach(field => {
         setErrors(prevErrors => ({
           ...prevErrors,
-          [field]: '필수 입력 항목입니다.',
+          [field]: errorMessages.emptyFields,
         }));
       });
       return;
@@ -64,7 +64,7 @@ export default function SignUpForm() {
     if (formData.password.length < 6 || formData.password.length > 15) {
       setErrors(prevErrors => ({
         ...prevErrors,
-        password: '비밀번호는 6자 이상 15자 이하로 입력해주세요.',
+        password: errorMessages.passwordLength,
       }));
       return;
     }
@@ -73,7 +73,7 @@ export default function SignUpForm() {
     if (formData.password !== formData.confirmPassword) {
       setErrors(prevErrors => ({
         ...prevErrors,
-        confirmPassword: '비밀번호가 일치하지 않습니다.',
+        confirmPassword: errorMessages.passwordMismatch,
       }));
       return;
     }
@@ -82,7 +82,7 @@ export default function SignUpForm() {
     if (formData.nickname.length < 2) {
       setErrors(prevErrors => ({
         ...prevErrors,
-        nickname: '닉네임은 최소 2글자 이상이어야 합니다.',
+        nickname: errorMessages.nicknameLength,
       }));
       return;
     }
@@ -92,7 +92,7 @@ export default function SignUpForm() {
       // 전화번호가 11자리 숫자가 아닌 경우 오류
       setErrors(prevErrors => ({
         ...prevErrors,
-        phoneNumber: '전화번호는 11자리 숫자여야 합니다.',
+        phoneNumber: errorMessages.phoneNumberInvalid,
       }));
       return;
     }
@@ -104,35 +104,35 @@ export default function SignUpForm() {
     } catch (error) {
       console.error(error);
       // 에러 처리
-      setErrors({
-        ...errors,
-       
-      });
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        serverError: errorMessages.serverError,
+      }));
     }
   };
 
   return (
-    <OuterWrapper>
-      <Wrapper>
-        <Title>회원가입</Title>
-        <Form onSubmit={handleSubmit}>
-          <Input
+    <Styled.OuterWrapper>
+      <Styled.Wrapper>
+        <Styled.Title>회원가입</Styled.Title>
+        <Styled.Form onSubmit={handleSubmit}>
+          <Styled.Input
             name="email"
             placeholder="email"
             type="email"
             value={formData.email}
             onChange={handleChange}
           />
-          {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-          <Input
+          {errors.email && <Styled.ErrorMessage>{errors.email}</Styled.ErrorMessage>}
+          <Styled.Input
             name="password"
             placeholder="password"
             type="password"
             value={formData.password}
             onChange={handleChange}
           />
-          {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
-          <Input
+          {errors.password && <Styled.ErrorMessage>{errors.password}</Styled.ErrorMessage>}
+          <Styled.Input
             name="confirmPassword"
             placeholder="confirm password"
             value={formData.confirmPassword}
@@ -140,39 +140,39 @@ export default function SignUpForm() {
             onChange={handleChange}
           />
           {errors.confirmPassword && (
-            <ErrorMessage>{errors.confirmPassword}</ErrorMessage>
+            <Styled.ErrorMessage>{errors.confirmPassword}</Styled.ErrorMessage>
           )}
-          <Input
+          <Styled.Input
             name="nickname"
             placeholder="nickname"
             value={formData.nickname}
             onChange={handleChange}
           />
-          {errors.nickname && <ErrorMessage>{errors.nickname}</ErrorMessage>}
-          <Input
+          {errors.nickname && <Styled.ErrorMessage>{errors.nickname}</Styled.ErrorMessage>}
+          <Styled.Input
             name="phoneNumber"
             placeholder="phone number"
             value={formData.phoneNumber}
             onChange={handleChange}
           />
           {errors.phoneNumber && (
-            <ErrorMessage>{errors.phoneNumber}</ErrorMessage>
+            <Styled.ErrorMessage>{errors.phoneNumber}</Styled.ErrorMessage>
           )}
-          <Input
+          <Styled.Input
             name="address"
             placeholder="address"
             value={formData.address}
             onChange={handleChange}
           />
-          <Input type="submit" value="Sign up" />
+          <Styled.Input type="submit" value="Sign up" />
           {errors.serverError && (
-            <ErrorMessage>{errors.serverError}</ErrorMessage>
+            <Styled.ErrorMessage>{errors.serverError}</Styled.ErrorMessage>
           )}
-        </Form>
-        <Switcher>
+        </Styled.Form>
+        <Styled.Switcher>
           이미 계정이 있으신가요? <Link to="/signin">로그인 페이지</Link>
-        </Switcher>
-      </Wrapper>
-    </OuterWrapper>
+        </Styled.Switcher>
+      </Styled.Wrapper>
+    </Styled.OuterWrapper>
   );
 }
