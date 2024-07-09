@@ -19,6 +19,11 @@ module.exports = {
     'no-var': 'warn', // var 금지
     'react/jsx-pascal-case': 'warn', // 컴포넌트 이름은 PascalCase로
     'react/jsx-key': 'warn', // 반복문으로 생성하는 요소에 key 강제
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-filename-extension': [
+      1,
+      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+    ],
   },
 };
 

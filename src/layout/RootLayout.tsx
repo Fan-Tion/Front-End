@@ -1,4 +1,3 @@
-import React from 'react'
 import { Outlet } from 'react-router-dom'
 import LayoutHeader from './LayoutHeader'
 import LayoutFooter from './LayoutFooter'
@@ -11,7 +10,7 @@ export default function RootLayout() {
     <>
       <LayoutHeader />
       <Outlet />
-      <LayoutFooter/>
+      <LayoutFooter />
     </>
   )
 }

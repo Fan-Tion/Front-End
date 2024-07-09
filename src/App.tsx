@@ -1,4 +1,3 @@
-import React from 'react'
 import { RecoilRoot } from 'recoil'
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
