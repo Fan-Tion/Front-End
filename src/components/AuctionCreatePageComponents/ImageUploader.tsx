@@ -65,11 +65,13 @@ export default function ImageUploader() {
     // DndProvider로 드래그 앤 드롭 컨텍스트를 제공합니다.
     <DndProvider backend={HTML5Backend}>
       <Container>
-        <h2>Upload Files</h2>
-        <DropzoneContainer {...getRootProps()}>
-          <input {...getInputProps()} />
-          <p>Drag n drop some files here, or click to select files</p>
-        </DropzoneContainer>
+        <div>
+          <h2>Upload Files</h2>
+          <DropzoneContainer {...getRootProps()}>
+            <input {...getInputProps()} />
+            <p>Drag n drop some files here, or click to select files</p>
+          </DropzoneContainer>
+        </div>
         <FileList>
           {files.map((file, index) => (
             // DraggableFile 컴포넌트를 사용하여 파일을 표시하고 드래그 앤 드롭 기능을 추가합니다.

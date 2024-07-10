@@ -31,6 +31,12 @@ export default function Routes() {
             <MyPage />
           ),
         },
+        {
+          path: '/create-auction',
+          element: (
+            <AuctionCreatePage />
+          ),
+        }
       ],
     },
 
@@ -52,12 +58,6 @@ export default function Routes() {
         <FindPasswordPage />
       ),
     },
-    {
-      path: '/create-auction',
-      element: (
-        <AuctionCreatePage />
-      ),
-    }
   ]);
 
 
