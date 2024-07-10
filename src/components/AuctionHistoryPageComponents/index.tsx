@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AuctionHistoryContent from './AuctionHistoryContent';
 import WishList from './WishList';
 import Deposit from './Deposit';
+
+type Tab = 'join' | 'buy' | 'my';
+
 const Container = styled.div`
   margin: 100px auto;
   padding: 50px 150px;
@@ -33,20 +36,7 @@ const Tab = styled.button`
     transform: scale(1.05);
   }
 `;
-const Tab2 = styled.p`
-  width: 90px;
-  height: 20px;
-  font-size: 16px;
-  border-right: 1px solid #000;
-  text-align: center;
-  line-height: 20px;
-  cursor: pointer;
-  &:nth-child(3) {
-    border-right: none;
-  }
-  &:hover {
-  }
-`;
+
 const Div = styled.div`
   display: flex;
 
@@ -58,19 +48,20 @@ const Div2 = styled.div`
   justify-content: space-between;
 `;
 export default function AuctionHistoryComponents() {
+  const [selectedTab, setSelectedTab] = useState<Tab>('join');
+
+  const handleTabClick = (tab: Tab) => {
+    setSelectedTab(tab);
+  };
   return (
     <Container>
       <Title>경매 내역</Title>
 
-      <Tab>입찰 내역</Tab>
-      <Tab>구매 내역</Tab>
-      <Tab>판매 내역</Tab>
-      <Div>
-        <Tab2>최근 1개월</Tab2>
-        <Tab2>최근 3개월</Tab2>
-        <Tab2>최근 1년</Tab2>
-      </Div>
-      <AuctionHistoryContent />
+      <Tab onClick={() => handleTabClick('join')}>입찰 내역</Tab>
+      <Tab onClick={() => handleTabClick('buy')}>구매 내역</Tab>
+      <Tab onClick={() => handleTabClick('my')}>판매 내역</Tab>
+      <Div></Div>
+      <AuctionHistoryContent selectedTab={selectedTab} />
       <Div2>
         <WishList />
         <Deposit />

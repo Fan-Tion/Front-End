@@ -1,5 +1,15 @@
 import { http, HttpResponse } from 'msw';
-import { auctions, members, membersMapType } from './db';
+import {
+  auctions,
+  BuyHistory,
+  Deposit,
+  DepositHistory,
+  JoinHistory,
+  Likes,
+  members,
+  membersMapType,
+  MyHistory,
+} from './db';
 
 export const handlers = [
   // 더미 이미지 URL 가로채지 않게 하기
@@ -54,6 +64,31 @@ export const handlers = [
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
     auctions.set(`${new Date()}`, auctionInfo);
     return HttpResponse.json(auctionInfo, { status: 201 });
+  }),
+
+  // 예치금 입출금 내역 요청
+  http.get('/members/my-blance', () => {
+    return HttpResponse.json(DepositHistory);
+  }),
+  // 입찰 내역 요청
+  http.get('/members/join-auction-list', () => {
+    return HttpResponse.json(JoinHistory);
+  }),
+  // 구매 내역 요청
+  http.get('/members/buy-auction-list', () => {
+    return HttpResponse.json(BuyHistory);
+  }),
+  // 판매 내역 요청
+  http.get('/members/my-auction-list', () => {
+    return HttpResponse.json(MyHistory);
+  }),
+  // 찜목록 요청
+  http.get('/members/my-favorite-auction-list', () => {
+    return HttpResponse.json(Likes);
+  }),
+  // 예치금 요청
+  http.get('/members/my-info-deposit', () => {
+    return HttpResponse.json(Deposit);
   }),
 ];
 

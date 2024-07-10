@@ -8,6 +8,7 @@ import SignInPage from '../page/SignInPage';
 import FindPasswordPage from '../page/FindPasswordPage';
 import AuctionHistoryPage from '../page/AuctionHistoryPage';
 import DepositHistoryPage from '../components/DepositHistoryPageComponents';
+import MyPage from '../page/MyPage';
 
 export default function Routes() {
   const router = createBrowserRouter([
@@ -21,11 +22,11 @@ export default function Routes() {
           element: <HomePage />,
         },
         {
-          path: 'test',
+          path: 'mypage/auction-history',
           element: <AuctionHistoryPage />,
         },
         {
-          path: 'test2',
+          path: 'mypage/deposit-history',
           element: <DepositHistoryPage />,
         },
         {

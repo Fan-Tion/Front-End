@@ -1,4 +1,6 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -61,13 +63,52 @@ const DepositHistory = styled.button`
 `;
 
 export default function Deposit() {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const url = '/members/my-info-deposit';
+        console.log('Fetching data from:', url);
+        const response = await axios.get(url);
+
+        setData(response.data);
+      } catch (error) {
+        setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Title>예치금</Title>
       <Content>
-        <Price>30,300 원</Price>
-        <Charge>충전하기</Charge>
-        <DepositHistory>예치금 입출금 내역</DepositHistory>
+        {loading ? (
+          <div>Loading...</div>
+        ) : error ? (
+          <div>{error}</div>
+        ) : data ? (
+          <>
+            <Price>{data.description} 원</Price>
+            <Charge>충전하기</Charge>
+            <DepositHistory onClick={() => navigate('/mypage/deposit-history')}>
+              예치금 입출금 내역
+            </DepositHistory>
+          </>
+        ) : (
+          <div>데이터가 없습니다.</div>
+        )}
       </Content>
     </Container>
   );
