@@ -55,7 +55,7 @@ export default function PasswordResetForm() {
     try {
       // 비밀번호 변경 로직 추가
         const response = await membersApi.resetPassword({
-          email: uId,             //이메일 uId 로설정
+          email: uId,             //이메일 : uId 로설정
           newPassword: formData.password,  
         });
         console.log(response);
