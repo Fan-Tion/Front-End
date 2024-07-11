@@ -74,7 +74,6 @@ export default function Deposit() {
 
       try {
         const url = '/members/my-info-deposit';
-        console.log('Fetching data from:', url);
         const response = await axios.get(url);
 
         setData(response.data);
@@ -100,7 +99,7 @@ export default function Deposit() {
           <div>{error}</div>
         ) : data ? (
           <>
-            <Price>{data.description} 원</Price>
+            <Price>{data.data.blance} 원</Price>
             <Charge>충전하기</Charge>
             <DepositHistory onClick={() => navigate('/mypage/deposit-history')}>
               예치금 입출금 내역

@@ -22,6 +22,8 @@ const List = styled.ul`
 `;
 
 const ListItem = styled.li`
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ddd;
 `;
@@ -36,13 +38,14 @@ const Button = styled.button`
   margin: 0 5px;
   padding: 10px 15px;
   background-color: #ddd;
-  color: white;
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 
   &:disabled {
     background-color: #007bff;
+    color: white;
   }
 `;
 
@@ -50,10 +53,13 @@ const ArrowButton = styled.button`
   margin: 0 5px;
   padding: 10px 15px;
   background-color: #ddd;
-  color: white;
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+  
+  }
 `;
 
 interface AuctionHistoryContentProps {
@@ -70,7 +76,12 @@ export default function AuctionHistoryComponents({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentGroup, setCurrentGroup] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+
+  //탭을 옮기면 페이지가 1로 초기화
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedTab]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,12 +90,14 @@ export default function AuctionHistoryComponents({
 
       try {
         const url = `/members/${selectedTab}-auction-list`;
-        const response = await axios.get(url);
-        // const response = await depositApi.getHistory(); // depositApi 를 사용할 경우
-        const filteredData = response.data[selectedTab]; // selectedTab과 일치하는 데이터만 사용
-        setData(filteredData);
-        setCurrentPage(1); // 탭 변경 시 페이지를 초기화
-        setCurrentGroup(0); // 탭 변경 시 페이지 그룹을 초기화
+        const response = await axios.get(url, {
+          params: {
+            pageNumber: currentPage,
+            pageSize: ITEMS_PER_PAGE,
+          },
+        });
+        setData(response.data.data.auctionList);
+        setTotalCount(response.data.totalCount);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {
@@ -93,30 +106,27 @@ export default function AuctionHistoryComponents({
     };
 
     fetchData();
-  }, [selectedTab]);
+  }, [selectedTab, currentPage]);
 
-  const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
   const totalGroups = Math.ceil(totalPages / PAGE_GROUP_SIZE);
+  const currentGroup = Math.floor((currentPage - 1) / PAGE_GROUP_SIZE);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const handlePageClick = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   const handlePrevGroup = () => {
     const newGroup = Math.max(currentGroup - 1, 0);
-    setCurrentGroup(newGroup);
-    setCurrentPage(newGroup * PAGE_GROUP_SIZE + 1);
+    const newPage = newGroup * PAGE_GROUP_SIZE + 1;
+    setCurrentPage(newPage);
   };
 
   const handleNextGroup = () => {
     const newGroup = Math.min(currentGroup + 1, totalGroups - 1);
-    setCurrentGroup(newGroup);
-    setCurrentPage(newGroup * PAGE_GROUP_SIZE + 1);
+    const newPage = newGroup * PAGE_GROUP_SIZE + 1;
+    setCurrentPage(newPage);
   };
-
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentPageData = data.slice(startIndex, endIndex);
 
   const renderPageButtons = () => {
     const buttons = [];
@@ -127,7 +137,7 @@ export default function AuctionHistoryComponents({
       buttons.push(
         <Button
           key={i}
-          onClick={() => handlePageChange(i)}
+          onClick={() => handlePageClick(i)}
           disabled={currentPage === i}
         >
           {i}
@@ -152,8 +162,11 @@ export default function AuctionHistoryComponents({
         ) : (
           <>
             <List>
-              {currentPageData.map(item => (
-                <ListItem key={item.id}>{item.description}</ListItem>
+              {data.map(item => (
+                <ListItem key={item.auctionId}>
+                  <p>{item.title}</p>
+                  <p>{item.createDate}</p>
+                </ListItem>
               ))}
             </List>
           </>

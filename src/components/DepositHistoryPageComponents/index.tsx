@@ -24,7 +24,7 @@ const Div = styled.div`
   justify-content: flex-end;
 `;
 
-const Tab = styled.p`
+const Tab = styled.p<{ $isSelected: boolean }>`
   margin-top: 50px;
   width: 90px;
   height: 20px;
@@ -39,6 +39,7 @@ const Tab = styled.p`
   &:hover {
     font-weight: bold;
   }
+  font-weight: ${({ $isSelected }) => ($isSelected ? 'bold' : 'none')};
 `;
 
 export default function DepositHistoryComponents() {
@@ -52,9 +53,24 @@ export default function DepositHistoryComponents() {
     <Container>
       <Title>예치금 입·출금 내역</Title>
       <Div>
-        <Tab onClick={() => handleTabClick('1months')}>최근 1개월</Tab>
-        <Tab onClick={() => handleTabClick('3months')}>최근 3개월</Tab>
-        <Tab onClick={() => handleTabClick('1year')}>최근 1년</Tab>
+        <Tab
+          onClick={() => handleTabClick('1months')}
+          $isSelected={selectedTab === '1months'}
+        >
+          최근 1개월
+        </Tab>
+        <Tab
+          onClick={() => handleTabClick('3months')}
+          $isSelected={selectedTab === '3months'}
+        >
+          최근 3개월
+        </Tab>
+        <Tab
+          onClick={() => handleTabClick('1year')}
+          $isSelected={selectedTab === '1year'}
+        >
+          최근 1년
+        </Tab>
       </Div>
 
       <DepositHistoryContent selectedTab={selectedTab} />

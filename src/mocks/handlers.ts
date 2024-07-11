@@ -67,21 +67,89 @@ export const handlers = [
   }),
 
   // 예치금 입출금 내역 요청
-  http.get('/members/my-blance', () => {
-    return HttpResponse.json(DepositHistory);
+  http.get('/members/my-blance/:search_option', ({ params, request }) => {
+    const { search_option } = params;
+    const url = new URL(request.url);
+    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageSize = 10; // 페이지당 항목 수
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const blanceHistory = DepositHistory.data[search_option] || [];
+    const paginatedList = blanceHistory.slice(startIndex, endIndex);
+
+    return HttpResponse.json({
+      message: '',
+      data: {
+        totalCount: blanceHistory.length,
+        blanceHistory: paginatedList,
+      },
+    });
   }),
   // 입찰 내역 요청
-  http.get('/members/join-auction-list', () => {
-    return HttpResponse.json(JoinHistory);
+  http.get('/members/join-auction-list', ({ request }) => {
+    const url = new URL(request.url);
+    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageSize = 10; // 페이지당 항목 수
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedList = JoinHistory.data.auctionList.slice(
+      startIndex,
+      endIndex
+    );
+
+    return HttpResponse.json({
+      message: '',
+      totalCount: JoinHistory.data.auctionList.length,
+      data: {
+        auctionList: paginatedList,
+      },
+    });
   }),
   // 구매 내역 요청
-  http.get('/members/buy-auction-list', () => {
-    return HttpResponse.json(BuyHistory);
+  http.get('/members/buy-auction-list', ({ request }) => {
+    const url = new URL(request.url);
+    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageSize = 10; // 페이지당 항목 수
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedList = BuyHistory.data.auctionList.slice(
+      startIndex,
+      endIndex
+    );
+
+    return HttpResponse.json({
+      message: '',
+      totalCount: BuyHistory.data.auctionList.length,
+      data: {
+        auctionList: paginatedList,
+      },
+    });
   }),
   // 판매 내역 요청
-  http.get('/members/my-auction-list', () => {
-    return HttpResponse.json(MyHistory);
+  http.get('/members/my-auction-list', ({ request }) => {
+    const url = new URL(request.url);
+    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageSize = 10; // 페이지당 항목 수
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedList = MyHistory.data.auctionList.slice(
+      startIndex,
+      endIndex
+    );
+
+    return HttpResponse.json({
+      message: '',
+      totalCount: MyHistory.data.auctionList.length,
+      data: {
+        auctionList: paginatedList,
+      },
+    });
   }),
+
   // 찜목록 요청
   http.get('/members/my-favorite-auction-list', () => {
     return HttpResponse.json(Likes);

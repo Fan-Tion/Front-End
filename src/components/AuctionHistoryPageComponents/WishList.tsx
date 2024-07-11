@@ -38,7 +38,7 @@ export default function WishList() {
         const url = '/members/my-favorite-auction-list';
         const response = await axios.get(url);
 
-        setData(response.data);
+        setData(response.data.data.auctionList);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {
@@ -60,7 +60,7 @@ export default function WishList() {
           <>
             <List>
               {data.map(item => (
-                <ListItem key={item.id}>{item.description}</ListItem>
+                <ListItem key={item.auctionId}>{item.title}</ListItem>
               ))}
             </List>
           </>
