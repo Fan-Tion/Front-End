@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import { Styled } from '../../styled-components/AuthStyle';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { membersApi } from '../../api/member';
 
 const errorMessages = {
   emptyFields: '비밀번호, 비밀번호확인 모두 입력해주세요.',
   passwordLength: '비밀번호는 6자 이상 15자 이하로 입력해주세요.',
   passwordMismatch: '비밀번호가 일치하지 않습니다.',
   success: '비밀번호 변경이 완료되었습니다',
+  serverError : '서버에러'
 };
 
 export default function PasswordResetForm() {
+  const navigate = useNavigate();
   const {uId} = useParams();
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: '',
-    uId
+    uId : uId || '' //uId 파람
   });
   const [error, setError] = useState('');
   
-  console.log(formData);
+
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -51,11 +54,16 @@ export default function PasswordResetForm() {
 
     try {
       // 비밀번호 변경 로직 추가
-        
+        const response = await membersApi.resetPassword({
+          email: uId,             //이메일 uId 로설정
+          newPassword: formData.password,  
+        });
+        console.log(response);
       alert(errorMessages.success);
+      navigate('/signin')
     } catch (error) {
       // 에러 처리
-      setError('오류가 발생했습니다. 다시 시도해주세요.');
+      setError(errorMessages.serverError);
     }
   };
 

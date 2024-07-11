@@ -67,6 +67,20 @@ export const handlers = [
     return HttpResponse.json(`/${user.email}`, { status: 201 });
   }),
 
+  //비밀번호 변경
+  http.put('/members/reset-password', async ({ request }) => {
+    const { email, newPassword } = await request.json();
+    const user = members.get(email);
+
+    if(!user){
+      return HttpResponse.json('핸들러오류',{ status: 404})
+    }
+    user.password = newPassword;
+    members.set(email, user);
+    return HttpResponse.json('비밀번호 변경 완료', { status : 200 })
+    
+  }),
+
   // 테스트를 위해 생성한 코드
   http.get('/members', () => {
     console.log('Captured a "GET /members" request');

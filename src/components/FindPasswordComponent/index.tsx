@@ -41,6 +41,7 @@ export default function FindPasswordForm() {
       const redirect = confirm(response); 
         if(redirect) {
       navigate(`/reset-password${response}`);
+      
     }
     
     } catch (error) {
