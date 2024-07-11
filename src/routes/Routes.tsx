@@ -1,7 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from '../layout/RootLayout';
 import ErrorPage from '../page/ErrorPage';
 import HomePage from '../page/HomePage';
@@ -9,9 +6,9 @@ import SignUpPage from '../page/SignUpPage';
 import SignInPage from '../page/SignInPage';
 import FindPasswordPage from '../page/FindPasswordPage';
 import MyPage from '../page/MyPage';
+import PasswordResetPage from '../page/PasswordResetPage';
 
 export default function Routes() {
-
   const router = createBrowserRouter([
     {
       path: '/',
@@ -20,40 +17,32 @@ export default function Routes() {
       children: [
         {
           path: '',
-          element: (
-            <HomePage />
-          ),
+          element: <HomePage />,
         },
         {
           path: '/mypage',
-          element: (
-            <MyPage />
-          ),
+          element: <MyPage />,
         },
       ],
     },
 
     {
       path: '/signup',
-      element: (
-        <SignUpPage />
-      ),
+      element: <SignUpPage />,
     },
     {
       path: '/signin',
-      element: (
-        <SignInPage />
-      ),
+      element: <SignInPage />,
     },
     {
       path: '/findpassword',
-      element: (
-        <FindPasswordPage />
-      ),
+      element: <FindPasswordPage />,
+    },
+    {
+      path: '/reset-password/:uId',
+      element: <PasswordResetPage />,
     },
   ]);
 
-
-  return <RouterProvider router={router} />
-
+  return <RouterProvider router={router} />;
 }
