@@ -41,7 +41,7 @@ export default function Routes() {
       element: <SignUpPage />,
     },
     {
-      path: '/login',
+      path: '/signin',
       element: <SignInPage />,
     },
     {
