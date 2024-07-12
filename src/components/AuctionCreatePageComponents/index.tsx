@@ -87,6 +87,9 @@ export default function AuctionCreatePageComponents() {
     endDate: false,
   });
 
+  const [error, setError] = useState<string>('');
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
 
@@ -96,10 +99,19 @@ export default function AuctionCreatePageComponents() {
       return;
     }
 
-    setFormData({
+    const newFormData = {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
-    });
+    };
+
+    // 즉시 구매가가 경매 시작가보다 작거나 같을 수 없음
+    if (name === "buyNowPrice" && Number(value) <= Number(newFormData.currentBidPrice)) {
+      setError('즉시 구매가는 경매 시작가보다 커야 합니다.');
+    } else {
+      setError('');
+    }
+
+    setFormData(newFormData);
 
     setValidity({
       ...validity,
@@ -109,6 +121,11 @@ export default function AuctionCreatePageComponents() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (error) {
+      alert(error);
+      return;
+    }
 
     console.log(formData);
 
