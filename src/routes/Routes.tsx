@@ -7,6 +7,8 @@ import SignInPage from '../page/SignInPage';
 import FindPasswordPage from '../page/FindPasswordPage';
 import MyPage from '../page/MyPage';
 import PasswordResetPage from '../page/PasswordResetPage';
+import AuctionCreatePage from '../page/AuctionCreatePage';
+
 
 export default function Routes() {
   const router = createBrowserRouter([
@@ -23,6 +25,12 @@ export default function Routes() {
           path: '/mypage',
           element: <MyPage />,
         },
+        {
+          path: '/create-auction',
+          element: (
+            <AuctionCreatePage />
+          ),
+        }
       ],
     },
 
