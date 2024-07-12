@@ -1,22 +1,33 @@
+import { useEffect, useState } from 'react';
 import {
   Container,
   Section,
   Title,
   EditButton,
   Info,
+  InfoName,
 } from '../../styled-components/MyPageStyle';
+import { membersApi } from '../../api/member';
 
-export default function Profile() {
+interface ProfileProps {
+  userInfo: any;
+}
+
+
+
+export default function Profile({ userInfo } : ProfileProps) {
+ 
+
   return (
     <Container>
       <Section>
         <Title>회원정보</Title>
         <EditButton>EDIT</EditButton>
       </Section>
-      <Info>이름</Info>
-      <Info>전화번호</Info>
-      <Info>이메일</Info>
-      <Info>배송지 주소</Info>
+      <Info>닉네임 : <InfoName>{userInfo?.nickname}</InfoName></Info>
+      <Info>전화번호 : <InfoName>{userInfo?.phoneNumber}</InfoName></Info>
+      <Info>이메일 : <InfoName>{userInfo?.email}</InfoName></Info>
+      <Info>배송지 주소 : <InfoName>{userInfo?.address}</InfoName></Info>
     </Container>
   );
 }

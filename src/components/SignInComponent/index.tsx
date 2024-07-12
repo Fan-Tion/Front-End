@@ -27,7 +27,6 @@ export default function SignInForm() {
     e.preventDefault();
     const { email, password } = formData;
     try {
-
       const response = await membersApi.signIn({ email, password });
       console.log(response.data);
       // 로그인 성공 처리
