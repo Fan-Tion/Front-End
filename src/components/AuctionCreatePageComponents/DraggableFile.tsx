@@ -11,8 +11,10 @@ const FileItem = styled.div<{ $isDragging: boolean; $isMain: boolean }>`
   padding: 8px;
   border: 1px solid black;
   margin-bottom: 4px;
-  background-color: ${({ $isMain }) => ($isMain ? '#ffe4e1' : 'white')}; // 메인 파일일 경우 배경색을 변경합니다.
-  opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)}; // 드래그 중일 경우 투명도를 조절합니다.
+  background-color: ${({ $isMain }) =>
+    ($isMain ? '#ffe4e1' : 'white')}; // 메인 파일일 경우 배경색을 변경합니다.
+  opacity: ${({ $isDragging }) =>
+    ($isDragging ? 0.5 : 1)}; // 드래그 중일 경우 투명도를 조절합니다.
   position: relative;
 `;
 

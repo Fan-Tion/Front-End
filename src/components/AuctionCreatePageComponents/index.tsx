@@ -30,8 +30,10 @@ const Button = styled.button`
   padding: 10px;
   border: 1px solid rgb(52, 58, 64);
   border-radius: 10px;
-  background-color: ${props => props.type === 'submit' ? 'rgb(52, 58, 64)' : 'white'};
-  color: ${props => props.type === 'submit' ? 'white' : 'black'};
+  background-color: ${props =>
+    props.type === 'submit' ? 'rgb(52, 58, 64)' : 'white'};
+  color: ${props =>
+    props.type === 'submit' ? 'white' : 'black'};
   width: 150px;
 `
 
@@ -50,6 +52,7 @@ interface ValidityType {
   endDate: boolean;
 }
 
+// 경매 종료 날짜의 입력 가능 범위를 동적으로 제한하기 위해 범위를 계산하는 함수
 const getDateRange = () => {
   const today = new Date();
   const sixDaysLater = new Date();
@@ -88,7 +91,8 @@ export default function AuctionCreatePageComponents() {
     const { name, value, type, checked } = e.target;
 
     // 가격 입력에 대한 음수 값 방지 및 숫자만 입력되도록 유효성 검사
-    if ((name === "currentBidPrice" || name === "buyNowPrice") && (isNaN(Number(value)) || Number(value) < 0)) {
+    const isNotValid = (isNaN(Number(value)) || Number(value) < 0)
+    if ((name === "currentBidPrice" || name === "buyNowPrice") && isNotValid) {
       return;
     }
 
