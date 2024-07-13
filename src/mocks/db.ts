@@ -47,3 +47,77 @@ export const auctions = new Map([
     },
   ],
 ]);
+
+export const DepositHistory = {
+  message: '',
+  data: {
+    '1months': Array.from({ length: 10 }, (_, i) => ({
+      blance: 20000,
+      type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
+      createDate: 20240628,
+    })),
+    '3months': Array.from({ length: 30 }, (_, i) => ({
+      blance: 20000,
+      type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
+      createDate: 20240428,
+    })),
+    '1year': Array.from({ length: 60 }, (_, i) => ({
+      blance: 20000,
+      type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
+      createDate: 20240128,
+    })),
+  },
+};
+
+export const JoinHistory = {
+  message: '',
+  data: {
+    auctionList: Array.from({ length: 100 }, (_, i) => ({
+      auctionId: `${i + 1}`,
+      title: `입찰 내역 ${i + 1}`,
+      status: true,
+      createDate: '20240628',
+    })),
+  },
+};
+export const BuyHistory = {
+  message: '',
+  data: {
+    auctionList: Array.from({ length: 60 }, (_, i) => ({
+      auctionId: `${i + 1}`,
+      title: `구매 내역 ${i + 1}`,
+      status: true,
+      createDate: '20240628',
+    })),
+  },
+};
+export const MyHistory = {
+  message: '',
+  data: {
+    auctionList: Array.from({ length: 10 }, (_, i) => ({
+      auctionId: `${i + 1}`,
+      title: `판매 내역 ${i + 1}`,
+      status: true,
+      createDate: '20240628',
+    })),
+  },
+};
+
+export const Likes = {
+  message: '',
+  data: {
+    auctionList: Array.from({ length: 10 }, (_, i) => ({
+      auctionId: `${i + 1}`,
+      title: `찜한 상품 ${i + 1}`,
+      status: true,
+      createDate: '20240628',
+    })),
+  },
+};
+
+export const Deposit = {
+  message: '',
+  data: {
+    blance: 50000,
+  },
+};
