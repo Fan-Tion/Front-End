@@ -1,5 +1,15 @@
 import { http, HttpResponse } from 'msw';
-import { auctions, members, membersMapType } from './db';
+import {
+  auctions,
+  BuyHistory,
+  Deposit,
+  DepositHistory,
+  JoinHistory,
+  Likes,
+  members,
+  membersMapType,
+  MyHistory,
+} from './db';
 
 export const handlers = [
   // 더미 이미지 URL 가로채지 않게 하기
@@ -79,6 +89,13 @@ export const handlers = [
     members.set(email, user);
     return HttpResponse.json('비밀번호 변경 완료', { status : 200 })
     
+=======
+    // 여기서 비밀번호 재설정 로직 수정하기 , 메일 보내고 비밀번호 변경 페이지 보여주기.
+    // 테스트 코드여서 일단은 성공응답 반환
+    return HttpResponse.json('비밀번호 재설정 요청이 성공했습니다.', {
+      status: 200,
+    });
+
   }),
 
   // 테스트를 위해 생성한 코드
@@ -97,7 +114,6 @@ export const handlers = [
 
     return HttpResponse.json(auctionInfo, { status: 201 });
   }),
-
   // 회원정보 보기 프로필
   http.get('/members/my-info', async ({ request }) => {
     // Authorization 헤더를 통해 현재 로그인한 사용자의 이메일을 가져옴
@@ -111,6 +127,100 @@ export const handlers = [
     return HttpResponse.json('사용자 정보를 찾을 수 없습니다.', { status: 404 });
   }
   return HttpResponse.json(user, {status : 200});
+
+
+  // 예치금 입출금 내역 요청
+  http.get('/members/my-blance/:search_option', ({ params, request }) => {
+    const { search_option } = params;
+    const url = new URL(request.url);
+    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageSize = 10; // 페이지당 항목 수
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const blanceHistory = DepositHistory.data[search_option] || [];
+    const paginatedList = blanceHistory.slice(startIndex, endIndex);
+
+    return HttpResponse.json({
+      message: '',
+      totalCount: blanceHistory.length,
+      data: {
+        blanceHistory: paginatedList,
+      },
+    });
+  }),
+  // 입찰 내역 요청
+  http.get('/members/join-auction-list', ({ request }) => {
+    const url = new URL(request.url);
+    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageSize = 10; // 페이지당 항목 수
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedList = JoinHistory.data.auctionList.slice(
+      startIndex,
+      endIndex
+    );
+
+    return HttpResponse.json({
+      message: '',
+      totalCount: JoinHistory.data.auctionList.length,
+      data: {
+        auctionList: paginatedList,
+      },
+    });
+  }),
+  // 구매 내역 요청
+  http.get('/members/buy-auction-list', ({ request }) => {
+    const url = new URL(request.url);
+    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageSize = 10; // 페이지당 항목 수
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedList = BuyHistory.data.auctionList.slice(
+      startIndex,
+      endIndex
+    );
+
+    return HttpResponse.json({
+      message: '',
+      totalCount: BuyHistory.data.auctionList.length,
+      data: {
+        auctionList: paginatedList,
+      },
+    });
+  }),
+  // 판매 내역 요청
+  http.get('/members/my-auction-list', ({ request }) => {
+    const url = new URL(request.url);
+    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageSize = 10; // 페이지당 항목 수
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedList = MyHistory.data.auctionList.slice(
+      startIndex,
+      endIndex
+    );
+
+    return HttpResponse.json({
+      message: '',
+      totalCount: MyHistory.data.auctionList.length,
+      data: {
+        auctionList: paginatedList,
+      },
+    });
+  }),
+
+  // 찜목록 요청
+  http.get('/members/my-favorite-auction-list', () => {
+    return HttpResponse.json(Likes);
+  }),
+  // 예치금 요청
+  http.get('/members/my-info-deposit', () => {
+    return HttpResponse.json(Deposit);
+
   }),
 
 ];
