@@ -10,6 +10,7 @@ import AuctionHistoryPage from '../page/AuctionHistoryPage';
 import DepositHistoryPage from '../components/DepositHistoryPageComponents';
 import MyPage from '../page/MyPage';
 import AuctionCreatePage from '../page/AuctionCreatePage';
+import PasswordResetPage from '../page/PasswordResetPage';
 
 export default function Routes() {
   const router = createBrowserRouter([
@@ -31,29 +32,30 @@ export default function Routes() {
           element: <DepositHistoryPage />,
         },
         {
-          path: '/mypage',
+          path: 'mypage',
           element: <MyPage />,
         },
         {
-          path: '/create-auction',
-          element: (
-            <AuctionCreatePage />
-          ),
-        }
+          path: 'create-auction',
+          element: <AuctionCreatePage />,
+        },
       ],
     },
-
     {
-      path: '/signup',
+      path: 'signup',
       element: <SignUpPage />,
     },
     {
-      path: '/signin',
+      path: 'signin',
       element: <SignInPage />,
     },
     {
-      path: '/findpassword',
+      path: 'findpassword',
       element: <FindPasswordPage />,
+    },
+    {
+      path: 'reset-password/:uId',
+      element: <PasswordResetPage />,
     },
   ]);
 

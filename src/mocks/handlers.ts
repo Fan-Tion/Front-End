@@ -55,7 +55,7 @@ export const handlers = [
 
     if (!user) return HttpResponse.json('로그인 실패', { status: 401 });
 
-    return HttpResponse.json('로그인 성공', { status: 200 });
+    return HttpResponse.json({ token: 'your_api_token', user }, { status: 200 }); //로그인 성공시 토큰 , 사용자 정보 반환
   }),
 
   //비밀번호 재설정 요청
@@ -74,11 +74,21 @@ export const handlers = [
       return HttpResponse.json('사용자를 찾을 수 없습니다.', { status: 404 });
     }
 
-    // 여기서 비밀번호 재설정 로직 수정하기 , 메일 보내고 비밀번호 변경 페이지 보여주기.
-    // 테스트 코드여서 일단은 성공응답 반환
-    return HttpResponse.json('비밀번호 재설정 요청이 성공했습니다.', {
-      status: 200,
-    });
+    return HttpResponse.json(`/${user.email}`, { status: 201 });
+  }),
+
+  //비밀번호 변경
+  http.put('/members/reset-password', async ({ request }) => {
+    const { email, newPassword } = await request.json();
+    const user = members.get(email);
+
+    if(!user){
+      return HttpResponse.json('핸들러오류',{ status: 404})
+    }
+    user.password = newPassword;
+    members.set(email, user);
+    return HttpResponse.json('비밀번호 변경 완료', { status : 200 })
+    
   }),
 
   // 테스트를 위해 생성한 코드
@@ -90,6 +100,7 @@ export const handlers = [
   // 경매 생성
   http.post('/auction', async ({ request }) => {
     const auctionInfo = await request.json();
+
 
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
 
@@ -190,6 +201,22 @@ export const handlers = [
   http.get('/members/my-info-deposit', () => {
     return HttpResponse.json(Deposit);
   }),
+
+  // 회원정보 보기 프로필
+  http.get('/members/my-info', async ({ request }) => {
+    // Authorization 헤더를 통해 현재 로그인한 사용자의 이메일을 가져옴
+  const authHeader = request.headers.get('Authorization');
+  if (!authHeader || authHeader !== 'Bearer your_api_token') {
+    return HttpResponse.json('Unauthorized', { status: 401 });
+  }
+   // 토큰이 유효하다고 가정하고, 예를 들어, 로그인 시 반환된 사용자 정보로 설정
+   const user = members.get('qudgus5125@naver.com'); //테스트용 이메일 주소
+   if (!user) {
+    return HttpResponse.json('사용자 정보를 찾을 수 없습니다.', { status: 404 });
+  }
+  return HttpResponse.json(user, {status : 200});
+  }),
+
 ];
 
 // const allPosts = new Map();
