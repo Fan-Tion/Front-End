@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { historyApi } from '../../api/history';
 
 const Container = styled.div`
   width: 300px;
@@ -73,10 +74,9 @@ export default function Deposit() {
       setError(null);
 
       try {
-        const url = '/members/my-info-deposit';
-        const response = await axios.get(url);
+        const response = await historyApi.deposit();
 
-        setData(response.data);
+        setData(response);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {

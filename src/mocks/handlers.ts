@@ -58,12 +58,15 @@ export const handlers = [
     return HttpResponse.json('로그인 성공', { status: 200 });
   }),
 
-
   //비밀번호 재설정 요청
   http.post('/members/reset-password-request', async ({ request }) => {
     const { email, phoneNumber } = await request.json();
 
-    console.log('Captured a "POST /members/reset-password-request" request : ', email, phoneNumber);
+    console.log(
+      'Captured a "POST /members/reset-password-request" request : ',
+      email,
+      phoneNumber
+    );
 
     const user = members.get(email);
 
@@ -72,8 +75,10 @@ export const handlers = [
     }
 
     // 여기서 비밀번호 재설정 로직 수정하기 , 메일 보내고 비밀번호 변경 페이지 보여주기.
-    // 테스트 코드여서 일단은 성공응답 반환 
-    return HttpResponse.json('비밀번호 재설정 요청이 성공했습니다.', { status: 200 });
+    // 테스트 코드여서 일단은 성공응답 반환
+    return HttpResponse.json('비밀번호 재설정 요청이 성공했습니다.', {
+      status: 200,
+    });
   }),
 
   // 테스트를 위해 생성한 코드
@@ -88,7 +93,6 @@ export const handlers = [
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
     auctions.set(`${new Date()}`, auctionInfo);
     return HttpResponse.json(auctionInfo, { status: 201 });
-
   }),
 
   // 예치금 입출금 내역 요청
@@ -105,8 +109,8 @@ export const handlers = [
 
     return HttpResponse.json({
       message: '',
+      totalCount: blanceHistory.length,
       data: {
-        totalCount: blanceHistory.length,
         blanceHistory: paginatedList,
       },
     });

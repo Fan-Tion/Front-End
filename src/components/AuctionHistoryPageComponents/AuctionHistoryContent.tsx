@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { historyApi } from '../../api/history';
 
 type Tab = 'join' | 'buy' | 'my';
 
@@ -89,15 +90,12 @@ export default function AuctionHistoryComponents({
       setError(null);
 
       try {
-        const url = `/members/${selectedTab}-auction-list`;
-        const response = await axios.get(url, {
-          params: {
-            pageNumber: currentPage,
-            pageSize: ITEMS_PER_PAGE,
-          },
+        const response = await historyApi.auctionHistory(selectedTab, {
+          pageNumber: currentPage,
         });
-        setData(response.data.data.auctionList);
-        setTotalCount(response.data.totalCount);
+
+        setData(response.data.auctionList);
+        setTotalCount(response.totalCount);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {

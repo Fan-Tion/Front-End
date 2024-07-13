@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { historyApi } from '../../api/history';
 
 type Tab = '1months' | '3months' | '1year';
 
@@ -95,15 +96,11 @@ export default function AuctionHistoryComponents({
       setError(null);
 
       try {
-        const url = `/members/my-blance/${selectedTab}`;
-        const response = await axios.get(url, {
-          params: {
-            pageNumber: currentPage,
-            pageSize: ITEMS_PER_PAGE,
-          },
+        const response = await historyApi.depositHistory(selectedTab, {
+          pageNumber: currentPage,
         });
-        setData(response.data.data.blanceHistory);
-        setTotalCount(response.data.data.totalCount);
+        setData(response.data.blanceHistory);
+        setTotalCount(response.totalCount);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {
