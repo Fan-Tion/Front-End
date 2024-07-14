@@ -87,29 +87,33 @@ export default function AuctionCreatePageComponents() {
     endDate: false,
   });
 
-  const [error, setError] = useState<string>('');
-
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
 
     // 가격 입력에 대한 음수 값 방지 및 숫자만 입력되도록 유효성 검사
-    const isNotValid = (isNaN(Number(value)) || Number(value) < 0)
-    if ((name === "currentBidPrice" || name === "buyNowPrice") && isNotValid) {
+    // 가격 입력에 대한 음수 값 방지 및 숫자만 입력되도록 유효성 검사
+    if ((name === "currentBidPrice"
+      || name === "buyNowPrice")
+      && (isNaN(Number(value.replace(/,/g, '')))
+        || Number(value.replace(/,/g, '')) < 0)) {
       return;
     }
 
+    const newValue = type === 'checkbox' ? checked : value.replace(/,/g, '');
+
     const newFormData = {
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox'
+        ? checked
+        : newValue,
     };
 
     // 즉시 구매가가 경매 시작가보다 작거나 같을 수 없음
-    if (name === "buyNowPrice" && Number(value) <= Number(newFormData.currentBidPrice)) {
-      setError('즉시 구매가는 경매 시작가보다 커야 합니다.');
-    } else {
-      setError('');
-    }
+    // if (name === "buyNowPrice" && Number(value) <= Number(formData.currentBidPrice)) {
+    //   setError('즉시 구매가는 경매 시작가보다 커야 합니다.');
+    // } else {
+    //   setError('');
+    // }
 
     setFormData(newFormData);
 
@@ -122,14 +126,18 @@ export default function AuctionCreatePageComponents() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const error = Number(formData.buyNowPrice) <= Number(formData.currentBidPrice);
+
     if (error) {
-      alert(error);
+      alert("즉시 구매가는 경매 시작가보다 작거나 같을 수 없습니다.");
       return;
     }
 
     console.log(formData);
 
   }
+
+  const numberFormat = new Intl.NumberFormat();
 
   const { minDate, maxDate } = getDateRange();
 
@@ -139,7 +147,11 @@ export default function AuctionCreatePageComponents() {
         <Col>
           <InputArea
             onChange={handleChange}
-            formData={formData}
+            formData={{
+              ...formData,
+              currentBidPrice: numberFormat.format(Number(formData.currentBidPrice)),
+              buyNowPrice: numberFormat.format(Number(formData.buyNowPrice)),
+            }}
             validity={validity}
             minDate={minDate}
             maxDate={maxDate}

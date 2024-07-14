@@ -81,7 +81,7 @@ export default function DraggableFile({ file, index, isMain, moveFile, removeFil
       <Preview src={URL.createObjectURL(file)} alt={file.name} />
       <span>{file.name}</span>
       {/* 파일을 삭제할 수 있는 버튼을 표시합니다. */}
-      <button onClick={() => removeFile(index)}>Delete</button>
+      <button type='button' onClick={() => removeFile(index)}>Delete</button>
       {/* 파일이 메인 파일일 경우 'Main Image' 라벨을 표시합니다. */}
       {isMain && <MainLabel>Main Image</MainLabel>}
     </FileItem>
