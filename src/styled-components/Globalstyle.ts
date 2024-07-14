@@ -2,26 +2,37 @@ import styled from "styled-components";
 
 
 interface GlobalButtonProps {
-  width: string;
-  height: string;
-  fontSize : string
+  width?: string;
+  height?: string;
+  fontSize?: string
   type?: 'button' | 'submit' | 'reset';
 }
 
+interface GlobalInputProps {
+  width?: string;
+  height?: string;
+}
 
-export const GlobalInput = styled.input`
-  width: ${(props) => props.width || '100%'};
+
+export const GlobalInput = styled.input<GlobalInputProps>`
+  width: ${(props) => props.width || '400px'};
   height: ${(props) => props.height || '40px'};
   font-size: 16px;
-  border-radius: 10%;
+  border-radius: 25px;
+  border : 2px solid #CDE990;
   padding: 10px;
-  border : none;
   box-sizing: border-box;
+  &:hover {
+    border : 2px solid #AACB73;
+  }
+ &:focus{
+  outline : none;
+ }
 `;
 
 
 export const GlobalButton = styled.button<GlobalButtonProps>`
-  width: ${(props) => props.width || '100px%'};   
+  width: ${(props) => props.width || '100px'};   
   height: ${(props) => props.height || '40px'}; 
   font-size: ${(props) => props.fontSize || '12px'};
   background-color: ${(props) => {
