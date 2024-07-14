@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Styled } from '../../styled-components/AuthStyle';
 import { membersApi } from '../../api/member';
-
 
   const errorMessages = {
     emptyFields: '이메일과 휴대폰 번호를 모두 입력해주세요.',
@@ -17,7 +16,7 @@ export default function FindPasswordForm() {
     phoneNumber: '',
   });
   const [error, setError] = useState('');
-
+  const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -38,9 +37,13 @@ export default function FindPasswordForm() {
     try {
       // 서버로 이메일과 휴대폰 번호 전송
       const response = await membersApi.requestPasswordReset(formData);
-      console.log(response.data); 
+
+      const redirect = confirm(response); 
+        if(redirect) {
+      navigate(`/reset-password${response}`);
       
-      alert(errorMessages.success);
+    }
+    
     } catch (error) {
       console.error('비밀번호 찾기 요청 실패:', error);
       

@@ -44,10 +44,19 @@ export const EditButton = styled.button`
 `
 
 export const Info = styled.div`
+  display : flex;
   padding: 20px;
+  font-weight : bold;
   font-size: 20px;
   color: #333;
   background-color: #f8f9fa;
   border-bottom: 1px solid #ccc;
   
+`
+
+export const InfoName = styled.p`
+ font-size: 20px;
+  font-weight : lighter;
+  margin-left: 10px; 
+ 
 `
