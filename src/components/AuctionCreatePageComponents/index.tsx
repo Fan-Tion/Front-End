@@ -40,7 +40,6 @@ const Button = styled(GlobalButton)`
   margin: 10px;
   color: #222;
   font-size: 16px;
-  
 `
 
 const ImageUploadButton = styled(Button)`
@@ -68,7 +67,7 @@ export default function AuctionCreatePageComponents() {
     auctionType: false,
     auctionImages: [],
   })
-  const [files, setFiles] = useState<File[]>([]);
+  const [_files, setFiles] = useState<File[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigation = useNavigate();
 
