@@ -69,7 +69,7 @@ export default function ImageUploader() {
           <h2>Upload Files</h2>
           <DropzoneContainer {...getRootProps()}>
             <input {...getInputProps()} />
-            <p>Drag n drop some files here, or click to select files</p>
+            <p>파일을 끌어 서 내려 놓거나, 클릭해서 파일을 추가하세요.</p>
           </DropzoneContainer>
         </div>
         <FileList>

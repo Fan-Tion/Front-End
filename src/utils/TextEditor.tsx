@@ -16,15 +16,18 @@ export default function TextEditor() {
   const language = 'ko-KR';
 
   return (
-    <Editor
-      initialValue="부적절한 내용을 게시할 경우 불이익이 발생할 수 있습니다."
-      previewStyle="vertical"
-      height="auto"
-      initialEditType="wysiwyg"
-      useCommandShortcut={true}
-      toolbarItems={toolbarItems}
-      hideModeSwitch={true}  // 편집기 모드 체인지 버튼을 숨김
-      language={language}
-    />
+    <div style={{
+      width: "100%",
+      margin: "10px 0"
+    }}>
+      <Editor
+        initialValue="부적절한 내용을 게시할 경우 불이익이 발생할 수 있습니다."
+        initialEditType="wysiwyg"
+        useCommandShortcut={true}
+        toolbarItems={toolbarItems}
+        hideModeSwitch={true}  // 편집기 모드 체인지 버튼을 숨김
+        language={language}
+      />
+    </div>
   )
 }

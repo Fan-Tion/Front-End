@@ -1,5 +1,6 @@
 import { useDrag, useDrop } from 'react-dnd';
 import styled from 'styled-components';
+import { GlobalButton } from '../../styled-components/Globalstyle';
 
 // 스타일드 컴포넌트를 사용하여 파일 아이템의 스타일을 정의합니다.
 // $isDragging: 드래그 중인지 여부를 나타냅니다.
@@ -81,7 +82,7 @@ export default function DraggableFile({ file, index, isMain, moveFile, removeFil
       <Preview src={URL.createObjectURL(file)} alt={file.name} />
       <span>{file.name}</span>
       {/* 파일을 삭제할 수 있는 버튼을 표시합니다. */}
-      <button type='button' onClick={() => removeFile(index)}>Delete</button>
+      <GlobalButton type='reset' onClick={() => removeFile(index)}>삭제</GlobalButton>
       {/* 파일이 메인 파일일 경우 'Main Image' 라벨을 표시합니다. */}
       {isMain && <MainLabel>Main Image</MainLabel>}
     </FileItem>
