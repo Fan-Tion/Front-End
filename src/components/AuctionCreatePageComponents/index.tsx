@@ -53,9 +53,9 @@ interface formDataType {
   buyNowPrice: string | number,
   endDate: string,
   auctionType: boolean,
-  auctionImage?: File,
+  auctionImage?: File[],
   description?: string,
-  [key: string]: string | number | boolean | File | undefined;
+  [key: string]: string | number | boolean | File[] | undefined;
 }
 
 export default function AuctionCreatePageComponents() {
@@ -66,6 +66,7 @@ export default function AuctionCreatePageComponents() {
     buyNowPrice: '',
     endDate: '',
     auctionType: false,
+    auctionImages: [],
   })
   const [files, setFiles] = useState<File[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,8 +83,6 @@ export default function AuctionCreatePageComponents() {
       return;
     }
 
-    // const newValue = value.replace(/,/g, '');
-
     const newFormData = {
       ...formData,
       [name]: value.replace(/,/g, '')
@@ -95,6 +94,10 @@ export default function AuctionCreatePageComponents() {
 
   const handleFilesChange = useCallback((newFiles: File[]) => {
     setFiles(newFiles);
+    setFormData((prevData) => ({
+      ...prevData,
+      auctionImages: newFiles,
+    }));
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -116,15 +119,10 @@ export default function AuctionCreatePageComponents() {
     }
     data.append('description', description);
 
-    files.forEach((file, index) => {
-      data.append(`file${index}`, file);
-    });
-
     // FormData의 값을 읽어 출력
     for (const [key, value] of data.entries()) {
       console.log(`${key}: ${value}`);
     }
-
   }
 
   const numberFormat = new Intl.NumberFormat();

@@ -85,7 +85,7 @@ export default function ImageUploader({ onFilesChange }: ImageUploaderProps) {
           {files.map((file, index) => (
             // DraggableFile 컴포넌트를 사용하여 파일을 표시하고 드래그 앤 드롭 기능을 추가합니다.
             <DraggableFile
-              key={file.name}
+              key={`${file.name}-${index}`}
               file={file}
               index={index}
               isMain={index === 0} // 첫 번째 파일을 메인 파일로 설정합니다.
