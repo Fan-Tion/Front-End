@@ -95,7 +95,7 @@ export default function LayoutHeader() {
         <SearchButton >I</SearchButton>
       </SearchBar>
       <ButtonGroup>
-        <Link to=''>
+        <Link to='/create-auction'>
           <MenuButton>경매등록</MenuButton>
         </Link>
         <Link to='/mypage'>
