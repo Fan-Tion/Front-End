@@ -6,7 +6,7 @@ import { useState } from "react";
 import { GlobalButton } from "../../styled-components/Globalstyle";
 import { getDateRange } from "../../hooks/useDateRange";
 import Modal from "../../utils/Modal";
-
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.section`
   margin: 20px auto;
@@ -39,6 +39,12 @@ const ButtonArea = styled.div`
 const Button = styled(GlobalButton)`
   margin: 10px;
   color: #222;
+  font-size: 16px;
+  
+`
+
+const ImageUploadButton = styled(Button)`
+  width: 100%;
 `
 
 interface formDataType {
@@ -60,7 +66,7 @@ export default function AuctionCreatePageComponents() {
   })
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const navigation = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -104,14 +110,26 @@ export default function AuctionCreatePageComponents() {
 
   const formattedFormData = {
     ...formData,
-    currentBidPrice: formData.currentBidPrice === 0 || formData.currentBidPrice === '' ? '' : numberFormat.format(Number(formData.currentBidPrice)),
-    buyNowPrice: formData.buyNowPrice === 0 || formData.buyNowPrice === '' ? '' : numberFormat.format(Number(formData.buyNowPrice)),
+    currentBidPrice: formData.currentBidPrice === 0
+      || formData.currentBidPrice === ''
+      ? ''
+      : numberFormat.format(Number(formData.currentBidPrice)),
+    buyNowPrice: formData.buyNowPrice === 0
+      || formData.buyNowPrice === ''
+      ? ''
+      : numberFormat.format(Number(formData.buyNowPrice)),
   };
+
 
   const { minDate, maxDate } = getDateRange();
 
   const modalHandler = () => {
     setIsModalOpen(!isModalOpen)
+  }
+
+  const cancelHandler = () => {
+    const ok = confirm('경매 작성을 취소하고 홈 화면으로 돌아갈까요?')
+    if (ok) navigation('/')
   }
 
   return (
@@ -125,13 +143,13 @@ export default function AuctionCreatePageComponents() {
             maxDate={maxDate}
           />
         </Col>
-        <Button type="button" width="450px" onClick={modalHandler}>
+        <ImageUploadButton type="button" width="450px" onClick={modalHandler}>
           이미지 업로드
-        </Button>
+        </ImageUploadButton>
         <TextEditor />
         <ButtonArea>
           <Button type="submit">등록하기</Button>
-          <Button type="reset">작성취소</Button>
+          <Button type="reset" onClick={cancelHandler}>작성취소</Button>
         </ButtonArea>
         <Modal isOpen={isModalOpen} onClose={modalHandler}>
           <ImageUploader />

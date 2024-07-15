@@ -9,13 +9,31 @@ const Row = styled.div`
   gap: 10px;
 `
 
+const Label = styled.label`
+  width: 60px;
+`
+
+const InputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`
+
 const Input = styled(GlobalInput)`
   width: 100%;
 `
 
+const Unit = styled.span`
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #222;
+`
+
 const SelectWrapper = styled.div`
   position: relative;
-  width: 100%;
+  width: 20%;
 `;
 
 const Select = styled.select`
@@ -73,6 +91,16 @@ export default function InputArea({ onChange, formData, minDate, maxDate }: Inpu
   return (
     <>
       <Row>
+        <SelectWrapper>
+          <Select
+            id="bid-type"
+            name="auctionType"
+          >
+            <option value={1}>비공개 입찰</option>
+            <option value={0}>공개 입찰</option>
+          </Select>
+          <CustomArrow />
+        </SelectWrapper>
         <Input
           id="bid-title"
           name="title"
@@ -84,26 +112,33 @@ export default function InputArea({ onChange, formData, minDate, maxDate }: Inpu
         />
       </Row>
       <Row>
-        <Input
-          id="bid-start-price"
-          name="currentBidPrice"
-          type="text"
-          placeholder="경매 시작가"
-          value={formData.currentBidPrice}
-          onChange={onChange}
-          required
-        />
-        <Input
-          id="bid-buy-now"
-          name="buyNowPrice"
-          type="text"
-          placeholder="즉시 구매가"
-          value={formData.buyNowPrice}
-          onChange={onChange}
-          required
-        />
+        <InputWrapper>
+          <Input
+            id="bid-start-price"
+            name="currentBidPrice"
+            type="text"
+            placeholder="경매 시작가"
+            value={formData.currentBidPrice}
+            onChange={onChange}
+            required
+          />
+          {formData.currentBidPrice && <Unit>원</Unit>}
+        </InputWrapper>
+        <InputWrapper>
+          <Input
+            id="bid-buy-now"
+            name="buyNowPrice"
+            type="text"
+            placeholder="즉시 구매가"
+            value={formData.buyNowPrice}
+            onChange={onChange}
+            required
+          />
+          {formData.buyNowPrice && <Unit>원</Unit>}
+        </InputWrapper>
       </Row>
       <Row>
+        <Label htmlFor="bid-end-date">마감일: </Label>
         <Input
           id="bid-end-date"
           name="endDate"
@@ -115,16 +150,6 @@ export default function InputArea({ onChange, formData, minDate, maxDate }: Inpu
           max={maxDate}
           required
         />
-        <SelectWrapper>
-          <Select
-            id="bid-type"
-            name="auctionType"
-          >
-            <option value={1}>비공개 입찰</option>
-            <option value={0}>공개 입찰</option>
-          </Select>
-          <CustomArrow />
-        </SelectWrapper>
       </Row>
     </>
   )

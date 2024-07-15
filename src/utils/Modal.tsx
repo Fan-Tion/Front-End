@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { GlobalButton } from '../styled-components/Globalstyle';
 
 const ModalWrapper = styled.div<{ isOpen: boolean }>`
-  display: ${props => (props.isOpen ? 'block' : 'none')};
+  display: ${props => (props.isOpen ? 'flex' : 'none')};
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -11,6 +11,8 @@ const ModalWrapper = styled.div<{ isOpen: boolean }>`
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.4);
+  justify-content: center; 
+  align-items: center; 
 `;
 
 const ModalContent = styled.div`

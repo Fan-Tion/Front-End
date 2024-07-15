@@ -17,8 +17,8 @@ export default function TextEditor() {
 
   return (
     <div style={{
-      width: "100%",
-      margin: "10px 0"
+      width: '100%',
+      margin: '10px 0'
     }}>
       <Editor
         initialValue="부적절한 내용을 게시할 경우 불이익이 발생할 수 있습니다."
