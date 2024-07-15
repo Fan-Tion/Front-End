@@ -139,6 +139,12 @@ export default function AuctionCreatePageComponents() {
 
   const numberFormat = new Intl.NumberFormat();
 
+  const formattedFormData = {
+    ...formData,
+    currentBidPrice: formData.currentBidPrice === 0 || formData.currentBidPrice === '' ? '' : numberFormat.format(Number(formData.currentBidPrice)),
+    buyNowPrice: formData.buyNowPrice === 0 || formData.buyNowPrice === '' ? '' : numberFormat.format(Number(formData.buyNowPrice)),
+  };
+
   const { minDate, maxDate } = getDateRange();
 
   return (
@@ -147,11 +153,7 @@ export default function AuctionCreatePageComponents() {
         <Col>
           <InputArea
             onChange={handleChange}
-            formData={{
-              ...formData,
-              currentBidPrice: numberFormat.format(Number(formData.currentBidPrice)),
-              buyNowPrice: numberFormat.format(Number(formData.buyNowPrice)),
-            }}
+            formData={formattedFormData}
             validity={validity}
             minDate={minDate}
             maxDate={maxDate}
