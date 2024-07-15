@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { GlobalButton } from '../styled-components/Globalstyle';
 
-const ModalWrapper = styled.div<{ isOpen: boolean }>`
-  display: ${props => (props.isOpen ? 'flex' : 'none')};
+const ModalWrapper = styled.div<{ $isOpen: boolean }>`
+  display: ${props => (props.$isOpen ? 'flex' : 'none')};
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -40,7 +40,7 @@ interface ModalProps {
 
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
   return (
-    <ModalWrapper isOpen={isOpen}>
+    <ModalWrapper $isOpen={isOpen}>
       <ModalContent>
         <CloseButton type='button' fontSize={"20px"} onClick={onClose}>닫기</CloseButton>
         {children}

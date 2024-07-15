@@ -1,8 +1,9 @@
+import { forwardRef } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
-import '@toast-ui/editor/dist/i18n/ko-kr' // 툴바 한글로 표시하기 위한 모듈
+import { Editor, EditorProps } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/i18n/ko-kr'; // 툴바 한글로 표시하기 위한 모듈
 
-export default function TextEditor() {
+const TextEditor = forwardRef<Editor, EditorProps>((_props, ref) => {
 
   // 이미지 업로드 기능을 사용하지 못하게 할 예정이므로 툴바 커스텀 
   const toolbarItems = [
@@ -21,6 +22,7 @@ export default function TextEditor() {
       margin: '10px 0'
     }}>
       <Editor
+        ref={ref}
         initialValue="부적절한 내용을 게시할 경우 불이익이 발생할 수 있습니다."
         initialEditType="wysiwyg"
         useCommandShortcut={true}
@@ -30,4 +32,6 @@ export default function TextEditor() {
       />
     </div>
   )
-}
+});
+
+export default TextEditor;

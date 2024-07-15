@@ -2,11 +2,11 @@ import styled from "styled-components";
 import ImageUploader from "./ImageUploader";
 import TextEditor from "../../utils/TextEditor";
 import InputArea from "./InputArea";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { GlobalButton } from "../../styled-components/Globalstyle";
-import { getDateRange } from "../../hooks/useDateRange";
 import Modal from "../../utils/Modal";
 import { useNavigate } from "react-router-dom";
+import { Editor } from "@toast-ui/react-editor";
 
 const Wrapper = styled.section`
   margin: 20px auto;
@@ -53,10 +53,13 @@ interface formDataType {
   buyNowPrice: string | number,
   endDate: string,
   auctionType: boolean,
+  auctionImage?: File,
+  description?: string,
+  [key: string]: string | number | boolean | File | undefined;
 }
 
 export default function AuctionCreatePageComponents() {
-
+  const editorRef = useRef<Editor | null>(null);
   const [formData, setFormData] = useState<formDataType>({
     title: '',
     currentBidPrice: '',
@@ -64,12 +67,12 @@ export default function AuctionCreatePageComponents() {
     endDate: '',
     auctionType: false,
   })
-
+  const [files, setFiles] = useState<File[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigation = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, } = e.target;
 
     // 가격 입력에 대한 음수 값 방지 및 숫자만 입력되도록 유효성 검사
     if ((name === "currentBidPrice"
@@ -79,18 +82,20 @@ export default function AuctionCreatePageComponents() {
       return;
     }
 
-    const newValue = type === 'checkbox' ? checked : value.replace(/,/g, '');
+    // const newValue = value.replace(/,/g, '');
 
     const newFormData = {
       ...formData,
-      [name]: type === 'checkbox'
-        ? checked
-        : newValue,
+      [name]: value.replace(/,/g, '')
     };
 
     setFormData(newFormData);
 
   }
+
+  const handleFilesChange = useCallback((newFiles: File[]) => {
+    setFiles(newFiles);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,12 +107,27 @@ export default function AuctionCreatePageComponents() {
       return;
     }
 
-    console.log(formData);
+    const editorInstance = editorRef.current?.getInstance();
+    const description = editorInstance ? editorInstance.getHTML() : '';
+    const data = new FormData();
+
+    for (const key in formData) {
+      data.append(key, formData[key] as string | Blob);
+    }
+    data.append('description', description);
+
+    files.forEach((file, index) => {
+      data.append(`file${index}`, file);
+    });
+
+    // FormData의 값을 읽어 출력
+    for (const [key, value] of data.entries()) {
+      console.log(`${key}: ${value}`);
+    }
 
   }
 
   const numberFormat = new Intl.NumberFormat();
-
   const formattedFormData = {
     ...formData,
     currentBidPrice: formData.currentBidPrice === 0
@@ -120,10 +140,7 @@ export default function AuctionCreatePageComponents() {
       : numberFormat.format(Number(formData.buyNowPrice)),
   };
 
-
-  const { minDate, maxDate } = getDateRange();
-
-  const modalHandler = () => {
+  const toggleModal = () => {
     setIsModalOpen(!isModalOpen)
   }
 
@@ -139,20 +156,18 @@ export default function AuctionCreatePageComponents() {
           <InputArea
             onChange={handleChange}
             formData={formattedFormData}
-            minDate={minDate}
-            maxDate={maxDate}
           />
         </Col>
-        <ImageUploadButton type="button" width="450px" onClick={modalHandler}>
+        <ImageUploadButton type="button" width="450px" onClick={toggleModal}>
           이미지 업로드
         </ImageUploadButton>
-        <TextEditor />
+        <TextEditor ref={editorRef} />
         <ButtonArea>
           <Button type="submit">등록하기</Button>
           <Button type="reset" onClick={cancelHandler}>작성취소</Button>
         </ButtonArea>
-        <Modal isOpen={isModalOpen} onClose={modalHandler}>
-          <ImageUploader />
+        <Modal isOpen={isModalOpen} onClose={toggleModal}>
+          <ImageUploader onFilesChange={handleFilesChange} />
         </Modal>
       </Form>
     </Wrapper>
