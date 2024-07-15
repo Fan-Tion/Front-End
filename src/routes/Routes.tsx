@@ -11,6 +11,9 @@ import DepositHistoryPage from '../components/DepositHistoryPageComponents';
 import MyPage from '../page/MyPage';
 import AuctionCreatePage from '../page/AuctionCreatePage';
 import PasswordResetPage from '../page/PasswordResetPage';
+import CheckoutPage from '../components/DepositRechargeComponent/CheckOut';
+import { SuccessPage } from '../components/DepositRechargeComponent/Success';
+import { FailPage } from '../components/DepositRechargeComponent/Fail';
 
 export default function Routes() {
   const router = createBrowserRouter([
@@ -38,6 +41,18 @@ export default function Routes() {
         {
           path: 'create-auction',
           element: <AuctionCreatePage />,
+        },
+        {
+          path: 'sandbox',
+          element: <CheckoutPage />,
+        },
+        {
+          path: 'sandbox/success',
+          element: <SuccessPage />,
+        },
+        {
+          path: 'sandbox/fail',
+          element: <FailPage />,
         },
       ],
     },
