@@ -11,7 +11,7 @@ import DepositHistoryPage from '../components/DepositHistoryPageComponents';
 import MyPage from '../page/MyPage';
 import AuctionCreatePage from '../page/AuctionCreatePage';
 import PasswordResetPage from '../page/PasswordResetPage';
-import CheckoutPage from '../components/DepositRechargeComponent/CheckOut';
+import CheckoutPage from '../components/DepositRechargeComponent/Checkout';
 import { SuccessPage } from '../components/DepositRechargeComponent/Success';
 import { FailPage } from '../components/DepositRechargeComponent/Fail';
 

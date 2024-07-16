@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { historyApi } from '../../api/history';
-import { CheckoutPage } from '../DepositRechargeComponent/CheckOut';
+import { CheckoutPage } from '../DepositRechargeComponent/Checkout';
 
 const Container = styled.div`
   width: 300px;

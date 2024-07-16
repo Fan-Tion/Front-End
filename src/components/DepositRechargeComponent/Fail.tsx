@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import './toss.css';
 export function FailPage() {
   const [searchParams] = useSearchParams();
-  const errorCode = searchParams.get('code');
+  const errorCode = searchParams.get('errorCode');
   const errorMessage = searchParams.get('message');
 
   return (

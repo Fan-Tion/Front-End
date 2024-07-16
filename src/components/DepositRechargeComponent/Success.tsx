@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './toss.css';
+import { rechargeApi } from '../../api/recharge';
+
 export function SuccessPage() {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [searchParams] = useSearchParams();
@@ -9,23 +11,29 @@ export function SuccessPage() {
   const amount = searchParams.get('amount');
 
   async function confirmPayment() {
-    // TODO: API를 호출해서 서버에게 paymentKey, orderId, amount를 넘겨주세요.
-    // 서버에선 해당 데이터를 가지고 승인 API를 호출하면 결제가 완료됩니다.
-    // https://docs.tosspayments.com/reference#%EA%B2%B0%EC%A0%9C-%EC%8A%B9%EC%9D%B8
-    const response = await fetch('/sandbox-dev/api/v1/payments/confirm', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        paymentKey,
-        orderId,
-        amount,
-      }),
-    });
+    try {
+      const response = await rechargeApi.success(
+        '/payments/success',
+        {
+          paymentKey,
+          orderId,
+          amount,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-    if (response.ok) {
-      setIsConfirmed(true);
+      // 응답 객체의 상태 코드 확인
+      console.log(response);
+      if (response.data.status === 'DONE') {
+        setIsConfirmed(true);
+      }
+    } catch (error) {
+      console.error('Error confirming payment:', error);
+      // TODO: 에러 처리 로직 추가
     }
   }
 

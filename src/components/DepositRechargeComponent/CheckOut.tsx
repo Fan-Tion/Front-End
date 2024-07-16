@@ -10,7 +10,7 @@ export default function CheckoutPage() {
   const [widgets, setWidgets] = useState(null);
   const [amount, setAmount] = useState({
     currency: 'KRW',
-    value: 50_000,
+    value: 1_000,
   });
 
   useEffect(() => {
