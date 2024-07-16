@@ -1,10 +1,9 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 interface GlobalButtonProps {
   width?: string;
   height?: string;
-  fontSize?: string
+  fontSize?: string;
   type?: 'button' | 'submit' | 'reset';
 }
 
@@ -13,29 +12,27 @@ interface GlobalInputProps {
   height?: string;
 }
 
-
 export const GlobalInput = styled.input<GlobalInputProps>`
-  width: ${(props) => props.width || '400px'};
-  height: ${(props) => props.height || '40px'};
+  width: ${props => props.width || '400px'};
+  height: ${props => props.height || '40px'};
   font-size: 16px;
   border-radius: 25px;
-  border : 2px solid #CDE990;
+  border: 2px solid #cde990;
   padding: 10px;
   box-sizing: border-box;
   &:hover {
-    border : 2px solid #AACB73;
+    border: 2px solid #aacb73;
   }
- &:focus{
-  outline : none;
- }
+  &:focus {
+    outline: none;
+  }
 `;
 
-
 export const GlobalButton = styled.button<GlobalButtonProps>`
-  width: ${(props) => props.width || '100px'};   
-  height: ${(props) => props.height || '40px'}; 
-  font-size: ${(props) => props.fontSize || '12px'};
-  background-color: ${(props) => {
+  width: ${props => props.width || '100px'};
+  height: ${props => props.height || '40px'};
+  font-size: ${props => props.fontSize || '12px'};
+  background-color: ${props => {
     switch (props.type) {
       case 'reset':
         return '#FFD4D4';
@@ -52,7 +49,7 @@ export const GlobalButton = styled.button<GlobalButtonProps>`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => {
+    background-color: ${props => {
       switch (props.type) {
         case 'reset':
           return '#FFB3B3';
@@ -65,7 +62,7 @@ export const GlobalButton = styled.button<GlobalButtonProps>`
   }
 
   &:active {
-    background-color: ${(props) => {
+    background-color: ${props => {
       switch (props.type) {
         case 'reset':
           return '#FFA1A1';
@@ -77,4 +74,3 @@ export const GlobalButton = styled.button<GlobalButtonProps>`
     }};
   }
 `;
-

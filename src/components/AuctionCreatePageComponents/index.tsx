@@ -39,13 +39,13 @@ const ButtonArea = styled.div`
 
 const Button = styled(GlobalButton)`
   margin: 10px;
-  color: #222;
   font-size: 16px;
-  background-color: ${(props) => (props.disabled ? 'gray' : '')};
-  cursor: ${(props) => (props.disabled ? 'default' : '')};;
+  border-radius: 15px;
+  background-color: ${(props) => (props.disabled ? '#c3c3c3' : '')};
+  cursor: ${(props) => (props.disabled ? 'default' : '')};
   &:hover {
     background-color: ${(props) =>
-    (props.disabled ? 'gray' : '')
+    (props.disabled ? '#c3c3c3' : '')
   }};
 `
 
