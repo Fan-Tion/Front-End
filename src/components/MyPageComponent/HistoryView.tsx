@@ -4,7 +4,12 @@ import {
   Section,
   Title,
   Info,
+  HistoryButton,
 } from '../../styled-components/MyPageStyle';
+
+
+
+
 
 export default function HistoryView() {
   const navigate = useNavigate();
@@ -13,11 +18,14 @@ export default function HistoryView() {
       <Section>
         <Title>내역보기</Title>
       </Section>
-      <Info onClick={() => navigate('/mypage/deposit-history')}>
-        예치금 입출금 내역보기
+      <Info >
+        예치금 입출금 내역
+        <HistoryButton onClick={() => navigate('/mypage/deposit-history')} >내역보기</HistoryButton>
       </Info>
-      <Info onClick={() => navigate('/mypage/auction-history')}>
-        경매 내역 보기
+      
+      <Info >
+        경매 내역 
+        <HistoryButton onClick={() => navigate('/mypage/auction-history')} >내역보기</HistoryButton>
       </Info>
     </Container>
   );

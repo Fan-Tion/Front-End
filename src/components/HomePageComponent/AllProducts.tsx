@@ -10,7 +10,7 @@ import {
 export default function AllProducts() {
   return (
     <Wrap>
-      <ProductBox $bgColor="#c4c4c4">
+      <ProductBox $bgColor="#FFFFE8">
         <Category>
           <Text $fontSize="20px" $fontColor="black">
             전체 상품 리스트

@@ -4,7 +4,6 @@ import LayoutFooter from './LayoutFooter'
 
 
 
-
 export default function RootLayout() {
   return (
     <>

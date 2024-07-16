@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   text-align: center;
   align-items: center;
-  border-right: 2px solid #e2e2e2;
+  border-right: 2px solid #CDE990;
   width: 300px;
   min-width: 240px;
   gap: 20px;
@@ -39,7 +39,7 @@ const AvatarInput = styled.input`
 const NameTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
-  color: #777;
+  color: #222;
 `;
 const Name = styled.div`
   font-size: 20px;
@@ -49,21 +49,21 @@ const Name = styled.div`
 const Money = styled.div`
   font-size: 20px;
   font-weight: bold;
-  color: #777;
+  color: #222;
 `;
 const ChargeButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
   color: #fff;
-  background-color: #87ceeb;
+  background-color: #CDE990;
   border: none;
-  border-radius: 4px;
+  border-radius : 25px;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #00bfff;
+    background-color: #AACB73;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
@@ -78,15 +78,17 @@ const SignOutButton = styled.button`
   width: 100px;
   height: 40px;
   font-size: 16px;
+  background-color : #FFD4D4;
   border: none;
-  color: #777;
-  border-radius: 4px;
+  color: #222;
+  border-radius : 25px;
   transition: background-color 0.3s ease;
 
   background-color: none;
   &:hover {
     color: white;
-    background-color: red;
+    background-color: #FFB3B3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
 

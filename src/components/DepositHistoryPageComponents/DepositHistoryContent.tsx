@@ -61,8 +61,7 @@ const ArrowButton = styled.button`
   cursor: pointer;
 
  
-  }
-`;
+`
 const Balance = styled.span`
   display: inline-block;
   width: 80px; /* 고정된 너비 */

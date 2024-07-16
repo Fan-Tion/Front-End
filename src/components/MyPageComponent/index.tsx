@@ -23,17 +23,21 @@ const PasswordEditButton = styled.button`
   height: 60px;
   font-size: 16px;
   font-weight: bold;
-  background-color: #87ceeb;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #CDE990;
   border: none;
-  color: white;
+  color: #222;
   margin-bottom: 40px;
   transition: all 0.3s ease;
+  border-radius : 25px;
   &:hover {
-    background-color: #00bfff;
+    background-color: #AACB73;
+    color : white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
+
+
+
 
 export default function MyPageComponents() {
 
