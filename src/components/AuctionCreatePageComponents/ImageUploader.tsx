@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -26,8 +26,12 @@ const FileList = styled.div`
   margin-top: 10px;
 `;
 
+interface ImageUploaderProps {
+  onFilesChange: (files: File[]) => void;
+}
+
 // ImageUploader 컴포넌트를 정의하고 기본으로 내보냅니다.
-export default function ImageUploader() {
+export default function ImageUploader({ onFilesChange }: ImageUploaderProps) {
   const [files, setFiles] = useState<File[]>([]); // 파일 상태를 관리하기 위해 useState 훅을 사용합니다.
 
   // 파일이 드롭되었을 때 호출되는 콜백 함수입니다.
@@ -38,6 +42,10 @@ export default function ImageUploader() {
       return [...prevFiles, ...newFiles];
     });
   }, []);
+
+  useEffect(() => {
+    onFilesChange(files);
+  }, [files, onFilesChange]);
 
   // 파일의 순서를 변경하는 함수입니다.
   const moveFile = (fromIndex: number, toIndex: number) => {
@@ -61,6 +69,7 @@ export default function ImageUploader() {
     maxSize: 5 * 1024 * 1024, // 파일 크기 5MB 제한
   });
 
+  console.log(files)
   return (
     // DndProvider로 드래그 앤 드롭 컨텍스트를 제공합니다.
     <DndProvider backend={HTML5Backend}>
@@ -69,14 +78,14 @@ export default function ImageUploader() {
           <h2>Upload Files</h2>
           <DropzoneContainer {...getRootProps()}>
             <input {...getInputProps()} />
-            <p>Drag n drop some files here, or click to select files</p>
+            <p>파일을 끌어 서 내려 놓거나, 클릭해서 파일을 추가하세요.</p>
           </DropzoneContainer>
         </div>
         <FileList>
           {files.map((file, index) => (
             // DraggableFile 컴포넌트를 사용하여 파일을 표시하고 드래그 앤 드롭 기능을 추가합니다.
             <DraggableFile
-              key={file.name}
+              key={`${file.name}-${index}`}
               file={file}
               index={index}
               isMain={index === 0} // 첫 번째 파일을 메인 파일로 설정합니다.
