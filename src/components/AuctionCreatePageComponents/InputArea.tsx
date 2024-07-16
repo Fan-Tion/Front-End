@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { GlobalInput } from "../../styled-components/Globalstyle";
-import { getDateRange } from "../../hooks/useDateRange";
+import { useDateRange } from "../../hooks/useDateRange";
 
 const Row = styled.div`
   margin: 10px;
@@ -88,7 +88,7 @@ interface InputAreaProps {
 
 export default function InputArea({ onChange, formData }: InputAreaProps) {
 
-  const { minDate, maxDate } = getDateRange();
+  const { minDate, maxDate } = useDateRange();
   return (
     <>
       <Row>

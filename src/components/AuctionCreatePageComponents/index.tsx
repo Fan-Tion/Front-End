@@ -7,6 +7,7 @@ import { GlobalButton } from "../../styled-components/Globalstyle";
 import Modal from "../../utils/Modal";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "@toast-ui/react-editor";
+import { auctionApi } from "../../api/auction";
 
 const Wrapper = styled.section`
   margin: 20px auto;
@@ -40,6 +41,12 @@ const Button = styled(GlobalButton)`
   margin: 10px;
   color: #222;
   font-size: 16px;
+  background-color: ${(props) => (props.disabled ? 'gray' : '')};
+  cursor: ${(props) => (props.disabled ? 'default' : '')};;
+  &:hover {
+    background-color: ${(props) =>
+    (props.disabled ? 'gray' : '')
+  }};
 `
 
 const ImageUploadButton = styled(Button)`
@@ -58,6 +65,7 @@ interface formDataType {
 }
 
 export default function AuctionCreatePageComponents() {
+  const [buttonDisable, setButtonDisable] = useState(false)
   const editorRef = useRef<Editor | null>(null);
   const [formData, setFormData] = useState<formDataType>({
     title: '',
@@ -99,7 +107,7 @@ export default function AuctionCreatePageComponents() {
     }));
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const error = Number(formData.buyNowPrice) <= Number(formData.currentBidPrice);
@@ -119,8 +127,21 @@ export default function AuctionCreatePageComponents() {
     data.append('description', description);
 
     // FormData의 값을 읽어 출력
-    for (const [key, value] of data.entries()) {
-      console.log(`${key}: ${value}`);
+    // for (const [key, value] of data.entries()) {
+    //   console.log(`${key}: ${value} `);
+    // }
+
+    try {
+      // 서버에 데이터 전달 
+      setButtonDisable(true);
+      const response = await auctionApi.create(data);
+
+      console.log(response)
+    } catch (error) {
+      console.error(error);
+      alert(error)
+    } finally {
+      setButtonDisable(false);
     }
   }
 
@@ -160,8 +181,8 @@ export default function AuctionCreatePageComponents() {
         </ImageUploadButton>
         <TextEditor ref={editorRef} />
         <ButtonArea>
-          <Button type="submit">등록하기</Button>
-          <Button type="reset" onClick={cancelHandler}>작성취소</Button>
+          <Button type="submit" disabled={buttonDisable}>등록하기</Button>
+          <Button type="reset" disabled={buttonDisable} onClick={cancelHandler}>작성취소</Button>
         </ButtonArea>
         <Modal isOpen={isModalOpen} onClose={toggleModal}>
           <ImageUploader onFilesChange={handleFilesChange} />

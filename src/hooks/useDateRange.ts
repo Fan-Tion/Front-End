@@ -1,5 +1,5 @@
 // 경매 종료 날짜의 입력 가능 범위를 동적으로 제한하기 위해 범위를 계산하는 함수
-export const getDateRange = () => {
+export const useDateRange = () => {
   const today = new Date();
   const sixDaysLater = new Date();
   sixDaysLater.setDate(today.getDate() + 6);
