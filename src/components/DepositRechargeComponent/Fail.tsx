@@ -2,8 +2,13 @@ import { useSearchParams } from 'react-router-dom';
 import './toss.css';
 export function FailPage() {
   const [searchParams] = useSearchParams();
-  const errorCode = searchParams.get('errorCode');
+  const errorCode = searchParams.get('code');
   const errorMessage = searchParams.get('message');
+  // export default async function FailPage() {
+  //   try{
+  //     const response = await axios.get()
+  //   }catch(error)
+  //}
 
   return (
     <div className="wrapper w-100">

@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { historyApi } from '../../api/history';
-import { CheckoutPage } from '../DepositRechargeComponent/Checkout';
+import Modal from '../../utils/Modal';
 
+import ChangePrice from '../DepositRechargeComponent/Price';
 const Container = styled.div`
   width: 300px;
   height: 200px;
@@ -89,6 +90,10 @@ export default function Deposit() {
   }, []);
 
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
     <Container>
@@ -101,7 +106,10 @@ export default function Deposit() {
         ) : data ? (
           <>
             <Price>{data.data.blance} 원</Price>
-            <Charge onClick={() => navigate('/sandbox')}>충전하기</Charge>
+            <Charge onClick={toggleModal}>충전하기</Charge>
+            <Modal isOpen={isModalOpen} onClose={toggleModal}>
+              <ChangePrice />
+            </Modal>
             <DepositHistory onClick={() => navigate('/mypage/deposit-history')}>
               예치금 입출금 내역
             </DepositHistory>
