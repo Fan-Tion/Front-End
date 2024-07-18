@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
+  Info,
   Section,
   Title,
-  Info,
 } from '../../styled-components/MyPageStyle';
 
 export default function HistoryView() {

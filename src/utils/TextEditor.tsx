@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import '@toast-ui/editor/dist/i18n/ko-kr'; // 툴바 한글로 표시하기 위한 모듈
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor, EditorProps } from '@toast-ui/react-editor';
-import '@toast-ui/editor/dist/i18n/ko-kr'; // 툴바 한글로 표시하기 위한 모듈
+import { forwardRef } from 'react';
 
 const TextEditor = forwardRef<Editor, EditorProps>((_props, ref) => {
 

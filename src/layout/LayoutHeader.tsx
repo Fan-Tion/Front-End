@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 
 const Wrapper = styled.header`
@@ -15,7 +15,6 @@ const Wrapper = styled.header`
   }
 `
 
-
 const MenuItem = styled.div`
   margin-right: 60px;
   padding : 15px;
@@ -23,13 +22,11 @@ const MenuItem = styled.div`
     background-color: #495057;
     transform: scale(1.05); 
   }
-
 `
 
-
 const MenuName = styled.div`
-   font-weight: bold;
-   color : white;
+  font-weight: bold;
+  color : white;
 `
 
 

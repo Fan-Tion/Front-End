@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import { historyApi } from '../../api/history';
 
 type Tab = '1months' | '3months' | '1year';
@@ -59,9 +58,6 @@ const ArrowButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-
- 
-  }
 `;
 const Balance = styled.span`
   display: inline-block;
@@ -100,7 +96,7 @@ export default function AuctionHistoryComponents({
           pageNumber: currentPage,
         });
         setData(response.data.blanceHistory);
-        setTotalCount(response.totalCount);
+        setTotalCount(response.data.totalCount);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {
@@ -171,10 +167,10 @@ export default function AuctionHistoryComponents({
                     {item.type === 'purchase'
                       ? '구매'
                       : item.type === 'sale'
-                      ? '판매'
-                      : item.type === 'charge'
-                      ? '충전'
-                      : '출금'}
+                        ? '판매'
+                        : item.type === 'charge'
+                          ? '충전'
+                          : '출금'}
                   </p>
                   <Balance>
                     {item.type === 'purchase' || item.type === 'withdrawal'
