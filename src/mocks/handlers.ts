@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import {
   auctions,
+  auctionsType,
   BuyHistory,
   Deposit,
   DepositHistory,
@@ -20,7 +21,7 @@ export const handlers = [
   // 회원가입 요청
   http.post('/members/signup', async ({ request }) => {
     // Read the intercepted request body as JSON.
-    const newMember = await request.json();
+    const newMember = (await request.json()) as membersMapType;
 
     if (!newMember) return HttpResponse.json(newMember, { status: 401 });
 
@@ -101,7 +102,7 @@ export const handlers = [
 
   // 경매 생성
   http.post('/auction', async ({ request }) => {
-    const auctionInfo = await request.json();
+    const auctionInfo = (await request.json()) as auctionsType;
 
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
 
