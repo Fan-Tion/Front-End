@@ -1,8 +1,7 @@
+import { ANONYMOUS, loadTossPayments } from '@tosspayments/tosspayments-sdk';
 import { useEffect, useState } from 'react';
-import { loadTossPayments, ANONYMOUS } from '@tosspayments/tosspayments-sdk';
-import './toss.css';
-import axios from 'axios';
 import { rechargeApi } from '../../api/recharge';
+import './toss.css';
 
 interface CheckoutPageProps {
   inputValue: number;

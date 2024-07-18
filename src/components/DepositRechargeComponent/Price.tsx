@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { GlobalInput, GlobalButton } from '../../styled-components/Globalstyle';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import { GlobalButton, GlobalInput } from '../../styled-components/Globalstyle';
 import Modal from '../../utils/Modal';
 import CheckoutPage from './Checkout';
 
