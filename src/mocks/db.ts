@@ -45,7 +45,7 @@ export interface auctionsType {
   endDate: string;
 }
 
-export const auctions = new Map([
+export const auctions: Map<string, auctionsType> = new Map([
   [
     'auctionId',
     {
