@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { loadTossPayments, ANONYMOUS } from '@tosspayments/tosspayments-sdk';
 import './toss.css';
 import axios from 'axios';
+import { rechargeApi } from '../../api/recharge';
 
 interface CheckoutPageProps {
   inputValue: number;
@@ -75,12 +76,12 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ inputValue }) => {
                  * 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
                  * 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
                  * @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
-                 * await axios.post('/api/orders', {
+                 */
+                await rechargeApi.checkout({
                   amount: amount.value,
                   paymentType: '카드', // 임시
                   orderName: '예치금 충전',
                 });
-                 */
                 await widgets?.requestPayment({
                   orderId: generateRandomString(),
                   orderName: '토스 티셔츠 외 2건',

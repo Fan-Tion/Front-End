@@ -1,14 +1,32 @@
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './toss.css';
+import { rechargeApi } from '../../api/recharge';
+
 export function FailPage() {
   const [searchParams] = useSearchParams();
   const errorCode = searchParams.get('code');
   const errorMessage = searchParams.get('message');
-  // export default async function FailPage() {
-  //   try{
-  //     const response = await axios.get()
-  //   }catch(error)
-  //}
+  const orderId = searchParams.get('orderId'); // orderId를 쿼리 파라미터에서 가져오기
+
+  useEffect(() => {
+    async function handleFail() {
+      try {
+        const response = await rechargeApi.fail({
+          code: errorCode,
+          message: errorMessage,
+          orderId: orderId,
+        });
+        console.log('Fail response:', response);
+      } catch (error) {
+        console.error('Error handling fail:', error);
+      }
+    }
+
+    if (errorCode && errorMessage && orderId) {
+      handleFail();
+    }
+  }, [errorCode, errorMessage, orderId]);
 
   return (
     <div className="wrapper w-100">
@@ -66,3 +84,5 @@ export function FailPage() {
     </div>
   );
 }
+
+export default FailPage;

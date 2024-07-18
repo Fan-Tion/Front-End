@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw';
 import {
   auctions,
   BuyHistory,
+  Checkout,
   Deposit,
   DepositHistory,
   JoinHistory,
@@ -10,6 +11,7 @@ import {
   membersMapType,
   MyHistory,
   Recharge,
+  RechargeFail,
 } from './db';
 
 export const handlers = [
@@ -220,7 +222,7 @@ export const handlers = [
     }
     return HttpResponse.json(user, { status: 200 });
   }),
-
+  //결제 성공
   http.post('/payments/success', async ({ request }) => {
     // 요청 본문을 JSON으로 읽어옵니다.
     const newPost = await request.json();
@@ -233,6 +235,14 @@ export const handlers = [
     Recharge.data.totalAmount = newPost.amount;
 
     return HttpResponse.json(Recharge, { status: 200 });
+  }),
+  //결제 요청
+  http.post('/payments/request', async () => {
+    return HttpResponse.json(Checkout, { status: 200 });
+  }),
+  //결제 실패
+  http.get('/payments/fail', async () => {
+    return HttpResponse.json(RechargeFail, { status: 200 });
   }),
 ];
 
