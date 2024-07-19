@@ -11,7 +11,7 @@ const generateRandomString = () =>
   window.btoa(Math.random().toString()).slice(0, 20);
 const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
 
-const CheckoutPage: React.FC<CheckoutPageProps> = ({ inputValue }) => {
+export default function CheckoutPage({ inputValue }: CheckoutPageProps) {
   const [widgets, setWidgets] = useState<any>(null);
   const [amount, setAmount] = useState({
     currency: 'KRW',
@@ -103,6 +103,4 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ inputValue }) => {
       </div>
     </div>
   );
-};
-
-export default CheckoutPage;
+}
