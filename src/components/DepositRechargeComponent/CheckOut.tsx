@@ -12,7 +12,6 @@ const generateRandomString = () =>
 const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
 
 const CheckoutPage: React.FC<CheckoutPageProps> = ({ inputValue }) => {
-  const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState<any>(null);
   const [amount, setAmount] = useState({
     currency: 'KRW',
@@ -46,8 +45,6 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ inputValue }) => {
         selector: '#agreement',
         variantKey: 'AGREEMENT',
       });
-
-      setReady(true);
     }
 
     renderPaymentWidgets();

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { GlobalButton, GlobalInput } from '../../styled-components/Globalstyle';
 import Modal from '../../utils/Modal';
-import CheckoutPage from './Checkout';
+import CheckoutPage from './checkout';
 
 const Wrapper = styled.div`
   margin-top: 40px;

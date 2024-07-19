@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import './toss.css';
 import { rechargeApi } from '../../api/recharge';
+import './toss.css';
 
 export function SuccessPage() {
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -23,7 +23,7 @@ export function SuccessPage() {
           headers: {
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
 
       // 응답 객체의 상태 코드 확인

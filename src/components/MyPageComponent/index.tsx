@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { membersApi } from '../../api/member';
-import SideProfile from './SideProfile';
 import styled from 'styled-components';
-import Profile from './Profile';
+import { membersApi } from '../../api/member';
 import HistoryView from './HistoryView';
+import Profile from './Profile';
+import SideProfile from './SideProfile';
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,33 +36,31 @@ const PasswordEditButton = styled.button`
 `;
 
 export default function MyPageComponents() {
-
   const [userInfo, setUserInfo] = useState<any>(null);
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         // Axios Response에서 data를 추출
         const response = await membersApi.myInfo();
-       //데이터 추출
+        //데이터 추출
         const data = response;
-       //유저 인포에 저장
+        //유저 인포에 저장
         setUserInfo(data);
       } catch (error) {
-        setError('사용자 정보를 가져오는데 실패했습니다.');
+        // setError('사용자 정보를 가져오는데 실패했습니다.');
       }
     };
 
     fetchUserInfo();
   }, []);
 
-
   return (
     <Wrapper>
-      <SideProfile nickname={userInfo?.nickname}/>
+      <SideProfile nickname={userInfo?.nickname} />
       <ColumnWrap>
-        <Profile userInfo={userInfo}/>
+        <Profile userInfo={userInfo} />
         <HistoryView />
         <PasswordEditButton>
           비밀번호 변경 요청 메일 발송하기
