@@ -135,8 +135,11 @@ export default function SignUpForm() {
     try {
       const formDataToSend = new FormData();
       Object.keys(formData).forEach(key => {
+      if (key !== 'confirmPassword') {
         formDataToSend.append(key, formData[key as keyof SignUpInterface] as string | Blob);
-      });
+      }
+    });
+
       const response = await membersApi.signUp(formDataToSend);
       console.log(response.data);
       navigate('/signin'); //회원가입 성공후 로그인 페이지로 이동

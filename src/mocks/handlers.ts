@@ -18,6 +18,7 @@ export const handlers = [
   }),
 
   // 회원가입 요청
+
   http.post('/members/signup', async ({ request }) => {
     // Read the intercepted request body as JSON.
     const newMember = await request.json();
