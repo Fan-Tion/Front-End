@@ -4,7 +4,7 @@ export interface membersMapType {
   password: string;
   nickname: string;
   address: string;
-  phoneNumber : string;
+  phoneNumber: string;
   kakao: boolean;
   naver: boolean;
   total_rating: number;
@@ -21,7 +21,7 @@ export const members: Map<string, membersMapType> = new Map([
       member_id: '1',
       email: 'test@email.com',
       password: '1234',
-      phoneNumber : '1234',
+      phoneNumber: '1234',
       nickname: 'tester',
       address: '대한민국 강남',
       kakao: false,
@@ -35,7 +35,17 @@ export const members: Map<string, membersMapType> = new Map([
   ],
 ]);
 
-export const auctions = new Map([
+export interface auctionsType {
+  title: string;
+  auctionType: boolean;
+  auctionImage: [];
+  description: string;
+  currentBidPrice: number;
+  buyNowPrice: number;
+  endDate: string;
+}
+
+export const auctions: Map<string, auctionsType> = new Map([
   [
     'auctionId',
     {

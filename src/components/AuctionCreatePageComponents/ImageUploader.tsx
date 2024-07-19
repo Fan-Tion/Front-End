@@ -1,7 +1,7 @@
-import { useState, useCallback, useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useCallback, useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
 import DraggableFile from './DraggableFile';
 

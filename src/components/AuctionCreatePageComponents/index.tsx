@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import ImageUploader from "./ImageUploader";
-import TextEditor from "../../utils/TextEditor";
-import InputArea from "./InputArea";
+import { Editor } from "@toast-ui/react-editor";
 import { useCallback, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { auctionApi } from "../../api/auction";
 import { GlobalButton } from "../../styled-components/Globalstyle";
 import Modal from "../../utils/Modal";
-import { useNavigate } from "react-router-dom";
-import { Editor } from "@toast-ui/react-editor";
-import { auctionApi } from "../../api/auction";
+import TextEditor from "../../utils/TextEditor";
+import ImageUploader from "./ImageUploader";
+import InputArea from "./InputArea";
 
 const Wrapper = styled.section`
   margin: 20px auto;

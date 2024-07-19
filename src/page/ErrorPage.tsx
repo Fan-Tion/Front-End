@@ -48,10 +48,6 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-
-
-
-
 export default function ErrorPage() {
   return (
     <Wrapper>

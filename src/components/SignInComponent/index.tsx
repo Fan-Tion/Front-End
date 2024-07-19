@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
-import { Styled } from '../../styled-components/AuthStyle';
+import { Link, useNavigate } from 'react-router-dom';
 import { membersApi } from '../../api/member';
+import { Styled } from '../../styled-components/AuthStyle';
 
 const errorMessages = {
-  emptyFields : '이메일 또는 비밀번호가 올바르지 않습니다.'
+  emptyFields: '이메일 또는 비밀번호가 올바르지 않습니다.'
 }
 
 export default function SignInForm() {
@@ -16,10 +16,10 @@ export default function SignInForm() {
   const [error, setError] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
-    setFormData((prevState)=> ({
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
       ...prevState,
-      [name] : value,
+      [name]: value,
     }))
   }
 
@@ -47,17 +47,17 @@ export default function SignInForm() {
             name="email"
             placeholder="email"
             type="email"
-            value={formData.email} 
+            value={formData.email}
             onChange={handleChange}
           />
           <Styled.Input
             name="password"
             placeholder="password"
             type="password"
-            value={formData.password} 
+            value={formData.password}
             onChange={handleChange}
           />
-           {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
+          {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
           <Styled.Input type="submit" value="Sign In" />
         </Styled.Form>
         <Styled.Switcher>
@@ -70,5 +70,5 @@ export default function SignInForm() {
       </Styled.Wrapper>
     </Styled.OuterWrapper>
   );
-  
+
 }

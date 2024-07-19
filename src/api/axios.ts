@@ -34,7 +34,7 @@ axiosInstance.interceptors.request.use(
   error => {
     // 요청 에러 처리
     return Promise.reject(error);
-  }
+  },
 );
 
 // 응답 인터셉터 추가
@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use(
     const axiosError = error as AxiosError;
     // 여기서 에러 처리 로직 구현
     return Promise.reject(axiosError);
-  }
+  },
 );
 
 // async function fetchCall<T>(
