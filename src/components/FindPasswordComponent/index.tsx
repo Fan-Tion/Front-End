@@ -36,7 +36,7 @@ export default function FindPasswordForm() {
 
     try {
       // 서버로 이메일과 휴대폰 번호 전송
-      const response = await membersApi.requestPasswordReset(formData);
+      const response: string = await membersApi.requestPasswordReset(formData);
 
       const redirect = confirm(response);
       if (redirect) {
