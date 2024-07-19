@@ -137,7 +137,7 @@ export default function LayoutHeader() {
           <MenuName>Fan-Tion</MenuName>
         </MenuItem>
       </Link>
-      <Link to='/'>
+      {/* <Link to='/'>
         <MenuItem>
           <MenuName>Auction</MenuName>
         </MenuItem>
@@ -146,7 +146,7 @@ export default function LayoutHeader() {
         <MenuItem>
           <MenuName>Community</MenuName>
         </MenuItem>
-      </Link>
+      </Link> */}
       <SearchBar>
         <SearchInput type="text" placeholder="검색" />
         <SearchButton ><SearchIcon size={22} color="#222" strokeWidth={1.5} /></SearchButton>
