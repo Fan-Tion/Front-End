@@ -12,6 +12,7 @@ interface ProfileProps {
 }
 
 export default function Profile({ userInfo }: ProfileProps) {
+
   return (
     <Container>
       <Section>

@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import {
   auctions,
+  auctionsType,
   BuyHistory,
   Checkout,
   Deposit,
@@ -14,6 +15,22 @@ import {
   RechargeFail,
 } from './db';
 
+interface BalanceHistoryEntry {
+  blance: number;
+  type: 'purchase' | 'sale' | 'charge' | 'withdrawal';
+  createDate: number;
+}
+
+interface DepositHistoryType {
+  '1months': BalanceHistoryEntry[];
+  '3months': BalanceHistoryEntry[];
+  '1year': BalanceHistoryEntry[];
+}
+
+function isValidSearchOption(option: any): option is keyof DepositHistoryType {
+  return ['1months', '3months', '1year'].includes(option);
+}
+
 export const handlers = [
   // 더미 이미지 URL 가로채지 않게 하기
   http.get('https://via.placeholder.com/', () => {
@@ -23,7 +40,7 @@ export const handlers = [
   // 회원가입 요청
   http.post('/members/signup', async ({ request }) => {
     // Read the intercepted request body as JSON.
-    const newMember = await request.json();
+    const newMember = (await request.json()) as membersMapType;
 
     if (!newMember) return HttpResponse.json(newMember, { status: 401 });
 
@@ -36,7 +53,10 @@ export const handlers = [
 
   // 로그인 요청
   http.post('/members/signin', async ({ request }) => {
-    const loginInfo = await request.json();
+    const loginInfo = (await request.json()) as {
+      email: string;
+      password: string;
+    };
     const { email, password } = loginInfo;
 
     console.log('Captured a "GET /members/signin" request : ', email, password);
@@ -44,7 +64,7 @@ export const handlers = [
     const authenticateUser = (
       map: Map<string, membersMapType>,
       inputEmail: string,
-      inputPassword: string
+      inputPassword: string,
     ) => {
       const user = map.get(inputEmail);
 
@@ -60,18 +80,21 @@ export const handlers = [
 
     return HttpResponse.json(
       { token: 'your_api_token', user },
-      { status: 200 }
+      { status: 200 },
     ); //로그인 성공시 토큰 , 사용자 정보 반환
   }),
 
   //비밀번호 재설정 요청
   http.post('/members/reset-password-request', async ({ request }) => {
-    const { email, phoneNumber } = await request.json();
+    const { email, phoneNumber } = (await request.json()) as {
+      email: string;
+      phoneNumber: string;
+    };
 
     console.log(
       'Captured a "POST /members/reset-password-request" request : ',
       email,
-      phoneNumber
+      phoneNumber,
     );
 
     const user = members.get(email);
@@ -85,7 +108,10 @@ export const handlers = [
 
   //비밀번호 변경
   http.put('/members/reset-password', async ({ request }) => {
-    const { email, newPassword } = await request.json();
+    const { email, newPassword } = (await request.json()) as {
+      email: string;
+      newPassword: string;
+    };
     const user = members.get(email);
 
     if (!user) {
@@ -104,7 +130,7 @@ export const handlers = [
 
   // 경매 생성
   http.post('/auction', async ({ request }) => {
-    const auctionInfo = await request.json();
+    const auctionInfo = (await request.json()) as auctionsType;
 
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
 
@@ -116,8 +142,19 @@ export const handlers = [
   // 예치금 입출금 내역 요청
   http.get('/members/my-blance/:search_option', ({ params, request }) => {
     const { search_option } = params;
+
+    if (!isValidSearchOption(search_option)) {
+      return HttpResponse.json(
+        { message: 'Invalid search option' },
+        { status: 400 },
+      );
+    }
+
     const url = new URL(request.url);
-    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+
+    const pageNumberStr = url.searchParams.get('pageNumber');
+    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
+
     const pageSize = 10; // 페이지당 항목 수
     const startIndex = (pageNumber - 1) * pageSize;
     const endIndex = startIndex + pageSize;
@@ -136,14 +173,15 @@ export const handlers = [
   // 입찰 내역 요청
   http.get('/members/join-auction-list', ({ request }) => {
     const url = new URL(request.url);
-    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageNumberStr = url.searchParams.get('pageNumber');
+    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
     const pageSize = 10; // 페이지당 항목 수
     const startIndex = (pageNumber - 1) * pageSize;
     const endIndex = startIndex + pageSize;
 
     const paginatedList = JoinHistory.data.auctionList.slice(
       startIndex,
-      endIndex
+      endIndex,
     );
 
     return HttpResponse.json({
@@ -157,14 +195,15 @@ export const handlers = [
   // 구매 내역 요청
   http.get('/members/buy-auction-list', ({ request }) => {
     const url = new URL(request.url);
-    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageNumberStr = url.searchParams.get('pageNumber');
+    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
     const pageSize = 10; // 페이지당 항목 수
     const startIndex = (pageNumber - 1) * pageSize;
     const endIndex = startIndex + pageSize;
 
     const paginatedList = BuyHistory.data.auctionList.slice(
       startIndex,
-      endIndex
+      endIndex,
     );
 
     return HttpResponse.json({
@@ -178,14 +217,15 @@ export const handlers = [
   // 판매 내역 요청
   http.get('/members/my-auction-list', ({ request }) => {
     const url = new URL(request.url);
-    const pageNumber = parseInt(url.searchParams.get('pageNumber'), 10) || 1;
+    const pageNumberStr = url.searchParams.get('pageNumber');
+    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
     const pageSize = 10; // 페이지당 항목 수
     const startIndex = (pageNumber - 1) * pageSize;
     const endIndex = startIndex + pageSize;
 
     const paginatedList = MyHistory.data.auctionList.slice(
       startIndex,
-      endIndex
+      endIndex,
     );
 
     return HttpResponse.json({
@@ -243,6 +283,7 @@ export const handlers = [
   //결제 실패
   http.get('/payments/fail', async () => {
     return HttpResponse.json(RechargeFail, { status: 200 });
+
   }),
 ];
 

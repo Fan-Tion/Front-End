@@ -35,7 +35,17 @@ export const members: Map<string, membersMapType> = new Map([
   ],
 ]);
 
-export const auctions = new Map([
+export interface auctionsType {
+  title: string;
+  auctionType: boolean;
+  auctionImage: [];
+  description: string;
+  currentBidPrice: number;
+  buyNowPrice: number;
+  endDate: string;
+}
+
+export const auctions: Map<string, auctionsType> = new Map([
   [
     'auctionId',
     {

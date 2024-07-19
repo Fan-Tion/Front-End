@@ -1,11 +1,11 @@
-import Product from './Product';
 import {
-  Wrap,
-  ProductBox,
   Category,
-  Text,
   Div,
+  ProductBox,
+  Text,
+  Wrap,
 } from '../../styled-components/HomePageStyle';
+import Product from './Product';
 
 export default function RecentlyViewedProducts() {
   return (

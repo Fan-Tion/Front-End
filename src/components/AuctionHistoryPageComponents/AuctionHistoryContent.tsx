@@ -57,9 +57,6 @@ const ArrowButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-
-  
-  }
 `;
 
 interface AuctionHistoryContentProps {

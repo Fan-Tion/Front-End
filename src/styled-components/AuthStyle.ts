@@ -35,7 +35,7 @@ export const Input = styled.input`
   border-radius: 25px;
   border: 1px solid #ccc;
   font-size: 16px;
-  width : 100%;
+  width: 100%;
 
   &[type='submit'] {
     cursor: pointer;
@@ -61,11 +61,10 @@ export const Switcher = styled.span`
 `;
 
 export const ErrorMessage = styled.div`
-  color : red;
-  font-size : 16px;
- text-align : center;
-`
-
+  color: red;
+  font-size: 16px;
+  text-align: center;
+`;
 
 export const PhoneNumberWrapper = styled.div`
   display: flex;
@@ -85,22 +84,20 @@ export const Select = styled.select`
   width: 150px;
   cursor: pointer;
 
-
   &:focus {
     outline: none;
     border-color: #007bff;
   }
 `;
 export const SelectItem = styled.option`
-  padding : 10px;
-  color : black;
-`
-
+  padding: 10px;
+  color: black;
+`;
 
 export const SelectWrapper = styled.div`
-position: relative;
-max-width: 400px;
-margin: 10px 0;
+  position: relative;
+  max-width: 400px;
+  margin: 10px 0;
 `;
 
 export const Styled = {
@@ -117,4 +114,3 @@ export const Styled = {
   SelectItem,
   SelectWrapper,
 };
-
