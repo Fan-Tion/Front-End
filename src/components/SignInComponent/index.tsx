@@ -61,7 +61,7 @@ export default function SignInForm() {
           <Styled.Input type="submit" value="Sign In" />
         </Styled.Form>
         <Styled.SocialButtonWrap>
-          <Styled.NaverImg src='/public/img/naver_logo.png'/>
+          <Styled.NaverImg src='/img/naver_logo.png'/>
           Naver Login
         </Styled.SocialButtonWrap>
         <Styled.Switcher>

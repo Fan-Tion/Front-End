@@ -1,3 +1,4 @@
+import React , {useState} from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import SearchIcon from '../icons/SearchIcon';
@@ -97,9 +98,37 @@ const MenuButton = styled.button`
   }
 `
 
+const LogOutBtn = styled.button`
+    width : 90px;
+  height : 40px;
+  font-weight : bold;
+  background-color: #fc8b8b;
+  color: #222;
+  padding: 8px 12px;
+  border : none;
+  border-radius: 6px;
+  margin-right: 20px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #eb4646;
+    color : white;
+   
+  }
+
+`
+
 
 
 export default function LayoutHeader() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  // const handleLogout = () => {
+  //   // 추후 로그아웃 처리 로직 작성
+  //   setIsLoggedIn(false);
+  // };
 
   return (
     <Wrapper>
@@ -108,12 +137,12 @@ export default function LayoutHeader() {
           <MenuName>Fan-Tion</MenuName>
         </MenuItem>
       </Link>
-      <Link to='/auction'>
+      <Link to='/'>
         <MenuItem>
           <MenuName>Auction</MenuName>
         </MenuItem>
       </Link>
-      <Link to='/community'>
+      <Link to='/'>
         <MenuItem>
           <MenuName>Community</MenuName>
         </MenuItem>
@@ -126,9 +155,18 @@ export default function LayoutHeader() {
         <Link to='/create-auction'>
           <MenuButton>경매등록</MenuButton>
         </Link>
-        <Link to='/mypage'>
-          <MenuButton>MyPage</MenuButton>
-        </Link>
+        {isLoggedIn ? (
+          <>
+            <Link to='/mypage'>
+              <MenuButton>MyPage</MenuButton>
+            </Link>
+            <LogOutBtn>Logout</LogOutBtn>
+          </>
+        ) : (
+          <Link to='/signin'>
+            <MenuButton>Login</MenuButton>
+          </Link>
+        )}
       </ButtonGroup>
     </Wrapper>
   )

@@ -25,6 +25,7 @@ const FooterBox = styled.div`
 const FooterName = styled.div`
   color : #222;
   font-weight : bold;
+  font-size : 40px;
   margin: 5px;
   padding : 15px;
   &:hover {
@@ -38,14 +39,9 @@ export default function LayoutFooter() {
   return (
     <Wrapper>
       <FooterBox>
-        <FooterName>History</FooterName>
-        <FooterName>이용약관</FooterName>
-        <FooterName>개인정보 처리방침</FooterName>
-        <FooterName>공지사항</FooterName>
+        <FooterName>Fan-Tion</FooterName>
       </FooterBox>
     </Wrapper>
-
-
   )
 
 }
