@@ -25,7 +25,6 @@ jobs:
         with:
           source-directory: 'output'
           destination-github-username: Hira-Yuki
-/
 
           destination-repository-name: Fan-Tion-FE
           user-email: ${{ secrets.EMAIL }}
