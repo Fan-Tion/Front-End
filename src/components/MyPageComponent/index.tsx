@@ -36,9 +36,8 @@ const PasswordEditButton = styled.button`
 `;
 
 export default function MyPageComponents() {
-
   const [userInfo, setUserInfo] = useState<any>(null);
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -50,13 +49,12 @@ export default function MyPageComponents() {
         //유저 인포에 저장
         setUserInfo(data);
       } catch (error) {
-        setError('사용자 정보를 가져오는데 실패했습니다.');
+        // setError('사용자 정보를 가져오는데 실패했습니다.');
       }
     };
 
     fetchUserInfo();
   }, []);
-
 
   return (
     <Wrapper>

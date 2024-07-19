@@ -674,6 +674,11 @@
   dependencies:
     "@toast-ui/editor" "^3.2.2"
 
+"@tosspayments/tosspayments-sdk@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@tosspayments/tosspayments-sdk/-/tosspayments-sdk-2.2.1.tgz#433becf7526cd2b5b410d92ba22a57feee296a4b"
+  integrity sha512-AJXo/zlYGk4dnXp0VTyySCf/Q39Q1HMgr3OLrz39zF2awFAbobm9q8twHCfEp6Imb9XplivIvmFmFBLEhU94rQ==
+
 "@types/babel__core@^7.20.5":
   version "7.20.5"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.20.5.tgz#3df15f27ba85319caa07ba08d0721889bb39c017"

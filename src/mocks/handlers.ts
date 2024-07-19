@@ -3,6 +3,7 @@ import {
   auctions,
   auctionsType,
   BuyHistory,
+  Checkout,
   Deposit,
   DepositHistory,
   JoinHistory,
@@ -10,6 +11,8 @@ import {
   members,
   membersMapType,
   MyHistory,
+  Recharge,
+  RechargeFail,
 } from './db';
 
 interface BalanceHistoryEntry {
@@ -258,6 +261,29 @@ export const handlers = [
       });
     }
     return HttpResponse.json(user, { status: 200 });
+  }),
+  //결제 성공
+  http.post('/payments/success', async ({ request }) => {
+    // 요청 본문을 JSON으로 읽어옵니다.
+    const newPost = await request.json();
+    // totalAmount를 number로 변환하여 Deposit의 balance에 추가
+    const rechargeAmount = parseFloat(newPost.amount);
+    Deposit.data.blance += rechargeAmount;
+
+    // Recharge 객체를 응답으로 반환합니다.
+    Recharge.data.orderId = newPost.orderId;
+    Recharge.data.totalAmount = newPost.amount;
+
+    return HttpResponse.json(Recharge, { status: 200 });
+  }),
+  //결제 요청
+  http.post('/payments/request', async () => {
+    return HttpResponse.json(Checkout, { status: 200 });
+  }),
+  //결제 실패
+  http.get('/payments/fail', async () => {
+    return HttpResponse.json(RechargeFail, { status: 200 });
+
   }),
 ];
 

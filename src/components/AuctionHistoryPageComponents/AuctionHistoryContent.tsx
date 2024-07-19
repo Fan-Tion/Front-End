@@ -135,7 +135,7 @@ export default function AuctionHistoryComponents({
           disabled={currentPage === i}
         >
           {i}
-        </Button>
+        </Button>,
       );
     }
 

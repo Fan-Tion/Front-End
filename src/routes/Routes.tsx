@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DepositHistoryPage from '../components/DepositHistoryPageComponents';
+import { FailPage } from '../components/DepositRechargeComponent/Fail';
+import { SuccessPage } from '../components/DepositRechargeComponent/Success';
 import RootLayout from '../layout/RootLayout';
 import AuctionCreatePage from '../page/AuctionCreatePage';
 import AuctionHistoryPage from '../page/AuctionHistoryPage';
@@ -37,6 +39,14 @@ export default function Routes() {
         {
           path: 'create-auction',
           element: <AuctionCreatePage />,
+        },
+        {
+          path: 'sandbox/success',
+          element: <SuccessPage />,
+        },
+        {
+          path: 'sandbox/fail',
+          element: <FailPage />,
         },
       ],
     },
