@@ -14,7 +14,10 @@ import {
   Recharge,
   RechargeFail,
 } from './db';
-
+interface PaymentSuccessRequest {
+  orderId: string;
+  amount: string;
+}
 interface BalanceHistoryEntry {
   blance: number;
   type: 'purchase' | 'sale' | 'charge' | 'withdrawal';
@@ -265,7 +268,7 @@ export const handlers = [
   //결제 성공
   http.post('/payments/success', async ({ request }) => {
     // 요청 본문을 JSON으로 읽어옵니다.
-    const newPost = await request.json();
+    const newPost = (await request.json()) as PaymentSuccessRequest;
     // totalAmount를 number로 변환하여 Deposit의 balance에 추가
     const rechargeAmount = parseFloat(newPost.amount);
     Deposit.data.blance += rechargeAmount;
@@ -283,7 +286,6 @@ export const handlers = [
   //결제 실패
   http.get('/payments/fail', async () => {
     return HttpResponse.json(RechargeFail, { status: 200 });
-
   }),
 ];
 
