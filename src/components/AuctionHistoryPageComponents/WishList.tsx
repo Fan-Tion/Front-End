@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { historyApi } from '../../api/history';
 
@@ -25,6 +24,11 @@ const List = styled.ul`
 const ListItem = styled.li`
   padding: 10px;
   border-bottom: 1px solid #ddd;
+`;
+const Loading = styled.div`
+  text-align: center;
+  font-size: 16px;
+  padding: 20px;
 `;
 export default function WishList() {
   const [data, setData] = useState<any[]>([]);
@@ -52,18 +56,18 @@ export default function WishList() {
     <Container>
       <Title>찜 목록</Title>
       <Content>
-        {error ? (
+        {loading ? (
+          <Loading>로딩 중...</Loading>
+        ) : error ? (
           <div>{error}</div>
         ) : data.length === 0 ? (
           <div>거래 내역이 없습니다.</div>
         ) : (
-          <>
-            <List>
-              {data.map(item => (
-                <ListItem key={item.auctionId}>{item.title}</ListItem>
-              ))}
-            </List>
-          </>
+          <List>
+            {data.map(item => (
+              <ListItem key={item.auctionId}>{item.title}</ListItem>
+            ))}
+          </List>
         )}
       </Content>
     </Container>
