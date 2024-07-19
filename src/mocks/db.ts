@@ -4,7 +4,7 @@ export interface membersMapType {
   password: string;
   nickname: string;
   address: string;
-  phoneNumber : string;
+  phoneNumber: string;
   kakao: boolean;
   naver: boolean;
   total_rating: number;
@@ -21,7 +21,7 @@ export const members: Map<string, membersMapType> = new Map([
       member_id: '1',
       email: 'test@email.com',
       password: '1234',
-      phoneNumber : '1234',
+      phoneNumber: '1234',
       nickname: 'tester',
       address: '대한민국 강남',
       kakao: false,
@@ -35,7 +35,17 @@ export const members: Map<string, membersMapType> = new Map([
   ],
 ]);
 
-export const auctions = new Map([
+export interface auctionsType {
+  title: string;
+  auctionType: boolean;
+  auctionImage: [];
+  description: string;
+  currentBidPrice: number;
+  buyNowPrice: number;
+  endDate: string;
+}
+
+export const auctions: Map<string, auctionsType> = new Map([
   [
     'auctionId',
     {
@@ -121,5 +131,40 @@ export const Deposit = {
   message: '',
   data: {
     blance: 50000,
+  },
+};
+export const Checkout = {
+  message: '',
+  data: {
+    paymentType: '카드',
+    amount: 50000,
+    orderId: '54dsadsa-dasd454d5-dasdadsa2e',
+    customerEmail: 'test@email.com',
+    customerName: 'test',
+    successUrl: 'http://localhost:8080/payments/success',
+    failUrl: 'http://localhost:8080/payments/fail',
+    successYn: false,
+    cancelYn: false,
+    paymentData: '2024-06-30T10:00:00',
+  },
+};
+export const Recharge = {
+  message: 'Payment confirmed',
+  data: {
+    orderId: 'orderId',
+    orderName: '예치금 충전',
+    method: '카드',
+    totalAmount: '0',
+    status: 'DONE',
+    requestdAt: new Date().toISOString(),
+    approvedAt: new Date().toISOString(),
+  },
+};
+export const RechargeFail = {
+  message: '',
+  data: {
+    errorCode: 'ERROR_CODE',
+    message: '에러 메시지',
+    orederId: 'orderId',
   },
 };

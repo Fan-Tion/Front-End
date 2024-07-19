@@ -98,12 +98,12 @@ const LogoName = styled.div`
   margin-bottom: 30px;
 `;
 
-interface SideProfileProps  {
+interface SideProfileProps {
   nickname: string;
 }
 
 
-export default function SideProfile({ nickname  }: SideProfileProps) {
+export default function SideProfile({ nickname }: SideProfileProps) {
   return (
     <Wrapper>
       <Title>마이 페이지</Title>
@@ -112,7 +112,7 @@ export default function SideProfile({ nickname  }: SideProfileProps) {
       </AvatarUpload>
       <AvatarInput id="file" type="file" />
       <NameTitle>닉네임</NameTitle>
-      <Name>{ nickname || 'Anonymous'}</Name>
+      <Name>{nickname || 'Anonymous'}</Name>
       <Money>예치금: 50000원</Money>
       <ChargeButton>충전하기</ChargeButton>
       <Footer>

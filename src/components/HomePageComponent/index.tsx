@@ -1,6 +1,6 @@
 import AllProducts from './AllProducts';
-import RecentlyViewedProducts from './RecentlyViewedProducts';
 import PopularCategory from './PopularCategory';
+import RecentlyViewedProducts from './RecentlyViewedProducts';
 
 export default function HomePageComponents() {
   return (

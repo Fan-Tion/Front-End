@@ -1,55 +1,157 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import { useDateRange } from "../../hooks/useDateRange";
+import { GlobalInput } from "../../styled-components/Globalstyle";
 
 const Row = styled.div`
   margin: 10px;
   display: flex;
   align-items: center;
   align-content: center;
+  gap: 10px;
 `
 
 const Label = styled.label`
-  font-size: 24px;
-  font-weight: 400;
-  margin: 10px;
-  align-items: center;
+  width: 60px;
 `
 
-const Input = styled.input`
-  border: none;
-  border-bottom: 1px solid black;
-  font-size: 24px;
-  background-color: #eee;
-  height: ${props => props.type === 'checkbox' && `
-    width: 24px;
-    height: 24px;
-    transform: scale(1.8); /* 크기 조정 */
-    margin: 5px;
-  `};
+const InputWrapper = styled.div`
+  position: relative;
+  width: 100%;
 `
 
-export default function InputArea() {
+const Input = styled(GlobalInput)`
+  width: 100%;
+`
+
+const Unit = styled.span`
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #222;
+`
+
+const SelectWrapper = styled.div`
+  position: relative;
+  width: 20%;
+`;
+
+const Select = styled.select`
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 25px;
+  border : 2px solid #CDE990;
+  padding: 10px;
+  box-sizing: border-box;
+  appearance: none; 
+  background: transparent; 
+  cursor: pointer;
+  &:hover {
+    border : 2px solid #AACB73;
+  }
+  &:focus{
+  outline : none;
+  }
+`;
+
+const CustomArrow = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 15px; 
+  transform: translateY(-50%);
+  pointer-events: none;
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 6px solid black;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+  }
+`;
+
+interface InputAreaProps {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  formData: {
+    title: string;
+    currentBidPrice: string | number;
+    buyNowPrice: string | number;
+    endDate: string;
+    auctionType: boolean;
+  };
+}
+
+export default function InputArea({ onChange, formData }: InputAreaProps) {
+
+  const { minDate, maxDate } = useDateRange();
   return (
-    <div>
+    <>
       <Row>
-        <Label htmlFor='bid-title'>제목 : </Label>
-        <Input id='bid-title' name='title' type='text' placeholder="경매 제목 입력" required />
+        <SelectWrapper>
+          <Select
+            id="bid-type"
+            name="auctionType"
+          >
+            <option value={1}>비공개 입찰</option>
+            <option value={0}>공개 입찰</option>
+          </Select>
+          <CustomArrow />
+        </SelectWrapper>
+        <Input
+          id="bid-title"
+          name="title"
+          type="text"
+          placeholder="경매 제목 입력"
+          value={formData.title}
+          onChange={onChange}
+          required
+        />
       </Row>
       <Row>
-        <Label htmlFor='bid-start-price'>경매 시작가 : </Label>
-        <Input id='bid-start-price' name='currentBidPrice' type='number' placeholder="경매 시작가" required />
+        <InputWrapper>
+          <Input
+            id="bid-start-price"
+            name="currentBidPrice"
+            type="text"
+            placeholder="경매 시작가"
+            value={formData.currentBidPrice}
+            onChange={onChange}
+            required
+          />
+          {formData.currentBidPrice && <Unit>원</Unit>}
+        </InputWrapper>
+        <InputWrapper>
+          <Input
+            id="bid-buy-now"
+            name="buyNowPrice"
+            type="text"
+            placeholder="즉시 구매가"
+            value={formData.buyNowPrice}
+            onChange={onChange}
+            required
+          />
+          {formData.buyNowPrice && <Unit>원</Unit>}
+        </InputWrapper>
       </Row>
       <Row>
-        <Label htmlFor='bid-buy-now'>즉시 구매가 : </Label>
-        <Input id='bid-buy-now' name='buyNowPrice' type='number' placeholder="즉시 구매가" required />
+        <Label htmlFor="bid-end-date">마감일: </Label>
+        <Input
+          id="bid-end-date"
+          name="endDate"
+          type="date"
+          placeholder="경매 종료시간"
+          value={formData.endDate}
+          onChange={onChange}
+          min={minDate}
+          max={maxDate}
+          required
+        />
       </Row>
-      <Row>
-        <Label htmlFor='bid-end-date'>경매 종료시간 : </Label>
-        <Input id='bid-end-date' name='endDate' type='date' placeholder="경매 종료시간" required />
-      </Row>
-      <Row>
-        <Label htmlFor='bid-type'>공개 입찰 여부 : </Label>
-        <Input id='bid-type' name='auctionType' type='checkbox' />
-      </Row>
-    </div>
+    </>
   )
 }

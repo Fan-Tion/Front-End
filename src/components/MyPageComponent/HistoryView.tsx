@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
+  Info,
   Section,
   Title,
-  Info,
   HistoryButton,
 } from '../../styled-components/MyPageStyle';
 

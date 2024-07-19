@@ -16,7 +16,6 @@ const Wrapper = styled.header`
   }
 `
 
-
 const MenuItem = styled.div`
   margin-right: 60px;
   padding : 15px;
@@ -25,9 +24,7 @@ const MenuItem = styled.div`
     background-color: #FFB3B3;
     transform: scale(1.05); 
   }
-
 `
-
 
 const MenuName = styled.div`
    font-weight: bold;

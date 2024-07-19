@@ -5,7 +5,16 @@
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always"
+    "source.fixAll.eslint": "always",
+    "source.organizeImports": "always"
   },
-  "cSpell.words": ["signin"]
+  "cSpell.words": [
+    "blance",
+    "Globalstyle",
+    "kakao",
+    "naver",
+    "outdent",
+    "signin",
+    "toastui"
+  ]
 }

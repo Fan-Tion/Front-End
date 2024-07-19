@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
 import {
   Container,
-  Section,
-  Title,
   EditButton,
   Info,
   InfoName,
+  Section,
+  Title,
 } from '../../styled-components/MyPageStyle';
-import { membersApi } from '../../api/member';
 
 interface ProfileProps {
   userInfo: any;

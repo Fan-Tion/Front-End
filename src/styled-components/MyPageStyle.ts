@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -11,21 +11,23 @@ export const Container = styled.div`
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 `;
+
 export const Section = styled.div`
   display: flex;
-  height : 50px;
+  height: 50px;
   justify-content: space-between;
   align-items: center;
   background-color: #FFD4D4;
   padding: 10px 20px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-`
+`;
+
 export const Title = styled.div`
   font-size: 24px;
   color: #222;
   margin: 0;
-`
+`;
 
 export const EditButton = styled.button`
   font-size: 16px;
@@ -36,17 +38,19 @@ export const EditButton = styled.button`
   padding: 8px 16px;
   border-radius : 25px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 
   &:hover {
     background-color: #AACB73;
     color : white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
-`
+`;
 
 export const Info = styled.div`
-  display : flex;
+  display: flex;
   padding: 20px;
   align-items : center;
   font-weight : bold;

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
-import LayoutHeader from './LayoutHeader'
 import LayoutFooter from './LayoutFooter'
+import LayoutHeader from './LayoutHeader'
 
 
 

@@ -1,16 +1,17 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import RootLayout from '../layout/RootLayout';
-import ErrorPage from '../page/ErrorPage';
-import HomePage from '../page/HomePage';
-import SignUpPage from '../page/SignUpPage';
-import SignInPage from '../page/SignInPage';
-import FindPasswordPage from '../page/FindPasswordPage';
-import AuctionHistoryPage from '../page/AuctionHistoryPage';
 import DepositHistoryPage from '../components/DepositHistoryPageComponents';
-import MyPage from '../page/MyPage';
+import { FailPage } from '../components/DepositRechargeComponent/Fail';
+import { SuccessPage } from '../components/DepositRechargeComponent/Success';
+import RootLayout from '../layout/RootLayout';
 import AuctionCreatePage from '../page/AuctionCreatePage';
+import AuctionHistoryPage from '../page/AuctionHistoryPage';
+import ErrorPage from '../page/ErrorPage';
+import FindPasswordPage from '../page/FindPasswordPage';
+import HomePage from '../page/HomePage';
+import MyPage from '../page/MyPage';
 import PasswordResetPage from '../page/PasswordResetPage';
+import SignInPage from '../page/SignInPage';
+import SignUpPage from '../page/SignUpPage';
 
 export default function Routes() {
   const router = createBrowserRouter([
@@ -38,6 +39,14 @@ export default function Routes() {
         {
           path: 'create-auction',
           element: <AuctionCreatePage />,
+        },
+        {
+          path: 'sandbox/success',
+          element: <SuccessPage />,
+        },
+        {
+          path: 'sandbox/fail',
+          element: <FailPage />,
         },
       ],
     },
