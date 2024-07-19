@@ -8,5 +8,13 @@
     "source.fixAll.eslint": "always",
     "source.organizeImports": "always"
   },
-  "cSpell.words": ["kakao", "naver", "outdent", "signin", "toastui"]
+  "cSpell.words": [
+    "blance",
+    "Globalstyle",
+    "kakao",
+    "naver",
+    "outdent",
+    "signin",
+    "toastui"
+  ]
 }
