@@ -7,12 +7,14 @@ type Tab = 'join' | 'buy' | 'my';
 const Content = styled.div`
   width: 100%;
   height: 400px;
+  border-radius: 15px;
   background-color: white;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  border: 2px solid #cde990;
 `;
 
 const List = styled.ul`
@@ -44,8 +46,8 @@ const Button = styled.button`
   cursor: pointer;
 
   &:disabled {
-    background-color: #007bff;
-    color: white;
+    background-color: #cde990;
+    color: #222;
   }
 `;
 

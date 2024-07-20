@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { historyApi } from '../../api/history';
 import Modal from '../../utils/Modal';
 
+import { GlobalButton } from '../../styled-components/Globalstyle';
 import ChangePrice from '../DepositRechargeComponent/Price';
 const Container = styled.div`
   width: 300px;
@@ -18,50 +19,36 @@ const Content = styled.div`
 `;
 const Price = styled.div`
   background-color: white;
+  border: 2px solid #cde990;
+  border-radius: 10px;
   text-align: right;
-  line-height: 30px;
+  line-height: 36px;
   width: 200px;
-  height: 30px;
+  height: 40px;
   font-size: 24px;
   float: right;
 `;
-const Charge = styled.button`
-  margin-top: 40px;
+const Charge = styled(GlobalButton)`
+  margin-top: 35px;
   float: right;
   clear: both;
   width: 200px;
   height: 40px;
-  background-color: gray;
-  color: #fff;
   padding: 8px 12px;
   border: none;
   border-radius: 6px;
-
   cursor: pointer;
-
-  &:hover {
-    background-color: #495057;
-    transform: scale(1.05);
-  }
 `;
-const DepositHistory = styled.button`
-  margin-top: 40px;
+const DepositHistory = styled(GlobalButton)`
+  margin-top: 35px;
   float: right;
   clear: both;
   width: 200px;
   height: 40px;
-  background-color: gray;
-  color: #fff;
   padding: 8px 12px;
   border: none;
   border-radius: 6px;
-
   cursor: pointer;
-
-  &:hover {
-    background-color: #495057;
-    transform: scale(1.05);
-  }
 `;
 
 export default function Deposit() {
@@ -104,7 +91,7 @@ export default function Deposit() {
           <div>{error}</div>
         ) : data ? (
           <>
-            <Price>{data.data.blance} 원</Price>
+            <Price>{data.data.balance.toLocaleString()} 원</Price>
             <Charge onClick={toggleModal}>충전하기</Charge>
             <Modal isOpen={isModalOpen} onClose={toggleModal}>
               <ChangePrice />

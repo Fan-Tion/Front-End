@@ -19,7 +19,7 @@ interface PaymentSuccessRequest {
   amount: string;
 }
 interface BalanceHistoryEntry {
-  blance: number;
+  balance: number;
   type: 'purchase' | 'sale' | 'charge' | 'withdrawal';
   createDate: number;
 }
@@ -144,7 +144,7 @@ export const handlers = [
   }),
 
   // 예치금 입출금 내역 요청
-  http.get('/members/my-blance/:search_option', ({ params, request }) => {
+  http.get('/members/my-balance/:search_option', ({ params, request }) => {
     const { search_option } = params;
 
     if (!isValidSearchOption(search_option)) {
@@ -163,14 +163,14 @@ export const handlers = [
     const startIndex = (pageNumber - 1) * pageSize;
     const endIndex = startIndex + pageSize;
 
-    const blanceHistory = DepositHistory.data[search_option] || [];
-    const paginatedList = blanceHistory.slice(startIndex, endIndex);
+    const balanceHistory = DepositHistory.data[search_option] || [];
+    const paginatedList = balanceHistory.slice(startIndex, endIndex);
 
     return HttpResponse.json({
       message: '',
-      totalCount: blanceHistory.length,
       data: {
-        blanceHistory: paginatedList,
+        totalCount: balanceHistory.length,
+        balanceHistory: paginatedList,
       },
     });
   }),
@@ -190,8 +190,8 @@ export const handlers = [
 
     return HttpResponse.json({
       message: '',
-      totalCount: JoinHistory.data.auctionList.length,
       data: {
+        totalCount: JoinHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -212,8 +212,8 @@ export const handlers = [
 
     return HttpResponse.json({
       message: '',
-      totalCount: BuyHistory.data.auctionList.length,
       data: {
+        totalCount: BuyHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -234,8 +234,8 @@ export const handlers = [
 
     return HttpResponse.json({
       message: '',
-      totalCount: MyHistory.data.auctionList.length,
       data: {
+        totalCount: MyHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -272,7 +272,7 @@ export const handlers = [
     const newPost = (await request.json()) as PaymentSuccessRequest;
     // totalAmount를 number로 변환하여 Deposit의 balance에 추가
     const rechargeAmount = parseFloat(newPost.amount);
-    Deposit.data.blance += rechargeAmount;
+    Deposit.data.balance += rechargeAmount;
 
     // Recharge 객체를 응답으로 반환합니다.
     Recharge.data.orderId = newPost.orderId;
