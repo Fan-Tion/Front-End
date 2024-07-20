@@ -64,17 +64,17 @@ export const DepositHistory = {
   message: '',
   data: {
     '1months': Array.from({ length: 10 }, (_, i) => ({
-      blance: 20000,
+      balance: 20000,
       type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
       createDate: 20240628,
     })),
     '3months': Array.from({ length: 30 }, (_, i) => ({
-      blance: 20000,
+      balance: 20000,
       type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
       createDate: 20240428,
     })),
     '1year': Array.from({ length: 60 }, (_, i) => ({
-      blance: 20000,
+      balance: 20000,
       type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
       createDate: 20240128,
     })),
@@ -130,7 +130,7 @@ export const Likes = {
 export const Deposit = {
   message: '',
   data: {
-    blance: 50000,
+    balance: 50000,
   },
 };
 export const Checkout = {
