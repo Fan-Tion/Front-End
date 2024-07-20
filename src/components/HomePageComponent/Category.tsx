@@ -2,6 +2,7 @@ import styled from 'styled-components';
 const Div = styled.div`
   text-align: center;
   margin-top: 30px;
+  
 `;
 const Image = styled.img`
   width: 300px;
