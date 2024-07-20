@@ -13,6 +13,7 @@ import {
   MyHistory,
   Recharge,
   RechargeFail,
+  favoriteCategories,
 } from './db';
 interface PaymentSuccessRequest {
   orderId: string;
@@ -288,7 +289,13 @@ export const handlers = [
   http.get('/payments/fail', async () => {
     return HttpResponse.json(RechargeFail, { status: 200 });
   }),
+   // 인기 카테고리 리스트
+   http.get('/auction/favorite-category', async () => {
+    return HttpResponse.json(favoriteCategories, { status: 200 });
+    }),
+    
 ];
+
 
 // const allPosts = new Map();
 

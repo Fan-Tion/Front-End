@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 const Div = styled.div`
   text-align: center;
   margin-top: 30px;
@@ -15,11 +16,17 @@ const CategoryName = styled.div`
   font-weight: bold;
   margin-top: 50px;
 `;
-export default function CategoryCard() {
+
+interface CategoryCardProps {
+  title: string;
+  imageSrc: string;
+}
+
+export default function CategoryCard({ title, imageSrc }: CategoryCardProps) {
   return (
     <Div>
-      <Image src="https://via.placeholder.com/300" alt="Dummy" />
-      <CategoryName>카테고리</CategoryName>
+      <Image src={imageSrc} alt={title} />
+      <CategoryName>{title}</CategoryName>
     </Div>
   );
 }
