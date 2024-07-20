@@ -26,7 +26,7 @@ const SubImage = styled.img`
 export default function ImageModule() {
 
   // 테스트용 더미 이미지
-  const imageSrc = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Definitions_of_TV_standards.jpg/220px-Definitions_of_TV_standards.jpg'
+  const imageSrc = 'https://via.placeholder.com/500'
 
   return (
     <>

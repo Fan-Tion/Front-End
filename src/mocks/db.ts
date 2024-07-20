@@ -70,15 +70,27 @@ export interface auctionDetails {
 
 export const auctions: Map<string, auctionsType> = new Map([
   [
-    'auctionId',
+    '1',
     {
-      title: 'testAuction',
+      auctionUserNickname: 'John Titor',
+      title: '타임머신 팝니다.',
+      category: 'photo-card',
       auctionType: true,
       auctionImage: [],
-      description: '',
+      description:
+        '목표로 했던 IBM 5100을 입수해서 더이상 필요하지 않게 되었습니다.',
+      currentBidder: 'CERN',
       currentBidPrice: 10000,
       buyNowPrice: 1000000,
-      endDate: '',
+      favoriteCnt: 39,
+      createDate: '2001-01-30T10:03:43',
+      endDate: '2001-03-24T10:03:43',
+      status: true,
+      bid: {
+        bidPrice: 139800,
+        bidder: 'Beryl',
+        createDate: '2001-01-30T10:03:43',
+      },
     },
   ],
 ]);

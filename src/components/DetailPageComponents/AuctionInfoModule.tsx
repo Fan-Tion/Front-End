@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { GlobalButton } from '../../styled-components/Globalstyle';
 
 const InfoContainer = styled.div`
   border: 1px solid #eee;
@@ -8,6 +9,7 @@ const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  justify-content: center;
 `;
 
 const Title = styled.h1`
@@ -38,18 +40,8 @@ const HighlightedValue = styled(Value)`
   color: red;
 `;
 
-const BuyNowButton = styled.button`
-  background-color: orange;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 16px;
+const BuyNowButton = styled(GlobalButton)`
   align-self: center;
-  &:hover {
-    background-color: darkorange;
-  }
 `;
 
 const Divider = styled.hr`

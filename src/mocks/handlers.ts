@@ -287,6 +287,23 @@ export const handlers = [
   http.get('/payments/fail', async () => {
     return HttpResponse.json(RechargeFail, { status: 200 });
   }),
+
+  http.get('/auction/view/:auctionId', async ({ params }) => {
+    const auctionId = Array.isArray(params.auctionId)
+      ? params.auctionId[0]
+      : params.auctionId; // 'string | readonly string[]' 타입을 'string'으로 변환
+
+    const auction = auctions.get(auctionId);
+
+    if (!auction) {
+      return HttpResponse.json(
+        { message: 'Auction not found' },
+        { status: 404 },
+      );
+    }
+
+    return HttpResponse.json(auction, { status: 200 });
+  }),
 ];
 
 // const allPosts = new Map();
