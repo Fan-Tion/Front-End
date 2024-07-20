@@ -45,21 +45,27 @@ export interface auctionsType {
   endDate: string;
 }
 
+interface bidType {
+  bidPrice: number;
+  bidder: string;
+  createDate: string;
+}
+
 export interface auctionDetails {
-  auctionType: true;
-  auctionUserNickname: 'test';
-  title: '제목test';
-  category: '';
-  description: '경매설명test';
-  auctionImage: '???';
-  buyNowPrice: 1000;
-  currentBidder: 'test';
-  currentBidPrice: 11111;
-  favoriteCnt: 1111;
-  createDate: '2024-06-30T10:00:00';
-  endDate: '2024-06-31T10:00:00';
-  status: true;
-  bid: [bidPrice: 100000, bidder: 'tester', createDate: '2024-06-30T11:00:00'];
+  auctionType: boolean;
+  auctionUserNickname: string;
+  title: string;
+  category: string;
+  description: string;
+  auctionImage: string[];
+  buyNowPrice: number;
+  currentBidder: string;
+  currentBidPrice: number;
+  favoriteCnt: number;
+  createDate: string;
+  endDate: string;
+  status: boolean;
+  bid: bidType;
 }
 
 export const auctions: Map<string, auctionsType> = new Map([

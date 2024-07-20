@@ -54,11 +54,12 @@ const ImageUploadButton = styled(Button)`
 `
 
 interface formDataType {
-  title: string
+  title: string,
   currentBidPrice: string | number,
   buyNowPrice: string | number,
   endDate: string,
   auctionType: boolean,
+  category: string,
   auctionImage?: File[],
   description?: string,
   [key: string]: string | number | boolean | File[] | undefined;
@@ -74,13 +75,22 @@ export default function AuctionCreatePageComponents() {
     endDate: '',
     auctionType: false,
     auctionImages: [],
+    category: ''
   })
   const [_files, setFiles] = useState<File[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigation = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, } = e.target;
+
+    if (name === 'auctionType') {
+      setFormData({
+        ...formData,
+        [name]: value === '1' // '1'은 true, '0'은 false로 변환
+      });
+      return;
+    }
 
     // 가격 입력에 대한 음수 값 방지 및 숫자만 입력되도록 유효성 검사
     if ((name === "currentBidPrice"

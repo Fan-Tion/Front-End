@@ -76,13 +76,14 @@ const CustomArrow = styled.div`
 `;
 
 interface InputAreaProps {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   formData: {
     title: string;
     currentBidPrice: string | number;
     buyNowPrice: string | number;
     endDate: string;
     auctionType: boolean;
+    category: string;
   };
 }
 
@@ -94,8 +95,27 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
       <Row>
         <SelectWrapper>
           <Select
-            id="bid-type"
-            name="auctionType"
+            id='bid-category'
+            name='category'
+            value={formData.category}
+            onChange={onChange}
+          >
+            {/* 카테고리 목록을 api로 받아오도록 설정*/}
+            <option value='' disabled>
+              카테고리 선택
+            </option>
+            <option value={'의류'}>의류</option>
+            <option value={'앨범'}>앨범</option>
+            <option value={'photo-card'}>포토 카드</option>
+          </Select>
+          <CustomArrow />
+        </SelectWrapper>
+        <SelectWrapper>
+          <Select
+            id='bid-type'
+            name='auctionType'
+            value={formData.auctionType ? '1' : '0'}
+            onChange={onChange}
           >
             <option value={1}>비공개 입찰</option>
             <option value={0}>공개 입찰</option>
