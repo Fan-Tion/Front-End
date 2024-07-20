@@ -7,7 +7,7 @@ interface AddressInputProps {
   onChange: (value: string) => void;
 }
 
-export default function AddressInput({ value, onChange }: AddressInputProps) {
+export default function AddressInput({ onChange }: AddressInputProps) {
   const [addressPart1, setAddressPart1] = useState('');
   const [addressPart2, setAddressPart2] = useState('');
  
