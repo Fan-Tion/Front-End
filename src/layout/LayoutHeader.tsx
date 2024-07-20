@@ -115,10 +115,10 @@ const LogOutBtn = styled.button`
 export default function LayoutHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  // const handleLogout = () => {
-  //   // 추후 로그아웃 처리 로직 작성
-  //   setIsLoggedIn(false);
-  // };
+  const handleLogout = () => {
+    // 추후 로그아웃 처리 로직 작성
+    setIsLoggedIn(false);
+  };
 
   return (
     <Wrapper>
@@ -152,7 +152,7 @@ export default function LayoutHeader() {
             <Link to="/mypage">
               <MenuButton>MyPage</MenuButton>
             </Link>
-            <LogOutBtn>Logout</LogOutBtn>
+            <LogOutBtn onClick={handleLogout}>Logout</LogOutBtn>
           </>
         ) : (
           <Link to="/signin">
