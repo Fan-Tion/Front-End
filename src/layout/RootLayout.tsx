@@ -4,7 +4,6 @@ import LayoutHeader from './LayoutHeader'
 
 
 
-
 export default function RootLayout() {
   return (
     <>

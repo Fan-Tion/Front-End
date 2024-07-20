@@ -10,7 +10,7 @@ import Product from './Product';
 export default function RecentlyViewedProducts() {
   return (
     <Wrap>
-      <ProductBox $bgColor="#c4c4c4">
+      <ProductBox $bgColor="#FFFFE8">
         <Category>
           <Text $fontSize="20px" $fontColor="black">
             최근 본 상품

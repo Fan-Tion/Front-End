@@ -9,6 +9,7 @@ const Container = styled.div`
   padding: 50px 150px;
   width: 60%;
   min-height: 70vh;
+  border-radius : 25px;
   background-color: #c4c4c4;
 `;
 
