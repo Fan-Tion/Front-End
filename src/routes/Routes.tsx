@@ -3,15 +3,18 @@ import DepositHistoryPage from '../components/DepositHistoryPageComponents';
 import { FailPage } from '../components/DepositRechargeComponent/Fail';
 import { SuccessPage } from '../components/DepositRechargeComponent/Success';
 import RootLayout from '../layout/RootLayout';
-import AuctionCreatePage from '../page/AuctionCreatePage';
-import AuctionHistoryPage from '../page/AuctionHistoryPage';
-import ErrorPage from '../page/ErrorPage';
-import FindPasswordPage from '../page/FindPasswordPage';
-import HomePage from '../page/HomePage';
-import MyPage from '../page/MyPage';
-import PasswordResetPage from '../page/PasswordResetPage';
-import SignInPage from '../page/SignInPage';
-import SignUpPage from '../page/SignUpPage';
+import {
+  AuctionCreatePage,
+  AuctionHistoryPage,
+  DetailPage,
+  ErrorPage,
+  FindPasswordPage,
+  HomePage,
+  MyPage,
+  PasswordResetPage,
+  SignInPage,
+  SignUpPage,
+} from '../pages';
 
 export default function Routes() {
   const router = createBrowserRouter([
@@ -37,8 +40,12 @@ export default function Routes() {
           element: <MyPage />,
         },
         {
-          path: 'create-auction',
+          path: 'auction/create',
           element: <AuctionCreatePage />,
+        },
+        {
+          path: 'auction/:auctionId',
+          element: <DetailPage />,
         },
         {
           path: 'sandbox/success',
