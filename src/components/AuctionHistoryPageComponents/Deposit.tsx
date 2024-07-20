@@ -91,7 +91,7 @@ export default function Deposit() {
           <div>{error}</div>
         ) : data ? (
           <>
-            <Price>{data.data.blance.toLocaleString()} 원</Price>
+            <Price>{data.data.balance.toLocaleString()} 원</Price>
             <Charge onClick={toggleModal}>충전하기</Charge>
             <Modal isOpen={isModalOpen} onClose={toggleModal}>
               <ChangePrice />
