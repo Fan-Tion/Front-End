@@ -24,13 +24,14 @@ interface SellerRatingProps {
 }
 export default function SellerRating() {
   const [stars, setStars] = useState<JSX.Element[]>([]);
-  const [rating, setRating] = useState<number>(0);
+  const [rating, setRating] = useState<number>(0); // 테스트용 
 
+  // 테스트용
   const testHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
     setRating(newValue)
   }
-  // let rating = 10;
+
   useEffect(() => {
     const filledStars = (Math.trunc(rating) / 2);
     const halfStar = Math.trunc(rating) % 2

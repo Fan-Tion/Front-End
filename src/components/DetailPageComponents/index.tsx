@@ -1,4 +1,8 @@
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { auctionApi } from '../../api/auction';
+import { auctionDetailsType } from '../../mocks/db';
 import AuctionInfoModule from './AuctionInfoModule';
 import ImageModule from './ImageModule';
 import ItemDescription from './ItemDescription';
@@ -52,6 +56,34 @@ const Functions = styled.div`
 `
 
 export default function DetailPageComponents() {
+  const { auctionId } = useParams<{ auctionId: string }>();
+  const navigate = useNavigate()
+  const [auctionDetails, setAuctionDetails] = useState<auctionDetailsType | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchAuctionDetails = async () => {
+      try {
+        const response = await auctionApi.getDetails(auctionId!);
+        setAuctionDetails(response);
+      } catch (error) {
+        console.log(error)
+        navigate('/not-found')
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (auctionId) {
+      fetchAuctionDetails();
+    }
+  }, [auctionId]);
+
+  if (loading) {
+    return <Container>Loading...</Container>;
+  }
+
+  console.log(auctionDetails)
   return (
     <Container>
       <AuctionContainer>
@@ -59,7 +91,7 @@ export default function DetailPageComponents() {
           <ImageModule />
         </LeftContainer>
         <RightContainer>
-          <AuctionInfoModule />
+          <AuctionInfoModule title={auctionDetails!.title} category={auctionDetails!.category} />
           <SameKeywordAuctions />
         </RightContainer>
       </AuctionContainer>

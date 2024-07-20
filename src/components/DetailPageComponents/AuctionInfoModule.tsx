@@ -51,14 +51,25 @@ const Divider = styled.hr`
   border-style: solid;
   border-width: 1px 0 0 0;
 `
+interface AuctionInfoPropType {
+  title: string;
+  category: string;
+}
 
-export default function AuctionInfoModule() {
+export default function AuctionInfoModule({ title, category }: AuctionInfoPropType) {
+
+  const categoryIndex: { [key: string]: string } = {
+    'photo-card': "포토 카드",
+    'sign': '사인',
+    'digital': '디지털'
+  }
+
   return (
     <InfoContainer>
-      <Title>상품 제목</Title>
+      <Title>{title}</Title>
       <Row>
-        <Label>입찰 건수</Label>
-        <Value>3</Value>
+        <Label>카테고리</Label>
+        <Value>{categoryIndex[category]}</Value>
         <Label>남은 시간</Label>
         <HighlightedValue>23:07:18</HighlightedValue>
       </Row>

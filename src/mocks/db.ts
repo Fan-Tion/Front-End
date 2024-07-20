@@ -51,7 +51,7 @@ interface bidType {
   createDate: string;
 }
 
-export interface auctionDetails {
+export interface auctionDetailsType {
   auctionType: boolean;
   auctionUserNickname: string;
   title: string;
@@ -74,7 +74,7 @@ export const auctions: Map<string, auctionsType> = new Map([
     {
       auctionUserNickname: 'John Titor',
       title: '타임머신 팝니다.',
-      category: 'photo-card',
+      category: 'digital',
       auctionType: true,
       auctionImage: [],
       description:

@@ -24,6 +24,10 @@ export default function Routes() {
       errorElement: <ErrorPage />,
       children: [
         {
+          path: 'not-found',
+          element: <ErrorPage />,
+        },
+        {
           path: '',
           element: <HomePage />,
         },
