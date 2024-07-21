@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
+import { auctionDetailsType } from '@mocks/db';
+import { fetchAuctionDetails } from '@utils/fetchAuctionDetails';
+import _ from 'lodash';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { auctionApi } from '../../api/auction';
-import { auctionDetailsType } from '../../mocks/db';
-import AuctionInfoModule from './AuctionInfoModule';
-import ImageModule from './ImageModule';
-import ItemDescription from './ItemDescription';
-import SameKeywordAuctions from './SameKeywordAuctions';
-import SellerRating from './SellerRating';
-import SteamedButton from './SteamedButton';
+import {
+  AuctionInfoModule,
+  ImageModule,
+  ItemDescription,
+  SameKeywordAuctions,
+  SellerRating,
+  SteamedButton
+} from './atom';
 
 const Container = styled.div`
   margin: 30px auto;
@@ -62,36 +65,31 @@ export default function DetailPageComponents() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchAuctionDetails = async () => {
-      try {
-        const response = await auctionApi.getDetails(auctionId!);
-        setAuctionDetails(response);
-      } catch (error) {
-        console.log(error)
-        navigate('/not-found')
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if (auctionId) {
-      fetchAuctionDetails();
+      fetchAuctionDetails(auctionId, setAuctionDetails, setLoading, navigate);
     }
-  }, [auctionId]);
+  }, [auctionId, navigate]);
+
+  const buyNowHandler = useCallback(_.debounce(async () => {
+    console.log('buyNowHandler clicked');
+  }, 500), []);
+
+  const bidHandler = useCallback(_.debounce(async () => {
+    console.log('bidHandler clicked');
+  }, 500), []);
 
   if (loading || auctionDetails === null) {
     return <Container>Loading...</Container>;
   }
 
-  console.log(auctionDetails)
   return (
     <Container>
       <AuctionContainer>
         <LeftContainer>
-          <ImageModule />
+          <ImageModule imageUrls={auctionDetails.auctionImage} />
         </LeftContainer>
         <RightContainer>
-          <AuctionInfoModule details={auctionDetails} />
+          <AuctionInfoModule details={auctionDetails} buyNow={buyNowHandler} bidHandler={bidHandler} />
           <SameKeywordAuctions />
         </RightContainer>
       </AuctionContainer>

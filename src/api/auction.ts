@@ -1,4 +1,4 @@
-import { auctionDetailsType } from './../mocks/db';
+import { auctionDetailsType } from '@mocks/db';
 import { axiosInstance } from './axios';
 
 export const auctionApi = {

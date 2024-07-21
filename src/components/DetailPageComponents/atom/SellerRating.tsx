@@ -1,7 +1,7 @@
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
 import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
+import { useStarRender } from "@hooks/useStarRender";
 import styled from "styled-components";
-import { useStarRender } from "../../hooks/useStarRender";
 
 const RatingWrapper = styled.div`
   display: flex;

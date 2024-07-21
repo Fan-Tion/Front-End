@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   align-items: baseline;
 `
 
-const Description = styled.p`
+const Description = styled.div`
   margin: 30px;
   text-align: start;
 `

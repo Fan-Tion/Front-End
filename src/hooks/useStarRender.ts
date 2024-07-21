@@ -9,6 +9,6 @@ export const useStarRender = (rating: number): StarRenderResult => {
 
   return {
     filledStars: new Array(filledStarsCount).fill(true),
-    halfStar
+    halfStar,
   };
-}
+};

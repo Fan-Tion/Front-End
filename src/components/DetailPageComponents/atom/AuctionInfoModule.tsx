@@ -1,7 +1,7 @@
+import { calculateTimeLeft, formatDateTime, formatTimeLeft } from '@utils/TimeUtils';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { GlobalButton } from '../../styled-components/Globalstyle';
-import { calculateTimeLeft, formatDateTime, formatTimeLeft } from '../../utils/TimeUtils';
+import { GlobalButton } from '../../../styled-components/Globalstyle';
 
 // styles 
 const InfoContainer = styled.div`
@@ -52,12 +52,14 @@ const BuyNowButton = styled(GlobalButton)`
   width: 200px;
   align-self: center;
   border-radius: 10px;
+  font-size: 20px;
 `;
 
 const BidButton = styled(GlobalButton)`
   width: 100%;
   background-color: #FFD4D4;
   border-radius: 10px;
+  font-size: 20px;
   &:hover {
     background-color: #FFB3B3;
   }
@@ -84,6 +86,8 @@ interface AuctionInfoPropType {
     currentBidPrice: number;
     buyNowPrice: number;
   }
+  buyNow: () => void;
+  bidHandler: () => void;
 }
 
 const categoryIndex: { [key: string]: string } = {
@@ -92,7 +96,7 @@ const categoryIndex: { [key: string]: string } = {
   'digital': '디지털'
 }
 
-export default function AuctionInfoModule({ details }: AuctionInfoPropType) {
+export default function AuctionInfoModule({ details, buyNow, bidHandler }: AuctionInfoPropType) {
 
   const { title, category, endDate, createDate, currentBidPrice, buyNowPrice } = details;
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endDate));
@@ -128,9 +132,9 @@ export default function AuctionInfoModule({ details }: AuctionInfoPropType) {
         <Value>{currentBidPrice.toLocaleString()} 원</Value>
         <Label>즉시 구매</Label>
         <Value>{buyNowPrice.toLocaleString()} 원</Value>
-        <BuyNowButton>즉시 구매</BuyNowButton>
+        <BuyNowButton type='button' onClick={buyNow}>즉시 구매하기</BuyNowButton>
       </Row>
-      <BidButton>입찰하기</BidButton>
+      <BidButton type='button' onClick={bidHandler}>입찰하기</BidButton>
     </InfoContainer>
   )
 }

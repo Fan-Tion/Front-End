@@ -1,8 +1,8 @@
+import DepositHistoryPage from '@components/DepositHistoryPageComponents';
+import { FailPage } from '@components/DepositRechargeComponent/Fail';
+import { SuccessPage } from '@components/DepositRechargeComponent/Success';
+import RootLayout from '@layout/RootLayout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import DepositHistoryPage from '../components/DepositHistoryPageComponents';
-import { FailPage } from '../components/DepositRechargeComponent/Fail';
-import { SuccessPage } from '../components/DepositRechargeComponent/Success';
-import RootLayout from '../layout/RootLayout';
 import {
   AuctionCreatePage,
   AuctionHistoryPage,
@@ -13,7 +13,7 @@ import {
   MyPage,
   PasswordResetPage,
   SignInPage,
-  SignUpPage,
+  SignUpPage
 } from '../pages';
 
 export default function Routes() {

@@ -1,6 +1,7 @@
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import _ from "lodash";
+import { useCallback, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 
 const Button = styled.button`
@@ -49,15 +50,18 @@ export default function SteamedButton() {
   const [isSteamed, setIsSteamed] = useState<boolean>(false);
   const [isBubbling, setIsBubbling] = useState<boolean>(false);
 
-  const toggleSteamed = () => {
-    setIsSteamed(!isSteamed);
-    setIsBubbling(true); // 하트 애니메이션 시작
+  const toggleSteamed = useCallback(
+    _.debounce(() => {
+      setIsSteamed(prev => !prev);
+      setIsBubbling(true); // 하트 애니메이션 시작
 
-    // 일정 시간 후 애니메이션 종료
-    setTimeout(() => {
-      setIsBubbling(false);
-    }, 500);
-  };
+      // 일정 시간 후 애니메이션 종료
+      setTimeout(() => {
+        setIsBubbling(false);
+      }, 500);
+    }, 600), // 디바운스 시간 설정
+    []
+  );
 
   return (
     <Button type={'button'} onClick={toggleSteamed}>
