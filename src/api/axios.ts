@@ -1,18 +1,8 @@
 import axios, { AxiosError } from 'axios';
 
-/*
-const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_SERVER_URL,
-  timeout: 1000,
-  headers: {
-    withCredentials: true,
-    'Content-Type': 'application/json',
-  },
-});
-*/
-
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
-const API_TOKEN = 'your_api_token';
+const API_TOKEN =
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjanNkbGY0NEBnbWFpbC5jb20iLCJtZW1iZXJJZCI6OCwibmlja25hbWUiOiJoaXJhIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTcyMTU3MDMzNywiZXhwIjoxNzIxNTc3NTM3fQ.zUWLP-hZv1xrgPQ9kHoPI_R6B9zTwyCq3StgwC9Pto4';
 
 // axios instance creation.
 export const axiosInstance = axios.create({
@@ -52,6 +42,30 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(axiosError);
   },
 );
+
+export async function uploadMultipartData<T>(
+  url: string,
+  data: Record<string, any>,
+): Promise<T> {
+  const formData = new FormData();
+  Object.keys(data).forEach(key => {
+    if (Array.isArray(data[key])) {
+      data[key].forEach((file: File) => {
+        formData.append(key, file);
+      });
+    } else {
+      formData.append(key, data[key]);
+    }
+  });
+
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  return axiosInstance.post(url, formData, config);
+}
 
 // async function fetchCall<T>(
 //   url: string,
