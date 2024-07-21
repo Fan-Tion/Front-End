@@ -13,11 +13,14 @@ export const Category = styled.div`
   padding: 15px 15px 0;
   display: flex;
   justify-content: space-between;
+  
 `;
 export const Text = styled.span<TextProps>`
   color: ${props => props.$fontColor};
   font-size: ${props => props.$fontSize};
   font-weight: bold;
+  text-decoration: none;
+ 
 `;
 
 export const ProductBox = styled.div<ProductBoxProps>`
@@ -27,9 +30,13 @@ export const ProductBox = styled.div<ProductBoxProps>`
   margin: auto;
   margin-top: 50px;
   border-radius: 15px;
+  border : 2px solid #CDE990;
 `;
 export const Div = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 30px;
+  
 `;
+
+

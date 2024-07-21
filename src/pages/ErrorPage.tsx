@@ -57,7 +57,7 @@ export default function ErrorPage() {
           주소가 잘못되었거나 바뀐것 같습니다.<br />
           다시 확인해주시겠어요?
         </Description>
-        <ErrorImg src="/public/img/img_error.png" />
+        <ErrorImg src="/img/img_error.png" />
         <Link to="/">
           <Button>홈으로</Button>
         </Link>

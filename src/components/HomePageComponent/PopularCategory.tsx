@@ -10,7 +10,7 @@ import CategoryCard from './Category';
 export default function PopularCategory() {
   return (
     <Wrap>
-      <ProductBox $bgColor="#c4c4c4">
+      <ProductBox $bgColor="#FFFFE8">
         <Category>
           <Text $fontSize="20px" $fontColor="black">
             인기 카테고리

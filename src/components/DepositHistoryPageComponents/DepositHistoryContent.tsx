@@ -13,6 +13,8 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  border: 2px solid #cde990;
+  border-radius: 15px;
 `;
 
 const List = styled.ul`
@@ -45,8 +47,8 @@ const Button = styled.button`
   cursor: pointer;
 
   &:disabled {
-    background-color: #007bff;
-    color: white;
+    background-color: #cde990;
+    color: #222;
   }
 `;
 
@@ -95,7 +97,7 @@ export default function AuctionHistoryComponents({
         const response = await historyApi.depositHistory(selectedTab, {
           pageNumber: currentPage,
         });
-        setData(response.data.blanceHistory);
+        setData(response.data.balanceHistory);
         setTotalCount(response.data.totalCount);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
@@ -174,8 +176,8 @@ export default function AuctionHistoryComponents({
                   </p>
                   <Balance>
                     {item.type === 'purchase' || item.type === 'withdrawal'
-                      ? `- ${item.blance}`
-                      : `+ ${item.blance}`}
+                      ? `- ${item.balance}`
+                      : `+ ${item.balance}`}
                   </Balance>
                   <p>{item.createDate}</p>
                 </ListItem>

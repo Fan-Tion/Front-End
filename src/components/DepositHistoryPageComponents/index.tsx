@@ -8,8 +8,10 @@ const Container = styled.div`
   margin: 100px auto;
   padding: 50px 150px;
   width: 60%;
-  min-height: 70vh;
-  background-color: #c4c4c4;
+  min-height: 60vh;
+  background-color: #ffffe8;
+  border: 2px solid #aacb73;
+  border-radius: 15px;
 `;
 
 const Title = styled.span`

@@ -60,6 +60,10 @@ export default function SignInForm() {
           {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
           <Styled.Input type="submit" value="Sign In" />
         </Styled.Form>
+        <Styled.SocialButtonWrap>
+          <Styled.NaverImg src='/img/naver_logo.png'/>
+          Naver Login
+        </Styled.SocialButtonWrap>
         <Styled.Switcher>
           비밀번호를 잊어버리셨나요?{' '}
           <Link to="/findpassword">비밀번호 찾기</Link>

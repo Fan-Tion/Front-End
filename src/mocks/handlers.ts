@@ -20,7 +20,7 @@ interface PaymentSuccessRequest {
   amount: string;
 }
 interface BalanceHistoryEntry {
-  blance: number;
+  balance: number;
   type: 'purchase' | 'sale' | 'charge' | 'withdrawal';
   createDate: number;
 }
@@ -202,8 +202,8 @@ export const handlers = [
 
     return HttpResponse.json({
       message: '',
-      totalCount: JoinHistory.data.auctionList.length,
       data: {
+        totalCount: JoinHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -224,8 +224,8 @@ export const handlers = [
 
     return HttpResponse.json({
       message: '',
-      totalCount: BuyHistory.data.auctionList.length,
       data: {
+        totalCount: BuyHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -246,8 +246,8 @@ export const handlers = [
 
     return HttpResponse.json({
       message: '',
-      totalCount: MyHistory.data.auctionList.length,
       data: {
+        totalCount: MyHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -284,7 +284,7 @@ export const handlers = [
     const newPost = (await request.json()) as PaymentSuccessRequest;
     // totalAmount를 number로 변환하여 Deposit의 balance에 추가
     const rechargeAmount = parseFloat(newPost.amount);
-    Deposit.data.blance += rechargeAmount;
+    Deposit.data.balance += rechargeAmount;
 
     // Recharge 객체를 응답으로 반환합니다.
     Recharge.data.orderId = newPost.orderId;
