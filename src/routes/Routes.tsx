@@ -1,70 +1,141 @@
+import DepositHistoryPage from '@components/DepositHistoryPageComponents';
+import { FailPage } from '@components/DepositRechargeComponent/Fail';
+import { SuccessPage } from '@components/DepositRechargeComponent/Success';
+import RootLayout from '@layout/RootLayout';
+import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import DepositHistoryPage from '../components/DepositHistoryPageComponents';
-import { FailPage } from '../components/DepositRechargeComponent/Fail';
-import { SuccessPage } from '../components/DepositRechargeComponent/Success';
-import RootLayout from '../layout/RootLayout';
-import AuctionCreatePage from '../page/AuctionCreatePage';
-import AuctionHistoryPage from '../page/AuctionHistoryPage';
-import ErrorPage from '../page/ErrorPage';
-import FindPasswordPage from '../page/FindPasswordPage';
-import HomePage from '../page/HomePage';
-import MyPage from '../page/MyPage';
-import PasswordResetPage from '../page/PasswordResetPage';
-import SignInPage from '../page/SignInPage';
-import SignUpPage from '../page/SignUpPage';
+import {
+  AuctionCreatePage,
+  AuctionHistoryPage,
+  DetailPage,
+  ErrorPage,
+  FindPasswordPage,
+  HomePage,
+  MyPage,
+  PasswordResetPage,
+  SignInPage,
+  SignUpPage
+} from '../pages';
+
+const Loader = () => <div>Loading...</div>;
+
 
 export default function Routes() {
   const router = createBrowserRouter([
     {
       path: '/',
       element: <RootLayout />,
-      errorElement: <ErrorPage />,
+      errorElement: (
+        <Suspense fallback={<Loader />}>
+          <ErrorPage />
+        </Suspense>
+      ),
       children: [
         {
+          path: 'not-found',
+          element: (
+            <Suspense fallback={<Loader />}>
+              <ErrorPage />
+            </Suspense>
+          )
+        },
+        {
           path: '',
-          element: <HomePage />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <HomePage />
+            </Suspense>
+          ),
         },
         {
           path: 'mypage/auction-history',
-          element: <AuctionHistoryPage />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <AuctionHistoryPage />
+            </Suspense>
+          ),
         },
         {
           path: 'mypage/deposit-history',
-          element: <DepositHistoryPage />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <DepositHistoryPage />
+            </Suspense>
+          ),
         },
         {
           path: 'mypage',
-          element: <MyPage />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <MyPage />
+            </Suspense>
+          ),
         },
         {
-          path: 'create-auction',
-          element: <AuctionCreatePage />,
+          path: 'auction/create',
+          element: (
+            <Suspense fallback={<Loader />}>
+              <AuctionCreatePage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'auction/:auctionId',
+          element: (
+            <Suspense fallback={<Loader />}>
+              <DetailPage />
+            </Suspense>
+          ),
         },
         {
           path: 'sandbox/success',
-          element: <SuccessPage />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <SuccessPage />
+            </Suspense>
+          ),
         },
         {
           path: 'sandbox/fail',
-          element: <FailPage />,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <FailPage />
+            </Suspense>
+          ),
         },
       ],
     },
     {
       path: 'signup',
-      element: <SignUpPage />,
+      element: (
+        <Suspense fallback={<Loader />}>
+          <SignUpPage />
+        </Suspense>
+      ),
     },
     {
       path: 'signin',
-      element: <SignInPage />,
+      element: (
+        <Suspense fallback={<Loader />}>
+          <SignInPage />
+        </Suspense>
+      ),
     },
     {
       path: 'findpassword',
-      element: <FindPasswordPage />,
+      element: (
+        <Suspense fallback={<Loader />}>
+          <FindPasswordPage />
+        </Suspense>
+      ),
     },
     {
       path: 'reset-password/:uId',
-      element: <PasswordResetPage />,
+      element: (
+        <Suspense fallback={<Loader />}>
+          <PasswordResetPage />
+        </Suspense>
+      ),
     },
   ]);
 

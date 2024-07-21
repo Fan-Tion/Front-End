@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '@api/axios';
 import { http, HttpResponse } from 'msw';
 import {
   auctions,
@@ -41,8 +42,7 @@ export const handlers = [
   }),
 
   // 회원가입 요청
-
-  http.post('/members/signup', async ({ request }) => {
+  http.post(`${API_BASE_URL}/members/signup`, async ({ request }) => {
     // Read the intercepted request body as JSON.
     const newMember = (await request.json()) as membersMapType;
 
@@ -56,7 +56,7 @@ export const handlers = [
   }),
 
   // 로그인 요청
-  http.post('/members/signin', async ({ request }) => {
+  http.post(`${API_BASE_URL}/members/signin`, async ({ request }) => {
     const loginInfo = (await request.json()) as {
       email: string;
       password: string;
@@ -89,29 +89,32 @@ export const handlers = [
   }),
 
   //비밀번호 재설정 요청
-  http.post('/members/reset-password-request', async ({ request }) => {
-    const { email, phoneNumber } = (await request.json()) as {
-      email: string;
-      phoneNumber: string;
-    };
+  http.post(
+    `${API_BASE_URL}/members/reset-password-request`,
+    async ({ request }) => {
+      const { email, phoneNumber } = (await request.json()) as {
+        email: string;
+        phoneNumber: string;
+      };
 
-    console.log(
-      'Captured a "POST /members/reset-password-request" request : ',
-      email,
-      phoneNumber,
-    );
+      console.log(
+        'Captured a "POST /members/reset-password-request" request : ',
+        email,
+        phoneNumber,
+      );
 
-    const user = members.get(email);
+      const user = members.get(email);
 
-    if (!user || user.phoneNumber !== phoneNumber) {
-      return HttpResponse.json('사용자를 찾을 수 없습니다.', { status: 404 });
-    }
+      if (!user || user.phoneNumber !== phoneNumber) {
+        return HttpResponse.json('사용자를 찾을 수 없습니다.', { status: 404 });
+      }
 
-    return HttpResponse.json(`/${user.email}`, { status: 201 });
-  }),
+      return HttpResponse.json(`/${user.email}`, { status: 201 });
+    },
+  ),
 
   //비밀번호 변경
-  http.put('/members/reset-password', async ({ request }) => {
+  http.put(`${API_BASE_URL}/members/reset-password`, async ({ request }) => {
     const { email, newPassword } = (await request.json()) as {
       email: string;
       newPassword: string;
@@ -133,49 +136,58 @@ export const handlers = [
   }),
 
   // 경매 생성
-  http.post('/auction', async ({ request }) => {
+  http.post(`${API_BASE_URL}/auction`, async ({ request }) => {
     const auctionInfo = (await request.json()) as auctionsType;
 
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
 
-    auctions.set(`${new Date()}`, auctionInfo);
+    // auctionUserRating 필드 추가
+    const auctionDetails = {
+      ...auctionInfo,
+      auctionUserRating: 10,
+    };
 
-    return HttpResponse.json(auctionInfo, { status: 201 });
+    auctions.set(`${new Date()}`, auctionDetails);
+
+    return HttpResponse.json(auctionDetails, { status: 201 });
   }),
 
   // 예치금 입출금 내역 요청
-  http.get('/members/my-balance/:search_option', ({ params, request }) => {
-    const { search_option } = params;
+  http.get(
+    `${API_BASE_URL}/members/my-blance/:search_option`,
+    ({ params, request }) => {
+      const { search_option } = params;
 
-    if (!isValidSearchOption(search_option)) {
-      return HttpResponse.json(
-        { message: 'Invalid search option' },
-        { status: 400 },
-      );
-    }
+      if (!isValidSearchOption(search_option)) {
+        return HttpResponse.json(
+          { message: 'Invalid search option' },
+          { status: 400 },
+        );
+      }
 
-    const url = new URL(request.url);
+      const url = new URL(request.url);
 
-    const pageNumberStr = url.searchParams.get('pageNumber');
-    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
+      const pageNumberStr = url.searchParams.get('pageNumber');
+      const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
 
-    const pageSize = 10; // 페이지당 항목 수
-    const startIndex = (pageNumber - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
+      const pageSize = 10; // 페이지당 항목 수
+      const startIndex = (pageNumber - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
 
-    const balanceHistory = DepositHistory.data[search_option] || [];
-    const paginatedList = balanceHistory.slice(startIndex, endIndex);
+      const blanceHistory = DepositHistory.data[search_option] || [];
+      const paginatedList = blanceHistory.slice(startIndex, endIndex);
 
-    return HttpResponse.json({
-      message: '',
-      data: {
-        totalCount: balanceHistory.length,
-        balanceHistory: paginatedList,
-      },
-    });
-  }),
+      return HttpResponse.json({
+        message: '',
+        totalCount: blanceHistory.length,
+        data: {
+          blanceHistory: paginatedList,
+        },
+      });
+    },
+  ),
   // 입찰 내역 요청
-  http.get('/members/join-auction-list', ({ request }) => {
+  http.get(`${API_BASE_URL}/members/join-auction-list`, ({ request }) => {
     const url = new URL(request.url);
     const pageNumberStr = url.searchParams.get('pageNumber');
     const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
@@ -197,7 +209,7 @@ export const handlers = [
     });
   }),
   // 구매 내역 요청
-  http.get('/members/buy-auction-list', ({ request }) => {
+  http.get(`${API_BASE_URL}/members/buy-auction-list`, ({ request }) => {
     const url = new URL(request.url);
     const pageNumberStr = url.searchParams.get('pageNumber');
     const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
@@ -219,7 +231,7 @@ export const handlers = [
     });
   }),
   // 판매 내역 요청
-  http.get('/members/my-auction-list', ({ request }) => {
+  http.get(`${API_BASE_URL}/members/my-auction-list`, ({ request }) => {
     const url = new URL(request.url);
     const pageNumberStr = url.searchParams.get('pageNumber');
     const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
@@ -242,7 +254,7 @@ export const handlers = [
   }),
 
   // 찜목록 요청
-  http.get('/members/my-favorite-auction-list', () => {
+  http.get(`${API_BASE_URL}/members/my-favorite-auction-list`, () => {
     return HttpResponse.json(Likes);
   }),
   // 예치금 요청
@@ -251,7 +263,7 @@ export const handlers = [
   }),
 
   // 회원정보 보기 프로필
-  http.get('/members/my-info', async ({ request }) => {
+  http.get(`${API_BASE_URL}/members/my-info`, async ({ request }) => {
     // Authorization 헤더를 통해 현재 로그인한 사용자의 이메일을 가져옴
     const authHeader = request.headers.get('Authorization');
     if (!authHeader || authHeader !== 'Bearer your_api_token') {
@@ -267,7 +279,7 @@ export const handlers = [
     return HttpResponse.json(user, { status: 200 });
   }),
   //결제 성공
-  http.post('/payments/success', async ({ request }) => {
+  http.post(`${API_BASE_URL}/payments/success`, async ({ request }) => {
     // 요청 본문을 JSON으로 읽어옵니다.
     const newPost = (await request.json()) as PaymentSuccessRequest;
     // totalAmount를 number로 변환하여 Deposit의 balance에 추가
@@ -281,12 +293,29 @@ export const handlers = [
     return HttpResponse.json(Recharge, { status: 200 });
   }),
   //결제 요청
-  http.post('/payments/request', async () => {
+  http.post(`${API_BASE_URL}/payments/request`, async () => {
     return HttpResponse.json(Checkout, { status: 200 });
   }),
   //결제 실패
-  http.get('/payments/fail', async () => {
+  http.get(`${API_BASE_URL}/payments/fail`, async () => {
     return HttpResponse.json(RechargeFail, { status: 200 });
+  }),
+
+  http.get(`${API_BASE_URL}/auction/view/:auctionId`, async ({ params }) => {
+    const auctionId = Array.isArray(params.auctionId)
+      ? params.auctionId[0]
+      : params.auctionId; // 'string | readonly string[]' 타입을 'string'으로 변환
+
+    const auction = auctions.get(auctionId);
+
+    if (!auction) {
+      return HttpResponse.json(
+        { message: 'Auction not found' },
+        { status: 404 },
+      );
+    }
+
+    return HttpResponse.json(auction, { status: 200 });
   }),
 ];
 
