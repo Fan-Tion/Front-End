@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { membersApi } from '../../api/member';
 import { Styled } from '../../styled-components/AuthStyle';
-import PhoneInput from './PhoneInput';
 import AddressInput from './AddressInput';
+import PhoneInput from './PhoneInput';
 
 interface SignUpInterface {
   email: string;
@@ -12,7 +12,7 @@ interface SignUpInterface {
   nickname: string;
   phoneNumber: string;
   address: string;
-  profileImage?: Blob;
+  profileImage: Blob | null;
 }
 const errorMessages = {
   emptyFields: '필수 입력 항목입니다.',
@@ -32,7 +32,7 @@ export default function SignUpForm() {
     nickname: '',
     phoneNumber: '',
     address: '',
-    profileImage: undefined,
+    profileImage: null,
   });
   // 유효성 검사 오류를 담는 상태와 해당 상태를 업데이트 하는 함수 선언
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -40,7 +40,7 @@ export default function SignUpForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
-    
+
     if (name === 'profileImage' && files) {
       const file = files[0];
       setFormData({
@@ -73,8 +73,8 @@ export default function SignUpForm() {
       ...prevFormData,
       address,
     }));
-  };  
-  
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({}); //오류 초기화
@@ -135,10 +135,10 @@ export default function SignUpForm() {
     try {
       const formDataToSend = new FormData();
       Object.keys(formData).forEach(key => {
-      if (key !== 'confirmPassword') {
-        formDataToSend.append(key, formData[key as keyof SignUpInterface] as string | Blob);
-      }
-    });
+        if (key !== 'confirmPassword') {
+          formDataToSend.append(key, formData[key as keyof SignUpInterface] as string | Blob);
+        }
+      });
 
       const response = await membersApi.signUp(formDataToSend);
       console.log(response.data);
@@ -191,7 +191,7 @@ export default function SignUpForm() {
             onChange={handleChange}
           />
           {errors.nickname && <Styled.ErrorMessage>{errors.nickname}</Styled.ErrorMessage>}
-          <PhoneInput            
+          <PhoneInput
             value={formData.phoneNumber}
             onChange={handlePhoneChange}
           />
@@ -201,12 +201,12 @@ export default function SignUpForm() {
           <AddressInput
             value={formData.address}
             onChange={handleAddressChange}
-          /> 
-           {errors.address && (
+          />
+          {errors.address && (
             <Styled.ErrorMessage>{errors.address}</Styled.ErrorMessage>
-          )}   
-            <Styled.FileInputWrap>
-           
+          )}
+          <Styled.FileInputWrap>
+
             <Styled.FileInputLabel htmlFor="profileImage">
               프로필 이미지 설정하기
             </Styled.FileInputLabel>
@@ -217,7 +217,7 @@ export default function SignUpForm() {
               accept="image/*"
               onChange={handleChange}
             />
-             {previewUrl && <Styled.ImagePreview src={previewUrl} alt="Profile Preview" />}
+            {previewUrl && <Styled.ImagePreview src={previewUrl} alt="Profile Preview" />}
           </Styled.FileInputWrap>
           <Styled.Input type="submit" value="Sign up" />
           {errors.serverError && (
