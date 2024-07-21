@@ -141,9 +141,15 @@ export const handlers = [
 
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
 
-    auctions.set(`${new Date()}`, auctionInfo);
+    // auctionUserRating 필드 추가
+    const auctionDetails = {
+      ...auctionInfo,
+      auctionUserRating: 10,
+    };
 
-    return HttpResponse.json(auctionInfo, { status: 201 });
+    auctions.set(`${new Date()}`, auctionDetails);
+
+    return HttpResponse.json(auctionDetails, { status: 201 });
   }),
 
   // 예치금 입출금 내역 요청

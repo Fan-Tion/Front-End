@@ -39,7 +39,7 @@ export interface auctionsType {
   title: string;
   category: string;
   auctionType: boolean;
-  auctionImage?: string[];
+  auctionImage: string[];
   description: string;
   currentBidPrice: number;
   buyNowPrice: number;
