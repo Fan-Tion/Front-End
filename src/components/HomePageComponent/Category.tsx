@@ -2,14 +2,21 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   text-align: center;
-  margin-top: 30px;
-  
 `;
 const Image = styled.img`
-  width: 300px;
-  height: 300px;
+  margin-top: 70px;
+  width: 200px;
+  height: 250px;
+  border: 2px solid #cde990;
   border-radius: 20px;
-  border-radius: 20px;
+  transition:
+    transform 0.3s,
+    border-color 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+    border-color: #aacb73;
+  }
 `;
 const CategoryName = styled.div`
   font-size: 20px;

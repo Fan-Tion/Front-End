@@ -293,7 +293,6 @@ export const handlers = [
    http.get('/auction/favorite-category', async () => {
     return HttpResponse.json(favoriteCategories, { status: 200 });
     }),
-    
 ];
 
 
