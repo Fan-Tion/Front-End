@@ -37,12 +37,14 @@ export const members: Map<string, membersMapType> = new Map([
 
 export interface auctionsType {
   title: string;
+  category: string;
   auctionType: boolean;
-  auctionImage: string[];
+  auctionImage?: string[];
   description: string;
   currentBidPrice: number;
   buyNowPrice: number;
   endDate: string;
+  createDate: string;
 }
 
 interface bidType {
@@ -53,20 +55,20 @@ interface bidType {
 
 export interface auctionDetailsType {
   auctionType: boolean;
-  auctionUserNickname: string;
+  auctionUserNickname?: string;
   auctionUserRating: number;
   title: string;
   category: string;
   description: string;
   auctionImage: string[];
   buyNowPrice: number;
-  currentBidder: string;
+  currentBidder?: string;
   currentBidPrice: number;
-  favoriteCnt: number;
+  favoriteCnt?: number;
   createDate: string;
   endDate: string;
-  status: boolean;
-  bid: bidType;
+  status?: boolean;
+  bid?: bidType;
 }
 
 export const auctions: Map<string, auctionDetailsType> = new Map([

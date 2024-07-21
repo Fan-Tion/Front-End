@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 });
 */
 
-const API_BASE_URL = '';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 const API_TOKEN = 'your_api_token';
 
 // axios instance creation.
