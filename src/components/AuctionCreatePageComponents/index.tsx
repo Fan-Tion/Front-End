@@ -1,13 +1,15 @@
-import { Editor } from "@toast-ui/react-editor";
-import { useCallback, useRef, useState } from "react";
+import useFileHandler from "@hooks/useFileHandler";
+import { useFormHandler } from "@hooks/useFormHandler";
+import { useModalHandler } from "@hooks/useModalHandler";
+import Modal from "@utils/Modal";
+import { lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { auctionApi } from "../../api/auction";
 import { GlobalButton } from "../../styled-components/Globalstyle";
-import Modal from "../../utils/Modal";
-import TextEditor from "../../utils/TextEditor";
-import ImageUploader from "./ImageUploader";
-import InputArea from "./InputArea";
+
+const InputArea = lazy(() => import('./InputArea'));
+const ImageUploader = lazy(() => import('./ImageUploader'));
+const TextEditor = lazy(() => import('@utils/TextEditor'));
 
 const Wrapper = styled.section`
   margin: 20px auto;
@@ -53,129 +55,23 @@ const ImageUploadButton = styled(Button)`
   width: 100%;
 `
 
-interface formDataType {
-  title: string,
-  currentBidPrice: string | number,
-  buyNowPrice: string | number,
-  endDate: string,
-  auctionType: boolean,
-  category: string,
-  auctionImage?: File[],
-  description?: string,
-  [key: string]: string | number | boolean | File[] | undefined;
-}
-
 export default function AuctionCreatePageComponents() {
-  const [buttonDisable, setButtonDisable] = useState(false)
-  const editorRef = useRef<Editor | null>(null);
-  const [formData, setFormData] = useState<formDataType>({
-    title: '',
-    currentBidPrice: '',
-    buyNowPrice: '',
-    endDate: '',
-    auctionType: false,
-    auctionImages: [],
-    category: ''
-  })
-  const [_files, setFiles] = useState<File[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigation = useNavigate();
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    buttonDisable,
+    editorRef
+  } = useFormHandler();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, } = e.target;
-
-    if (name === 'auctionType') {
-      setFormData({
-        ...formData,
-        [name]: value === '1' // '1'은 true, '0'은 false로 변환
-      });
-      return;
-    }
-
-    // 가격 입력에 대한 음수 값 방지 및 숫자만 입력되도록 유효성 검사
-    if ((name === "currentBidPrice"
-      || name === "buyNowPrice")
-      && (isNaN(Number(value.replace(/,/g, '')))
-        || Number(value.replace(/,/g, '')) < 0)) {
-      return;
-    }
-
-    const newFormData = {
-      ...formData,
-      [name]: value.replace(/,/g, '')
-    };
-
-    setFormData(newFormData);
-
-  }
-
-  const handleFilesChange = useCallback((newFiles: File[]) => {
-    setFiles(newFiles);
-    setFormData((prevData) => ({
-      ...prevData,
-      auctionImages: newFiles,
-    }));
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const error = Number(formData.buyNowPrice) <= Number(formData.currentBidPrice);
-
-    if (error) {
-      alert("즉시 구매가는 경매 시작가보다 작거나 같을 수 없습니다.");
-      return;
-    }
-
-    const editorInstance = editorRef.current?.getInstance();
-    const description = editorInstance ? editorInstance.getHTML() : '';
-    const data = new FormData();
-
-    for (const key in formData) {
-      data.append(key, formData[key] as string | Blob);
-    }
-    data.append('description', description);
-
-    // FormData의 값을 읽어 출력
-    // for (const [key, value] of data.entries()) {
-    //   console.log(`${key}: ${value} `);
-    // }
-
-    try {
-      // 서버에 데이터 전달 
-      setButtonDisable(true);
-      const response = await auctionApi.create(data);
-
-      console.log(response)
-    } catch (error) {
-      console.error(error);
-      alert(error)
-    } finally {
-      setButtonDisable(false);
-    }
-  }
-
-  const numberFormat = new Intl.NumberFormat();
-  const formattedFormData = {
-    ...formData,
-    currentBidPrice: formData.currentBidPrice === 0
-      || formData.currentBidPrice === ''
-      ? ''
-      : numberFormat.format(Number(formData.currentBidPrice)),
-    buyNowPrice: formData.buyNowPrice === 0
-      || formData.buyNowPrice === ''
-      ? ''
-      : numberFormat.format(Number(formData.buyNowPrice)),
-  };
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen)
-  }
+  const { handleFilesChange } = useFileHandler();
+  const { isModalOpen, toggleModal } = useModalHandler();
+  const navigate = useNavigate();
 
   const cancelHandler = () => {
-    const ok = confirm('경매 작성을 취소하고 홈 화면으로 돌아갈까요?')
-    if (ok) navigation('/')
-  }
+    const ok = confirm('경매 작성을 취소하고 홈 화면으로 돌아갈까요?');
+    if (ok) navigate('/');
+  };
 
   return (
     <Wrapper>
@@ -183,7 +79,7 @@ export default function AuctionCreatePageComponents() {
         <Col>
           <InputArea
             onChange={handleChange}
-            formData={formattedFormData}
+            formData={formData}
           />
         </Col>
         <ImageUploadButton type="button" width="450px" onClick={toggleModal}>

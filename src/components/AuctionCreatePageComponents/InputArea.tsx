@@ -1,5 +1,5 @@
+import useDateRange from "@hooks/useDateRange";
 import styled from "styled-components";
-import { useDateRange } from "../../hooks/useDateRange";
 import { GlobalInput } from "../../styled-components/Globalstyle";
 
 const Row = styled.div`

@@ -1,10 +1,12 @@
-export { default as AuctionCreatePage } from './AuctionCreatePage';
-export { default as AuctionHistoryPage } from './AuctionHistoryPage';
-export { default as DetailPage } from './DetailPage';
-export { default as ErrorPage } from './ErrorPage';
-export { default as FindPasswordPage } from './FindPasswordPage';
-export { default as HomePage } from './HomePage';
-export { default as MyPage } from './MyPage';
-export { default as PasswordResetPage } from './PasswordResetPage';
-export { default as SignInPage } from './SignInPage';
-export { default as SignUpPage } from './SignUpPage';
+import { lazy } from 'react';
+
+export const AuctionCreatePage = lazy(() => import('./AuctionCreatePage'));
+export const AuctionHistoryPage = lazy(() => import('./AuctionHistoryPage'));
+export const DetailPage = lazy(() => import('./DetailPage'));
+export const ErrorPage = lazy(() => import('./ErrorPage'));
+export const FindPasswordPage = lazy(() => import('./FindPasswordPage'));
+export const HomePage = lazy(() => import('./HomePage'));
+export const MyPage = lazy(() => import('./MyPage'));
+export const PasswordResetPage = lazy(() => import('./PasswordResetPage'));
+export const SignInPage = lazy(() => import('./SignInPage'));
+export const SignUpPage = lazy(() => import('./SignUpPage'));
