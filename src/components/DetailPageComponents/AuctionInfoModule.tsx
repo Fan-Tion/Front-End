@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GlobalButton } from '../../styled-components/Globalstyle';
+import { calculateTimeLeft, formatDateTime, formatTimeLeft } from '../../utils/TimeUtils';
 
+// styles 
 const InfoContainer = styled.div`
   border: 1px solid #eee;
   border-radius: 8px;
@@ -24,16 +27,21 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
+  align-items: center;
 `;
 
 const Label = styled.div`
   font-size: 14px;
   color: #666;
+  width: 80px;
 `;
 
 const Value = styled.div`
   font-size: 14px;
   font-weight: bold;
+  font-family: monospace; /* 고정폭 글꼴로 변경 */
+  width: 220px; /* 고정된 폭 설정 */
+  text-align: center; /* 텍스트 중앙 정렬 */
 `;
 
 const HighlightedValue = styled(Value)`
@@ -41,8 +49,22 @@ const HighlightedValue = styled(Value)`
 `;
 
 const BuyNowButton = styled(GlobalButton)`
+  width: 200px;
   align-self: center;
+  border-radius: 10px;
 `;
+
+const BidButton = styled(GlobalButton)`
+  width: 100%;
+  background-color: #FFD4D4;
+  border-radius: 10px;
+  &:hover {
+    background-color: #FFB3B3;
+  }
+  &:active {
+    background-color: #FFA1A1;
+  }
+`
 
 const Divider = styled.hr`
   border: 1px solid #eee;
@@ -51,18 +73,37 @@ const Divider = styled.hr`
   border-style: solid;
   border-width: 1px 0 0 0;
 `
+
+// initialize
 interface AuctionInfoPropType {
-  title: string;
-  category: string;
+  details: {
+    title: string;
+    category: string;
+    endDate: string;
+    createDate: string;
+    currentBidPrice: number;
+    buyNowPrice: number;
+  }
 }
 
-export default function AuctionInfoModule({ title, category }: AuctionInfoPropType) {
+const categoryIndex: { [key: string]: string } = {
+  'photo-card': "포토 카드",
+  'sign': '사인',
+  'digital': '디지털'
+}
 
-  const categoryIndex: { [key: string]: string } = {
-    'photo-card': "포토 카드",
-    'sign': '사인',
-    'digital': '디지털'
-  }
+export default function AuctionInfoModule({ details }: AuctionInfoPropType) {
+
+  const { title, category, endDate, createDate, currentBidPrice, buyNowPrice } = details;
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endDate));
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(endDate));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [endDate]);
 
   return (
     <InfoContainer>
@@ -70,27 +111,26 @@ export default function AuctionInfoModule({ title, category }: AuctionInfoPropTy
       <Row>
         <Label>카테고리</Label>
         <Value>{categoryIndex[category]}</Value>
-        <Label>남은 시간</Label>
-        <HighlightedValue>23:07:18</HighlightedValue>
+        <Label>시작 시간</Label>
+        <Value>{formatDateTime(createDate)}</Value>
       </Row>
       <Row>
-        <Label>시작 시간</Label>
-        <Value>2024.07.01 20:31:05</Value>
         <Label>종료 시간</Label>
-        <Value>2024.07.03 20:31:05</Value>
+        <Value>{formatDateTime(endDate)}</Value>
+        <Label>남은 시간</Label>
+        <HighlightedValue>
+          {formatTimeLeft(timeLeft)}
+        </HighlightedValue>
       </Row>
       <Divider />
       <Row>
-        <Label>시작 가격</Label>
-        <Value>15,000 원</Value>
-        <Label>현재 입찰 가격</Label>
-        <Value>30,000 원</Value>
+        <Label>현재 가격</Label>
+        <Value>{currentBidPrice.toLocaleString()} 원</Value>
+        <Label>즉시 구매</Label>
+        <Value>{buyNowPrice.toLocaleString()} 원</Value>
+        <BuyNowButton>즉시 구매</BuyNowButton>
       </Row>
-      <Row>
-        <Label>즉시구매가</Label>
-        <Value>50,000 원</Value>
-      </Row>
-      <BuyNowButton>즉시 구매</BuyNowButton>
+      <BidButton>입찰하기</BidButton>
     </InfoContainer>
   )
 }

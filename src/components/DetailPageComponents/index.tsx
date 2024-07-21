@@ -79,7 +79,7 @@ export default function DetailPageComponents() {
     }
   }, [auctionId]);
 
-  if (loading) {
+  if (loading || auctionDetails === null) {
     return <Container>Loading...</Container>;
   }
 
@@ -91,15 +91,15 @@ export default function DetailPageComponents() {
           <ImageModule />
         </LeftContainer>
         <RightContainer>
-          <AuctionInfoModule title={auctionDetails!.title} category={auctionDetails!.category} />
+          <AuctionInfoModule details={auctionDetails} />
           <SameKeywordAuctions />
         </RightContainer>
       </AuctionContainer>
       <Functions>
-        <SellerRating />
+        <SellerRating rating={auctionDetails.auctionUserRating} />
         <SteamedButton />
       </Functions>
-      <ItemDescription />
+      <ItemDescription description={auctionDetails.description} />
     </Container >
   );
 }

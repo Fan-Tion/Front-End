@@ -54,6 +54,7 @@ interface bidType {
 export interface auctionDetailsType {
   auctionType: boolean;
   auctionUserNickname: string;
+  auctionUserRating: number;
   title: string;
   category: string;
   description: string;
@@ -73,6 +74,7 @@ export const auctions: Map<string, auctionsType> = new Map([
     '1',
     {
       auctionUserNickname: 'John Titor',
+      auctionUserRating: 3.8,
       title: '타임머신 팝니다.',
       category: 'digital',
       auctionType: true,
@@ -84,7 +86,7 @@ export const auctions: Map<string, auctionsType> = new Map([
       buyNowPrice: 1000000,
       favoriteCnt: 39,
       createDate: '2001-01-30T10:03:43',
-      endDate: '2001-03-24T10:03:43',
+      endDate: '2032-03-24T10:03:43',
       status: true,
       bid: {
         bidPrice: 139800,
