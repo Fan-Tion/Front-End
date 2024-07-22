@@ -21,7 +21,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Path aliases */
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@api/*": ["src/api/*"],
+      "@mocks/*": ["src/mocks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@layout/*": ["src/layout/*"]
+    }
   },
   "include": ["src"]
 }

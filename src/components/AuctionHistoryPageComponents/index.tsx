@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { GlobalButton } from '../../styled-components/Globalstyle';
 import AuctionHistoryContent from './AuctionHistoryContent';
 import Deposit from './Deposit';
 import WishList from './WishList';
@@ -11,7 +12,9 @@ const Container = styled.div`
   padding: 50px 150px;
   width: 60%;
   min-height: 70vh;
-  background-color: #c4c4c4;
+  background-color: #ffffe8;
+  border-radius: 15px;
+  border: 2px solid #aacb73;
 `;
 
 const Title = styled.span`
@@ -20,23 +23,19 @@ const Title = styled.span`
   font-weight: bold;
 `;
 
-const Tab = styled.button<{ $isSelected: boolean }>`
+const Tab = styled(GlobalButton)<{ $isSelected: boolean }>`
   margin: 30px 10px 0 0;
   width: 100px;
   height: 40px;
   font-size: 16px;
-
-  background-color: ${({ $isSelected }) => ($isSelected ? '#495057' : 'gray')};
-  color: #fff;
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? '#AACB73' : '#CDE990'};
   border: none;
   border-radius: 6px;
-
   cursor: pointer;
-
   transform: ${({ $isSelected }) => ($isSelected ? 'scale(1.05)' : 'none')};
-
   &:hover {
-    background-color: #495057;
+    background-color: #aacb73;
     transform: scale(1.05);
   }
 `;

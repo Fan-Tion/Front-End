@@ -21,3 +21,4 @@ pull_request_template.md
 *.njsproj
 *.sln
 *.sw?
+.env

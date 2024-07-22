@@ -12,7 +12,7 @@ interface SignUpInterface {
   nickname: string;
   phoneNumber: string;
   address: string;
-  profileImage?: Blob;
+  profileImage: Blob | null;
 }
 const errorMessages = {
   emptyFields: '필수 입력 항목입니다.',
@@ -33,7 +33,7 @@ export default function SignUpForm() {
     nickname: '',
     phoneNumber: '',
     address: '',
-    profileImage: undefined,
+    profileImage: null,
   });
   // 유효성 검사 오류를 담는 상태와 해당 상태를 업데이트 하는 함수 선언
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -249,9 +249,6 @@ export default function SignUpForm() {
           이미 계정이 있으신가요? <Link to="/signin">로그인 페이지</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
-      <Link to="/">
-        <Styled.LogoText>Fan-Tion</Styled.LogoText>
-      </Link>
     </Styled.OuterWrapper>
   );
 }

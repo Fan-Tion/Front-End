@@ -14,6 +14,9 @@ const Content = styled.div`
   height: 190px;
   background-color: white;
   overflow-y: scroll;
+  border: 2px solid #cde990;
+  border-radius: 15px;
+  scrollbar-color: #cde990 transparent;
 `;
 const List = styled.ul`
   list-style: none;

@@ -37,25 +37,95 @@ export const members: Map<string, membersMapType> = new Map([
 
 export interface auctionsType {
   title: string;
+  category: string;
   auctionType: boolean;
-  auctionImage: [];
+  auctionImage: string[];
   description: string;
   currentBidPrice: number;
   buyNowPrice: number;
   endDate: string;
+  createDate: string;
 }
 
-export const auctions: Map<string, auctionsType> = new Map([
+interface bidType {
+  bidPrice: number;
+  bidder: string;
+  createDate: string;
+}
+
+export interface auctionDetailsType {
+  auctionType: boolean;
+  auctionUserNickname?: string;
+  auctionUserRating: number;
+  title: string;
+  category: string;
+  description: string;
+  auctionImage: string[];
+  buyNowPrice: number;
+  currentBidder?: string;
+  currentBidPrice: number;
+  favoriteCnt?: number;
+  createDate: string;
+  endDate: string;
+  status?: boolean;
+  bid?: bidType;
+}
+
+export const auctions: Map<string, auctionDetailsType> = new Map([
   [
-    'auctionId',
+    '1',
     {
-      title: 'testAuction',
+      auctionUserNickname: 'John Titor',
+      auctionUserRating: 8.8,
+      title: '타임머신 팝니다.',
+      category: 'digital',
       auctionType: true,
       auctionImage: [],
-      description: '',
+      description:
+        '목표로 했던 IBM 5100을 입수해서 더이상 필요하지 않게 되었습니다.',
+      currentBidder: 'CERN',
       currentBidPrice: 10000,
       buyNowPrice: 1000000,
-      endDate: '',
+      favoriteCnt: 39,
+      createDate: '2001-01-30T10:03:43',
+      endDate: '2032-03-24T10:03:43',
+      status: true,
+      bid: {
+        bidPrice: 139800,
+        bidder: 'Beryl',
+        createDate: '2001-01-30T10:03:43',
+      },
+    },
+  ],
+  [
+    '2',
+    {
+      auctionUserNickname: 'CERN',
+      auctionUserRating: 6.8,
+      title: '미개봉 IBM 5100 팝니다.',
+      category: 'digital',
+      auctionType: true,
+      auctionImage: [
+        'https://via.placeholder.com/500',
+        'https://via.placeholder.com/400',
+        'https://via.placeholder.com/300',
+        'https://via.placeholder.com/200',
+        'https://via.placeholder.com/100',
+      ],
+      description:
+        '레트로 PC 중 엄청 유명하고 숨겨진 기능도 존재한다는 전설적인 머신입니다.',
+      currentBidder: 'John Titor',
+      currentBidPrice: 200000,
+      buyNowPrice: 40000000,
+      favoriteCnt: 391,
+      createDate: '2001-01-20T10:03:43',
+      endDate: '2032-03-28T10:03:43',
+      status: true,
+      bid: {
+        bidPrice: 1398000,
+        bidder: 'Beryl2',
+        createDate: '2001-01-30T10:04:43',
+      },
     },
   ],
 ]);
@@ -64,17 +134,17 @@ export const DepositHistory = {
   message: '',
   data: {
     '1months': Array.from({ length: 10 }, (_, i) => ({
-      blance: 20000,
+      balance: 20000,
       type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
       createDate: 20240628,
     })),
     '3months': Array.from({ length: 30 }, (_, i) => ({
-      blance: 20000,
+      balance: 20000,
       type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
       createDate: 20240428,
     })),
     '1year': Array.from({ length: 60 }, (_, i) => ({
-      blance: 20000,
+      balance: 20000,
       type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
       createDate: 20240128,
     })),
@@ -130,7 +200,7 @@ export const Likes = {
 export const Deposit = {
   message: '',
   data: {
-    blance: 50000,
+    balance: 50000,
   },
 };
 export const Checkout = {
