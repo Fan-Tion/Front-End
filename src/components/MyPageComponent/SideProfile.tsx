@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import Modal from '../../utils/Modal';
+import TradeHistory from '../TradeComponent/TradeHistory';
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
-  border-right: 2px solid #CDE990;
+  border-right: 2px solid #cde990;
   width: 300px;
   min-width: 240px;
   gap: 20px;
@@ -56,17 +59,18 @@ const ChargeButton = styled.button`
   font-size: 16px;
   font-weight: bold;
   color: #fff;
-  background-color: #CDE990;
+  background-color: #cde990;
   border: none;
-  border-radius : 25px;
+  border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #AACB73;
+    background-color: #aacb73;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
+const TradeButton = styled(ChargeButton)``;
 const Footer = styled.div`
   display: flex;
   flex-direction: column;
@@ -78,16 +82,16 @@ const SignOutButton = styled.button`
   width: 100px;
   height: 40px;
   font-size: 16px;
-  background-color : #FFD4D4;
+  background-color: #ffd4d4;
   border: none;
   color: #222;
-  border-radius : 25px;
+  border-radius: 25px;
   transition: background-color 0.3s ease;
 
   background-color: none;
   &:hover {
     color: white;
-    background-color: #FFB3B3;
+    background-color: #ffb3b3;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
@@ -101,9 +105,11 @@ const LogoName = styled.div`
 interface SideProfileProps {
   nickname: string;
 }
-
-
 export default function SideProfile({ nickname }: SideProfileProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
     <Wrapper>
       <Title>마이 페이지</Title>
@@ -115,6 +121,10 @@ export default function SideProfile({ nickname }: SideProfileProps) {
       <Name>{nickname || 'Anonymous'}</Name>
       <Money>예치금: 50000원</Money>
       <ChargeButton>충전하기</ChargeButton>
+      <TradeButton onClick={toggleModal}>거래중</TradeButton>
+      <Modal isOpen={isModalOpen} onClose={toggleModal}>
+        <TradeHistory />
+      </Modal>
       <Footer>
         <SignOutButton>로그아웃</SignOutButton>
         <LogoName>Fan-tion</LogoName>

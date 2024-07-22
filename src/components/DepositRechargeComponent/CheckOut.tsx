@@ -67,19 +67,20 @@ export default function CheckoutPage({ inputValue }: CheckoutPageProps) {
             className="btn primary w-100"
             onClick={async () => {
               try {
-                /**
-                 * 결제 요청
-                 * 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
-                 * 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
-                 * @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
-                 */
+                const orderId = generateRandomString();
+
+                // 결제 요청 전 서버에 orderId와 amount 저장
                 await rechargeApi.checkout({
                   amount: amount.value,
                   paymentType: '카드', // 임시
                   orderName: '예치금 충전',
+                  orderId: orderId, // orderId를 추가
+                  customerEmail: 'customer123@gmail.com', // 필요하다고 해서 임시로 넣어둠
+                  customerName: '김토스', // 필요하다고 해서 임시로 넣어둠
                 });
+
                 await widgets?.requestPayment({
-                  orderId: generateRandomString(),
+                  orderId: orderId,
                   orderName: '토스 티셔츠 외 2건',
                   customerName: '김토스',
                   customerEmail: 'customer123@gmail.com',
@@ -94,6 +95,8 @@ export default function CheckoutPage({ inputValue }: CheckoutPageProps) {
                 });
               } catch (error) {
                 // TODO: 에러 처리
+                console.error('결제 요청 중 오류가 발생했습니다:', error);
+                alert('결제 요청 중 오류가 발생했습니다. 다시 시도해 주세요.');
               }
             }}
           >

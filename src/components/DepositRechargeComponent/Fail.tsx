@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import './toss.css';
 import { rechargeApi } from '../../api/recharge';
+import './toss.css';
 
-export function FailPage() {
+export default function FailComponent() {
   const [searchParams] = useSearchParams();
   const errorCode = searchParams.get('code');
   const errorMessage = searchParams.get('message');
@@ -84,5 +84,3 @@ export function FailPage() {
     </div>
   );
 }
-
-export default FailPage;

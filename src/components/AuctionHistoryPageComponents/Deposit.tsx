@@ -64,7 +64,7 @@ export default function Deposit() {
       try {
         const response = await historyApi.deposit();
 
-        setData(response);
+        setData(response.data.balance);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {
@@ -91,18 +91,18 @@ export default function Deposit() {
           <div>{error}</div>
         ) : data ? (
           <>
-            <Price>{data.data.balance.toLocaleString()} 원</Price>
-            <Charge onClick={toggleModal}>충전하기</Charge>
-            <Modal isOpen={isModalOpen} onClose={toggleModal}>
-              <ChangePrice />
-            </Modal>
-            <DepositHistory onClick={() => navigate('/mypage/deposit-history')}>
-              예치금 입출금 내역
-            </DepositHistory>
+            <Price>{data.toLocaleString()} 원</Price>
           </>
         ) : (
           <div>데이터가 없습니다.</div>
         )}
+        <Charge onClick={toggleModal}>충전하기</Charge>
+        <Modal isOpen={isModalOpen} onClose={toggleModal}>
+          <ChangePrice />
+        </Modal>
+        <DepositHistory onClick={() => navigate('/mypage/deposit-history')}>
+          예치금 입출금 내역
+        </DepositHistory>
       </Content>
     </Container>
   );

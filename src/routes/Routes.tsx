@@ -1,14 +1,13 @@
-import DepositHistoryPage from '@components/DepositHistoryPageComponents';
-import { FailPage } from '@components/DepositRechargeComponent/Fail';
-import { SuccessPage } from '@components/DepositRechargeComponent/Success';
 import RootLayout from '@layout/RootLayout';
 import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   AuctionCreatePage,
   AuctionHistoryPage,
+  DepositHistoryPage,
   DetailPage,
   ErrorPage,
+  FailPage,
   FindPasswordPage,
   HomePage,
   MyPage,
@@ -16,6 +15,8 @@ import {
   PopularCategoryPage,
   SignInPage,
   SignUpPage,
+  SuccessPage,
+
 } from '../pages';
 
 const Loader = () => <div>Loading...</div>;
