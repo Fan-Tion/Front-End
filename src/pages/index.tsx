@@ -10,3 +10,4 @@ export const MyPage = lazy(() => import('./MyPage'));
 export const PasswordResetPage = lazy(() => import('./PasswordResetPage'));
 export const SignInPage = lazy(() => import('./SignInPage'));
 export const SignUpPage = lazy(() => import('./SignUpPage'));
+export const PopularCategoryPage = lazy(() => import('./PopularCategoryPage'));

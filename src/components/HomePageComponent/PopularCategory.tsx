@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { categoryApi } from '../../api/popularcategory';
+import { categoryApi } from '@api/popularcategory';
 import {
   AllButton,
   Category,
@@ -70,6 +70,7 @@ export default function PopularCategory() {
                 categoryImages[category.title] ||
                 'https://via.placeholder.com/300'
               }
+              categoryUrl={`/auction/search?searchOption=CATEGORY&categoryOption=${category.title}&keyword=&page=0`}
             />
           ))}
         </Div>
