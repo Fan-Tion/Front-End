@@ -144,7 +144,7 @@ export default function LayoutHeader() {
         </SearchButton>
       </SearchBar>
       <ButtonGroup>
-        <Link to='auction/create'>
+        <Link to="auction/create">
           <MenuButton>경매등록</MenuButton>
         </Link>
         {isLoggedIn ? (

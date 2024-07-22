@@ -10,7 +10,6 @@ const errorMessages = {
 };
 
 export default function FindPasswordForm() {
-
   const [formData, setFormData] = useState({
     email: '',
     phoneNumber: '',
@@ -28,7 +27,6 @@ export default function FindPasswordForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-
     if (!formData.email || !formData.phoneNumber) {
       setError(errorMessages.emptyFields);
       return;
@@ -41,9 +39,7 @@ export default function FindPasswordForm() {
       const redirect = confirm(response);
       if (redirect) {
         navigate(`/reset-password${response}`);
-
       }
-
     } catch (error) {
       console.error('비밀번호 찾기 요청 실패:', error);
 
@@ -56,8 +52,19 @@ export default function FindPasswordForm() {
       <Styled.Wrapper>
         <Styled.Title>비밀번호 찾기</Styled.Title>
         <Styled.Form onSubmit={handleSubmit}>
-          <Styled.Input name="email" placeholder="email" type="email" value={formData.email} onChange={handleChange} />
-          <Styled.Input name="phoneNumber" placeholder="phone number" value={formData.phoneNumber} onChange={handleChange} />
+          <Styled.Input
+            name="email"
+            placeholder="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <Styled.Input
+            name="phoneNumber"
+            placeholder="phone number"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+          />
           <Styled.Input type="submit" value="인증하기" />
           {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
         </Styled.Form>
@@ -65,8 +72,9 @@ export default function FindPasswordForm() {
           로그인페이지로 <Link to="/signin">로그인페이지로 이동</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
+      <Link to="/">
+        <Styled.LogoText>Fan-Tion</Styled.LogoText>
+      </Link>
     </Styled.OuterWrapper>
   );
-
-
 }

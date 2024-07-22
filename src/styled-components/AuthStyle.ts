@@ -170,6 +170,14 @@ export const ImagePreview = styled.img`
     margin-top : 10px;
 `;
 
+export const LogoText = styled.div`
+    font-size: 52px;
+    align-self: center;
+    font-weight: bold;
+    color: #CDE990;
+    padding : 30px;
+    `
+
 export const Styled = {
   OuterWrapper,
   Wrapper,
@@ -187,5 +195,6 @@ export const Styled = {
   ImagePreview,
   SocialButtonWrap,
   NaverImg,
+  LogoText,
 
 };

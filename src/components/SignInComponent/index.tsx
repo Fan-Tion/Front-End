@@ -4,8 +4,8 @@ import { membersApi } from '../../api/member';
 import { Styled } from '../../styled-components/AuthStyle';
 
 const errorMessages = {
-  emptyFields: '이메일 또는 비밀번호가 올바르지 않습니다.'
-}
+  emptyFields: '이메일 또는 비밀번호가 올바르지 않습니다.',
+};
 
 export default function SignInForm() {
   const navigate = useNavigate();
@@ -17,11 +17,11 @@ export default function SignInForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
+    setFormData(prevState => ({
       ...prevState,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ export default function SignInForm() {
       const response = await membersApi.signIn({ email, password });
       console.log(response.data);
       // 로그인 성공 처리
-      navigate('/')
+      navigate('/');
     } catch (error) {
       console.error(error);
       // 로그인 실패 처리 (예: 에러 메시지 표시)
@@ -61,7 +61,7 @@ export default function SignInForm() {
           <Styled.Input type="submit" value="Sign In" />
         </Styled.Form>
         <Styled.SocialButtonWrap>
-          <Styled.NaverImg src='/img/naver_logo.png'/>
+          <Styled.NaverImg src="/img/naver_logo.png" />
           Naver Login
         </Styled.SocialButtonWrap>
         <Styled.Switcher>
@@ -72,7 +72,9 @@ export default function SignInForm() {
           회원이 아니신가요? <Link to="/signup">회원가입</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
+      <Link to="/">
+        <Styled.LogoText>Fan-Tion</Styled.LogoText>
+      </Link>
     </Styled.OuterWrapper>
   );
-
 }

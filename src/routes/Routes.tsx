@@ -12,9 +12,11 @@ import {
   HomePage,
   MyPage,
   PasswordResetPage,
+  PopularCategoryPage,
   SignInPage,
   SignUpPage,
   SuccessPage,
+
 } from '../pages';
 
 const Loader = () => <div>Loading...</div>;
@@ -99,6 +101,14 @@ export default function Routes() {
           element: (
             <Suspense fallback={<Loader />}>
               <FailPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'auction/search',
+          element: (
+            <Suspense fallback={<Loader />}>
+              <PopularCategoryPage />
             </Suspense>
           ),
         },

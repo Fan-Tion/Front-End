@@ -238,3 +238,42 @@ export const RechargeFail = {
     orederId: 'orderId',
   },
 };
+
+export const favoriteCategories = {
+  data: [
+    {
+      title: "ACCESSORIES",
+      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=ACCESSORIES&keyword=&page=0"
+    },
+    {
+      title: "ALBUM",
+      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=ALBUM&keyword=&page=0"
+    },
+    {
+      title: "CLOTHES",
+      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=CLOTHES&keyword=&page=0"
+    },
+    {
+      title: "FIGURE",
+      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=FIGURE&keyword=&page=0"
+    },
+    {
+      title: "GAME",
+      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=GAME&keyword=&page=0"
+    },
+    {
+      title: "PHOTO_CARD",
+      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=PHOTO_CARD&keyword=&page=0"
+    },
+    {
+      title: "POSTER",
+      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=POSTER&keyword=&page=0"
+    },
+    {
+      title: "SIGN",
+      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=SIGN&keyword=&page=0"
+    }
+  ]
+};
+
+
