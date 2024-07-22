@@ -7,6 +7,7 @@ import {
   Checkout,
   Deposit,
   DepositHistory,
+  favoriteCategories,
   JoinHistory,
   Likes,
   members,
@@ -258,7 +259,7 @@ export const handlers = [
     return HttpResponse.json(Likes);
   }),
   // 예치금 요청
-  http.get('/members/my-info-deposit', () => {
+  http.get(`${API_BASE_URL}/members/my-info-deposit`, () => {
     return HttpResponse.json(Deposit);
   }),
 
@@ -300,7 +301,6 @@ export const handlers = [
   http.get(`${API_BASE_URL}/payments/fail`, async () => {
     return HttpResponse.json(RechargeFail, { status: 200 });
   }),
-
   http.get(`${API_BASE_URL}/auction/view/:auctionId`, async ({ params }) => {
     const auctionId = Array.isArray(params.auctionId)
       ? params.auctionId[0]
@@ -316,6 +316,11 @@ export const handlers = [
     }
 
     return HttpResponse.json(auction, { status: 200 });
+  }),
+
+  // 인기 카테고리 리스트
+  http.get('/auction/favorite-category', async () => {
+    return HttpResponse.json(favoriteCategories, { status: 200 });
   }),
 ];
 

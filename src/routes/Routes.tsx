@@ -1,24 +1,25 @@
-import DepositHistoryPage from '@components/DepositHistoryPageComponents';
-import { FailPage } from '@components/DepositRechargeComponent/Fail';
-import { SuccessPage } from '@components/DepositRechargeComponent/Success';
 import RootLayout from '@layout/RootLayout';
 import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   AuctionCreatePage,
   AuctionHistoryPage,
+  DepositHistoryPage,
   DetailPage,
   ErrorPage,
+  FailPage,
   FindPasswordPage,
   HomePage,
   MyPage,
   PasswordResetPage,
+  PopularCategoryPage,
   SignInPage,
-  SignUpPage
+  SignUpPage,
+  SuccessPage,
+
 } from '../pages';
 
 const Loader = () => <div>Loading...</div>;
-
 
 export default function Routes() {
   const router = createBrowserRouter([
@@ -37,7 +38,7 @@ export default function Routes() {
             <Suspense fallback={<Loader />}>
               <ErrorPage />
             </Suspense>
-          )
+          ),
         },
         {
           path: '',
@@ -100,6 +101,14 @@ export default function Routes() {
           element: (
             <Suspense fallback={<Loader />}>
               <FailPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'auction/search',
+          element: (
+            <Suspense fallback={<Loader />}>
+              <PopularCategoryPage />
             </Suspense>
           ),
         },

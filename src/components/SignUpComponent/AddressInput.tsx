@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import { GlobalInput } from '../../styled-components/Globalstyle';
 import { Styled } from '../../styled-components/AuthStyle';
+import { GlobalInput } from '../../styled-components/Globalstyle';
 interface AddressInputProps {
   value: string;
   onChange: (value: string) => void;
@@ -10,11 +10,10 @@ interface AddressInputProps {
 export default function AddressInput({ onChange }: AddressInputProps) {
   const [addressPart1, setAddressPart1] = useState('');
   const [addressPart2, setAddressPart2] = useState('');
- 
 
   const openPostcodePopup = useDaumPostcodePopup();
 
-   // 주소입력이 바뀔때마다 값 변경
+  // 주소입력이 바뀔때마다 값 변경
   useEffect(() => {
     onChange(`${addressPart1}${addressPart2}`);
   }, [addressPart1, addressPart2]);
@@ -26,10 +25,10 @@ export default function AddressInput({ onChange }: AddressInputProps) {
 
   const handleAddressChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    part: number
+    part: number,
   ) => {
-    const input = e.target.value
-    
+    const input = e.target.value;
+
     if (part === 1) {
       setAddressPart1(input);
     } else {
@@ -43,9 +42,6 @@ export default function AddressInput({ onChange }: AddressInputProps) {
       onComplete: handleComplete,
     });
   };
-
-
-
 
   return (
     <>
