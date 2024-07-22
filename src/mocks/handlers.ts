@@ -258,7 +258,7 @@ export const handlers = [
     return HttpResponse.json(Likes);
   }),
   // 예치금 요청
-  http.get('/members/my-info-deposit', () => {
+  http.get(`${API_BASE_URL}/members/my-info-deposit`, () => {
     return HttpResponse.json(Deposit);
   }),
 
