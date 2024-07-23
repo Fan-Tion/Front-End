@@ -113,7 +113,7 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
     const fetchCategory = async () => {
       try {
         const response = await auctionApi.getCategory()
-        setCategory(response.data.categoryList)
+        setCategory(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -121,6 +121,7 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
     fetchCategory()
   }, [])
 
+  console.log(category)
   const { minDate, maxDate } = useDateRange();
   return (
     <>
@@ -136,13 +137,13 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
             <option value='' disabled>
               카테고리 선택
             </option>
-            {category.map((category, i) => {
+            {category ? category.map((category) => {
               return (
-                <option value={category.title} key={category.title + i} >
+                <option value={category.title} key={category.title} >
                   {categoryKrMap[category.title]}
                 </option>
               )
-            })}
+            }) : null}
           </Select>
           <CustomArrow />
         </SelectWrapper>
