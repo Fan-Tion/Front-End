@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import { membersApi } from '../../api/member';
 import { Styled } from '../../styled-components/AuthStyle';
@@ -9,6 +10,7 @@ const errorMessages = {
 
 export default function SignInForm() {
   const navigate = useNavigate();
+  const [cookie, setCookie] = useCookies(['Authorization']);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -28,7 +30,10 @@ export default function SignInForm() {
     const { email, password } = formData;
     try {
       const response = await membersApi.signIn({ email, password });
-      console.log(response.data);
+
+      console.log(response);
+      setCookie('Authorization', response.accessToken, { path: '/' , maxAge: 7200}); // 로그인 성공시 토큰 쿠키에 저장 하고 쿠키 시간 7200초 = 2시간
+      
       // 로그인 성공 처리
       navigate('/');
     } catch (error) {
@@ -72,9 +77,9 @@ export default function SignInForm() {
           회원이 아니신가요? <Link to="/signup">회원가입</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
-      <Link to="/">
+      <Styled.LogoLink to="/">
         <Styled.LogoText>Fan-Tion</Styled.LogoText>
-      </Link>
+      </Styled.LogoLink>
     </Styled.OuterWrapper>
   );
 }

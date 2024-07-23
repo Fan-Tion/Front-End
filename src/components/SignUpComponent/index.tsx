@@ -153,8 +153,14 @@ export default function SignUpForm() {
           );
         }
       });
-
-      const response = await membersApi.signUp(formDataToSend);
+      const jsonSignUpData = JSON.stringify(formData);
+      const request = new Blob([jsonSignUpData], { type: 'application/json' });
+      const data = {
+        request: request,
+        file: formData.profileImage,
+      };
+      console.log(data);
+      const response = await membersApi.signUp(data);
       console.log(response.data);
       navigate('/signin'); //회원가입 성공후 로그인 페이지로 이동
     } catch (error) {
@@ -249,6 +255,9 @@ export default function SignUpForm() {
           이미 계정이 있으신가요? <Link to="/signin">로그인 페이지</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
+            <Styled.LogoLink to="/">
+        <Styled.LogoText>Fan-Tion</Styled.LogoText>
+      </Styled.LogoLink>
     </Styled.OuterWrapper>
   );
 }

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const OuterWrapper = styled.div`
@@ -177,6 +178,9 @@ export const LogoText = styled.div`
     color: #CDE990;
     padding : 30px;
     `
+  export const LogoLink = styled(Link)`
+    text-decoration : none;
+  `
 
 export const Styled = {
   OuterWrapper,
@@ -196,5 +200,6 @@ export const Styled = {
   SocialButtonWrap,
   NaverImg,
   LogoText,
+  LogoLink,
 
 };

@@ -1,8 +1,13 @@
-import { axiosInstance } from './axios';
+import { axiosInstance, uploadMultipartData } from './axios';
+
+export interface SignInResponse {
+  accessToken: string;
+}
 
 export const membersApi = {
-  signUp: (payload: any) => axiosInstance.post('/members/signup', payload),
-  signIn: (payload: any) => axiosInstance.post('/members/signin', payload),
+  signUp: (payload: any) => uploadMultipartData('/members/signup', payload),
+  signIn: (payload: any): Promise<SignInResponse> =>
+    axiosInstance.post('/members/signin', payload),
   requestPasswordReset: (payload: {
     email: string;
     phoneNumber: string;
