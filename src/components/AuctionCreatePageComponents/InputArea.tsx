@@ -1,4 +1,6 @@
+import { auctionApi } from "@api/auction";
 import useDateRange from "@hooks/useDateRange";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GlobalInput } from "../../styled-components/Globalstyle";
 
@@ -87,7 +89,37 @@ interface InputAreaProps {
   };
 }
 
+interface categoryType {
+  title: string;
+}
+
+const categoryKrMap: { [key: string]: string } = {
+  "ACCESSORIES": '악세서리',
+  "ALBUM": '앨범',
+  "CLOTHES": '의류',
+  "FIGURE": '피규어',
+  "GAME": '게임',
+  "PHOTO_CARD": '포토카드',
+  "POSTER": '포스터',
+  "SIGN": '사인',
+  "OTHER": '기타',
+}
+
 export default function InputArea({ onChange, formData }: InputAreaProps) {
+
+  const [category, setCategory] = useState<categoryType[]>([])
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const response = await auctionApi.getCategory()
+        setCategory(response.data.categoryList)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchCategory()
+  }, [])
 
   const { minDate, maxDate } = useDateRange();
   return (
@@ -104,9 +136,13 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
             <option value='' disabled>
               카테고리 선택
             </option>
-            <option value={'의류'}>의류</option>
-            <option value={'앨범'}>앨범</option>
-            <option value={'photo-card'}>포토 카드</option>
+            {category.map((category, i) => {
+              return (
+                <option value={category.title} key={category.title + i} >
+                  {categoryKrMap[category.title]}
+                </option>
+              )
+            })}
           </Select>
           <CustomArrow />
         </SelectWrapper>
@@ -131,7 +167,7 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
           onChange={onChange}
           required
         />
-      </Row>
+      </Row >
       <Row>
         <InputWrapper>
           <Input

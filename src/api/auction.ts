@@ -5,4 +5,5 @@ export const auctionApi = {
   create: (payload: any) => uploadMultipartData('/auction', payload),
   getDetails: (auctionId: string): Promise<auctionDetailsType> =>
     axiosInstance.get(`/auction/view/${auctionId}`),
+  getCategory: () => axiosInstance.get('/auction/category'),
 };

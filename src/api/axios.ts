@@ -1,9 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
-const API_TOKEN =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjanNkbGY0NEBnbWFpbC5jb20iLCJtZW1iZXJJZCI6OCwibmlja25hbWUiOiJoaXJhIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTcyMTU3MDMzNywiZXhwIjoxNzIxNTc3NTM3fQ.zUWLP-hZv1xrgPQ9kHoPI_R6B9zTwyCq3StgwC9Pto4';
-
+const API_TOKEN = '';
 // axios instance creation.
 export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
