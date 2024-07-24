@@ -72,9 +72,9 @@ export default function FindPasswordForm() {
           로그인페이지로 <Link to="/signin">로그인페이지로 이동</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
-      <Link to="/">
+      <Styled.LogoLink to="/">
         <Styled.LogoText>Fan-Tion</Styled.LogoText>
-      </Link>
+      </Styled.LogoLink>
     </Styled.OuterWrapper>
   );
 }

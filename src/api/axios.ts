@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { Cookies } from 'react-cookie';
 
 /*
 const axiosInstance = axios.create({
@@ -12,12 +13,13 @@ const axiosInstance = axios.create({
 */
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
-const API_TOKEN = 'your_api_token';
+
+const cookies = new Cookies();
 
 // axios instance creation.
 export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 1000,
+  // timeout: 1000,
   headers: {
     withCredentials: true,
     'Content-Type': 'application/json',
@@ -28,7 +30,10 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   config => {
     // 요청 헤더에 인증 토큰 추가
-    config.headers.Authorization = `Bearer ${API_TOKEN}`;
+    const token = cookies.get('Authorization'); //쿠키에서 authToken 가져오기
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`; //요청 헤더에 토큰 추가
+    }
     return config;
   },
   error => {
@@ -72,3 +77,11 @@ axiosInstance.interceptors.response.use(
 //   itemId: id,
 // });
 // console.log(result.message);
+
+export const uploadMultipartData = (url: string, data: FormData) => {
+  return axiosInstance.post(url, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
