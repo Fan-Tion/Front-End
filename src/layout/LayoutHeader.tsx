@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { membersApi } from '@api/member';
+import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../icons/SearchIcon';
-
 const Wrapper = styled.header`
   width: 100%;
   min-width: 1800px;
@@ -114,10 +115,20 @@ const LogOutBtn = styled.button`
 
 export default function LayoutHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [cookies, , removeCookie] = useCookies(['Authorization']);
 
-  const handleLogout = () => {
-    // 추후 로그아웃 처리 로직 작성
-    setIsLoggedIn(false);
+  useEffect (() => {
+    setIsLoggedIn(!!cookies.Authorization); 
+  }, [cookies]);
+
+  const handleLogout = async () => {
+    try {
+      await membersApi.signOut();
+      removeCookie('Authorization', { path: '/' });
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.error('Logout에러', error);
+    }
   };
 
   return (
