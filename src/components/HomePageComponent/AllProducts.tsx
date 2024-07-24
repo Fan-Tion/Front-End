@@ -15,7 +15,8 @@ import ScrollButton from './ScrollButton';
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10x;
+  gap: 10px;
+  padding-left: 15px;
 `;
 
 const Button = styled(AllButton)`
@@ -41,21 +42,28 @@ export default function AllProducts() {
   const [pageNumber, setPageNumber] = useState(2); // 1페이지는 이미 로드됨
   const [infiniteScrollEnabled, setInfiniteScrollEnabled] = useState(false);
 
-  const fetchProducts = async (pageNumber: number): Promise<ProductType[]> => {
+  const fetchProducts = async (page: number): Promise<ProductType[]> => {
     try {
-      const response = await productListApi.getProductList({ pageNumber });
-
-      if (Array.isArray(response.data)) {
-        return response.data;
-      } else {
-        return [];
-      }
+      const response = await productListApi.getProductList({
+        pageNumber: page,
+      });
+      return Array.isArray(response.data) ? response.data : [];
     } catch (error) {
-      console.error('Error', error);
+      console.error('Error fetching products:', error);
       return [];
     }
   };
 
+  // 1페이지 로드
+  useEffect(() => {
+    const loadInitialData = async () => {
+      const initialProducts = await fetchProducts(1);
+      setProducts(initialProducts);
+    };
+    loadInitialData();
+  }, []);
+
+  // 2페이지부터
   const fetchMoreData = async () => {
     const newProducts = await fetchProducts(pageNumber);
     if (newProducts.length === 0) {
@@ -66,14 +74,6 @@ export default function AllProducts() {
     }
   };
 
-  useEffect(() => {
-    const loadInitialData = async () => {
-      const initialProducts = await fetchProducts(1);
-      setProducts(initialProducts);
-    };
-    loadInitialData();
-  }, []);
-
   const handleButtonClick = async () => {
     if (infiniteScrollEnabled) {
       const initialProducts = await fetchProducts(1);
@@ -81,7 +81,7 @@ export default function AllProducts() {
       setPageNumber(2);
       setHasMore(true);
     } else {
-      fetchMoreData();
+      await fetchMoreData();
     }
     setInfiniteScrollEnabled(!infiniteScrollEnabled);
   };
@@ -104,7 +104,7 @@ export default function AllProducts() {
             dataLength={products.length}
             next={fetchMoreData}
             hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
+            loader={<div>Loading...</div>}
             style={{ overflow: 'visible' }}
           >
             <Grid>

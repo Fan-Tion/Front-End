@@ -5,6 +5,7 @@ const Card = styled.div`
   height: 400px;
   background-color: white;
   margin: 15px;
+
   border-radius: 15px;
 `;
 const Image = styled.img`
