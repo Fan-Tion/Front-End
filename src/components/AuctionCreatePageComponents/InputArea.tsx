@@ -121,7 +121,6 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
     fetchCategory()
   }, [])
 
-  console.log(category)
   const { minDate, maxDate } = useDateRange();
   return (
     <>

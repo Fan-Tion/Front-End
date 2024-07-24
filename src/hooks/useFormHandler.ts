@@ -9,7 +9,7 @@ export interface formDataType {
   endDate: string;
   auctionType: boolean;
   category: string;
-  auctionImages?: File[];
+  auctionImage?: File[];
   description?: string;
   [key: string]: string | number | boolean | File[] | undefined;
 }
@@ -21,7 +21,7 @@ export const useFormHandler = () => {
     buyNowPrice: '',
     endDate: '',
     auctionType: false,
-    auctionImages: [],
+    auctionImage: [],
     category: '',
   });
   const [buttonDisable, setButtonDisable] = useState(false);
@@ -58,7 +58,7 @@ export const useFormHandler = () => {
   const handleFilesChange = useCallback((files: File[]) => {
     setFormData(prevData => ({
       ...prevData,
-      auctionImages: files,
+      auctionImage: files,
     }));
   }, []);
 
@@ -87,7 +87,7 @@ export const useFormHandler = () => {
         request: new Blob([JSON.stringify(jsonPayload)], {
           type: 'application/json',
         }),
-        file: formData.auctionImages,
+        auctionImage: formData.auctionImage,
       };
 
       try {
