@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { rechargeApi } from '../../api/recharge';
 import './toss.css';
 
-export function SuccessPage() {
+export default function SuccessComponent() {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [searchParams] = useSearchParams();
   const paymentKey = searchParams.get('paymentKey');

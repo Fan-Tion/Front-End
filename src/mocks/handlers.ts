@@ -7,11 +7,13 @@ import {
   Checkout,
   Deposit,
   DepositHistory,
+  favoriteCategories,
   JoinHistory,
   Likes,
   members,
   membersMapType,
   MyHistory,
+  productList,
   Recharge,
   RechargeFail,
 } from './db';
@@ -258,7 +260,7 @@ export const handlers = [
     return HttpResponse.json(Likes);
   }),
   // 예치금 요청
-  http.get('/members/my-info-deposit', () => {
+  http.get(`${API_BASE_URL}/members/my-info-deposit`, () => {
     return HttpResponse.json(Deposit);
   }),
 
@@ -300,7 +302,6 @@ export const handlers = [
   http.get(`${API_BASE_URL}/payments/fail`, async () => {
     return HttpResponse.json(RechargeFail, { status: 200 });
   }),
-
   http.get(`${API_BASE_URL}/auction/view/:auctionId`, async ({ params }) => {
     const auctionId = Array.isArray(params.auctionId)
       ? params.auctionId[0]
@@ -316,6 +317,31 @@ export const handlers = [
     }
 
     return HttpResponse.json(auction, { status: 200 });
+  }),
+
+  // 인기 카테고리 리스트
+  http.get('/auction/favorite-category', async () => {
+    return HttpResponse.json(favoriteCategories, { status: 200 });
+  }),
+
+  // 전체 상품 리스트
+  http.get(`${API_BASE_URL}/auction/list`, ({ request }) => {
+    const url = new URL(request.url);
+    const pageNumberStr = url.searchParams.get('pageNumber');
+    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
+    const pageSize = 5; // 페이지당 항목 수
+    const startIndex = (pageNumber - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedList = productList.data.auctionList.slice(
+      startIndex,
+      endIndex,
+    );
+
+    return HttpResponse.json({
+      message: '성공적으로 경매 리스트를 가져왔습니다.',
+      data: paginatedList,
+    });
   }),
 ];
 

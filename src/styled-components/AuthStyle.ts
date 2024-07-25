@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const OuterWrapper = styled.div`
@@ -170,6 +171,17 @@ export const ImagePreview = styled.img`
     margin-top : 10px;
 `;
 
+export const LogoText = styled.div`
+    font-size: 52px;
+    align-self: center;
+    font-weight: bold;
+    color: #CDE990;
+    padding : 30px;
+    `
+  export const LogoLink = styled(Link)`
+    text-decoration : none;
+  `
+
 export const Styled = {
   OuterWrapper,
   Wrapper,
@@ -187,5 +199,7 @@ export const Styled = {
   ImagePreview,
   SocialButtonWrap,
   NaverImg,
+  LogoText,
+  LogoLink,
 
 };

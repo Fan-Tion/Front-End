@@ -18,7 +18,8 @@ const errorMessages = {
   emptyFields: '필수 입력 항목입니다.',
   passwordLength: '비밀번호는 6자 이상 15자 이하로 입력해주세요.',
   passwordMismatch: '비밀번호가 일치하지 않습니다.',
-  nicknameLength: '닉네임은 1자에서 12자 사이어야 하며, 특수문자를 포함할 수 없습니다.',
+  nicknameLength:
+    '닉네임은 1자에서 12자 사이어야 하며, 특수문자를 포함할 수 없습니다.',
   phoneNumberInvalid: '전화번호는 11자리 숫자여야 합니다.',
   serverError: '서버에서 에러가 발생했습니다.',
 };
@@ -79,9 +80,19 @@ export default function SignUpForm() {
     e.preventDefault();
     setErrors({}); //오류 초기화
 
-    const requiredFields = ['email', 'password', 'confirmPassword', 'nickname', 'phoneNumber', 'address'];
-    const emptyFields = requiredFields.filter(field => !formData[field as keyof SignUpInterface]); //filter 함수를 사용해서 formData 키 확인
-    if (emptyFields.length > 0) { // 
+    const requiredFields = [
+      'email',
+      'password',
+      'confirmPassword',
+      'nickname',
+      'phoneNumber',
+      'address',
+    ];
+    const emptyFields = requiredFields.filter(
+      field => !formData[field as keyof SignUpInterface],
+    ); //filter 함수를 사용해서 formData 키 확인
+    if (emptyFields.length > 0) {
+      //
       emptyFields.forEach(field => {
         setErrors(prevErrors => ({
           ...prevErrors,
@@ -136,11 +147,20 @@ export default function SignUpForm() {
       const formDataToSend = new FormData();
       Object.keys(formData).forEach(key => {
         if (key !== 'confirmPassword') {
-          formDataToSend.append(key, formData[key as keyof SignUpInterface] as string | Blob);
+          formDataToSend.append(
+            key,
+            formData[key as keyof SignUpInterface] as string | Blob,
+          );
         }
       });
-
-      const response = await membersApi.signUp(formDataToSend);
+      const jsonSignUpData = JSON.stringify(formData);
+      const request = new Blob([jsonSignUpData], { type: 'application/json' });
+      const data = {
+        request: request,
+        file: formData.profileImage,
+      };
+      console.log(data);
+      const response = await membersApi.signUp(data);
       console.log(response.data);
       navigate('/signin'); //회원가입 성공후 로그인 페이지로 이동
     } catch (error) {
@@ -165,7 +185,9 @@ export default function SignUpForm() {
             value={formData.email}
             onChange={handleChange}
           />
-          {errors.email && <Styled.ErrorMessage>{errors.email}</Styled.ErrorMessage>}
+          {errors.email && (
+            <Styled.ErrorMessage>{errors.email}</Styled.ErrorMessage>
+          )}
           <Styled.Input
             name="password"
             placeholder="password"
@@ -173,7 +195,9 @@ export default function SignUpForm() {
             value={formData.password}
             onChange={handleChange}
           />
-          {errors.password && <Styled.ErrorMessage>{errors.password}</Styled.ErrorMessage>}
+          {errors.password && (
+            <Styled.ErrorMessage>{errors.password}</Styled.ErrorMessage>
+          )}
           <Styled.Input
             name="confirmPassword"
             placeholder="confirm password"
@@ -190,7 +214,9 @@ export default function SignUpForm() {
             value={formData.nickname}
             onChange={handleChange}
           />
-          {errors.nickname && <Styled.ErrorMessage>{errors.nickname}</Styled.ErrorMessage>}
+          {errors.nickname && (
+            <Styled.ErrorMessage>{errors.nickname}</Styled.ErrorMessage>
+          )}
           <PhoneInput
             value={formData.phoneNumber}
             onChange={handlePhoneChange}
@@ -206,7 +232,6 @@ export default function SignUpForm() {
             <Styled.ErrorMessage>{errors.address}</Styled.ErrorMessage>
           )}
           <Styled.FileInputWrap>
-
             <Styled.FileInputLabel htmlFor="profileImage">
               프로필 이미지 설정하기
             </Styled.FileInputLabel>
@@ -217,7 +242,9 @@ export default function SignUpForm() {
               accept="image/*"
               onChange={handleChange}
             />
-            {previewUrl && <Styled.ImagePreview src={previewUrl} alt="Profile Preview" />}
+            {previewUrl && (
+              <Styled.ImagePreview src={previewUrl} alt="Profile Preview" />
+            )}
           </Styled.FileInputWrap>
           <Styled.Input type="submit" value="Sign up" />
           {errors.serverError && (
@@ -228,6 +255,9 @@ export default function SignUpForm() {
           이미 계정이 있으신가요? <Link to="/signin">로그인 페이지</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
+            <Styled.LogoLink to="/">
+        <Styled.LogoText>Fan-Tion</Styled.LogoText>
+      </Styled.LogoLink>
     </Styled.OuterWrapper>
   );
 }
