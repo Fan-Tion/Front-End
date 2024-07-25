@@ -3,15 +3,18 @@ interface TimeLeft {
   hours: number;
   minutes: number;
   seconds: number;
+  total: number; // 추가
 }
 
 export function calculateTimeLeft(endDate: string): TimeLeft {
   const difference = +new Date(endDate) - +new Date();
+
   let timeLeft: TimeLeft = {
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
+    total: difference,
   };
 
   if (difference > 0) {
@@ -20,6 +23,7 @@ export function calculateTimeLeft(endDate: string): TimeLeft {
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
       minutes: Math.floor((difference / 1000 / 60) % 60),
       seconds: Math.floor((difference / 1000) % 60),
+      total: difference,
     };
   }
 
