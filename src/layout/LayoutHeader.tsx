@@ -1,9 +1,11 @@
 import { membersApi } from '@api/member';
+import { Withdrawal } from '@components/MyPageComponent/Withdrawal';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../icons/SearchIcon';
+
 const Wrapper = styled.header`
   width: 100%;
   min-width: 1800px;
@@ -117,13 +119,14 @@ export default function LayoutHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [cookies, , removeCookie] = useCookies(['Authorization']);
 
-  useEffect (() => {
-    setIsLoggedIn(!!cookies.Authorization); 
+  useEffect(() => {
+    setIsLoggedIn(!!cookies.Authorization);
   }, [cookies]);
 
   const handleLogout = async () => {
     try {
-      await membersApi.signOut();
+      const response = await membersApi.signOut();
+      console.log(response);
       removeCookie('Authorization', { path: '/' });
       setIsLoggedIn(false);
     } catch (error) {
@@ -164,6 +167,7 @@ export default function LayoutHeader() {
               <MenuButton>MyPage</MenuButton>
             </Link>
             <LogOutBtn onClick={handleLogout}>Logout</LogOutBtn>
+            <Withdrawal />
           </>
         ) : (
           <Link to="/signin">
