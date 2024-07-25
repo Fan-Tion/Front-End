@@ -242,38 +242,62 @@ export const RechargeFail = {
 export const favoriteCategories = {
   data: [
     {
-      title: "ACCESSORIES",
-      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=ACCESSORIES&keyword=&page=0"
+      title: 'ACCESSORIES',
+      category:
+        'http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=ACCESSORIES&keyword=&page=0',
     },
     {
-      title: "ALBUM",
-      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=ALBUM&keyword=&page=0"
+      title: 'ALBUM',
+      category:
+        'http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=ALBUM&keyword=&page=0',
     },
     {
-      title: "CLOTHES",
-      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=CLOTHES&keyword=&page=0"
+      title: 'CLOTHES',
+      category:
+        'http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=CLOTHES&keyword=&page=0',
     },
     {
-      title: "FIGURE",
-      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=FIGURE&keyword=&page=0"
+      title: 'FIGURE',
+      category:
+        'http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=FIGURE&keyword=&page=0',
     },
     {
-      title: "GAME",
-      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=GAME&keyword=&page=0"
+      title: 'GAME',
+      category:
+        'http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=GAME&keyword=&page=0',
     },
     {
-      title: "PHOTO_CARD",
-      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=PHOTO_CARD&keyword=&page=0"
+      title: 'PHOTO_CARD',
+      category:
+        'http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=PHOTO_CARD&keyword=&page=0',
     },
     {
-      title: "POSTER",
-      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=POSTER&keyword=&page=0"
+      title: 'POSTER',
+      category:
+        'http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=POSTER&keyword=&page=0',
     },
     {
-      title: "SIGN",
-      category: "http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=SIGN&keyword=&page=0"
-    }
-  ]
+      title: 'SIGN',
+      category:
+        'http://localhost:8080/auction/search?searchOption=CATEGORY&categoryOption=SIGN&keyword=&page=0',
+    },
+  ],
 };
 
-
+export const productList = {
+  message: '성공적으로 경매 리스트를 가져왔습니다.',
+  data: {
+    auctionList: Array.from({ length: 65 }, (_, i) => ({
+      auctionId: i,
+      title: `${i}번 1908-S Saint-Gaudens 더블 이글 금화`,
+      auctionType: true,
+      currentBidPrice: 12000 + i,
+      buyNowPrice: 5000 + (i % 2 === 1 ? i * 300 : i * 200),
+      bidCount: (i % 4) + 20,
+      auctionImage: 'https://via.placeholder.com/300',
+      favoriteCnt: i,
+      endDate: '2024-06-30T10:00:00',
+      status: true,
+    })),
+  },
+};

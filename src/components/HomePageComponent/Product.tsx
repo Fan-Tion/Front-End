@@ -4,18 +4,22 @@ const Card = styled.div`
   width: 300px;
   height: 400px;
   background-color: white;
-  margin: 30px 15px 0;
-  border-radius: 20px;
+  margin: 15px;
+
+  border-radius: 15px;
 `;
 const Image = styled.img`
   width: 300px;
   height: 300px;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
 `;
 const Detail = styled.div`
   height: 50px;
-  padding: 5px 5px;
+  padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const Price = styled.div`
   float: right;
@@ -28,15 +32,34 @@ const Div = styled.div`
 const Div2 = styled(Div)`
   margin-left: 17px;
 `;
-export default function Product() {
+
+interface ProductProps {
+  auctionId: number;
+  auctionImage: string;
+  title: string;
+  currentBidPrice: number;
+  bidCount: number;
+  buyNowPrice: number;
+  favoriteCnt: number;
+  endDate: string;
+  status: boolean;
+}
+
+export default function Product({
+  auctionImage,
+  title,
+  currentBidPrice,
+  buyNowPrice,
+  bidCount,
+}: ProductProps) {
   return (
     <Card>
-      <Image src="https://via.placeholder.com/300" alt="Dummy"></Image>
-      <Detail>상품 설명</Detail>
+      <Image src={auctionImage} alt="Product Image" />
+      <Detail>{title}</Detail>
       <Price>
-        <Div>현재 입찰가 : 55,000 원</Div>
-        <Div>즉시 구매가 : 70,000 원</Div>
-        <Div2>입찰건수 : 3</Div2>
+        <Div>현재 입찰가 : {currentBidPrice} 원</Div>
+        <Div>즉시 구매가 : {buyNowPrice} 원</Div>
+        <Div2>입찰건수 : {bidCount}</Div2>
       </Price>
     </Card>
   );
