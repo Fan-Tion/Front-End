@@ -91,11 +91,3 @@ export async function uploadMultipartData<T>(
 //   itemId: id,
 // });
 // console.log(result.message);
-
-export const uploadMultipartData = (url: string, data: FormData) => {
-  return axiosInstance.post(url, data, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-};
