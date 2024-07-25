@@ -103,7 +103,12 @@ export default function AuctionInfoModule({ details, buyNow, bidHandler }: Aucti
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(endDate));
+      const newTimeLeft = calculateTimeLeft(endDate);
+      setTimeLeft(newTimeLeft);
+
+      if (newTimeLeft.total <= 0) {
+        clearInterval(timer);
+      }
     }, 1000);
 
     return () => clearInterval(timer);

@@ -1,20 +1,10 @@
 import axios, { AxiosError } from 'axios';
 import { Cookies } from 'react-cookie';
 
-/*
-const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_SERVER_URL,
-  timeout: 1000,
-  headers: {
-    withCredentials: true,
-    'Content-Type': 'application/json',
-  },
-});
-*/
-
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
 const cookies = new Cookies();
+
 
 // axios instance creation.
 export const axiosInstance = axios.create({
@@ -57,6 +47,30 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(axiosError);
   },
 );
+
+export async function uploadMultipartData<T>(
+  url: string,
+  data: Record<string, any>,
+): Promise<T> {
+  const formData = new FormData();
+  Object.keys(data).forEach(key => {
+    if (Array.isArray(data[key])) {
+      data[key].forEach((file: File) => {
+        formData.append(key, file);
+      });
+    } else {
+      formData.append(key, data[key]);
+    }
+  });
+
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  return axiosInstance.post(url, formData, config);
+}
 
 // async function fetchCall<T>(
 //   url: string,

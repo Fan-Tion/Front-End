@@ -1,4 +1,3 @@
-import useFileHandler from "@hooks/useFileHandler";
 import { useFormHandler } from "@hooks/useFormHandler";
 import { useModalHandler } from "@hooks/useModalHandler";
 import Modal from "@utils/Modal";
@@ -60,11 +59,11 @@ export default function AuctionCreatePageComponents() {
     formData,
     handleChange,
     handleSubmit,
+    handleFilesChange,
     buttonDisable,
     editorRef
   } = useFormHandler();
 
-  const { handleFilesChange } = useFileHandler();
   const { isModalOpen, toggleModal } = useModalHandler();
   const navigate = useNavigate();
 

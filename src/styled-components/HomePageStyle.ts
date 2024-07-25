@@ -25,9 +25,9 @@ export const AllButton = styled.button`
   width: 80px;
   height: 40px;
   font-size: 12px;
-  font-weight : bold;
+  font-weight: bold;
   background-color: #cde990;
-  border-radius: 10%;
+  border-radius: 6px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -41,7 +41,7 @@ export const AllButton = styled.button`
 export const ProductBox = styled.div<ProductBoxProps>`
   background-color: ${props => props.$bgColor};
   width: 1800px;
-  height: 500px;
+  min-height: 500px;
   margin: auto;
   margin-top: 50px;
   border-radius: 15px;
