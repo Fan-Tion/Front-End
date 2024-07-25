@@ -1,8 +1,9 @@
 import { auctionDetailsType } from '@mocks/db';
-import { axiosInstance } from './axios';
+import { axiosInstance, uploadMultipartData } from './axios';
 
 export const auctionApi = {
-  create: (payload: any) => axiosInstance.post('/auction', payload),
+  create: (payload: any) => uploadMultipartData('/auction', payload),
   getDetails: (auctionId: string): Promise<auctionDetailsType> =>
     axiosInstance.get(`/auction/view/${auctionId}`),
+  getCategory: () => axiosInstance.get('/auction/category'),
 };

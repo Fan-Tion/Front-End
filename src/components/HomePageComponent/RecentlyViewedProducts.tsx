@@ -5,7 +5,7 @@ import {
   Text,
   Wrap,
 } from '../../styled-components/HomePageStyle';
-import Product from './Product';
+// import Product from './Product';
 
 export default function RecentlyViewedProducts() {
   return (
@@ -20,11 +20,11 @@ export default function RecentlyViewedProducts() {
           </Text>
         </Category>
         <Div>
+          {/* <Product />
           <Product />
           <Product />
           <Product />
-          <Product />
-          <Product />
+          <Product /> */}
         </Div>
       </ProductBox>
     </Wrap>
