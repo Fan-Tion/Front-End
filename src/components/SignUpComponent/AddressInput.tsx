@@ -45,8 +45,8 @@ export default function AddressInput({ onChange }: AddressInputProps) {
 
   return (
     <>
-      <Styled.AddressWrap>
-        <Styled.AddressInput
+      <Styled.ButtonWrap>
+        <Styled.CheckInput
           width="300px"
           height="50px"
           placeholder=" 주소를 검색해주세요."
@@ -54,10 +54,10 @@ export default function AddressInput({ onChange }: AddressInputProps) {
           onChange={e => handleAddressChange(e, 1)}
           readOnly
         />
-        <Styled.AddressButton onClick={handleSearchClick}>
+        <Styled.CheckButton onClick={handleSearchClick}>
           주소 검색
-        </Styled.AddressButton>
-      </Styled.AddressWrap>
+        </Styled.CheckButton>
+      </Styled.ButtonWrap>
       <GlobalInput
         width="500px"
         height="52px"

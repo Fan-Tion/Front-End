@@ -1,14 +1,12 @@
 import axios, { AxiosError } from 'axios';
-import { Cookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 
 export const API_BASE_URL = '/api';
-
-const cookies = new Cookies();
 
 // axios instance creation.
 export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  // timeout: 1000,
+  timeout: 10000,
   headers: {
     withCredentials: true,
     'Content-Type': 'application/json',
@@ -19,10 +17,11 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   config => {
     // 요청 헤더에 인증 토큰 추가
-    const token = cookies.get('Authorization'); //쿠키에서 authToken 가져오기
+    const token = Cookies.get('Authorization');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; //요청 헤더에 토큰 추가
     }
+    console.log('Request Config:', config);
     return config;
   },
   error => {

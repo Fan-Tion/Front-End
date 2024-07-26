@@ -32,10 +32,7 @@ export default function SignInForm() {
       const response = await membersApi.signIn({ email, password });
 
       console.log(response);
-      setCookie('Authorization', response.accessToken, {
-        path: '/',
-        maxAge: 7200,
-      }); // 로그인 성공시 토큰 쿠키에 저장 하고 쿠키 시간 7200초 = 2시간
+      setCookie('Authorization', response.data.accessToken, { path: '/' }); // 로그인 성공시 토큰 쿠키에 저장 하고 쿠키 시간 7200초 = 2시간
 
       // 로그인 성공 처리
       navigate('/');

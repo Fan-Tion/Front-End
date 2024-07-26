@@ -1,7 +1,19 @@
 import { axiosInstance, uploadMultipartData } from './axios';
 
 export interface SignInResponse {
-  accessToken: string;
+  data: {
+    accessToken: string;
+  };
+}
+export interface CheckResponse {
+  data: {
+    success: boolean;
+    message?: string;
+  };
+}
+
+export interface WithdrawalResponse {
+  success: boolean;
 }
 
 export const membersApi = {
@@ -16,4 +28,11 @@ export const membersApi = {
   resetPassword: (payload: any) =>
     axiosInstance.put('/members/reset-password', payload),
   myInfo: () => axiosInstance.get('/members/my-info'),
+  checkEmail: (email: string): Promise<CheckResponse> =>
+    axiosInstance.get(`/members/check-email?email=${email}`),
+  checkNickname: (nickname: string): Promise<CheckResponse> =>
+    axiosInstance.get(`/members/check-nickname?nickname=${nickname}`),
+  signOut: () => axiosInstance.post('/members/signout'),
+  withdrawal: (): Promise<WithdrawalResponse> =>
+    axiosInstance.post('/members/withdrawal'),
 };

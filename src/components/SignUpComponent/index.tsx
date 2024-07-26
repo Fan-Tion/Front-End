@@ -22,6 +22,13 @@ const errorMessages = {
     '닉네임은 1자에서 12자 사이어야 하며, 특수문자를 포함할 수 없습니다.',
   phoneNumberInvalid: '전화번호는 11자리 숫자여야 합니다.',
   serverError: '서버에서 에러가 발생했습니다.',
+  emailCheckFail: '이메일 형식이 아니거나 , 이메일이 이미 사용 중 입니다.',
+  nicknameCheckFail:
+    '닉네임이 이미 사용 중 이거나, 특수문자를 사용 할 수 없습니다.',
+  emailCheckSuccess: '이메일 체크 완료!',
+  nicknameCheckSuccess: '닉네임 체크 완료!',
+  emailCheckFalse: '이메일 중복 체크 해주세요',
+  nicknameCheckFalse: '닉네임 중복 체크 해주세요',
 };
 
 export default function SignUpForm() {
@@ -38,6 +45,8 @@ export default function SignUpForm() {
   // 유효성 검사 오류를 담는 상태와 해당 상태를 업데이트 하는 함수 선언
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -54,12 +63,55 @@ export default function SignUpForm() {
         ...formData,
         [name]: value,
       });
+      if (name === 'email') {
+        setIsEmailChecked(false);
+      }
+
+      if (name === 'nickname') {
+        setIsNicknameChecked(false);
+      }
     }
 
-    setErrors({
-      ...errors,
+    setErrors(prevErrors => ({
+      ...prevErrors,
       [name]: '',
-    });
+    }));
+  };
+
+  const checkEmail = async () => {
+    try {
+      console.log('email:', formData.email);
+      const response = await membersApi.checkEmail(formData.email);
+      console.log(response);
+      if (response.data.success === true) {
+        setIsEmailChecked(true);
+        alert(errorMessages.emailCheckSuccess);
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          email: '',
+        }));
+      }
+    } catch (error) {
+      alert(errorMessages.emailCheckFail);
+    }
+  };
+
+  const checkNickname = async () => {
+    try {
+      console.log(formData.nickname);
+      const response = await membersApi.checkNickname(formData.nickname);
+      console.log(response);
+      if (response.data.success === true) {
+        setIsNicknameChecked(true);
+        alert(errorMessages.nicknameCheckSuccess);
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          nickname: '',
+        }));
+      }
+    } catch (error) {
+      alert(errorMessages.nicknameCheckFail);
+    }
   };
 
   const handlePhoneChange = (phoneNumber: string) => {
@@ -101,6 +153,23 @@ export default function SignUpForm() {
       });
       return;
     }
+    // 이메일 중복 체크 여부 확인
+    if (!isEmailChecked) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        email: errorMessages.emailCheckFalse,
+      }));
+      return;
+    }
+
+    // 닉네임 중복 체크 여부 확인
+    if (!isNicknameChecked) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        nickname: errorMessages.nicknameCheckFalse,
+      }));
+      return;
+    }
     //비밀번호 길이 검사
     if (formData.password.length < 6 || formData.password.length > 15) {
       setErrors(prevErrors => ({
@@ -119,7 +188,7 @@ export default function SignUpForm() {
       return;
     }
 
-    //닉네임 길이 검사
+    //닉네임 검사
     if (!/^[a-zA-Z0-9가-힣]{1,12}$/.test(formData.nickname)) {
       setErrors(prevErrors => ({
         ...prevErrors,
@@ -160,7 +229,9 @@ export default function SignUpForm() {
         file: formData.profileImage,
       };
       console.log(data);
-        await membersApi.signUp(data);
+
+      await membersApi.signUp(data);
+
       navigate('/signin'); //회원가입 성공후 로그인 페이지로 이동
     } catch (error) {
       console.error(error);
@@ -177,13 +248,18 @@ export default function SignUpForm() {
       <Styled.Wrapper>
         <Styled.Title>회원가입</Styled.Title>
         <Styled.Form onSubmit={handleSubmit}>
-          <Styled.Input
-            name="email"
-            placeholder="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
+          <Styled.ButtonWrap>
+            <Styled.CheckInput
+              name="email"
+              placeholder="  email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <Styled.CheckButton onClick={checkEmail} disabled={isEmailChecked}>
+              중복 체크
+            </Styled.CheckButton>
+          </Styled.ButtonWrap>
           {errors.email && (
             <Styled.ErrorMessage>{errors.email}</Styled.ErrorMessage>
           )}
@@ -207,12 +283,20 @@ export default function SignUpForm() {
           {errors.confirmPassword && (
             <Styled.ErrorMessage>{errors.confirmPassword}</Styled.ErrorMessage>
           )}
-          <Styled.Input
-            name="nickname"
-            placeholder="nickname"
-            value={formData.nickname}
-            onChange={handleChange}
-          />
+          <Styled.ButtonWrap>
+            <Styled.CheckInput
+              name="nickname"
+              placeholder="nickname"
+              value={formData.nickname}
+              onChange={handleChange}
+            />
+            <Styled.CheckButton
+              onClick={checkNickname}
+              disabled={isNicknameChecked}
+            >
+              중복 체크
+            </Styled.CheckButton>
+          </Styled.ButtonWrap>
           {errors.nickname && (
             <Styled.ErrorMessage>{errors.nickname}</Styled.ErrorMessage>
           )}
@@ -254,7 +338,7 @@ export default function SignUpForm() {
           이미 계정이 있으신가요? <Link to="/signin">로그인 페이지</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
-            <Styled.LogoLink to="/">
+      <Styled.LogoLink to="/">
         <Styled.LogoText>Fan-Tion</Styled.LogoText>
       </Styled.LogoLink>
     </Styled.OuterWrapper>

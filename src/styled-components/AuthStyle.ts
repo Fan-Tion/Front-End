@@ -104,11 +104,11 @@ export const PhoneWrap = styled.div`
   justify-content : space-between;
 
 `
-export const AddressWrap = styled.div`
+export const ButtonWrap = styled.div`
   display : flex;
   width : 500px;
 `
-export const AddressInput = styled.input`
+export const CheckInput = styled.input`
   width: 400px;
   height : 52px;
   font-size: 16px;
@@ -124,7 +124,7 @@ export const AddressInput = styled.input`
 
 `
 
-export const AddressButton = styled.button`
+export const CheckButton = styled.button`
   width : 100px;
   height : 52px;
   background-color : #CDE990;
@@ -190,9 +190,9 @@ export const Styled = {
   Input,
   Switcher,
   ErrorMessage,
-  AddressWrap,
-  AddressInput,
-  AddressButton,
+  ButtonWrap,
+  CheckInput,
+  CheckButton,
   FileInputWrap,
   FileInputLabel,
   FileInput,

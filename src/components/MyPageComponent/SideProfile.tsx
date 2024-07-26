@@ -127,6 +127,7 @@ export default function SideProfile({ nickname }: SideProfileProps) {
       </Modal>
       <Footer>
         <SignOutButton>로그아웃</SignOutButton>
+        
         <LogoName>Fan-tion</LogoName>
       </Footer>
     </Wrapper>
