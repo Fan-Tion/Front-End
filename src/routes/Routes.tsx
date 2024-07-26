@@ -16,7 +16,6 @@ import {
   SignInPage,
   SignUpPage,
   SuccessPage,
-
 } from '../pages';
 
 const Loader = () => <div>Loading...</div>;
@@ -43,9 +42,7 @@ export default function Routes() {
         {
           path: '',
           element: (
-            <Suspense fallback={<Loader />}>
-              <HomePage />
-            </Suspense>
+            <HomePage />
           ),
         },
         {
