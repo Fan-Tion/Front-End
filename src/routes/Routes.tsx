@@ -1,3 +1,4 @@
+import NaverLoginCallback from '@components/NaverComponent/NaverLoginCallback';
 import RootLayout from '@layout/RootLayout';
 import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -16,7 +17,6 @@ import {
   SignInPage,
   SignUpPage,
   SuccessPage,
-
 } from '../pages';
 
 const Loader = () => <div>Loading...</div>;
@@ -143,6 +143,14 @@ export default function Routes() {
       element: (
         <Suspense fallback={<Loader />}>
           <PasswordResetPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: 'members/naver/signin',
+      element: (
+        <Suspense fallback={<Loader />}>
+          <NaverLoginCallback />
         </Suspense>
       ),
     },

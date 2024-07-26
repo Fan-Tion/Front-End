@@ -1,7 +1,8 @@
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 
-export const API_BASE_URL = '/api';
+export const API_BASE_URL =
+  (import.meta.env.VITE_API_BASE_URL as string) || '/api';
 
 // axios instance creation.
 export const axiosInstance = axios.create({

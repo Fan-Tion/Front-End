@@ -87,7 +87,7 @@ export const SocialButtonWrap = styled.div`
   }
 `
 export const NaverImg = styled.img`
-  width : 30px;
+  width : 40px;
   height : 30px;
   margin-right : 10px;
 `
