@@ -94,7 +94,7 @@ export default function DetailPageComponents() {
         </RightContainer>
       </AuctionContainer>
       <Functions>
-        <SellerRating rating={auctionDetails.auctionUserRating} />
+        {auctionDetails.auctionUserRating ? <SellerRating rating={auctionDetails.auctionUserRating} /> : null}
         <SteamedButton />
       </Functions>
       <ItemDescription description={auctionDetails.description} />

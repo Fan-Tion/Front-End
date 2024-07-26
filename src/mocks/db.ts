@@ -71,60 +71,68 @@ export interface auctionDetailsType {
   bid?: bidType;
 }
 
-export const auctions: Map<string, auctionDetailsType> = new Map([
+export interface auctionDetailsDataType {
+  data: auctionDetailsType | null;
+}
+
+export const auctions: Map<string, auctionDetailsDataType> = new Map([
   [
     '1',
     {
-      auctionUserNickname: 'John Titor',
-      auctionUserRating: 8.8,
-      title: '타임머신 팝니다.',
-      category: 'digital',
-      auctionType: true,
-      auctionImage: [],
-      description:
-        '목표로 했던 IBM 5100을 입수해서 더이상 필요하지 않게 되었습니다.',
-      currentBidder: 'CERN',
-      currentBidPrice: 10000,
-      buyNowPrice: 1000000,
-      favoriteCnt: 39,
-      createDate: '2001-01-30T10:03:43',
-      endDate: '2032-03-24T10:03:43',
-      status: true,
-      bid: {
-        bidPrice: 139800,
-        bidder: 'Beryl',
+      data: {
+        auctionUserNickname: 'John Titor',
+        auctionUserRating: 8.8,
+        title: '타임머신 팝니다.',
+        category: 'digital',
+        auctionType: true,
+        auctionImage: [],
+        description:
+          '목표로 했던 IBM 5100을 입수해서 더이상 필요하지 않게 되었습니다.',
+        currentBidder: 'CERN',
+        currentBidPrice: 10000,
+        buyNowPrice: 1000000,
+        favoriteCnt: 39,
         createDate: '2001-01-30T10:03:43',
+        endDate: '2032-03-24T10:03:43',
+        status: true,
+        bid: {
+          bidPrice: 139800,
+          bidder: 'Beryl',
+          createDate: '2001-01-30T10:03:43',
+        },
       },
     },
   ],
   [
     '2',
     {
-      auctionUserNickname: 'CERN',
-      auctionUserRating: 6.8,
-      title: '미개봉 IBM 5100 팝니다.',
-      category: 'digital',
-      auctionType: true,
-      auctionImage: [
-        'https://via.placeholder.com/500',
-        'https://via.placeholder.com/400',
-        'https://via.placeholder.com/300',
-        'https://via.placeholder.com/200',
-        'https://via.placeholder.com/100',
-      ],
-      description:
-        '레트로 PC 중 엄청 유명하고 숨겨진 기능도 존재한다는 전설적인 머신입니다.',
-      currentBidder: 'John Titor',
-      currentBidPrice: 200000,
-      buyNowPrice: 40000000,
-      favoriteCnt: 391,
-      createDate: '2001-01-20T10:03:43',
-      endDate: '2032-03-28T10:03:43',
-      status: true,
-      bid: {
-        bidPrice: 1398000,
-        bidder: 'Beryl2',
-        createDate: '2001-01-30T10:04:43',
+      data: {
+        auctionUserNickname: 'CERN',
+        auctionUserRating: 6.8,
+        title: '미개봉 IBM 5100 팝니다.',
+        category: 'digital',
+        auctionType: true,
+        auctionImage: [
+          'https://via.placeholder.com/500',
+          'https://via.placeholder.com/400',
+          'https://via.placeholder.com/300',
+          'https://via.placeholder.com/200',
+          'https://via.placeholder.com/100',
+        ],
+        description:
+          '레트로 PC 중 엄청 유명하고 숨겨진 기능도 존재한다는 전설적인 머신입니다.',
+        currentBidder: 'John Titor',
+        currentBidPrice: 200000,
+        buyNowPrice: 40000000,
+        favoriteCnt: 391,
+        createDate: '2001-01-20T10:03:43',
+        endDate: '2032-03-28T10:03:43',
+        status: true,
+        bid: {
+          bidPrice: 1398000,
+          bidder: 'Beryl2',
+          createDate: '2001-01-30T10:04:43',
+        },
       },
     },
   ],
