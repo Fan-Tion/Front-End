@@ -73,7 +73,7 @@ export default function FindPasswordForm() {
         </Styled.Switcher>
       </Styled.Wrapper>
       <Styled.LogoLink to="/">
-        <Styled.LogoImage src='/img/mainLogo2.png'/>
+        <Styled.LogoImage src="/img/mainLogo2.png" />
       </Styled.LogoLink>
     </Styled.OuterWrapper>
   );

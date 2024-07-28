@@ -1,7 +1,6 @@
 import { Styled } from '../../styled-components/AuthStyle';
 
 export default function NaverLoginButton() {
-
   const handleLogin = () => {
     const loginRequestUrl = 'https://www.fantion.kro.kr/members/naver/request';
     window.location.href = loginRequestUrl;

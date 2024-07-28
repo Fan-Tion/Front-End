@@ -64,7 +64,6 @@ const ChargeButton = styled.button`
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
-  
 
   &:hover {
     background-color: #aacb73;
@@ -130,7 +129,7 @@ export default function SideProfile({ nickname }: SideProfileProps) {
       </Modal>
       <Footer>
         <SignOutButton>로그아웃</SignOutButton>
-        
+
         <LogoName>Fan-tion</LogoName>
       </Footer>
     </Wrapper>

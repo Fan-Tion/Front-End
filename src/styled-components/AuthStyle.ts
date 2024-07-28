@@ -175,7 +175,7 @@ export const LogoText = styled.div`
   padding: 30px;
 `;
 export const LogoLink = styled(Link)`
-  margin-top : 40px;
+  margin-top: 40px;
   text-decoration: none;
 `;
 
