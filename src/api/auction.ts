@@ -13,7 +13,11 @@ export const auctionApi = {
   deleteAuction: (payload: string) =>
     axiosInstance.delete(`/auction/${payload}`),
   checkFavorite: (payload: string): Promise<checkFavoriteResponseType> =>
-    axiosInstance.get(`/auction/category${payload}`),
+    axiosInstance.get(`/auction/favorite/${payload}`),
   toggleFavorite: (payload: string): Promise<checkFavoriteResponseType> =>
-    axiosInstance.post(`/auction/category${payload}`),
+    axiosInstance.post(`/auction/favorite/${payload}`),
+  ReportAuction: (payload: string) =>
+    axiosInstance.post(`/auction/report/${payload}`, {
+      description: '부적절한 경매로 신고 접수',
+    }),
 };

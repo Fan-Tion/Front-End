@@ -1,11 +1,9 @@
 import { auctionApi } from '@api/auction';
 import LoadingScreen from '@components/LoadingScreen';
-import { useModalHandler } from '@hooks/useModalHandler';
 import { auctionDetailsType } from '@mocks/db';
 import { fetchAuctionDetails } from '@utils/fetchAuctionDetails';
 import _ from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
-import Modal from 'react-modal';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { GlobalButton } from '../../styled-components/Globalstyle';
@@ -13,7 +11,6 @@ import {
   AuctionInfoModule,
   ImageModule,
   ItemDescription,
-  SameKeywordAuctions,
   SellerRating,
   SteamedButton
 } from './atom';
@@ -63,12 +60,26 @@ const Functions = styled.div`
   gap: 16px;
 `
 
+const ReportButton = styled.button`
+  background: none;
+  border: none;
+  color: gray;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px;
+  &:hover {
+    color: darkgray;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
 export default function DetailPageComponents() {
   const { auctionId } = useParams<{ auctionId: string }>();
   const navigate = useNavigate()
   const [auctionDetails, setAuctionDetails] = useState<auctionDetailsType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { isModalOpen, toggleModal } = useModalHandler()
 
   useEffect(() => {
     if (auctionId) {
@@ -101,6 +112,17 @@ export default function DetailPageComponents() {
     }
   }
 
+  const handleReport = async () => {
+
+    try {
+      if (!auctionId) return;
+      const response = await auctionApi.ReportAuction(auctionId);
+      console.log('handleReport response : ' + response)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   if (loading || auctionDetails === null) {
     return <LoadingScreen />;
   }
@@ -113,22 +135,23 @@ export default function DetailPageComponents() {
         </LeftContainer>
         <RightContainer>
           <AuctionInfoModule details={auctionDetails} buyNow={buyNowHandler} bidHandler={bidHandler} />
-          <SameKeywordAuctions />
+          {/* <SameKeywordAuctions /> */}
+
+          <SteamedButton auctionId={auctionId!} />
+          {/* 작성자 여부 검증후 조건부 랜더링 */}
+          <div>
+            <GlobalButton type='button' onClick={() => navigate(`/auction/editor/${auctionId}`)}>경매 수정</GlobalButton>
+            <GlobalButton type='button' onClick={deleteHandler}>경매 삭제</GlobalButton>
+          </div>
         </RightContainer>
       </AuctionContainer>
       <Functions>
         {auctionDetails.auctionUserRating ? <SellerRating rating={auctionDetails.auctionUserRating} /> : null}
-        <SteamedButton auctionId={auctionId!} />
-        {/* 작성자 여부 검증후 조건부 랜더링 */}
-        <div>
-          <GlobalButton type='button' onClick={() => navigate(`/auction/editor/${auctionId}`)}>경매 수정</GlobalButton>
-          <GlobalButton type='button' onClick={deleteHandler}>경매 삭제</GlobalButton>
-        </div>
       </Functions>
-      <button onClick={toggleModal}>신고하기</button>
+      <ReportButton onClick={handleReport}>신고하기</ReportButton>
       <ItemDescription description={auctionDetails.description} />
 
-      <Modal isOpen={isModalOpen} onRequestClose={toggleModal} style={{
+      {/* <Modal isOpen={isModalOpen} onRequestClose={toggleModal} style={{
         content: {
           top: '50%',
           left: '50%',
@@ -144,14 +167,8 @@ export default function DetailPageComponents() {
           backgroundColor: 'rgba(0, 0, 0, 0.75)'
         }
       }}>
-        <div>
-          <section>접수하기</section>
-          <div>
-            신고 사유를 작성해 주세요.
-          </div>
-          <textarea />
-        </div>
-      </Modal>
+
+      </Modal> */}
     </Container >
   );
 }
