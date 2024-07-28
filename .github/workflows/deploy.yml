@@ -5,7 +5,6 @@ on:
     branches: 
       - 'main'
       - 'dev'
-      - 'test'
 
 jobs:
   build:
@@ -31,7 +30,7 @@ jobs:
           destination-repository-name: Fan-Tion-FE
           user-email: ${{ secrets.EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
-          target-branch: ${{ github.ref == 'refs/heads/main' && 'main' || (github.ref == 'refs/heads/test' && 'test' || 'dev') }}
+          target-branch: ${{ github.ref == 'refs/heads/main' && 'main' || 'dev' }}
 
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
