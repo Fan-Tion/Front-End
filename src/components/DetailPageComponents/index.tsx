@@ -1,4 +1,5 @@
 import { auctionApi } from '@api/auction';
+import LoadingScreen from '@components/LoadingScreen';
 import { useModalHandler } from '@hooks/useModalHandler';
 import { auctionDetailsType } from '@mocks/db';
 import { fetchAuctionDetails } from '@utils/fetchAuctionDetails';
@@ -16,7 +17,6 @@ import {
   SellerRating,
   SteamedButton
 } from './atom';
-
 
 const Container = styled.div`
   margin: 30px auto;
@@ -102,7 +102,7 @@ export default function DetailPageComponents() {
   }
 
   if (loading || auctionDetails === null) {
-    return <Container>Loading...</Container>;
+    return <LoadingScreen />;
   }
 
   return (
@@ -118,11 +118,11 @@ export default function DetailPageComponents() {
       </AuctionContainer>
       <Functions>
         {auctionDetails.auctionUserRating ? <SellerRating rating={auctionDetails.auctionUserRating} /> : null}
-        <SteamedButton />
+        <SteamedButton auctionId={auctionId!} />
         {/* 작성자 여부 검증후 조건부 랜더링 */}
         <div>
           <GlobalButton type='button' onClick={() => navigate(`/auction/editor/${auctionId}`)}>경매 수정</GlobalButton>
-          <GlobalButton type='reset' onClick={deleteHandler}>경매 삭제</GlobalButton>
+          <GlobalButton type='button' onClick={deleteHandler}>경매 삭제</GlobalButton>
         </div>
       </Functions>
       <button onClick={toggleModal}>신고하기</button>
@@ -144,11 +144,13 @@ export default function DetailPageComponents() {
           backgroundColor: 'rgba(0, 0, 0, 0.75)'
         }
       }}>
-        <section>접수하기</section>
         <div>
-          신고 사유를 작성해 주세요.
+          <section>접수하기</section>
+          <div>
+            신고 사유를 작성해 주세요.
+          </div>
+          <textarea />
         </div>
-        <textarea />
       </Modal>
     </Container >
   );
