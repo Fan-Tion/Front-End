@@ -90,11 +90,6 @@ interface AuctionInfoPropType {
   bidHandler: () => void;
 }
 
-const categoryIndex: { [key: string]: string } = {
-  'photo-card': "포토 카드",
-  'sign': '사인',
-  'digital': '디지털'
-}
 
 export default function AuctionInfoModule({ details, buyNow, bidHandler }: AuctionInfoPropType) {
 
@@ -119,7 +114,7 @@ export default function AuctionInfoModule({ details, buyNow, bidHandler }: Aucti
       <Title>{title}</Title>
       <Row>
         <Label>카테고리</Label>
-        <Value>{categoryIndex[category]}</Value>
+        <Value>{category}</Value>
         <Label>시작 시간</Label>
         <Value>{formatDateTime(createDate)}</Value>
       </Row>

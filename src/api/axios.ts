@@ -10,6 +10,9 @@ export const axiosInstance = axios.create({
   headers: {
     withCredentials: true,
     'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache',
+    Pragma: 'no-cache',
+    Expires: '0',
   },
 });
 
