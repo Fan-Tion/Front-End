@@ -144,7 +144,7 @@ export default function DetailPageComponents() {
           backgroundColor: 'rgba(0, 0, 0, 0.75)'
         }
       }}>
-        <section> 신고하기</section>
+        <section>접수하기</section>
         <div>
           신고 사유를 작성해 주세요.
         </div>
