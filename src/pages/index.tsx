@@ -14,4 +14,5 @@ export const SignUpPage = lazy(() => import('./SignUpPage'));
 export const PopularCategoryPage = lazy(() => import('./PopularCategoryPage'));
 export const SuccessPage = lazy(() => import('./SuccessPage'));
 export const FailPage = lazy(() => import('./FailPage'));
+export const EditorAuctionPage = lazy(() => import('./EditorAuctionPage'));
 

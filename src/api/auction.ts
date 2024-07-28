@@ -6,4 +6,6 @@ export const auctionApi = {
   getDetails: (auctionId: string): Promise<auctionDetailsDataType> =>
     axiosInstance.get(`/auction/view/${auctionId}`),
   getCategory: () => axiosInstance.get('/auction/category'),
+  deleteAuction: (payload: string) =>
+    axiosInstance.delete(`/auction/${payload}`),
 };
