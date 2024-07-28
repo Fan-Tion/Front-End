@@ -145,8 +145,10 @@ export const handlers = [
 
     // auctionUserRating 필드 추가
     const auctionDetails = {
-      ...auctionInfo,
-      auctionUserRating: 10,
+      data: {
+        ...auctionInfo,
+        auctionUserRating: 10,
+      },
     };
 
     auctions.set(`${new Date()}`, auctionDetails);

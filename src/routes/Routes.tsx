@@ -1,3 +1,4 @@
+import LoadingScreen from '@components/LoadingScreen';
 import RootLayout from '@layout/RootLayout';
 import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -6,6 +7,7 @@ import {
   AuctionHistoryPage,
   DepositHistoryPage,
   DetailPage,
+  EditorAuctionPage,
   ErrorPage,
   FailPage,
   FindPasswordPage,
@@ -18,7 +20,7 @@ import {
   SuccessPage,
 } from '../pages';
 
-const Loader = () => <div>Loading...</div>;
+// const Loader = () => <div>Loading...</div>;
 
 export default function Routes() {
   const router = createBrowserRouter([
@@ -26,7 +28,7 @@ export default function Routes() {
       path: '/',
       element: <RootLayout />,
       errorElement: (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<LoadingScreen />}>
           <ErrorPage />
         </Suspense>
       ),
@@ -34,7 +36,7 @@ export default function Routes() {
         {
           path: 'not-found',
           element: (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<LoadingScreen />}>
               <ErrorPage />
             </Suspense>
           ),
@@ -48,7 +50,7 @@ export default function Routes() {
         {
           path: 'mypage/auction-history',
           element: (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<LoadingScreen />}>
               <AuctionHistoryPage />
             </Suspense>
           ),
@@ -56,7 +58,7 @@ export default function Routes() {
         {
           path: 'mypage/deposit-history',
           element: (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<LoadingScreen />}>
               <DepositHistoryPage />
             </Suspense>
           ),
@@ -64,7 +66,7 @@ export default function Routes() {
         {
           path: 'mypage',
           element: (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<LoadingScreen />}>
               <MyPage />
             </Suspense>
           ),
@@ -72,7 +74,7 @@ export default function Routes() {
         {
           path: 'auction/create',
           element: (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<LoadingScreen />}>
               <AuctionCreatePage />
             </Suspense>
           ),
@@ -80,15 +82,23 @@ export default function Routes() {
         {
           path: 'auction/:auctionId',
           element: (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<LoadingScreen />}>
               <DetailPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'auction/editor/:auctionId',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <EditorAuctionPage />
             </Suspense>
           ),
         },
         {
           path: 'sandbox/success',
           element: (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<LoadingScreen />}>
               <SuccessPage />
             </Suspense>
           ),
@@ -96,7 +106,7 @@ export default function Routes() {
         {
           path: 'sandbox/fail',
           element: (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<LoadingScreen />}>
               <FailPage />
             </Suspense>
           ),
@@ -104,7 +114,7 @@ export default function Routes() {
         {
           path: 'auction/search',
           element: (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<LoadingScreen />}>
               <PopularCategoryPage />
             </Suspense>
           ),
@@ -114,7 +124,7 @@ export default function Routes() {
     {
       path: 'signup',
       element: (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<LoadingScreen />}>
           <SignUpPage />
         </Suspense>
       ),
@@ -122,7 +132,7 @@ export default function Routes() {
     {
       path: 'signin',
       element: (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<LoadingScreen />}>
           <SignInPage />
         </Suspense>
       ),
@@ -130,7 +140,7 @@ export default function Routes() {
     {
       path: 'findpassword',
       element: (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<LoadingScreen />}>
           <FindPasswordPage />
         </Suspense>
       ),
@@ -138,7 +148,7 @@ export default function Routes() {
     {
       path: 'reset-password/:uId',
       element: (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<LoadingScreen />}>
           <PasswordResetPage />
         </Suspense>
       ),
