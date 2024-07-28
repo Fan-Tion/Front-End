@@ -1,16 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Card = styled.div`
-  width: 300px;
-  height: 400px;
+  width: 310px;
+  height: 410px;
   background-color: white;
   margin: 15px;
-
+  cursor: pointer;
+  border: 2px solid #cde990;
   border-radius: 15px;
 `;
 const Image = styled.img`
   width: 300px;
-  height: 300px;
+  min-height: 300px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
 `;
@@ -20,6 +22,7 @@ const Detail = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-top: 2px solid #cde990;
 `;
 const Price = styled.div`
   float: right;
@@ -46,14 +49,16 @@ interface ProductProps {
 }
 
 export default function Product({
+  auctionId,
   auctionImage,
   title,
   currentBidPrice,
   buyNowPrice,
   bidCount,
 }: ProductProps) {
+  const navigate = useNavigate();
   return (
-    <Card>
+    <Card onClick={() => navigate(`/auction/${auctionId}`)}>
       <Image src={auctionImage} alt="Product Image" />
       <Detail>{title}</Detail>
       <Price>

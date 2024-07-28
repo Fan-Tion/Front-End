@@ -47,9 +47,9 @@ export default function AllProducts() {
       const response = await productListApi.getProductList({
         pageNumber: page,
       });
-      return Array.isArray(response.data) ? response.data : [];
+      return Array.isArray(response.data.content) ? response.data.content : [];
     } catch (error) {
-      console.error('Error fetching products:', error);
+      // console.error('Error fetching products:', error);
       return [];
     }
   };
