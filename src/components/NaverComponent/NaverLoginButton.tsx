@@ -1,14 +1,10 @@
-import { naverLoginApi } from '@api/naverLogin';
 import { Styled } from '../../styled-components/AuthStyle';
 
 export default function NaverLoginButton() {
-  const handleLogin = async () => {
-    try {
-      const response = await naverLoginApi.requestNaverLogin();
-      console.log('네이버 로그인 요청응답', response);
-    } catch (error) {
-      console.log('네이버 로그인 요청 실패', error);
-    }
+
+  const handleLogin = () => {
+    const loginRequestUrl = 'https://www.fantion.kro.kr/members/naver/request';
+    window.location.href = loginRequestUrl;
   };
   return (
     <Styled.SocialButtonWrap onClick={handleLogin}>

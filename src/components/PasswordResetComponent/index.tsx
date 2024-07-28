@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate , useSearchParams } from 'react-router-dom';
 import { membersApi } from '../../api/member';
 import { Styled } from '../../styled-components/AuthStyle';
 
@@ -13,11 +13,11 @@ const errorMessages = {
 
 export default function PasswordResetForm() {
   const navigate = useNavigate();
-  const { uId } = useParams();
+  const [searchParams] = useSearchParams();
+  const uuid = searchParams.get('uuid');
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: '',
-    uId: uId || '' //uId 파람
   });
   const [error, setError] = useState('');
 
@@ -53,7 +53,7 @@ export default function PasswordResetForm() {
     try {
       // 비밀번호 변경 로직 추가
       const response = await membersApi.resetPassword({
-        email: uId,             //이메일 : uId 로설정
+        uuid: uuid,             
         newPassword: formData.password,
       });
       console.log(response);
@@ -88,6 +88,7 @@ export default function PasswordResetForm() {
         </Styled.Form>
         {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
       </Styled.Wrapper>
+      <Styled.LogoImage src='/img/mainLogo2.png'/>
     </Styled.OuterWrapper>
   );
 }

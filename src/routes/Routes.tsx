@@ -139,7 +139,7 @@ export default function Routes() {
       ),
     },
     {
-      path: 'reset-password/:uId',
+      path: 'reset-password-page',
       element: (
         <Suspense fallback={<Loader />}>
           <PasswordResetPage />

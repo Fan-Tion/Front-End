@@ -339,7 +339,7 @@ export default function SignUpForm() {
         </Styled.Switcher>
       </Styled.Wrapper>
       <Styled.LogoLink to="/">
-        <Styled.LogoText>Fan-Tion</Styled.LogoText>
+        <Styled.LogoImage src='/img/mainLogo2.png'/>
       </Styled.LogoLink>
     </Styled.OuterWrapper>
   );

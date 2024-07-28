@@ -22,17 +22,11 @@ const Wrapper = styled.header`
 
 const MenuItem = styled.div`
   margin-right: 60px;
-  padding: 15px;
   &:hover {
     border-radius: 25px;
     background-color: #ffb3b3;
     transform: scale(1.05);
   }
-`;
-
-const MenuName = styled.div`
-  font-weight: bold;
-  color: #222;
 `;
 
 const SearchBar = styled.div`
@@ -115,6 +109,14 @@ const LogOutBtn = styled.button`
   }
 `;
 
+const LogoImage = styled.img`
+  width: 110px;
+  height: 70px;
+  border-radius: 25%;
+  object-fit: cover;
+  object-position: center;
+`;
+
 export default function LayoutHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [cookies, , removeCookie] = useCookies(['Authorization']);
@@ -138,7 +140,7 @@ export default function LayoutHeader() {
     <Wrapper>
       <Link to="/">
         <MenuItem>
-          <MenuName>Fan-Tion</MenuName>
+          <LogoImage src="/img/mainLogo.png" />
         </MenuItem>
       </Link>
       {/* <Link to='/'>
