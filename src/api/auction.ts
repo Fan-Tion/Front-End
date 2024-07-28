@@ -5,6 +5,20 @@ interface checkFavoriteResponseType {
   favoriteChk: boolean;
 }
 
+interface buyNowPromise {
+  buyNowPrice: number;
+  balance: number;
+}
+
+interface bidNowPayloadType {
+  auctionId: string;
+  bidPrice: number;
+}
+
+interface bidNowPromise {
+  bidPrice: number;
+}
+
 export const auctionApi = {
   create: (payload: any) => uploadMultipartData('/auction', payload),
   getDetails: (auctionId: string): Promise<auctionDetailsDataType> =>
@@ -20,4 +34,8 @@ export const auctionApi = {
     axiosInstance.post(`/auction/report/${payload}`, {
       description: '부적절한 경매로 신고 접수',
     }),
+  buyNow: (payload: string): Promise<buyNowPromise> =>
+    axiosInstance.put('/bid', payload),
+  bidNow: (payload: bidNowPayloadType): Promise<bidNowPromise> =>
+    axiosInstance.post('/bid', payload),
 };

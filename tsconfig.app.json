@@ -31,7 +31,8 @@
       "@mocks/*": ["src/mocks/*"],
       "@utils/*": ["src/utils/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@layout/*": ["src/layout/*"]
+      "@layout/*": ["src/layout/*"],
+      "@constants/*": ["src/constants/*"]
     }
   },
   "include": ["src"]
