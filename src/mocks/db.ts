@@ -55,7 +55,7 @@ interface bidType {
 
 export interface auctionDetailsType {
   auctionType: boolean;
-  auctionUserNickname?: string;
+  auctionUserNickname: string;
   auctionUserRating: number;
   title: string;
   category: string;
@@ -67,7 +67,7 @@ export interface auctionDetailsType {
   favoriteCnt?: number;
   createDate: string;
   endDate: string;
-  status?: boolean;
+  status: boolean;
   bid?: bidType;
 }
 
