@@ -1,3 +1,6 @@
+import CancelComponent from '@components/DepositRechargeComponent/Cancel';
+import { useModalHandler } from '@hooks/useModalHandler';
+import Modal from '@utils/Modal';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { historyApi } from '../../api/history';
@@ -25,10 +28,10 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 8fr 2fr;
+  grid-template-columns: 4fr 2fr 2fr 2fr;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  align-items: center;
 `;
 
 const Pagination = styled.div`
@@ -61,6 +64,7 @@ const ArrowButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `;
+
 const Balance = styled.span`
   display: inline-block;
   width: 80px; /* 고정된 너비 */
@@ -82,6 +86,9 @@ export default function AuctionHistoryComponents({
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+  const [selectedPaymentKey, setSelectedPaymentKey] = useState<string | null>(
+    null,
+  );
 
   // selectedTab이 변경될 때 currentPage를 1로 초기화
   useEffect(() => {
@@ -129,6 +136,11 @@ export default function AuctionHistoryComponents({
     setCurrentPage(newPage);
   };
 
+  const handleOpenModal = (paymentKey: string) => {
+    setSelectedPaymentKey(paymentKey);
+    toggleModal();
+  };
+
   const renderPageButtons = () => {
     const buttons = [];
     const startPage = currentGroup * PAGE_GROUP_SIZE + 1;
@@ -152,6 +164,7 @@ export default function AuctionHistoryComponents({
   if (loading) {
     return <Content>Loading...</Content>;
   }
+  const { isModalOpen, toggleModal } = useModalHandler();
 
   return (
     <>
@@ -174,6 +187,11 @@ export default function AuctionHistoryComponents({
                           ? '충전'
                           : '출금'}
                   </p>
+                  {item.type === 'charge' ? (
+                    <button onClick={() => handleOpenModal(item.paymentKey)}>
+                      취소
+                    </button>
+                  ) : null}
                   <Balance>
                     {item.type === 'purchase' || item.type === 'withdrawal'
                       ? `- ${item.balance}`
@@ -186,6 +204,9 @@ export default function AuctionHistoryComponents({
           </>
         )}
       </Content>
+      <Modal isOpen={isModalOpen} onClose={toggleModal}>
+        <CancelComponent paymentKey={selectedPaymentKey} />
+      </Modal>
       <Pagination>
         <ArrowButton onClick={handlePrevGroup} disabled={currentGroup === 0}>
           &lt;
