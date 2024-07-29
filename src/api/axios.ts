@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 
-export const API_BASE_URL = '/api';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // axios instance creation.
 export const axiosInstance = axios.create({
@@ -68,6 +68,30 @@ export async function uploadMultipartData<T>(
   };
 
   return axiosInstance.post(url, formData, config);
+}
+
+export async function EditMultipartData<T>(
+  url: string,
+  data: Record<string, any>,
+): Promise<T> {
+  const formData = new FormData();
+  Object.keys(data).forEach(key => {
+    if (Array.isArray(data[key])) {
+      data[key].forEach((file: File) => {
+        formData.append(key, file);
+      });
+    } else {
+      formData.append(key, data[key]);
+    }
+  });
+
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  return axiosInstance.put(url, formData, config);
 }
 
 // async function fetchCall<T>(

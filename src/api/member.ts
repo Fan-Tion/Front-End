@@ -1,4 +1,4 @@
-import { axiosInstance, uploadMultipartData } from './axios';
+import { axiosInstance, uploadMultipartData , EditMultipartData } from './axios';
 
 export interface SignInResponse {
   data: {
@@ -35,4 +35,5 @@ export const membersApi = {
   signOut: () => axiosInstance.post('/members/signout'),
   withdrawal: (): Promise<WithdrawalResponse> =>
     axiosInstance.post('/members/withdrawal'),
+  InfoEdit : (payload:any) => EditMultipartData('/members/edit', payload),
 };

@@ -104,22 +104,25 @@ const LogoName = styled.div`
 
 interface SideProfileProps {
   nickname: string;
+  profileImage: string;
+  balance : number;
 }
-export default function SideProfile({ nickname }: SideProfileProps) {
+export default function SideProfile({ nickname, profileImage , balance}: SideProfileProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   return (
     <Wrapper>
       <Title>마이 페이지</Title>
       <AvatarUpload htmlFor="file">
-        <AvatarImg src="https://via.placeholder.com/300" alt="img" />
+        <AvatarImg src={profileImage} alt="https://via.placeholder.com/300"/>
       </AvatarUpload>
       <AvatarInput id="file" type="file" />
       <NameTitle>닉네임</NameTitle>
       <Name>{nickname || 'Anonymous'}</Name>
-      <Money>예치금: 50000원</Money>
+      <Money>예치금: {balance.toLocaleString()} 원</Money>
       <ChargeButton>충전하기</ChargeButton>
       <TradeButton onClick={toggleModal}>거래중</TradeButton>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
@@ -127,7 +130,6 @@ export default function SideProfile({ nickname }: SideProfileProps) {
       </Modal>
       <Footer>
         <SignOutButton>로그아웃</SignOutButton>
-        
         <LogoName>Fan-tion</LogoName>
       </Footer>
     </Wrapper>
