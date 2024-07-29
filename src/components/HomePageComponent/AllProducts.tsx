@@ -54,7 +54,7 @@ export default function AllProducts() {
     }
   };
 
-  // 1페이지 로드
+  // 0페이지 로드
   useEffect(() => {
     const loadInitialData = async () => {
       const initialProducts = await fetchProducts(0);
@@ -63,7 +63,7 @@ export default function AllProducts() {
     loadInitialData();
   }, []);
 
-  // 2페이지부터
+  // 1페이지부터
   const fetchMoreData = async () => {
     const newProducts = await fetchProducts(page);
     if (newProducts.length === 0) {
@@ -78,7 +78,7 @@ export default function AllProducts() {
     if (infiniteScrollEnabled) {
       const initialProducts = await fetchProducts(0);
       setProducts(initialProducts);
-      setPage(2);
+      setPage(1);
       setHasMore(true);
     } else {
       await fetchMoreData();

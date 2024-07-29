@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Card = styled.div`
-  width: 310px;
-  height: 410px;
+  width: 304px;
+  height: 400px;
   background-color: white;
   margin: 15px;
   cursor: pointer;

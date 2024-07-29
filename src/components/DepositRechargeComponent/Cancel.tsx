@@ -1,7 +1,7 @@
 import { rechargeApi } from '@api/recharge';
 import { useState } from 'react';
-import { GlobalButton } from 'src/styled-components/Globalstyle';
 import styled from 'styled-components';
+import { GlobalButton } from '../../styled-components/Globalstyle';
 
 const Cancel = styled(GlobalButton)``;
 
