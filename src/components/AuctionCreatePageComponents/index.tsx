@@ -68,8 +68,7 @@ export default function AuctionCreatePageComponents() {
   const navigate = useNavigate();
 
   const cancelHandler = () => {
-    const ok = confirm('경매 작성을 취소하고 홈 화면으로 돌아갈까요?');
-    if (ok) navigate('/');
+    if (confirm('경매 작성을 취소하고 홈 화면으로 돌아갈까요?')) navigate('/');
   };
 
   return (
