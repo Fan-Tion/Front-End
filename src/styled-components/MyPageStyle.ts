@@ -92,7 +92,7 @@ padding: 15px 20px;
 border-radius: 25px;
 border : 2px solid #CDE990;
 font-size: 16px;
-width : 700px;
+width : 650px;
 &:hover {
   border : 2px solid #AACB73;
 }

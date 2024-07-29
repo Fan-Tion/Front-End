@@ -1,16 +1,15 @@
+import { membersApi } from '@api/member';
 import { useEffect, useState } from 'react';
 import {
   Container,
   EditButton,
+  EditInput,
   Info,
   InfoName,
+  SaveButton,
   Section,
   Title,
-  EditInput,
-  SaveButton,
 } from '../../styled-components/MyPageStyle';
-import { membersApi } from '@api/member';
-
 
 interface ProfileProps {
   userInfo: any;
@@ -23,21 +22,23 @@ const formatPhoneNumber = (phoneNumber: string) => {
   return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
 };
 
-export default function Profile({ userInfo } : ProfileProps) {
+
+export default function Profile({ userInfo }: ProfileProps) {
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
     nickname: userInfo?.nickname || '',
     phoneNumber: userInfo?.phoneNumber || '',
     address: userInfo?.address || '',
-    profileImage: null as File | null, 
+    profileImage: userInfo?.profileImage || null,
   });
+ 
 
   useEffect(() => {
     setFormData({
       nickname: userInfo?.nickname || '',
       phoneNumber: userInfo?.phoneNumber || '',
       address: userInfo?.address || '',
-      profileImage: null,
+      profileImage: userInfo?.profileImage || null,
     });
   }, [userInfo]);
 
@@ -48,32 +49,30 @@ export default function Profile({ userInfo } : ProfileProps) {
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
+    
   };
 
   const handleSubmit = async () => {
     try {
-      const formDataToSend = new FormData();
-      Object.keys(formData).forEach(key => {
-        const value = formData[key as keyof typeof formData];
-        if (value) {
-          formDataToSend.append(key, value);
-        }
+      const ProfileUpData = JSON.stringify({
+        nickname: formData.nickname,
+        phoneNumber: formData.phoneNumber,
+        address: formData.address,
       });
-      const jsonSignUpData = JSON.stringify(formData);
-      const request = new Blob([jsonSignUpData], { type: 'application/json' });
+      const requestBlob = new Blob([ProfileUpData], {
+        type: 'application/json',
+      });
       const data = {
-        request: request,
+        request: requestBlob,
         file: formData.profileImage,
       };
-      console.log(data);
+
       await membersApi.InfoEdit(data);
       setEditMode(false);
-    } catch(error) {
-      console.log(error);
+    } catch (error) {
+      console.error(error);
     }
-  }
-
-
+  };
 
   return (
     <Container>
@@ -125,12 +124,21 @@ export default function Profile({ userInfo } : ProfileProps) {
         </>
       ) : (
         <>
-          <Info>닉네임 : <InfoName>{userInfo?.nickname}</InfoName></Info>
-          <Info>전화번호 : <InfoName>{formatPhoneNumber(userInfo?.phoneNumber)}</InfoName></Info>
-          <Info>이메일 : <InfoName>{userInfo?.email}</InfoName></Info>
-          <Info>배송지 주소 : <InfoName>{userInfo?.address}</InfoName></Info>
+          <Info>
+            닉네임 : <InfoName>{userInfo?.nickname}</InfoName>
+          </Info>
+          <Info>
+            전화번호 :
+            <InfoName>{formatPhoneNumber(userInfo?.phoneNumber)}</InfoName>
+          </Info>
+          <Info>
+            이메일 : <InfoName>{userInfo?.email}</InfoName>
+          </Info>
+          <Info>
+            배송지 주소 : <InfoName>{userInfo?.address}</InfoName>
+          </Info>
         </>
       )}
     </Container>
   );
-};
+}

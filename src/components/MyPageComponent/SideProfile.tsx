@@ -122,7 +122,7 @@ export default function SideProfile({ nickname, profileImage , balance}: SidePro
       <AvatarInput id="file" type="file" />
       <NameTitle>닉네임</NameTitle>
       <Name>{nickname || 'Anonymous'}</Name>
-      <Money>예치금: {balance.toLocaleString()} 원</Money>
+      <Money>예치금 : {balance.toLocaleString()} 원</Money>
       <ChargeButton>충전하기</ChargeButton>
       <TradeButton onClick={toggleModal}>거래중</TradeButton>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>

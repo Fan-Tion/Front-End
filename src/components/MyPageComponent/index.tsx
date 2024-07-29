@@ -23,15 +23,15 @@ const PasswordEditButton = styled.button`
   height: 60px;
   font-size: 16px;
   font-weight: bold;
-  background-color: #CDE990;
+  background-color: #cde990;
   border: none;
   color: #222;
   margin-bottom: 40px;
   transition: all 0.3s ease;
-  border-radius : 25px;
+  border-radius: 25px;
   &:hover {
-    background-color: #AACB73;
-    color : white;
+    background-color: #aacb73;
+    color: white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
@@ -45,9 +45,8 @@ interface UserInfo {
   profileImage: string | null;
 }
 
-
 export default function MyPageComponents() {
-  const [userInfo, setUserInfo] = useState<UserInfo | null >(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   // const [error, setError] = useState('');
 
   useEffect(() => {
@@ -67,15 +66,19 @@ export default function MyPageComponents() {
 
     fetchUserInfo();
   }, []);
-  
+
   const balance = userInfo?.balance ?? 0;
   const nickname = userInfo?.nickname ?? 'Anonymous';
-  const profileImage = userInfo?.profileImage ?? 'https://via.placeholder.com/300';
-
+  const profileImage =
+    userInfo?.profileImage ?? 'https://via.placeholder.com/300';
 
   return (
     <Wrapper>
-      <SideProfile nickname={nickname} profileImage={profileImage} balance={balance}/>
+      <SideProfile
+        nickname={nickname}
+        profileImage={profileImage}
+        balance={balance}
+      />
       <ColumnWrap>
         <Profile userInfo={userInfo} />
         <HistoryView />
