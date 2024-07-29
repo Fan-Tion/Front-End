@@ -14,7 +14,7 @@ export default function LinkNaverAccount() {
   };
   return (
     <Styled.SocialButtonWrap onClick={handleLink}>
-      <Styled.NaverImg src="/img/naver_login.png" />
+      <Styled.LogoImage src='/img/naver_login.png'/>
       네이버 계정 연동
     </Styled.SocialButtonWrap>
   );

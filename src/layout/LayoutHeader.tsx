@@ -140,7 +140,7 @@ export default function LayoutHeader() {
     <Wrapper>
       <Link to="/">
         <MenuItem>
-          <LogoImage src="/img/mainLogo.png" />
+          <LogoImage src="/img/mainLogo.png" /> 
         </MenuItem>
       </Link>
       {/* <Link to='/'>

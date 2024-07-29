@@ -17,6 +17,7 @@ import {
   SignInPage,
   SignUpPage,
   SuccessPage,
+  LoadingScreenPage,
 } from '../pages';
 
 const Loader = () => <div>Loading...</div>;
@@ -149,7 +150,7 @@ export default function Routes() {
     {
       path: 'members/naver/signin',
       element: (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<LoadingScreenPage/>}>
           <NaverLoginCallback />
         </Suspense>
       ),

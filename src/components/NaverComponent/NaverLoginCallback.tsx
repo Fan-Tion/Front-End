@@ -17,5 +17,5 @@ export default function NaverLoginCallback() {
     };
     handleNaverSignin();
   }, [navigate]);
-  return <div>로그인 중...</div>;
+  return null;
 }

@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 
+
 export const AuctionCreatePage = lazy(() => import('./AuctionCreatePage'));
 export const AuctionHistoryPage = lazy(() => import('./AuctionHistoryPage'));
 export const DepositHistoryPage = lazy(() => import('./DepositHistoryPage'));
@@ -14,4 +15,5 @@ export const SignUpPage = lazy(() => import('./SignUpPage'));
 export const PopularCategoryPage = lazy(() => import('./PopularCategoryPage'));
 export const SuccessPage = lazy(() => import('./SuccessPage'));
 export const FailPage = lazy(() => import('./FailPage'));
+export const LoadingScreenPage = lazy(() => import('./LoadingScreenPage'));
 
