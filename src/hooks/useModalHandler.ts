@@ -4,7 +4,7 @@ export const useModalHandler = (initialState: boolean = false) => {
   const [isModalOpen, setIsModalOpen] = useState(initialState);
 
   const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsModalOpen(prev => !prev);
   };
 
   return {

@@ -1,8 +1,8 @@
 import { API_BASE_URL } from '@api/axios';
 import { http, HttpResponse } from 'msw';
 import {
+  auctionDetailsType,
   auctions,
-  auctionsType,
   BuyHistory,
   Checkout,
   Deposit,
@@ -139,7 +139,7 @@ export const handlers = [
 
   // 경매 생성
   http.post(`${API_BASE_URL}/auction`, async ({ request }) => {
-    const auctionInfo = (await request.json()) as auctionsType;
+    const auctionInfo = (await request.json()) as auctionDetailsType;
 
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
 

@@ -1,3 +1,4 @@
+import { categoryKrMap } from '@constants/category';
 import { calculateTimeLeft, formatDateTime, formatTimeLeft } from '@utils/TimeUtils';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -85,23 +86,25 @@ interface AuctionInfoPropType {
     createDate: string;
     currentBidPrice: number;
     buyNowPrice: number;
+    status: boolean;
   }
   buyNow: () => void;
   bidHandler: () => void;
+  isLoggedIn: boolean;
 }
 
-
-export default function AuctionInfoModule({ details, buyNow, bidHandler }: AuctionInfoPropType) {
+export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHandler }: AuctionInfoPropType) {
 
   const { title, category, endDate, createDate, currentBidPrice, buyNowPrice } = details;
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endDate));
+  const auctionState = details.status
 
   useEffect(() => {
     const timer = setInterval(() => {
       const newTimeLeft = calculateTimeLeft(endDate);
       setTimeLeft(newTimeLeft);
 
-      if (newTimeLeft.total <= 0) {
+      if (newTimeLeft.total <= 0 || !auctionState) {
         clearInterval(timer);
       }
     }, 1000);
@@ -114,7 +117,7 @@ export default function AuctionInfoModule({ details, buyNow, bidHandler }: Aucti
       <Title>{title}</Title>
       <Row>
         <Label>카테고리</Label>
-        <Value>{category}</Value>
+        <Value>{categoryKrMap[category]}</Value>
         <Label>시작 시간</Label>
         <Value>{formatDateTime(createDate)}</Value>
       </Row>
@@ -123,18 +126,18 @@ export default function AuctionInfoModule({ details, buyNow, bidHandler }: Aucti
         <Value>{formatDateTime(endDate)}</Value>
         <Label>남은 시간</Label>
         <HighlightedValue>
-          {formatTimeLeft(timeLeft)}
+          {auctionState ? formatTimeLeft(timeLeft) : '경매 종료됨'}
         </HighlightedValue>
       </Row>
       <Divider />
       <Row>
-        <Label>현재 가격</Label>
+        {auctionState ? <Label>현재 가격</Label> : <Label>낙찰 가격</Label>}
         <Value>{currentBidPrice.toLocaleString()} 원</Value>
         <Label>즉시 구매</Label>
         <Value>{buyNowPrice.toLocaleString()} 원</Value>
-        <BuyNowButton type='button' onClick={buyNow}>즉시 구매하기</BuyNowButton>
+        {isLoggedIn && auctionState && <BuyNowButton type='button' onClick={buyNow}>즉시 구매하기</BuyNowButton>}
       </Row>
-      <BidButton type='button' onClick={bidHandler}>입찰하기</BidButton>
+      {isLoggedIn && auctionState && <BidButton type='button' onClick={bidHandler}>입찰하기</BidButton>}
     </InfoContainer>
   )
 }
