@@ -9,7 +9,7 @@ export const fetchAuctionDetails = async (
 ) => {
   try {
     const response = await auctionApi.getDetails(auctionId);
-    setAuctionDetails(response);
+    setAuctionDetails(response.data);
   } catch (error) {
     console.log(error);
     navigate('/not-found');
