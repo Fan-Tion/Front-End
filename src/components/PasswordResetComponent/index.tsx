@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { membersApi } from '../../api/member';
 import { Styled } from '../../styled-components/AuthStyle';
 
@@ -8,16 +8,16 @@ const errorMessages = {
   passwordLength: '비밀번호는 6자 이상 15자 이하로 입력해주세요.',
   passwordMismatch: '비밀번호가 일치하지 않습니다.',
   success: '비밀번호 변경이 완료되었습니다',
-  serverError: '서버에러'
+  serverError: '서버에러',
 };
 
 export default function PasswordResetForm() {
   const navigate = useNavigate();
-  const { uId } = useParams();
+  const [searchParams] = useSearchParams();
+  const uuid = searchParams.get('uuid');
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: '',
-    uId: uId || '' //uId 파람
   });
   const [error, setError] = useState('');
 
@@ -53,12 +53,12 @@ export default function PasswordResetForm() {
     try {
       // 비밀번호 변경 로직 추가
       const response = await membersApi.resetPassword({
-        email: uId,             //이메일 : uId 로설정
+        uuid: uuid,
         newPassword: formData.password,
       });
       console.log(response);
       alert(errorMessages.success);
-      navigate('/signin')
+      navigate('/signin');
     } catch (error) {
       // 에러 처리
       setError(errorMessages.serverError);
@@ -88,6 +88,7 @@ export default function PasswordResetForm() {
         </Styled.Form>
         {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
       </Styled.Wrapper>
+      <Styled.LogoImage src="/img/mainLogo2.png" />
     </Styled.OuterWrapper>
   );
 }

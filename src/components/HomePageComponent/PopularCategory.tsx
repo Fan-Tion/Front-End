@@ -35,6 +35,7 @@ export default function PopularCategory() {
     const fetchCategories = async () => {
       try {
         const response = await categoryApi.getFavoriteCategories();
+        console.log(response);
 
         if (Array.isArray(response.data)) {
           setCategories(response.data);
