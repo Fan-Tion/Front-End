@@ -59,7 +59,7 @@ export default function BidNow({ currentBidPrice, auctionId, buyNowPrice }: BidN
       </div>
       <div>
         <label>
-          현재가 :
+          즉시구매가 :
         </label>
         <span>
           {localStringBuyPrice} 원
