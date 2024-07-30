@@ -29,6 +29,11 @@ const ListItem = styled.li`
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  &:hover {
+    border-radius: 6px;
+    background-color: #cde990;
+  }
 `;
 
 const Pagination = styled.div`

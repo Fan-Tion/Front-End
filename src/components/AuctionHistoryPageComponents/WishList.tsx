@@ -21,13 +21,18 @@ const Content = styled.div`
 `;
 const List = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 5px 5px;
   width: 100%;
 `;
 
 const ListItem = styled.li`
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  &:hover {
+    border-radius: 6px;
+    background-color: #cde990;
+  }
 `;
 const Loading = styled.div`
   text-align: center;
