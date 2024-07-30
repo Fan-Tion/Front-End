@@ -1,6 +1,6 @@
 import { categoryKrMap } from '@constants/category';
 import { calculateTimeLeft, formatDateTime, formatTimeLeft } from '@utils/TimeUtils';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { GlobalButton } from '../../../styled-components/Globalstyle';
 
@@ -80,6 +80,7 @@ const Divider = styled.hr`
 // initialize
 interface AuctionInfoPropType {
   details: {
+    auctionType: boolean;
     title: string;
     category: string;
     endDate: string;
@@ -94,27 +95,33 @@ interface AuctionInfoPropType {
 }
 
 export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHandler }: AuctionInfoPropType) {
-
   const { title, category, endDate, createDate, currentBidPrice, buyNowPrice } = details;
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endDate));
-  const auctionState = details.status
+  const timeLeftRef = useRef<HTMLDivElement>(null);
+  const auctionState = details.status;
+
+  const updateTimeLeft = useCallback(() => {
+    const newTimeLeft = calculateTimeLeft(endDate);
+    if (timeLeftRef.current) {
+      timeLeftRef.current.textContent = auctionState ? formatTimeLeft(newTimeLeft) : '경매 종료됨';
+    }
+  }, [endDate, auctionState]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      const newTimeLeft = calculateTimeLeft(endDate);
-      setTimeLeft(newTimeLeft);
-
-      if (newTimeLeft.total <= 0 || !auctionState) {
-        clearInterval(timer);
-      }
-    }, 1000);
+    const timer = setInterval(updateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, [endDate]);
+  }, [updateTimeLeft]);
 
   return (
     <InfoContainer>
-      <Title>{title}</Title>
+      <Title>
+        {
+          details.auctionType
+            ? '[공개 입찰] '
+            : '[비공개 입찰] '
+        }
+        {title}
+      </Title>
       <Row>
         <Label>카테고리</Label>
         <Value>{categoryKrMap[category]}</Value>
@@ -125,8 +132,8 @@ export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHand
         <Label>종료 시간</Label>
         <Value>{formatDateTime(endDate)}</Value>
         <Label>남은 시간</Label>
-        <HighlightedValue>
-          {auctionState ? formatTimeLeft(timeLeft) : '경매 종료됨'}
+        <HighlightedValue ref={timeLeftRef}>
+          {auctionState ? formatTimeLeft(calculateTimeLeft(endDate)) : '경매 종료됨'}
         </HighlightedValue>
       </Row>
       <Divider />

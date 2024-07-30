@@ -58,7 +58,7 @@ const ChargeButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
-  color: #fff;
+  color: #222;
   background-color: #cde990;
   border: none;
   border-radius: 25px;
@@ -68,6 +68,7 @@ const ChargeButton = styled.button`
   &:hover {
     background-color: #aacb73;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    color: #fff;
   }
 `;
 const TradeButton = styled(ChargeButton)``;
@@ -85,6 +86,7 @@ const SignOutButton = styled.button`
   background-color: #ffd4d4;
   border: none;
   color: #222;
+  font-weight: bold;
   border-radius: 25px;
   transition: background-color 0.3s ease;
 
@@ -127,7 +129,7 @@ export default function SideProfile({ nickname }: SideProfileProps) {
       </Modal>
       <Footer>
         <SignOutButton>로그아웃</SignOutButton>
-        
+
         <LogoName>Fan-tion</LogoName>
       </Footer>
     </Wrapper>

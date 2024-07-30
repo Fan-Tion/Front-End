@@ -1,3 +1,4 @@
+import NaverLoginButton from '@components/NaverComponent/NaverLoginButton';
 import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
@@ -65,10 +66,7 @@ export default function SignInForm() {
           {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
           <Styled.Input type="submit" value="Sign In" />
         </Styled.Form>
-        <Styled.SocialButtonWrap>
-          <Styled.NaverImg src="/img/naver_logo.png" />
-          Naver Login
-        </Styled.SocialButtonWrap>
+        <NaverLoginButton />
         <Styled.Switcher>
           비밀번호를 잊어버리셨나요?{' '}
           <Link to="/findpassword">비밀번호 찾기</Link>
@@ -78,7 +76,7 @@ export default function SignInForm() {
         </Styled.Switcher>
       </Styled.Wrapper>
       <Styled.LogoLink to="/">
-        <Styled.LogoText>Fan-Tion</Styled.LogoText>
+        <Styled.LogoImage src='/img/mainLogo2.png'/>
       </Styled.LogoLink>
     </Styled.OuterWrapper>
   );

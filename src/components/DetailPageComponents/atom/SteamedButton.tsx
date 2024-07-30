@@ -60,7 +60,7 @@ export default function SteamedButton({ auctionId }: SteamedButton) {
     const getCheckFavorite = async () => {
       try {
         const response = await auctionApi.checkFavorite(auctionId)
-        setIsSteamed(response.favoriteChk);
+        setIsSteamed(response.data.favoriteChk);
       } catch (error) {
         console.log(error);
       }
@@ -75,7 +75,7 @@ export default function SteamedButton({ auctionId }: SteamedButton) {
       try {
         setIsBubbling(true); // 하트 애니메이션 시작
         const response = await auctionApi.toggleFavorite(auctionId)
-        setIsSteamed(response.favoriteChk);
+        setIsSteamed(response.data.favoriteChk);
       } catch (error) {
         console.log(error);
       } finally {

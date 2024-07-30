@@ -1,3 +1,4 @@
+import NaverLoginCallback from '@components/NaverComponent/NaverLoginCallback';
 import LoadingScreen from '@components/LoadingScreen';
 import RootLayout from '@layout/RootLayout';
 import { Suspense } from 'react';
@@ -18,6 +19,7 @@ import {
   SignInPage,
   SignUpPage,
   SuccessPage,
+  LoadingScreenPage,
 } from '../pages';
 
 // const Loader = () => <div>Loading...</div>;
@@ -146,10 +148,18 @@ export default function Routes() {
       ),
     },
     {
-      path: 'reset-password/:uId',
+      path: 'reset-password-page',
       element: (
         <Suspense fallback={<LoadingScreen />}>
           <PasswordResetPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: 'members/naver/signin',
+      element: (
+        <Suspense fallback={<LoadingScreenPage/>}>
+          <NaverLoginCallback />
         </Suspense>
       ),
     },
