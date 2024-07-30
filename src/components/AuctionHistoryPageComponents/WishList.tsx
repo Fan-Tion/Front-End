@@ -77,7 +77,7 @@ export default function WishList() {
             {data.map(item => (
               <ListItem
                 key={item.auctionId}
-                onClick={() => navigate(`auction/${item.auctionId}`)}
+                onClick={() => navigate(`/auction/${item.auctionId}`)}
               >
                 {item.title}
               </ListItem>

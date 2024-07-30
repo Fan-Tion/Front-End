@@ -26,13 +26,15 @@ const Detail = styled.div`
   border-top: 2px solid #cde990;
 `;
 const Price = styled.div`
-  float: right;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto auto;
+  justify-items: end;
   font-size: 12px;
-  padding-right: 10px;
+  align-items: start;
+  gap: 4px;
 `;
-const Div = styled.div`
-  margin-bottom: 4px;
-`;
+const Div = styled.div``;
 const Div2 = styled(Div)`
   margin-left: 17px;
 `;
@@ -63,9 +65,11 @@ export default function Product({
       <Image src={auctionImage} alt="Product Image" />
       <Detail>{title}</Detail>
       <Price>
-        <Div>현재 입찰가 : {currentBidPrice} 원</Div>
-        <Div>즉시 구매가 : {buyNowPrice} 원</Div>
-        <Div2>입찰건수 : {bidCount}</Div2>
+        <Div>현재 입찰가 :</Div>{' '}
+        <Div>{currentBidPrice.toLocaleString('ko-KR')} 원</Div>
+        <Div>즉시 구매가 :</Div>{' '}
+        <Div>{buyNowPrice.toLocaleString('ko-KR')} 원</Div>
+        <Div2>입찰건수 :</Div2> <Div2>{bidCount}</Div2>
       </Price>
     </Card>
   );
