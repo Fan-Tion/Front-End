@@ -22,7 +22,6 @@ const formatPhoneNumber = (phoneNumber: string) => {
   return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
 };
 
-
 export default function Profile({ userInfo }: ProfileProps) {
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
@@ -30,7 +29,6 @@ export default function Profile({ userInfo }: ProfileProps) {
     phoneNumber: userInfo?.phoneNumber || '',
     address: userInfo?.address || '',
   });
- 
 
   useEffect(() => {
     setFormData({

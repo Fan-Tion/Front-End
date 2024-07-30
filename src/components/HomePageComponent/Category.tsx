@@ -3,10 +3,8 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   text-align: center;
- 
 `;
 const Image = styled.img`
-
   margin-top: 70px;
   width: 200px;
   height: 250px;

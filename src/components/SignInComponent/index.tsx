@@ -35,7 +35,10 @@ export default function SignInForm() {
       expires.setTime(expires.getTime() + 7200 * 1000); // 7200초 밀리초로 반환
 
       console.log(response);
-      setCookie('Authorization', response.data.accessToken, { path: '/' , expires}); // 로그인 성공시 토큰 쿠키에 저장 하고 쿠키 시간 7200초 = 2시간
+      setCookie('Authorization', response.data.accessToken, {
+        path: '/',
+        expires,
+      }); // 로그인 성공시 토큰 쿠키에 저장 하고 쿠키 시간 7200초 = 2시간
 
       // 로그인 성공 처리
       navigate('/');

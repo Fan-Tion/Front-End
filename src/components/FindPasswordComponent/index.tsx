@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { membersApi } from '../../api/member';
 import { Styled } from '../../styled-components/AuthStyle';
 
@@ -17,7 +17,6 @@ export default function FindPasswordForm() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
- 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -36,9 +35,9 @@ export default function FindPasswordForm() {
 
     try {
       // 서버로 이메일과 휴대폰 번호 전송
-        await membersApi.requestPasswordReset(formData);
-        setSuccessMessage(errorMessages.success);
-        setError('');
+      await membersApi.requestPasswordReset(formData);
+      setSuccessMessage(errorMessages.success);
+      setError('');
     } catch (error) {
       console.error('비밀번호 찾기 요청 실패:', error);
       setError(errorMessages.invalidFields);
@@ -66,7 +65,9 @@ export default function FindPasswordForm() {
           />
           <Styled.Input type="submit" value="인증하기" />
           {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
-          {successMessage && <Styled.ErrorMessage>{successMessage}</Styled.ErrorMessage>}
+          {successMessage && (
+            <Styled.ErrorMessage>{successMessage}</Styled.ErrorMessage>
+          )}
         </Styled.Form>
         <Styled.Switcher>
           로그인페이지로 <Link to="/signin">로그인페이지로 이동</Link>

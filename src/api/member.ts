@@ -1,4 +1,4 @@
-import { axiosInstance, uploadMultipartData  } from './axios';
+import { axiosInstance, uploadMultipartData } from './axios';
 
 export interface SignInResponse {
   data: {

@@ -8,7 +8,7 @@ const errorMessages = {
   passwordLength: '비밀번호는 6자 이상 15자 이하로 입력해주세요.',
   passwordMismatch: '비밀번호가 일치하지 않습니다.',
   success: '비밀번호 변경이 완료되었습니다',
-  serverError: '서버에러'
+  serverError: '서버에러',
 };
 
 export default function PasswordResetForm() {
@@ -20,7 +20,6 @@ export default function PasswordResetForm() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
 
   const handlePasswordChange = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +42,7 @@ export default function PasswordResetForm() {
     try {
       await membersApi.resetPassword({
         uuid,
-        newPassword
+        newPassword,
       });
 
       setSuccessMessage('비밀번호가 성공적으로 변경되었습니다.');
@@ -63,14 +62,14 @@ export default function PasswordResetForm() {
             placeholder="새 비밀번호"
             type="password"
             value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={e => setNewPassword(e.target.value)}
           />
           <Styled.Input
             name="confirmPassword"
             placeholder="비밀번호 확인"
             type="password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={e => setConfirmPassword(e.target.value)}
           />
           <Styled.Input type="submit" value="비밀번호 변경" />
           {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
@@ -79,4 +78,4 @@ export default function PasswordResetForm() {
       </Styled.Wrapper>
     </Styled.OuterWrapper>
   );
-};
+}

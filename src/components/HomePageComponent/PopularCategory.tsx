@@ -18,7 +18,7 @@ interface CategoryType {
 const categoryImages: { [key: string]: string } = {
   ACCESSORIES: 'img/CategoryImg/ACCESSORIES.png',
   ALBUM: 'img/CategoryImg/ALBUM.png',
-  ALL : 'img/CategoryImg/ALL.png',
+  ALL: 'img/CategoryImg/ALL.png',
   CLOTHES: 'img/CategoryImg/CLOTHES.png',
   FIGURE: 'img/CategoryImg/FIGURE.png',
   GAME: 'img/CategoryImg/GAME.png',
@@ -39,7 +39,7 @@ export default function PopularCategory() {
         console.log(response.data);
         if (Array.isArray(response.data)) {
           const sortedCategories = response.data.sort((a, b) =>
-            a.title.localeCompare(b.title) 
+            a.title.localeCompare(b.title),
           );
           setCategories(sortedCategories);
         }
@@ -84,7 +84,6 @@ export default function PopularCategory() {
           </Text>
         )}
       </ProductBox>
-     
     </Wrap>
   );
 }

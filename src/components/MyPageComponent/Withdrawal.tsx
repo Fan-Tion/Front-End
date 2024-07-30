@@ -33,7 +33,7 @@ export function Withdrawal() {
         if (response.success) {
           removeCookie('Authorization', { path: '/' });
           alert('회원 탈퇴가 완료되었습니다.');
-        } 
+        }
       } catch (error) {
         console.error('서버에러', error);
         alert('회원 탈퇴중 오류발생');

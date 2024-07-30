@@ -70,8 +70,6 @@ export async function uploadMultipartData<T>(
   return axiosInstance.post(url, formData, config);
 }
 
-
-
 // async function fetchCall<T>(
 //   url: string,
 //   method: 'get' | 'post' | 'put' | 'delete',
