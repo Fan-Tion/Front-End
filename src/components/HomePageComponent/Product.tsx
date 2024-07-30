@@ -72,7 +72,7 @@ export default function Product({
         <Div>{currentBidPrice.toLocaleString('ko-KR')} 원</Div>
         <Div>즉시 구매가 :</Div>{' '}
         <Div>{buyNowPrice.toLocaleString('ko-KR')} 원</Div>
-        <Div2>입찰 건 수 :</Div2> <BidCount>{bidCount}</BidCount>
+        <Div2>입찰 건수 :</Div2> <BidCount>{bidCount}</BidCount>
       </Price>
     </Card>
   );
