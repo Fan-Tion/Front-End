@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { historyApi } from '../../api/history';
 
@@ -20,13 +21,18 @@ const Content = styled.div`
 `;
 const List = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 5px 5px;
   width: 100%;
 `;
 
 const ListItem = styled.li`
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  &:hover {
+    border-radius: 6px;
+    background-color: #cde990;
+  }
 `;
 const Loading = styled.div`
   text-align: center;
@@ -37,6 +43,7 @@ export default function WishList() {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -45,7 +52,7 @@ export default function WishList() {
       try {
         const response = await historyApi.likesHistory();
 
-        setData(response.data.auctionList);
+        setData(response.data.content);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {
@@ -68,7 +75,12 @@ export default function WishList() {
         ) : (
           <List>
             {data.map(item => (
-              <ListItem key={item.auctionId}>{item.title}</ListItem>
+              <ListItem
+                key={item.auctionId}
+                onClick={() => navigate(`/auction/${item.auctionId}`)}
+              >
+                {item.title}
+              </ListItem>
             ))}
           </List>
         )}

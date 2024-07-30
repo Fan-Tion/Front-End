@@ -9,6 +9,7 @@ export default function PasswordResetForm() {
   const queryParams = new URLSearchParams(search);
   const uuid = queryParams.get('uuid');
 
+
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -39,6 +40,7 @@ export default function PasswordResetForm() {
       });
 
       setSuccessMessage('비밀번호가 성공적으로 변경되었습니다.');
+
     } catch (error) {
       console.error('비밀번호 변경 요청 실패:', error);
       setError('비밀번호 변경에 실패했습니다.');
@@ -69,6 +71,7 @@ export default function PasswordResetForm() {
           {successMessage && <p>{successMessage}</p>}
         </Styled.Form>
       </Styled.Wrapper>
+      <Styled.LogoImage src="/img/mainLogo2.png" />
     </Styled.OuterWrapper>
   );
 }

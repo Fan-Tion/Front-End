@@ -1,12 +1,16 @@
+import CancelComponent from '@components/DepositRechargeComponent/Cancel';
+import { useModalHandler } from '@hooks/useModalHandler';
+import Modal from '@utils/Modal';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { historyApi } from '../../api/history';
+import { AllButton } from '../../styled-components/HomePageStyle';
 
 type Tab = '1months' | '3months' | '1year';
 
 const Content = styled.div`
   width: 100%;
-  height: 400px;
+  min-height: 400px;
   background-color: white;
   margin-top: 20px;
   display: flex;
@@ -25,10 +29,12 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 8fr 2fr;
-  padding: 10px;
+  grid-template-columns: 4fr 4fr 2fr 2fr;
+  padding: 5px 0;
   border-bottom: 1px solid #ddd;
+  min-height: 45px;
+  align-items: center;
+  gap: 10px;
 `;
 
 const Pagination = styled.div`
@@ -61,10 +67,17 @@ const ArrowButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `;
+
 const Balance = styled.span`
   display: inline-block;
-  width: 80px; /* 고정된 너비 */
+  width: 200px; /* 고정된 너비 */
   text-align: right;
+`;
+const CancelButton = styled(AllButton)`
+  width: 50px;
+  height: 30px;
+  padding: 0px;
+  margin: 0px;
 `;
 
 interface AuctionHistoryContentProps {
@@ -82,7 +95,8 @@ export default function AuctionHistoryComponents({
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const { isModalOpen, toggleModal } = useModalHandler();
   // selectedTab이 변경될 때 currentPage를 1로 초기화
   useEffect(() => {
     setCurrentPage(1);
@@ -95,10 +109,10 @@ export default function AuctionHistoryComponents({
 
       try {
         const response = await historyApi.depositHistory(selectedTab, {
-          pageNumber: currentPage,
+          page: currentPage - 1,
         });
-        setData(response.data.balanceHistory);
-        setTotalCount(response.data.totalCount);
+        setData(response.data.content);
+        setTotalCount(response.data.totalElements);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {
@@ -129,6 +143,11 @@ export default function AuctionHistoryComponents({
     setCurrentPage(newPage);
   };
 
+  const handleOpenModal = (item: any) => {
+    setSelectedItem(item);
+    toggleModal();
+  };
+
   const renderPageButtons = () => {
     const buttons = [];
     const startPage = currentGroup * PAGE_GROUP_SIZE + 1;
@@ -152,7 +171,11 @@ export default function AuctionHistoryComponents({
   if (loading) {
     return <Content>Loading...</Content>;
   }
-
+  const formatDate = (isoString: string) => {
+    const datePart = isoString.slice(0, 10);
+    const timePart = isoString.slice(11, 19);
+    return `${datePart} ${timePart}`;
+  };
   return (
     <>
       <Content>
@@ -166,26 +189,48 @@ export default function AuctionHistoryComponents({
               {data.map((item, index) => (
                 <ListItem key={index}>
                   <p>
-                    {item.type === 'purchase'
+                    {item.type === 'USE'
                       ? '구매'
-                      : item.type === 'sale'
+                      : item.type === 'SALES'
                         ? '판매'
-                        : item.type === 'charge'
+                        : item.type === 'CHARGING'
                           ? '충전'
-                          : '출금'}
+                          : item.type === 'PAYMENTS_CANCEL'
+                            ? '결제 취소'
+                            : item.type === 'CANCEL'
+                              ? '구매 철회'
+                              : '출금'}
                   </p>
+
                   <Balance>
-                    {item.type === 'purchase' || item.type === 'withdrawal'
-                      ? `- ${item.balance}`
-                      : `+ ${item.balance}`}
+                    {item.type === 'USE' ||
+                    item.type === 'WITHDRAWAL' ||
+                    item.type === 'PAYMENTS_CANCEL'
+                      ? `- ${item.balance.toLocaleString('ko-KR')} 원`
+                      : `+ ${item.balance.toLocaleString('ko-KR')} 원`}
                   </Balance>
-                  <p>{item.createDate}</p>
+                  {item.type === 'CHARGING' ? (
+                    <CancelButton onClick={() => handleOpenModal(item)}>
+                      취소
+                    </CancelButton>
+                  ) : (
+                    <div></div>
+                  )}
+                  <p>{formatDate(item.createTime)}</p>
                 </ListItem>
               ))}
             </List>
           </>
         )}
       </Content>
+      <Modal isOpen={isModalOpen} onClose={toggleModal}>
+        {selectedItem && (
+          <CancelComponent
+            balance={selectedItem.balance}
+            createTime={selectedItem.createTime}
+          />
+        )}
+      </Modal>
       <Pagination>
         <ArrowButton onClick={handlePrevGroup} disabled={currentGroup === 0}>
           &lt;

@@ -1,5 +1,6 @@
+import { categoryKrMap } from '@constants/category';
 import { calculateTimeLeft, formatDateTime, formatTimeLeft } from '@utils/TimeUtils';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { GlobalButton } from '../../../styled-components/Globalstyle';
 
@@ -79,47 +80,51 @@ const Divider = styled.hr`
 // initialize
 interface AuctionInfoPropType {
   details: {
+    auctionType: boolean;
     title: string;
     category: string;
     endDate: string;
     createDate: string;
     currentBidPrice: number;
     buyNowPrice: number;
+    status: boolean;
   }
   buyNow: () => void;
   bidHandler: () => void;
+  isLoggedIn: boolean;
 }
 
-const categoryIndex: { [key: string]: string } = {
-  'photo-card': "포토 카드",
-  'sign': '사인',
-  'digital': '디지털'
-}
-
-export default function AuctionInfoModule({ details, buyNow, bidHandler }: AuctionInfoPropType) {
-
+export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHandler }: AuctionInfoPropType) {
   const { title, category, endDate, createDate, currentBidPrice, buyNowPrice } = details;
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endDate));
+  const timeLeftRef = useRef<HTMLDivElement>(null);
+  const auctionState = details.status;
+
+  const updateTimeLeft = useCallback(() => {
+    const newTimeLeft = calculateTimeLeft(endDate);
+    if (timeLeftRef.current) {
+      timeLeftRef.current.textContent = auctionState ? formatTimeLeft(newTimeLeft) : '경매 종료됨';
+    }
+  }, [endDate, auctionState]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      const newTimeLeft = calculateTimeLeft(endDate);
-      setTimeLeft(newTimeLeft);
-
-      if (newTimeLeft.total <= 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
+    const timer = setInterval(updateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, [endDate]);
+  }, [updateTimeLeft]);
 
   return (
     <InfoContainer>
-      <Title>{title}</Title>
+      <Title>
+        {
+          details.auctionType
+            ? '[공개 입찰] '
+            : '[비공개 입찰] '
+        }
+        {title}
+      </Title>
       <Row>
         <Label>카테고리</Label>
-        <Value>{categoryIndex[category]}</Value>
+        <Value>{categoryKrMap[category]}</Value>
         <Label>시작 시간</Label>
         <Value>{formatDateTime(createDate)}</Value>
       </Row>
@@ -127,19 +132,19 @@ export default function AuctionInfoModule({ details, buyNow, bidHandler }: Aucti
         <Label>종료 시간</Label>
         <Value>{formatDateTime(endDate)}</Value>
         <Label>남은 시간</Label>
-        <HighlightedValue>
-          {formatTimeLeft(timeLeft)}
+        <HighlightedValue ref={timeLeftRef}>
+          {auctionState ? formatTimeLeft(calculateTimeLeft(endDate)) : '경매 종료됨'}
         </HighlightedValue>
       </Row>
       <Divider />
       <Row>
-        <Label>현재 가격</Label>
+        {auctionState ? <Label>현재 가격</Label> : <Label>낙찰 가격</Label>}
         <Value>{currentBidPrice.toLocaleString()} 원</Value>
         <Label>즉시 구매</Label>
         <Value>{buyNowPrice.toLocaleString()} 원</Value>
-        <BuyNowButton type='button' onClick={buyNow}>즉시 구매하기</BuyNowButton>
+        {isLoggedIn && auctionState && <BuyNowButton type='button' onClick={buyNow}>즉시 구매하기</BuyNowButton>}
       </Row>
-      <BidButton type='button' onClick={bidHandler}>입찰하기</BidButton>
+      {isLoggedIn && auctionState && <BidButton type='button' onClick={bidHandler}>입찰하기</BidButton>}
     </InfoContainer>
   )
 }

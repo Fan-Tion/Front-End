@@ -1,7 +1,8 @@
+import { auctionApi } from "@api/auction";
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import _ from "lodash";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 
 const Button = styled.button`
@@ -46,19 +47,44 @@ const Label = styled.span`
   font-size: 16px;
 `;
 
-export default function SteamedButton() {
+interface SteamedButton {
+  auctionId: string;
+}
+
+
+export default function SteamedButton({ auctionId }: SteamedButton) {
   const [isSteamed, setIsSteamed] = useState<boolean>(false);
   const [isBubbling, setIsBubbling] = useState<boolean>(false);
 
-  const toggleSteamed = useCallback(
-    _.debounce(() => {
-      setIsSteamed(prev => !prev);
-      setIsBubbling(true); // 하트 애니메이션 시작
+  useEffect(() => {
+    const getCheckFavorite = async () => {
+      try {
+        const response = await auctionApi.checkFavorite(auctionId)
+        setIsSteamed(response.data.favoriteChk);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-      // 일정 시간 후 애니메이션 종료
-      setTimeout(() => {
-        setIsBubbling(false);
-      }, 500);
+    getCheckFavorite()
+  }, [auctionId])
+
+
+  const toggleSteamed = useCallback(
+    _.debounce(async () => {
+      try {
+        setIsBubbling(true); // 하트 애니메이션 시작
+        const response = await auctionApi.toggleFavorite(auctionId)
+        setIsSteamed(response.data.favoriteChk);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        // 일정 시간 후 애니메이션 종료
+        setTimeout(() => {
+          setIsBubbling(false);
+        }, 500);
+      }
+
     }, 600), // 디바운스 시간 설정
     []
   );

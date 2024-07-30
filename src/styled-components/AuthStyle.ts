@@ -20,7 +20,7 @@ export const Title = styled.h1`
   font-size: 48px;
   align-self: center;
   font-weight: bold;
-  color : #CDE990;
+  color: #cde990;
 `;
 
 export const Form = styled.form`
@@ -35,108 +35,104 @@ export const Form = styled.form`
 export const Input = styled.input`
   padding: 15px 20px;
   border-radius: 25px;
-  border : 2px solid #CDE990;
+  border: 2px solid #cde990;
   font-size: 16px;
-  width : 100%;
+  width: 100%;
   &:hover {
-    border : 2px solid #AACB73;
+    border: 2px solid #aacb73;
   }
- &:focus{
-  outline : none;
- }
+  &:focus {
+    outline: none;
+  }
 
   &[type='submit'] {
     cursor: pointer;
-    background-color: #CDE990;
+    background-color: #cde990;
     transition: background-color 0.3s ease;
     &:hover {
-      background-color: #AACB73;
+      background-color: #aacb73;
       color: white;
     }
 
     &:focus {
       outline: none;
-      
     }
   }
 `;
 export const Switcher = styled.span`
-  margin-top: 20px;  
-  margin-bottom : 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   a {
-    color: #AACB73;
+    color: #aacb73;
     text-decoration-line: none;
   }
 `;
 export const SocialButtonWrap = styled.div`
-    display : flex;
-    justify-content : center;
-    align-items : center;
-    padding:9px 20px;
-    border-radius: 25px;
-    border: 2px solid #CDE990;
-    background-color : #CDE990;
-    font-size: 16px;
-    width: 100%;
-    margin-top : 10px;
-    cursor: pointer;
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: #AACB73;
-    color: white;
-  }
-`
-export const NaverImg = styled.img`
-  width : 30px;
-  height : 30px;
-  margin-right : 10px;
-`
-
-
-export const ErrorMessage = styled.div`
-  color : red;
-  font-size : 16px;
- text-align : center;
-`
-export const PhoneWrap = styled.div`
-  display : flex;
-  width : 500px;
-  justify-content : space-between;
-
-`
-export const ButtonWrap = styled.div`
-  display : flex;
-  width : 500px;
-`
-export const CheckInput = styled.input`
-  width: 400px;
-  height : 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 9px 20px;
+  border-radius: 25px;
+  border: 2px solid #cde990;
+  background-color: #cde990;
   font-size: 16px;
-  border : 2px solid #CDE990;
-  padding: 10px;
-  border-radius: 25px 0 0 25px;
-  &:hover {
-    border : 2px solid #AACB73;
-  }
-  &:focus{
-    outline : none;
-  }
-
-`
-
-export const CheckButton = styled.button`
-  width : 100px;
-  height : 52px;
-  background-color : #CDE990;
-  border : none;
-  border-radius : 0 25px 25px 0;
+  width: 100%;
+  margin-top: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #AACB73;
+    background-color: #aacb73;
     color: white;
   }
-`
+`;
+export const NaverImg = styled.img`
+  width: 40px;
+  height: 30px;
+  margin-right: 10px;
+`;
+
+export const ErrorMessage = styled.div`
+  color: red;
+  font-size: 16px;
+  text-align: center;
+`;
+export const PhoneWrap = styled.div`
+  display: flex;
+  width: 500px;
+  justify-content: space-between;
+`;
+export const ButtonWrap = styled.div`
+  display: flex;
+  width: 500px;
+`;
+export const CheckInput = styled.input`
+  width: 400px;
+  height: 52px;
+  font-size: 16px;
+  border: 2px solid #cde990;
+  padding: 10px;
+  border-radius: 25px 0 0 25px;
+  &:hover {
+    border: 2px solid #aacb73;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const CheckButton = styled.button`
+  width: 100px;
+  height: 52px;
+  background-color: #cde990;
+  border: none;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #aacb73;
+    color: white;
+  }
+`;
 export const FileInputWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -145,12 +141,12 @@ export const FileInputWrap = styled.div`
 
 export const FileInputLabel = styled.label`
   cursor: pointer;
-  background-color: #CDE990;
+  background-color: #cde990;
   padding: 10px 20px;
   border-radius: 25px;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #AACB73;
+    background-color: #aacb73;
     color: white;
   }
 `;
@@ -160,27 +156,36 @@ export const FileInput = styled.input`
 `;
 
 export const ImagePreview = styled.img`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    overflow: hidden;
-    height: 100px;
-    border-radius: 50%;
-    border: 2px solid #CDE990;
-    margin-top : 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  overflow: hidden;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #cde990;
+  margin-top: 10px;
 `;
 
 export const LogoText = styled.div`
-    font-size: 52px;
-    align-self: center;
-    font-weight: bold;
-    color: #CDE990;
-    padding : 30px;
-    `
-  export const LogoLink = styled(Link)`
-    text-decoration : none;
-  `
+  font-size: 52px;
+  align-self: center;
+  font-weight: bold;
+  color: #cde990;
+  padding: 30px;
+`;
+export const LogoLink = styled(Link)`
+  margin-top: 40px;
+  text-decoration: none;
+`;
+
+export const LogoImage = styled.img`
+  width: 400px;
+  height: 350px;
+  border-radius: 25%;
+  object-fit: cover;
+  object-position: center;
+`;
 
 export const Styled = {
   OuterWrapper,
@@ -201,5 +206,5 @@ export const Styled = {
   NaverImg,
   LogoText,
   LogoLink,
-
+  LogoImage,
 };

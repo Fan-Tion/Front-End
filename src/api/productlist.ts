@@ -1,7 +1,7 @@
 import { axiosInstance } from './axios';
 
 interface Params {
-  pageNumber: number;
+  page: number;
 }
 
 export const productListApi = {

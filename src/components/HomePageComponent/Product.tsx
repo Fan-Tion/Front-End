@@ -1,11 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Card = styled.div`
-  width: 300px;
+  width: 304px;
   height: 400px;
   background-color: white;
   margin: 15px;
-
+  cursor: pointer;
+  border: 2px solid #cde990;
   border-radius: 15px;
 `;
 const Image = styled.img`
@@ -13,6 +15,7 @@ const Image = styled.img`
   height: 300px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
+  display: block;
 `;
 const Detail = styled.div`
   height: 50px;
@@ -20,17 +23,23 @@ const Detail = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-top: 2px solid #cde990;
 `;
 const Price = styled.div`
-  float: right;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto auto;
+  justify-items: end;
   font-size: 12px;
-  padding-right: 10px;
+  align-items: start;
+  gap: 4px;
 `;
-const Div = styled.div`
-  margin-bottom: 4px;
-`;
+const Div = styled.div``;
 const Div2 = styled(Div)`
   margin-left: 17px;
+`;
+const BidCount = styled.div`
+  margin-right: 30px;
 `;
 
 interface ProductProps {
@@ -46,20 +55,24 @@ interface ProductProps {
 }
 
 export default function Product({
+  auctionId,
   auctionImage,
   title,
   currentBidPrice,
   buyNowPrice,
   bidCount,
 }: ProductProps) {
+  const navigate = useNavigate();
   return (
-    <Card>
+    <Card onClick={() => navigate(`/auction/${auctionId}`)}>
       <Image src={auctionImage} alt="Product Image" />
       <Detail>{title}</Detail>
       <Price>
-        <Div>현재 입찰가 : {currentBidPrice} 원</Div>
-        <Div>즉시 구매가 : {buyNowPrice} 원</Div>
-        <Div2>입찰건수 : {bidCount}</Div2>
+        <Div>현재 입찰가 :</Div>{' '}
+        <Div>{currentBidPrice.toLocaleString('ko-KR')} 원</Div>
+        <Div>즉시 구매가 :</Div>{' '}
+        <Div>{buyNowPrice.toLocaleString('ko-KR')} 원</Div>
+        <Div2>입찰 건 수 :</Div2> <BidCount>{bidCount}</BidCount>
       </Price>
     </Card>
   );

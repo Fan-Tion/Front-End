@@ -89,6 +89,7 @@ const SignOutButton = styled.button`
   background-color: #ffd4d4;
   border: none;
   color: #222;
+  font-weight: bold;
   border-radius: 25px;
   transition: background-color 0.3s ease;
 

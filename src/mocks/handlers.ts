@@ -1,8 +1,8 @@
 import { API_BASE_URL } from '@api/axios';
 import { http, HttpResponse } from 'msw';
 import {
+  auctionDetailsType,
   auctions,
-  auctionsType,
   BuyHistory,
   Checkout,
   Deposit,
@@ -139,14 +139,16 @@ export const handlers = [
 
   // 경매 생성
   http.post(`${API_BASE_URL}/auction`, async ({ request }) => {
-    const auctionInfo = (await request.json()) as auctionsType;
+    const auctionInfo = (await request.json()) as auctionDetailsType;
 
     if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
 
     // auctionUserRating 필드 추가
     const auctionDetails = {
-      ...auctionInfo,
-      auctionUserRating: 10,
+      data: {
+        ...auctionInfo,
+        auctionUserRating: 10,
+      },
     };
 
     auctions.set(`${new Date()}`, auctionDetails);
@@ -156,7 +158,7 @@ export const handlers = [
 
   // 예치금 입출금 내역 요청
   http.get(
-    `${API_BASE_URL}/members/my-blance/:search_option`,
+    `${API_BASE_URL}/members/my-balance/:search_option`,
     ({ params, request }) => {
       const { search_option } = params;
 
@@ -176,14 +178,14 @@ export const handlers = [
       const startIndex = (pageNumber - 1) * pageSize;
       const endIndex = startIndex + pageSize;
 
-      const blanceHistory = DepositHistory.data[search_option] || [];
-      const paginatedList = blanceHistory.slice(startIndex, endIndex);
+      const balanceHistory = DepositHistory.data[search_option] || [];
+      const paginatedList = balanceHistory.slice(startIndex, endIndex);
 
       return HttpResponse.json({
         message: '',
-        totalCount: blanceHistory.length,
         data: {
-          blanceHistory: paginatedList,
+          totalCount: balanceHistory.length,
+          balanceHistory: paginatedList,
         },
       });
     },
@@ -205,7 +207,7 @@ export const handlers = [
     return HttpResponse.json({
       message: '',
       data: {
-        totalCount: JoinHistory.data.auctionList.length,
+        totalElements: JoinHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -227,7 +229,7 @@ export const handlers = [
     return HttpResponse.json({
       message: '',
       data: {
-        totalCount: BuyHistory.data.auctionList.length,
+        totalElements: BuyHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -249,7 +251,7 @@ export const handlers = [
     return HttpResponse.json({
       message: '',
       data: {
-        totalCount: MyHistory.data.auctionList.length,
+        totalElements: MyHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -327,9 +329,9 @@ export const handlers = [
   // 전체 상품 리스트
   http.get(`${API_BASE_URL}/auction/list`, ({ request }) => {
     const url = new URL(request.url);
-    const pageNumberStr = url.searchParams.get('pageNumber');
+    const pageNumberStr = url.searchParams.get('page');
     const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
-    const pageSize = 5; // 페이지당 항목 수
+    const pageSize = 10; // 페이지당 항목 수
     const startIndex = (pageNumber - 1) * pageSize;
     const endIndex = startIndex + pageSize;
 

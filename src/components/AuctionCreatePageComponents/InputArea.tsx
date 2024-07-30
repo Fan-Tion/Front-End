@@ -1,4 +1,5 @@
 import { auctionApi } from "@api/auction";
+import { categoryKrMap } from "@constants/category";
 import useDateRange from "@hooks/useDateRange";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -93,18 +94,6 @@ interface categoryType {
   title: string;
 }
 
-const categoryKrMap: { [key: string]: string } = {
-  "ACCESSORIES": '악세서리',
-  "ALBUM": '앨범',
-  "CLOTHES": '의류',
-  "FIGURE": '피규어',
-  "GAME": '게임',
-  "PHOTO_CARD": '포토카드',
-  "POSTER": '포스터',
-  "SIGN": '사인',
-  "OTHER": '기타',
-}
-
 export default function InputArea({ onChange, formData }: InputAreaProps) {
 
   const [category, setCategory] = useState<categoryType[]>([])
@@ -153,8 +142,8 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
             value={formData.auctionType ? '1' : '0'}
             onChange={onChange}
           >
-            <option value={1}>비공개 입찰</option>
-            <option value={0}>공개 입찰</option>
+            <option value={0}>비공개 입찰</option>
+            <option value={1}>공개 입찰</option>
           </Select>
           <CustomArrow />
         </SelectWrapper>

@@ -36,7 +36,7 @@ export default function PopularCategory() {
     const fetchCategories = async () => {
       try {
         const response = await categoryApi.getFavoriteCategories();
-       
+
         if (Array.isArray(response.data)) {
           const sortedCategories = response.data.sort((a, b) =>
             a.title.localeCompare(b.title),
