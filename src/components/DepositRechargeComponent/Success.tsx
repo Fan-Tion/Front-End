@@ -12,19 +12,11 @@ export default function SuccessComponent() {
 
   async function confirmPayment() {
     try {
-      const response = await rechargeApi.success(
-        '/payments/success',
-        {
-          paymentKey,
-          orderId,
-          amount,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
+      const response = await rechargeApi.success({
+        amount: Number(amount),
+        paymentKey,
+        orderId,
+      });
 
       // 응답 객체의 상태 코드 확인
       console.log(response);

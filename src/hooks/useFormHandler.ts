@@ -1,6 +1,7 @@
 import { auctionApi } from '@api/auction';
 import { Editor } from '@toast-ui/react-editor';
 import { useCallback, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export interface formDataType {
   title: string;
@@ -26,6 +27,7 @@ export const useFormHandler = () => {
   });
   const [buttonDisable, setButtonDisable] = useState(false);
   const editorRef = useRef<Editor | null>(null);
+  const navigate = useNavigate();
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -92,8 +94,10 @@ export const useFormHandler = () => {
 
       try {
         setButtonDisable(true);
-        const response = await auctionApi.create(data);
+        const response = (await auctionApi.create(data)) as any;
         console.log(response);
+        alert(response.message);
+        navigate(`/auction/${response.data.auctionId}`);
       } catch (error) {
         console.error(error);
       } finally {

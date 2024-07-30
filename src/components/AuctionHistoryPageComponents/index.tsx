@@ -5,7 +5,7 @@ import AuctionHistoryContent from './AuctionHistoryContent';
 import Deposit from './Deposit';
 import WishList from './WishList';
 
-type Tab = 'join' | 'buy' | 'my';
+type Tab = 'join' | 'buy' | 'sell';
 
 const Container = styled.div`
   margin: 100px auto;
@@ -75,8 +75,8 @@ export default function AuctionHistoryComponents() {
           구매 내역
         </Tab>
         <Tab
-          onClick={() => handleTabClick('my')}
-          $isSelected={selectedTab === 'my'}
+          onClick={() => handleTabClick('sell')}
+          $isSelected={selectedTab === 'sell'}
         >
           판매 내역
         </Tab>

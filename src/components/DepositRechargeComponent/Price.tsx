@@ -60,12 +60,12 @@ const Recharge = styled.div`
 `;
 
 export default function ChangePrice() {
-  const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const formatNumber = (value: number) => {
     return value.toLocaleString('ko-KR');
   };
+  const [inputValue, setInputValue] = useState(formatNumber(1000) + ' 원'); //BELOW_ZERO_AMOUNT 에러 해결
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target;
@@ -109,7 +109,7 @@ export default function ChangePrice() {
 
   const handleInputPlus = (amount: number) => {
     const currentValue = parseInt(inputValue.replace(/[^0-9]/g, ''), 10) || 0;
-    const newValue = currentValue + amount;
+    const newValue = currentValue === 1000 ? amount : currentValue + amount; //기본값 1000원일 때는 초기화 그 외에는 더하기
     const formattedValue = `${formatNumber(newValue)} 원`;
 
     setInputValue(formattedValue);

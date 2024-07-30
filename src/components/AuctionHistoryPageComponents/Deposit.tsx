@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { historyApi } from '../../api/history';
 import Modal from '../../utils/Modal';
 
+import { membersApi } from '@api/member';
 import { GlobalButton } from '../../styled-components/Globalstyle';
 import ChangePrice from '../DepositRechargeComponent/Price';
 const Container = styled.div`
@@ -62,7 +62,7 @@ export default function Deposit() {
       setError(null);
 
       try {
-        const response = await historyApi.deposit();
+        const response = await membersApi.myInfo();
 
         setData(response.data.balance);
       } catch (error) {
