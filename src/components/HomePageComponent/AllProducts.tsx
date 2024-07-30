@@ -39,13 +39,13 @@ interface ProductType {
 export default function AllProducts() {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [hasMore, setHasMore] = useState(true);
-  const [pageNumber, setPageNumber] = useState(2); // 1페이지는 이미 로드됨
+  const [page, setPage] = useState(1); // 0페이지는 이미 로드됨
   const [infiniteScrollEnabled, setInfiniteScrollEnabled] = useState(false);
 
   const fetchProducts = async (page: number): Promise<ProductType[]> => {
     try {
       const response = await productListApi.getProductList({
-        pageNumber: page,
+        page: page,
       });
       return Array.isArray(response.data.content) ? response.data.content : [];
     } catch (error) {
@@ -54,31 +54,31 @@ export default function AllProducts() {
     }
   };
 
-  // 1페이지 로드
+  // 0페이지 로드
   useEffect(() => {
     const loadInitialData = async () => {
-      const initialProducts = await fetchProducts(1);
+      const initialProducts = await fetchProducts(0);
       setProducts(initialProducts);
     };
     loadInitialData();
   }, []);
 
-  // 2페이지부터
+  // 1페이지부터
   const fetchMoreData = async () => {
-    const newProducts = await fetchProducts(pageNumber);
+    const newProducts = await fetchProducts(page);
     if (newProducts.length === 0) {
       setHasMore(false);
     } else {
       setProducts(prevProducts => [...prevProducts, ...newProducts]);
-      setPageNumber(prevPage => prevPage + 1);
+      setPage(prevPage => prevPage + 1);
     }
   };
 
   const handleButtonClick = async () => {
     if (infiniteScrollEnabled) {
-      const initialProducts = await fetchProducts(1);
+      const initialProducts = await fetchProducts(0);
       setProducts(initialProducts);
-      setPageNumber(2);
+      setPage(1);
       setHasMore(true);
     } else {
       await fetchMoreData();

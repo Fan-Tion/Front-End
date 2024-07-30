@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Card = styled.div`
-  width: 310px;
-  height: 410px;
+  width: 304px;
+  height: 400px;
   background-color: white;
   margin: 15px;
   cursor: pointer;
@@ -15,6 +15,7 @@ const Image = styled.img`
   min-height: 300px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
+  display: block;
 `;
 const Detail = styled.div`
   height: 50px;

@@ -1,4 +1,4 @@
-import { ANONYMOUS, loadTossPayments } from '@tosspayments/tosspayments-sdk';
+import { loadTossPayments } from '@tosspayments/tosspayments-sdk';
 import { useEffect, useState } from 'react';
 import { rechargeApi } from '../../api/recharge';
 import './toss.css';
@@ -10,7 +10,7 @@ interface CheckoutPageProps {
 const generateRandomString = () =>
   window.btoa(Math.random().toString()).slice(0, 20);
 const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
-
+const customerKey = generateRandomString();
 export default function CheckoutPage({ inputValue }: CheckoutPageProps) {
   const [widgets, setWidgets] = useState<any>(null);
   const [amount, setAmount] = useState({
@@ -21,7 +21,7 @@ export default function CheckoutPage({ inputValue }: CheckoutPageProps) {
   useEffect(() => {
     async function fetchPaymentWidgets() {
       const tossPayments = await loadTossPayments(clientKey);
-      const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
+      const widgets = tossPayments.widgets({ customerKey });
       setWidgets(widgets);
     }
 
@@ -67,21 +67,19 @@ export default function CheckoutPage({ inputValue }: CheckoutPageProps) {
             className="btn primary w-100"
             onClick={async () => {
               try {
-                const orderId = generateRandomString();
-
                 // 결제 요청 전 서버에 orderId와 amount 저장
-                await rechargeApi.checkout({
+                const checkoutResponse = await rechargeApi.checkout({
                   amount: amount.value,
                   paymentType: '카드', // 임시
                   orderName: '예치금 충전',
-                  orderId: orderId, // orderId를 추가
-                  customerEmail: 'customer123@gmail.com', // 필요하다고 해서 임시로 넣어둠
-                  customerName: '김토스', // 필요하다고 해서 임시로 넣어둠
+                  // 필요한 경우 다른 데이터 추가
                 });
+
+                const orderId = checkoutResponse.data.orderId;
 
                 await widgets?.requestPayment({
                   orderId: orderId,
-                  orderName: '토스 티셔츠 외 2건',
+                  orderName: '예치금 충전',
                   customerName: '김토스',
                   customerEmail: 'customer123@gmail.com',
                   successUrl:
