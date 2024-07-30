@@ -128,6 +128,7 @@ const modalStyle = {
 export default function DetailPageComponents() {
   const [auctionDetails, setAuctionDetails] = useState<auctionDetailsType | null>(null);
   const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
+  const [renderTrigger, setRenderTrigger] = useState(false)
   const { isModalOpen, toggleModal } = useModalHandler(false);
   const { auctionId } = useParams<{ auctionId: string }>();
   const isLoggedIn = !!Cookies.get('Authorization');
@@ -137,7 +138,11 @@ export default function DetailPageComponents() {
     if (auctionId) {
       fetchAuctionDetails(auctionId, setAuctionDetails, navigate);
     }
-  }, [auctionId]);
+  }, [auctionId, renderTrigger]);
+
+  const toggleTrigger = () => {
+    setRenderTrigger(prev => !prev)
+  }
 
   const buyNowHandler = useCallback(_.debounce(async () => {
     console.log('buyNowHandler clicked');
@@ -147,6 +152,8 @@ export default function DetailPageComponents() {
         <BuyNow
           auctionId={auctionId}
           buyNowPrice={auctionDetails.buyNowPrice}
+          toggleModal={toggleModal}
+          toggleTrigger={toggleTrigger}
         />
       );
       toggleModal();
@@ -162,6 +169,8 @@ export default function DetailPageComponents() {
           auctionId={auctionId}
           currentBidPrice={auctionDetails.currentBidPrice}
           buyNowPrice={auctionDetails.buyNowPrice}
+          toggleModal={toggleModal}
+          toggleTrigger={toggleTrigger}
         />);
       toggleModal()
     }
