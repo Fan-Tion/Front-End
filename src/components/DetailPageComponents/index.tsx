@@ -108,6 +108,13 @@ const OwnerDiv = styled.div`
   gap: 15px;
 `
 
+const SellerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+`
+
 const modalStyle = {
   content: {
     top: '50%',
@@ -247,15 +254,15 @@ export default function DetailPageComponents() {
       <ItemDescription
         description={auctionDetails.description}
       />
-      <div>
+      <SellerWrapper>
         {auctionDetails.auctionUserNickname}
-        {auctionDetails.auctionUserRating
+        {auctionDetails.rating
           ? <SellerRating
-            rating={auctionDetails.auctionUserRating}
+            rating={auctionDetails.rating}
           />
           : null
         }
-      </div>
+      </SellerWrapper>
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={toggleModal}

@@ -112,8 +112,6 @@ export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHand
     return () => clearInterval(timer);
   }, [updateTimeLeft]);
 
-  console.log(details.auctionType)
-
   return (
     <InfoContainer>
       <Title>

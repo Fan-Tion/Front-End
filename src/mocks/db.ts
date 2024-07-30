@@ -54,9 +54,9 @@ interface bidType {
 }
 
 export interface auctionDetailsType {
+  rating: number;
   auctionType: boolean;
   auctionUserNickname: string;
-  auctionUserRating: number;
   title: string;
   category: string;
   description: string;
@@ -81,7 +81,7 @@ export const auctions: Map<string, auctionDetailsDataType> = new Map([
     {
       data: {
         auctionUserNickname: 'John Titor',
-        auctionUserRating: 8.8,
+        rating: 8.8,
         title: '타임머신 팝니다.',
         category: 'digital',
         auctionType: true,
@@ -108,7 +108,7 @@ export const auctions: Map<string, auctionDetailsDataType> = new Map([
     {
       data: {
         auctionUserNickname: 'CERN',
-        auctionUserRating: 6.8,
+        rating: 6.8,
         title: '미개봉 IBM 5100 팝니다.',
         category: 'digital',
         auctionType: true,

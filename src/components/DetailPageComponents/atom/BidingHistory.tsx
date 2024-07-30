@@ -39,7 +39,7 @@ export default function BidingHistory({ auctionId }: BidingHistoryType) {
       const { data: receivedConnectData } = e;
       console.log('connect event data: ', receivedConnectData);  // "connected!"
 
-      setBiddingHistory(receivedConnectData)
+      // setBiddingHistory(receivedConnectData)
     })
     // 서버에서 메시지를 수신할 때마다 실행
     // eventSource.onmessage = (event) => {

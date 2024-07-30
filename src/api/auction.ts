@@ -2,7 +2,7 @@ import { auctionDetailsDataType } from '@mocks/db';
 import { axiosInstance, uploadMultipartData } from './axios';
 
 interface checkFavoriteResponseType {
-  favoriteChk: boolean;
+  data: any;
 }
 
 interface buyNowPromise {
