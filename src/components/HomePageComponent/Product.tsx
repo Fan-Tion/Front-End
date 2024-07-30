@@ -15,6 +15,7 @@ const Image = styled.img`
   min-height: 300px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
+  display: block;
 `;
 const Detail = styled.div`
   height: 50px;
