@@ -6,7 +6,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // axios instance creation.
 export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
+  timeout: 100000,
   headers: {
     withCredentials: true,
     'Content-Type': 'application/json',
@@ -70,29 +70,7 @@ export async function uploadMultipartData<T>(
   return axiosInstance.post(url, formData, config);
 }
 
-export async function EditMultipartData<T>(
-  url: string,
-  data: Record<string, any>,
-): Promise<T> {
-  const formData = new FormData();
-  Object.keys(data).forEach(key => {
-    if (Array.isArray(data[key])) {
-      data[key].forEach((file: File) => {
-        formData.append(key, file);
-      });
-    } else {
-      formData.append(key, data[key]);
-    }
-  });
 
-  const config = {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  };
-
-  return axiosInstance.put(url, formData, config);
-}
 
 // async function fetchCall<T>(
 //   url: string,

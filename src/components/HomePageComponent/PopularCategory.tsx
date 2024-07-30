@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   AllButton,
   Category,
-  Div,
+  PopBox,
   ProductBox,
   Text,
   Wrap,
@@ -18,6 +18,7 @@ interface CategoryType {
 const categoryImages: { [key: string]: string } = {
   ACCESSORIES: 'img/CategoryImg/ACCESSORIES.png',
   ALBUM: 'img/CategoryImg/ALBUM.png',
+  ALL : 'img/CategoryImg/ALL.png',
   CLOTHES: 'img/CategoryImg/CLOTHES.png',
   FIGURE: 'img/CategoryImg/FIGURE.png',
   GAME: 'img/CategoryImg/GAME.png',
@@ -35,9 +36,12 @@ export default function PopularCategory() {
     const fetchCategories = async () => {
       try {
         const response = await categoryApi.getFavoriteCategories();
-
+        console.log(response.data);
         if (Array.isArray(response.data)) {
-          setCategories(response.data);
+          const sortedCategories = response.data.sort((a, b) =>
+            a.title.localeCompare(b.title) 
+          );
+          setCategories(sortedCategories);
         }
       } catch (error) {
         setError('서버에서 카테고리를 가져오지 못했습니다.');
@@ -61,7 +65,7 @@ export default function PopularCategory() {
             {showAll ? '접기' : '더 보기'}
           </AllButton>
         </Category>
-        <Div>
+        <PopBox>
           {(showAll ? categories : categories.slice(0, 5)).map(category => (
             <CategoryCard
               key={category.title}
@@ -73,13 +77,14 @@ export default function PopularCategory() {
               categoryUrl={`/auction/search?searchOption=CATEGORY&categoryOption=${category.title}&keyword=&page=0`}
             />
           ))}
-        </Div>
+        </PopBox>
         {error && (
           <Text $fontSize="16px" $fontColor="red">
             {error}
           </Text>
         )}
       </ProductBox>
+     
     </Wrap>
   );
 }

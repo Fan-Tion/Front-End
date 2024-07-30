@@ -1,4 +1,4 @@
-import { axiosInstance, uploadMultipartData , EditMultipartData } from './axios';
+import { axiosInstance, uploadMultipartData  } from './axios';
 
 export interface SignInResponse {
   data: {
@@ -16,6 +16,11 @@ export interface WithdrawalResponse {
   success: boolean;
 }
 
+export interface PasswordResetResponse {
+    success: boolean;
+    uuid: string;
+}
+
 export const membersApi = {
   signUp: (payload: any) => uploadMultipartData('/members/signup', payload),
   signIn: (payload: any): Promise<SignInResponse> =>
@@ -23,7 +28,7 @@ export const membersApi = {
   requestPasswordReset: (payload: {
     email: string;
     phoneNumber: string;
-  }): Promise<string> =>
+  }): Promise<PasswordResetResponse> =>
     axiosInstance.post('/members/reset-password-request', payload),
   resetPassword: (payload: any) =>
     axiosInstance.put('/members/reset-password', payload),
@@ -35,5 +40,11 @@ export const membersApi = {
   signOut: () => axiosInstance.post('/members/signout'),
   withdrawal: (): Promise<WithdrawalResponse> =>
     axiosInstance.post('/members/withdrawal'),
-  InfoEdit : (payload:any) => EditMultipartData('/members/edit', payload),
+  InfoEdit : (payload:any) => axiosInstance.put('/members/my-info', payload),
+  ProfileImageEdit: (formData: FormData) => 
+    axiosInstance.put('/members/profile-image', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }),
 };

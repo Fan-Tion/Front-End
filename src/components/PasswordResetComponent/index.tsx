@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { membersApi } from '../../api/member';
 import { Styled } from '../../styled-components/AuthStyle';
 
@@ -12,82 +12,71 @@ const errorMessages = {
 };
 
 export default function PasswordResetForm() {
-  const navigate = useNavigate();
-  const { uId } = useParams();
-  const [formData, setFormData] = useState({
-    password: '',
-    confirmPassword: '',
-    uId: uId || '' //uId 파람
-  });
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const uuid = queryParams.get('uuid');
+
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handlePasswordChange = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('');
-    // 입력안할시 에러메세지
-    if (formData.password == '' || formData.confirmPassword == '') {
-      setError(errorMessages.emptyFields);
+
+    if (!newPassword || !confirmPassword) {
+      setError('모든 비밀번호 필드를 입력해주세요.');
       return;
     }
 
-    // 비밀번호 길이 검사
-    if (formData.password.length < 6 || formData.password.length > 15) {
-      setError(errorMessages.passwordLength);
+    if (newPassword !== confirmPassword) {
+      setError('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
       return;
     }
 
-    // 비밀번호, 비밀번호 확인 값이 일치하지 않으면 오류
-    if (formData.password !== formData.confirmPassword) {
-      setError(errorMessages.passwordMismatch);
+    if (!uuid) {
+      setError('유효하지 않은 링크입니다.');
       return;
     }
 
     try {
-      // 비밀번호 변경 로직 추가
-      const response = await membersApi.resetPassword({
-        email: uId,             //이메일 : uId 로설정
-        newPassword: formData.password,
+      await membersApi.resetPassword({
+        uuid,
+        newPassword
       });
-      console.log(response);
-      alert(errorMessages.success);
-      navigate('/signin')
+
+      setSuccessMessage('비밀번호가 성공적으로 변경되었습니다.');
     } catch (error) {
-      // 에러 처리
-      setError(errorMessages.serverError);
+      console.error('비밀번호 변경 요청 실패:', error);
+      setError('비밀번호 변경에 실패했습니다.');
     }
   };
 
   return (
     <Styled.OuterWrapper>
       <Styled.Wrapper>
-        <Styled.Title>비밀번호 변경</Styled.Title>
-        <Styled.Form onSubmit={handleSubmit}>
+        <Styled.Title>비밀번호 재설정</Styled.Title>
+        <Styled.Form onSubmit={handlePasswordChange}>
           <Styled.Input
-            name="password"
-            placeholder="Change Password"
+            name="newPassword"
+            placeholder="새 비밀번호"
             type="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
           />
           <Styled.Input
             name="confirmPassword"
-            placeholder="Confirm Password"
+            placeholder="비밀번호 확인"
             type="password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <Styled.Input type="submit" value="변경하기" />
+          <Styled.Input type="submit" value="비밀번호 변경" />
+          {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
+          {successMessage && <p>{successMessage}</p>}
         </Styled.Form>
-        {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
       </Styled.Wrapper>
     </Styled.OuterWrapper>
   );
-}
+};

@@ -29,7 +29,6 @@ export default function Profile({ userInfo }: ProfileProps) {
     nickname: userInfo?.nickname || '',
     phoneNumber: userInfo?.phoneNumber || '',
     address: userInfo?.address || '',
-    profileImage: userInfo?.profileImage || null,
   });
  
 
@@ -38,33 +37,20 @@ export default function Profile({ userInfo }: ProfileProps) {
       nickname: userInfo?.nickname || '',
       phoneNumber: userInfo?.phoneNumber || '',
       address: userInfo?.address || '',
-      profileImage: userInfo?.profileImage || null,
     });
-  }, [userInfo]);
+  }, [userInfo]); //변경될때마다 formData 업데이트
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
-    if (name === 'profileImage' && files) {
-      setFormData(prev => ({ ...prev, [name]: files[0] }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
-    
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async () => {
     try {
-      const ProfileUpData = JSON.stringify({
+      const data = {
         nickname: formData.nickname,
         phoneNumber: formData.phoneNumber,
         address: formData.address,
-      });
-      const requestBlob = new Blob([ProfileUpData], {
-        type: 'application/json',
-      });
-      const data = {
-        request: requestBlob,
-        file: formData.profileImage,
       };
 
       await membersApi.InfoEdit(data);
@@ -111,31 +97,22 @@ export default function Profile({ userInfo }: ProfileProps) {
               onChange={handleChange}
             />
           </Info>
-          <Info>
-            프로필 이미지:
-            <EditInput
-              type="file"
-              name="profileImage"
-              accept="image/*"
-              onChange={handleChange}
-            />
-          </Info>
           <SaveButton onClick={handleSubmit}>저장</SaveButton>
         </>
       ) : (
         <>
           <Info>
-            닉네임 : <InfoName>{userInfo?.nickname}</InfoName>
+            닉네임 : <InfoName>{formData.nickname}</InfoName>
           </Info>
           <Info>
             전화번호 :
-            <InfoName>{formatPhoneNumber(userInfo?.phoneNumber)}</InfoName>
+            <InfoName>{formatPhoneNumber(formData.phoneNumber)}</InfoName>
           </Info>
           <Info>
             이메일 : <InfoName>{userInfo?.email}</InfoName>
           </Info>
           <Info>
-            배송지 주소 : <InfoName>{userInfo?.address}</InfoName>
+            배송지 주소 : <InfoName>{formData.address}</InfoName>
           </Info>
         </>
       )}
