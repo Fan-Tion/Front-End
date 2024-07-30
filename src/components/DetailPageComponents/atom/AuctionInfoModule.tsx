@@ -80,6 +80,7 @@ const Divider = styled.hr`
 // initialize
 interface AuctionInfoPropType {
   details: {
+    auctionType: boolean;
     title: string;
     category: string;
     endDate: string;
@@ -111,9 +112,18 @@ export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHand
     return () => clearInterval(timer);
   }, [updateTimeLeft]);
 
+  console.log(details.auctionType)
+
   return (
     <InfoContainer>
-      <Title>{title}</Title>
+      <Title>
+        {
+          details.auctionType
+            ? '[공개 입찰] '
+            : '[비공개 입찰] '
+        }
+        {title}
+      </Title>
       <Row>
         <Label>카테고리</Label>
         <Value>{categoryKrMap[category]}</Value>
