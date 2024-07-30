@@ -29,7 +29,7 @@ interface BidingHistoryType {
 }
 
 export default function BidingHistory({ auctionId }: BidingHistoryType) {
-  const [biddingHistory, setBiddingHistory] = useState<BidType[]>([]);
+  const [biddingHistory, _setBiddingHistory] = useState<BidType[]>([]);
 
   useEffect(() => {
     // SSE 설정
