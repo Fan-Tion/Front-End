@@ -12,7 +12,7 @@ const Card = styled.div`
 `;
 const Image = styled.img`
   width: 300px;
-  min-height: 300px;
+  height: 300px;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
   display: block;
@@ -37,6 +37,9 @@ const Price = styled.div`
 const Div = styled.div``;
 const Div2 = styled(Div)`
   margin-left: 17px;
+`;
+const BidCount = styled.div`
+  margin-right: 30px;
 `;
 
 interface ProductProps {
@@ -69,7 +72,7 @@ export default function Product({
         <Div>{currentBidPrice.toLocaleString('ko-KR')} 원</Div>
         <Div>즉시 구매가 :</Div>{' '}
         <Div>{buyNowPrice.toLocaleString('ko-KR')} 원</Div>
-        <Div2>입찰건수 :</Div2> <Div2>{bidCount}</Div2>
+        <Div2>입찰 건 수 :</Div2> <BidCount>{bidCount}</BidCount>
       </Price>
     </Card>
   );
