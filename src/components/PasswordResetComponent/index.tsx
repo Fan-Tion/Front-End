@@ -3,13 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { membersApi } from '../../api/member';
 import { Styled } from '../../styled-components/AuthStyle';
 
-const errorMessages = {
-  emptyFields: '비밀번호, 비밀번호확인 모두 입력해주세요.',
-  passwordLength: '비밀번호는 6자 이상 15자 이하로 입력해주세요.',
-  passwordMismatch: '비밀번호가 일치하지 않습니다.',
-  success: '비밀번호 변경이 완료되었습니다',
-  serverError: '서버에러',
-};
 
 export default function PasswordResetForm() {
   const { search } = useLocation();
