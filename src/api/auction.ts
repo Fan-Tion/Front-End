@@ -16,6 +16,7 @@ interface bidNowPayloadType {
 }
 
 interface bidNowPromise {
+  data: any;
   bidPrice: number;
 }
 

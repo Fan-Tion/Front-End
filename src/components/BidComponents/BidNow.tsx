@@ -106,7 +106,7 @@ export default function BidNow({ currentBidPrice, auctionId, buyNowPrice, toggle
     }
     try {
       const response = await auctionApi.bidNow(data)
-      alert(`${response.bidPrice.toLocaleString()}원에 입찰 성공했습니다.`)
+      alert(`${response.data.bidPrice.toLocaleString()}원에 입찰 성공했습니다.`)
     } catch (error) {
       console.error(error)
     } finally {
