@@ -207,7 +207,7 @@ export const handlers = [
     return HttpResponse.json({
       message: '',
       data: {
-        totalCount: JoinHistory.data.auctionList.length,
+        totalElements: JoinHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -229,7 +229,7 @@ export const handlers = [
     return HttpResponse.json({
       message: '',
       data: {
-        totalCount: BuyHistory.data.auctionList.length,
+        totalElements: BuyHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });
@@ -251,7 +251,7 @@ export const handlers = [
     return HttpResponse.json({
       message: '',
       data: {
-        totalCount: MyHistory.data.auctionList.length,
+        totalElements: MyHistory.data.auctionList.length,
         auctionList: paginatedList,
       },
     });

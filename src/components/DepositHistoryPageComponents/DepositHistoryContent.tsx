@@ -86,10 +86,10 @@ export default function AuctionHistoryComponents({
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  const [selectedPaymentKey, setSelectedPaymentKey] = useState<string | null>(
-    null,
-  );
-
+  // const [selectedPaymentKey, setSelectedPaymentKey] = useState<string | null>(
+  //   null,
+  // );
+  const { isModalOpen, toggleModal } = useModalHandler();
   // selectedTab이 변경될 때 currentPage를 1로 초기화
   useEffect(() => {
     setCurrentPage(1);
@@ -102,10 +102,10 @@ export default function AuctionHistoryComponents({
 
       try {
         const response = await historyApi.depositHistory(selectedTab, {
-          pageNumber: currentPage,
+          page: currentPage - 1,
         });
-        setData(response.data.balanceHistory);
-        setTotalCount(response.data.totalCount);
+        setData(response.data.content);
+        setTotalCount(response.data.totalElements);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {
@@ -136,10 +136,10 @@ export default function AuctionHistoryComponents({
     setCurrentPage(newPage);
   };
 
-  const handleOpenModal = (paymentKey: string) => {
-    setSelectedPaymentKey(paymentKey);
-    toggleModal();
-  };
+  // const handleOpenModal = (paymentKey: string) => {
+  //   setSelectedPaymentKey(paymentKey);
+  //   toggleModal();
+  // };
 
   const renderPageButtons = () => {
     const buttons = [];
@@ -164,7 +164,6 @@ export default function AuctionHistoryComponents({
   if (loading) {
     return <Content>Loading...</Content>;
   }
-  const { isModalOpen, toggleModal } = useModalHandler();
 
   return (
     <>
@@ -188,9 +187,8 @@ export default function AuctionHistoryComponents({
                           : '출금'}
                   </p>
                   {item.type === 'charge' ? (
-                    <button onClick={() => handleOpenModal(item.paymentKey)}>
-                      취소
-                    </button>
+                    // <button onClick={() => handleOpenModal(item.paymentKey)}>
+                    <button>취소</button>
                   ) : null}
                   <Balance>
                     {item.type === 'purchase' || item.type === 'withdrawal'
@@ -205,7 +203,8 @@ export default function AuctionHistoryComponents({
         )}
       </Content>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
-        <CancelComponent paymentKey={selectedPaymentKey} />
+        {/* <CancelComponent paymentKey={selectedPaymentKey} /> */}
+        <CancelComponent />
       </Modal>
       <Pagination>
         <ArrowButton onClick={handlePrevGroup} disabled={currentGroup === 0}>

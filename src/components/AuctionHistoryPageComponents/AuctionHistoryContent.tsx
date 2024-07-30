@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { historyApi } from '../../api/history';
 
-type Tab = 'join' | 'buy' | 'my';
+type Tab = 'join' | 'buy' | 'sell';
 
 const Content = styled.div`
   width: 100%;
@@ -76,7 +77,7 @@ export default function AuctionHistoryComponents({
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-
+  const navigate = useNavigate();
   //탭을 옮기면 페이지가 1로 초기화
   useEffect(() => {
     setCurrentPage(1);
@@ -89,11 +90,11 @@ export default function AuctionHistoryComponents({
 
       try {
         const response = await historyApi.auctionHistory(selectedTab, {
-          pageNumber: currentPage,
+          page: currentPage - 1,
         });
 
-        setData(response.data.auctionList);
-        setTotalCount(response.data.totalCount);
+        setData(response.data.content);
+        setTotalCount(response.data.totalElements);
       } catch (error) {
         setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
       } finally {
@@ -159,7 +160,10 @@ export default function AuctionHistoryComponents({
           <>
             <List>
               {data.map(item => (
-                <ListItem key={item.auctionId}>
+                <ListItem
+                  key={item.auctionId}
+                  onClick={() => navigate(`/auction/${item.auctionId}`)}
+                >
                   <p>{item.title}</p>
                   <p>{item.createDate}</p>
                 </ListItem>

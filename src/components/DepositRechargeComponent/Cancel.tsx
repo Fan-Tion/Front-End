@@ -5,22 +5,17 @@ import { GlobalButton } from '../../styled-components/Globalstyle';
 
 const Cancel = styled(GlobalButton)``;
 
-interface CancelComponentProps {
-  paymentKey: string | null;
-}
-
-export default function CancelComponent({ paymentKey }: CancelComponentProps) {
+export default function CancelComponent() {
   const [cancelReason, setCancelReason] = useState('');
 
   async function cancelPayment() {
-    if (!paymentKey) {
+    if (!cancelReason) {
       console.error('No paymentKey provided');
       return;
     }
 
     try {
       await rechargeApi.cancel({
-        paymentId: paymentKey,
         cancelReason: cancelReason,
       });
       alert('결제가 취소되었습니다.');
@@ -38,7 +33,7 @@ export default function CancelComponent({ paymentKey }: CancelComponentProps) {
         onChange={e => setCancelReason(e.target.value)}
         placeholder="취소 사유를 입력하세요"
       />
-      <Cancel onClick={cancelPayment} disabled={!cancelReason || !paymentKey}>
+      <Cancel onClick={cancelPayment} disabled={!cancelReason}>
         결제취소
       </Cancel>
     </>
