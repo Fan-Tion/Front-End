@@ -55,9 +55,9 @@ const DetailWrapper = styled.div`
 `;
 
 const DetailTitle = styled.h2`
-  margin-bottom: 20px;
   font-size: 20px;
   font-weight: bold;
+  margin-bottom: 0px;
 `;
 
 const DetailContent = styled.div`
@@ -70,12 +70,23 @@ const DetailContent = styled.div`
 
 const BackButton = styled(AllButton)`
   position: relative;
-  right: 20px;
-  bottom: 150px;
+  width: 80px;
+  height: 40px;
+  right: 180px;
+  bottom: 180px;
   border-radius: 6px;
 `;
-
+const Buy = styled.div`
+  display: flex;
+`;
 const Button = styled(AllButton)`
+  width: 180px;
+  margin-top: 40px;
+  font-size: 16px;
+  border-radius: 6px;
+  margin-right: 20px;
+`;
+const Cancel = styled(AllButton)`
   width: 180px;
   margin-top: 40px;
   font-size: 16px;
@@ -101,7 +112,7 @@ export default function TradeDetail({
 
       alert('물품 인수 확인이 완료되었습니다.');
     } catch (error) {
-      alert('물품 인수 확인에 실패했습니다.');
+      alert('물품 인수에 실패했습니다.\n물품 인계 전에는 인수할 수 없습니다.');
     }
   };
   const confirmDelivery = async () => {
@@ -113,12 +124,21 @@ export default function TradeDetail({
       alert('물품 인계 확인에 실패했습니다.');
     }
   };
+  const cancelBuy = async () => {
+    try {
+      await TradeApi.cancel({ auctionId });
+
+      alert('물품 구매가 철회되었습니다.');
+    } catch (error) {
+      alert('구매 철회에 실패했습니다, 물품이 이미 인계되었습니다.');
+    }
+  };
 
   return (
     <>
-      <BackButton onClick={onBack}>뒤로가기</BackButton>
       <DetailWrapper>
         <DetailTitle>{trade.title}</DetailTitle>
+        <BackButton onClick={onBack}>뒤로가기</BackButton>
         <DetailContent>
           <p>
             {isBuyList ? '판매자' : '구매자'} 메일: {trade.member.email}
@@ -135,7 +155,10 @@ export default function TradeDetail({
           </Link>
         </DetailContent>
         {isBuyList ? (
-          <Button onClick={confirmReceipt}>물품 인수 확인</Button>
+          <Buy>
+            <Button onClick={confirmReceipt}>물품 인수 확인</Button>
+            <Cancel onClick={cancelBuy}>구매 철회</Cancel>
+          </Buy>
         ) : (
           <Button onClick={confirmDelivery}>물품 인계 확인</Button>
         )}

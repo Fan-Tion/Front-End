@@ -61,7 +61,7 @@ const Trading = styled.h2`
 
 const TradeList = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 20;
   margin: 0;
   overflow-y: auto;
   scrollbar-color: #cde990 transparent;
@@ -95,23 +95,22 @@ export default function TradeHistory() {
   const [error, setError] = useState<string | null>(null);
   const [viewingBuyData, setViewingBuyData] = useState(true);
 
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await TradeApi.history();
+      setBuyData(response.data.buyList);
+      setSellData(response.data.sellList);
+      setDisplayData(response.data.buyList); // 모달을 열면 구매중 내역
+    } catch (error) {
+      setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const response = await TradeApi.history();
-        setBuyData(response.data.buyList);
-        setSellData(response.data.sellList);
-        setDisplayData(response.data.buyList); // 모달을 열면 구매중 내역
-      } catch (error) {
-        setError('데이터를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -121,6 +120,7 @@ export default function TradeHistory() {
 
   const handleBack = () => {
     setSelectedTrade(null);
+    fetchData();
   };
 
   const handleToggleData = (isBuy: boolean) => {

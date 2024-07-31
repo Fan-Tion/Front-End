@@ -1,5 +1,6 @@
 import { membersApi } from '@api/member';
 import ChangePrice from '@components/DepositRechargeComponent/Price';
+import { useAvailableDeposit } from '@hooks/useAvailableDeposit';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Modal from '../../utils/Modal';
@@ -107,7 +108,16 @@ const LogoName = styled.div`
   font-weight: bold;
   margin-bottom: 30px;
 `;
+const Available = styled.div`
+  border-radius: 10px;
+  margin-right: 5px;
 
+  line-height: 36px;
+  width: 300px;
+  height: 40px;
+  font-size: 14px;
+  color: #0d33b3;
+`;
 interface SideProfileProps {
   nickname: string;
   profileImage: string;
@@ -125,6 +135,7 @@ export default function SideProfile({
   const [isFileSelected, setIsFileSelected] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [modalKey, setModalKey] = useState(0);
+
   useEffect(() => {
     setCurrentProfileImage(profileImage);
   }, [profileImage]);
@@ -171,7 +182,7 @@ export default function SideProfile({
       console.error(error);
     }
   };
-
+  const { availableDeposit } = useAvailableDeposit();
   return (
     <Wrapper>
       <Title>마이 페이지</Title>
@@ -190,6 +201,9 @@ export default function SideProfile({
       <NameTitle>닉네임</NameTitle>
       <Name>{nickname || 'Anonymous'}</Name>
       <Money>예치금 : {balance.toLocaleString()} 원</Money>
+      <Available>
+        사용 가능 금액 : {availableDeposit.toLocaleString()} 원
+      </Available>
       <ChargeButton onClick={toggleChargeModal}>충전하기</ChargeButton>
       <Modal isOpen={isChargeModalOpen} onClose={toggleChargeModal}>
         <ChangePrice />

@@ -11,4 +11,5 @@ export const historyApi = {
     axiosInstance.get(`/members/my-balance/${selectedTab}`, { params }),
   likesHistory: () => axiosInstance.get('/auction/favorite-auction-list'),
   deposit: () => axiosInstance.get('/auction/my-info-deposit'),
+  availableDeposit: () => axiosInstance.get('/bid/balance'),
 };
