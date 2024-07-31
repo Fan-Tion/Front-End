@@ -5,6 +5,7 @@ import { useModalHandler } from '@hooks/useModalHandler';
 import { auctionDetailsType } from '@mocks/db';
 import { fetchAuctionDetails } from '@utils/fetchAuctionDetails';
 import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 import _ from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
@@ -17,9 +18,16 @@ import {
   ImageModule,
   ItemDescription,
   SellerRating,
-  SteamedButton
+  SteamedButton,
 } from './atom';
-
+interface CustomJwtPayload {
+  sub: string;
+  memberId: number;
+  nickname: string;
+  roles: string[];
+  iat: number;
+  exp: number;
+}
 const Container = styled.div`
   margin: 30px auto;
   text-align: center;
@@ -53,8 +61,7 @@ const LeftContainer = styled.div`
   flex-direction: column;
 `;
 
-const RightContainer = styled.div`
-`
+const RightContainer = styled.div``;
 
 const Functions = styled.div`
   padding: 10px;
@@ -62,7 +69,7 @@ const Functions = styled.div`
   flex-direction: column;
   align-items: baseline;
   gap: 16px;
-`
+`;
 
 const ReportButton = styled.button`
   margin-left: auto;
@@ -82,7 +89,7 @@ const ReportButton = styled.button`
 
 const EditButton = styled(GlobalButton)`
   font-size: 16px;
-`
+`;
 
 const DeleteButton = styled(GlobalButton)`
   align-items: center;
@@ -97,7 +104,7 @@ const DeleteButton = styled(GlobalButton)`
     background-color: #ff6666;
     border: 1px solid #ff6666;
   }
-`
+`;
 
 const OwnerDiv = styled.div`
   display: flex;
@@ -106,14 +113,14 @@ const OwnerDiv = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
-`
+`;
 
 const SellerWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 20px;
-`
+`;
 
 const modalStyle = {
   content: {
@@ -125,21 +132,25 @@ const modalStyle = {
     transform: 'translate(-50%, -50%)',
     padding: 0,
     border: 'none',
-    background: 'none'
+    background: 'none',
   },
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.75)'
-  }
-}
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+  },
+};
 
 export default function DetailPageComponents() {
-  const [auctionDetails, setAuctionDetails] = useState<auctionDetailsType | null>(null);
-  const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
-  const [renderTrigger, setRenderTrigger] = useState(false)
+  const [auctionDetails, setAuctionDetails] =
+    useState<auctionDetailsType | null>(null);
+  const [modalContent, setModalContent] = useState<React.ReactNode | null>(
+    null,
+  );
+  const [renderTrigger, setRenderTrigger] = useState(false);
   const { isModalOpen, toggleModal } = useModalHandler(false);
   const { auctionId } = useParams<{ auctionId: string }>();
   const isLoggedIn = !!Cookies.get('Authorization');
   const navigate = useNavigate();
+  const [nickname, setNickname] = useState('');
 
   useEffect(() => {
     if (auctionId) {
@@ -147,41 +158,66 @@ export default function DetailPageComponents() {
     }
   }, [auctionId, renderTrigger]);
 
+  useEffect(() => {
+    const accessToken = Cookies.get('Authorization');
+
+    if (accessToken) {
+      try {
+        const decodedToken = jwtDecode<CustomJwtPayload>(accessToken);
+
+        const storedNickname = decodedToken.nickname;
+
+        if (storedNickname) {
+          setNickname(storedNickname);
+        }
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []);
+
   const toggleTrigger = () => {
-    setRenderTrigger(prev => !prev)
-  }
+    setRenderTrigger(prev => !prev);
+  };
 
-  const buyNowHandler = useCallback(_.debounce(async () => {
-    console.log('buyNowHandler clicked');
-    if (!auctionId) return;
-    if (auctionDetails !== null) {
-      setModalContent(
-        <BuyNow
-          auctionId={auctionId}
-          buyNowPrice={auctionDetails.buyNowPrice}
-          toggleModal={toggleModal}
-          toggleTrigger={toggleTrigger}
-        />
-      );
-      toggleModal();
-    }
-  }, 500), [auctionDetails]);
+  const buyNowHandler = useCallback(
+    _.debounce(async () => {
+      console.log('buyNowHandler clicked');
+      if (!auctionId) return;
+      if (auctionDetails !== null) {
+        setModalContent(
+          <BuyNow
+            auctionId={auctionId}
+            buyNowPrice={auctionDetails.buyNowPrice}
+            toggleModal={toggleModal}
+            toggleTrigger={toggleTrigger}
+          />,
+        );
+        toggleModal();
+      }
+    }, 500),
+    [auctionDetails],
+  );
 
-  const bidHandler = useCallback(_.debounce(async () => {
-    console.log('bidHandler clicked');
-    if (!auctionId) return;
-    if (auctionDetails !== null) {
-      setModalContent(
-        <BidNow
-          auctionId={auctionId}
-          currentBidPrice={auctionDetails.currentBidPrice}
-          buyNowPrice={auctionDetails.buyNowPrice}
-          toggleModal={toggleModal}
-          toggleTrigger={toggleTrigger}
-        />);
-      toggleModal()
-    }
-  }, 500), [auctionDetails]);
+  const bidHandler = useCallback(
+    _.debounce(async () => {
+      console.log('bidHandler clicked');
+      if (!auctionId) return;
+      if (auctionDetails !== null) {
+        setModalContent(
+          <BidNow
+            auctionId={auctionId}
+            currentBidPrice={auctionDetails.currentBidPrice}
+            buyNowPrice={auctionDetails.buyNowPrice}
+            toggleModal={toggleModal}
+            toggleTrigger={toggleTrigger}
+          />,
+        );
+        toggleModal();
+      }
+    }, 500),
+    [auctionDetails],
+  );
 
   const deleteHandler = async () => {
     if (!auctionId) return;
@@ -191,24 +227,24 @@ export default function DetailPageComponents() {
         const response = await auctionApi.deleteAuction(auctionId);
 
         if (response.data === true) navigate('/');
-        else throw new Error('삭제 실패')
+        else throw new Error('삭제 실패');
       } catch (error) {
         console.error(error);
       }
     }
-  }
+  };
 
   const handleReport = async () => {
     if (confirm('부적절한 경매로 신고하시겠습니까?')) {
       try {
         if (!auctionId) return;
         const response = await auctionApi.ReportAuction(auctionId);
-        console.log('handleReport response : ' + response)
+        console.log('handleReport response : ' + response);
       } catch (error) {
         console.error(error);
       }
     }
-  }
+  };
 
   if (auctionDetails === null) {
     return <LoadingScreen />;
@@ -218,7 +254,11 @@ export default function DetailPageComponents() {
     navigate('/not-found');
     return;
   }
-
+  console.log(
+    'auctionDetails.auctionUserNickname:',
+    auctionDetails.auctionUserNickname,
+  );
+  console.log('nickname:', nickname);
   return (
     <Container>
       <AuctionContainer>
@@ -235,33 +275,34 @@ export default function DetailPageComponents() {
             buyNow={buyNowHandler}
             bidHandler={bidHandler}
           />
-          {isLoggedIn &&
-            <BidingHistory auctionId={auctionId} />}
+          {isLoggedIn && <BidingHistory auctionId={auctionId} />}
         </RightContainer>
       </AuctionContainer>
       <Functions>
         <SteamedButton auctionId={auctionId} />
         <OwnerDiv>
-          {/* 
-            작성자 여부 검증후 조건부 랜더링
-            현 시점 작성자 여부를 검증할 방법이 없음
-          */}
-          <EditButton type='button' onClick={() => navigate(`/auction/editor/${auctionId}`)}>경매 수정</EditButton>
-          <DeleteButton type='button' onClick={deleteHandler}>경매 삭제</DeleteButton>
+          {auctionDetails.auctionUserNickname === nickname && (
+            <>
+              <EditButton
+                type="button"
+                onClick={() => navigate(`/auction/editor/${auctionId}`)}
+              >
+                경매 수정
+              </EditButton>
+              <DeleteButton type="button" onClick={deleteHandler}>
+                경매 삭제
+              </DeleteButton>
+            </>
+          )}
         </OwnerDiv>
         <ReportButton onClick={handleReport}>신고하기</ReportButton>
       </Functions>
-      <ItemDescription
-        description={auctionDetails.description}
-      />
+      <ItemDescription description={auctionDetails.description} />
       <SellerWrapper>
         {auctionDetails.auctionUserNickname}
-        {auctionDetails.rating
-          ? <SellerRating
-            rating={auctionDetails.rating}
-          />
-          : null
-        }
+        {auctionDetails.rating ? (
+          <SellerRating rating={auctionDetails.rating} />
+        ) : null}
       </SellerWrapper>
       <ReactModal
         isOpen={isModalOpen}
@@ -270,6 +311,6 @@ export default function DetailPageComponents() {
       >
         {modalContent}
       </ReactModal>
-    </Container >
+    </Container>
   );
 }
