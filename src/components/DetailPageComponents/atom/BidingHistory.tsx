@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -9,13 +9,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-`
+`;
 
 const Row = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`
+`;
 
 interface BidType {
   auctionId: string;
@@ -25,64 +25,76 @@ interface BidType {
 }
 
 interface BidingHistoryType {
-  auctionId: string
+  auctionId: string;
 }
 
 export default function BidingHistory({ auctionId }: BidingHistoryType) {
-  const [biddingHistory, _setBiddingHistory] = useState<BidType[]>([]);
+  const [biddingHistory, setBiddingHistory] = useState<BidType[]>([]);
+  const eventSourceRef = useRef<EventSource | null>(null);
 
-  useEffect(() => {
-    // SSE 설정
+  const startEventSource = useCallback(() => {
+    if (eventSourceRef.current) {
+      eventSourceRef.current.close();
+    }
+
     const eventSource = new EventSource(`${import.meta.env.VITE_API_BASE_URL}/bid/${auctionId}`);
 
-    eventSource.addEventListener('addBid', (e) => {
-      const { data: receivedConnectData } = e;
-      console.log('connect event data: ', receivedConnectData);  // "connected!"
+    eventSource.addEventListener('addBid', (e: MessageEvent) => {
+      const receivedConnectData: BidType = JSON.parse(e.data);
+      console.log('connect event data: ', receivedConnectData); // "connected!"
 
-      // setBiddingHistory(receivedConnectData)
-    })
-    // 서버에서 메시지를 수신할 때마다 실행
-    // eventSource.onmessage = (event) => {
-    //   const newBid = JSON.parse(event.data);
-    //   setBiddingHistory((prevHistory) => [...prevHistory, newBid]);
-    // };
+      setBiddingHistory((prevHistory) => [...prevHistory, receivedConnectData]);
+    });
 
-    // 오류 발생 시 실행
     eventSource.onerror = (error) => {
       console.error('EventSource failed:', error);
       eventSource.close();
     };
 
-    // 컴포넌트가 언마운트될 때 이벤트 소스 닫기
-    return () => {
-      eventSource.close();
-    };
+    eventSourceRef.current = eventSource;
+  }, [auctionId]);
+
+  const stopEventSource = useCallback(() => {
+    if (eventSourceRef.current) {
+      eventSourceRef.current.close();
+      eventSourceRef.current = null;
+    }
   }, []);
 
+  useEffect(() => {
+    startEventSource();
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        stopEventSource();
+      } else if (document.visibilityState === 'visible') {
+        startEventSource();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      stopEventSource();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [auctionId, startEventSource, stopEventSource]);
+
   if (biddingHistory.length <= 0) {
-    return null
+    return null;
   }
 
   return (
     <Container>
-      {biddingHistory.map((bid) => {
-        return (
-          <Row key={bid.createDate}>
-            <div>
-              <p>≈bidder: {bid.bidder}</p>
-              <p>bid Price: {bid.bidPrice}</p>
-              <p>bid CreatedAt: {bid.createDate}</p>
-            </div>
-          </Row>
-        )
-      })}
-      <Row>
-        <div>
-          <p>bidder: test</p>
-          <p>bid Price: 1000</p>
-          <p>bid CreatedAt: 어제</p>
-        </div>
-      </Row>
+      {biddingHistory.map((bid) => (
+        <Row key={bid.createDate}>
+          <div>
+            <p>bidder: {bid.bidder}</p>
+            <p>bid Price: {bid.bidPrice}</p>
+            <p>bid CreatedAt: {bid.createDate}</p>
+          </div>
+        </Row>
+      ))}
     </Container>
-  )
+  );
 }

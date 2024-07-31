@@ -1,14 +1,30 @@
 import { rechargeApi } from '@api/recharge';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { GlobalButton } from '../../styled-components/Globalstyle';
+import { GlobalButton, GlobalInput } from '../../styled-components/Globalstyle';
 interface CancelComponentProps {
   balance: number;
   createTime: string;
 }
 
-const Cancel = styled(GlobalButton)``;
-
+const Cancel = styled(GlobalButton)`
+  margin-top: 30px;
+  border-radius: 15px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: ${props => (props.disabled ? '#c3c3c3' : '')};
+  cursor: ${props => (props.disabled ? 'default' : 'pointer')};
+  &:hover {
+    background-color: ${props => (props.disabled ? '#c3c3c3' : '')};
+  }
+`;
+const Input = styled(GlobalInput)`
+  margin-top: 50px;
+  border-radius: 6px;
+  width: 100%;
+  min-height: 50px;
+`;
 export default function CancelComponent({
   balance,
   createTime,
@@ -39,14 +55,14 @@ export default function CancelComponent({
 
   return (
     <>
-      <input
+      <Input
         type="text"
         value={cancelReason}
         onChange={e => setCancelReason(e.target.value)}
         placeholder="취소 사유를 입력하세요"
       />
       <Cancel onClick={cancelPayment} disabled={!cancelReason}>
-        결제취소
+        결제 취소
       </Cancel>
     </>
   );

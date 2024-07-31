@@ -44,7 +44,7 @@ export const GlobalButton = styled.button<GlobalButtonProps>`
   }};
   color: #222;
   border: none;
-  border-radius: 10%;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 

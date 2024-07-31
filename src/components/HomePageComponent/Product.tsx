@@ -44,7 +44,7 @@ const BidCount = styled.div`
 
 interface ProductProps {
   auctionId: number;
-  auctionImage: string;
+  auctionImage: Array<string>;
   title: string;
   currentBidPrice: number;
   bidCount: number;
@@ -52,6 +52,7 @@ interface ProductProps {
   favoriteCnt: number;
   endDate: string;
   status: boolean;
+  auctionType: boolean;
 }
 
 export default function Product({
@@ -61,18 +62,21 @@ export default function Product({
   currentBidPrice,
   buyNowPrice,
   bidCount,
+  auctionType,
 }: ProductProps) {
   const navigate = useNavigate();
   return (
     <Card onClick={() => navigate(`/auction/${auctionId}`)}>
-      <Image src={auctionImage} alt="Product Image" />
-      <Detail>{title}</Detail>
+      <Image src={auctionImage[0]} alt="Product Image" />
+      <Detail>
+        {auctionType ? `[공개 입찰] ${title}` : `[비공개 입찰] ${title}`}
+      </Detail>
       <Price>
         <Div>현재 입찰가 :</Div>{' '}
         <Div>{currentBidPrice.toLocaleString('ko-KR')} 원</Div>
         <Div>즉시 구매가 :</Div>{' '}
         <Div>{buyNowPrice.toLocaleString('ko-KR')} 원</Div>
-        <Div2>입찰 건 수 :</Div2> <BidCount>{bidCount}</BidCount>
+        <Div2>입찰 건수 :</Div2> <BidCount>{bidCount}</BidCount>
       </Price>
     </Card>
   );

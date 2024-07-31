@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { GlobalButton } from '../../styled-components/Globalstyle';
+import { AllButton } from '../../styled-components/HomePageStyle';
 import AuctionHistoryContent from './AuctionHistoryContent';
 import Deposit from './Deposit';
 import WishList from './WishList';
@@ -23,11 +23,13 @@ const Title = styled.span`
   font-weight: bold;
 `;
 
-const Tab = styled(GlobalButton)<{ $isSelected: boolean }>`
+const Tab = styled(AllButton)<{ $isSelected: boolean }>`
   margin: 30px 10px 0 0;
   width: 100px;
   height: 40px;
   font-size: 16px;
+  font-weight: normal;
+  color: ${({ $isSelected }) => ($isSelected ? '#eee' : '#222')};
   background-color: ${({ $isSelected }) =>
     $isSelected ? '#AACB73' : '#CDE990'};
   border: none;

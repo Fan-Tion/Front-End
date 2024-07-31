@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Modal from '../../utils/Modal';
 
 import { membersApi } from '@api/member';
-import { GlobalButton } from '../../styled-components/Globalstyle';
+import { useAvailableDeposit } from '@hooks/useAvailableDeposit';
+import { AllButton } from '../../styled-components/HomePageStyle';
 import ChangePrice from '../DepositRechargeComponent/Price';
 const Container = styled.div`
   width: 300px;
@@ -28,8 +29,8 @@ const Price = styled.div`
   font-size: 24px;
   float: right;
 `;
-const Charge = styled(GlobalButton)`
-  margin-top: 35px;
+const Charge = styled(AllButton)`
+  margin-top: 5px;
   float: right;
   clear: both;
   width: 200px;
@@ -39,8 +40,8 @@ const Charge = styled(GlobalButton)`
   border-radius: 6px;
   cursor: pointer;
 `;
-const DepositHistory = styled(GlobalButton)`
-  margin-top: 35px;
+const DepositHistory = styled(AllButton)`
+  margin-top: 20px;
   float: right;
   clear: both;
   width: 200px;
@@ -49,13 +50,27 @@ const DepositHistory = styled(GlobalButton)`
   border: none;
   border-radius: 6px;
   cursor: pointer;
+`;
+const BidPrice = styled.div`
+  border-radius: 10px;
+  margin-right: 5px;
+  text-align: right;
+  line-height: 36px;
+  width: 200px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: bold;
+  float: right;
+  color: #db4455;
+  text-decoration: underline;
 `;
 
 export default function Deposit() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -75,12 +90,10 @@ export default function Deposit() {
     fetchData();
   }, []);
 
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
+  const { totalBidPrice } = useAvailableDeposit();
   return (
     <Container>
       <Title>예치금</Title>
@@ -92,6 +105,7 @@ export default function Deposit() {
         ) : data ? (
           <>
             <Price>{data.toLocaleString()} 원</Price>
+            <BidPrice>입찰 중: {totalBidPrice.toLocaleString()} 원</BidPrice>
           </>
         ) : (
           <div>데이터가 없습니다.</div>

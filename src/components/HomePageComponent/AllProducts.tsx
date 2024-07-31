@@ -26,7 +26,7 @@ const Button = styled(AllButton)`
 
 interface ProductType {
   auctionId: number;
-  auctionImage: string;
+  auctionImage: Array<string>;
   title: string;
   bidCount: number;
   buyNowPrice: number;
@@ -34,6 +34,7 @@ interface ProductType {
   favoriteCnt: number;
   endDate: string;
   status: boolean;
+  auctionType: boolean;
 }
 
 export default function AllProducts() {
