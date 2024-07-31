@@ -86,3 +86,53 @@ export const HistoryButton = styled.button`
     color : white;
   }
   `
+
+export const EditInput = styled.input`
+padding: 15px 20px;
+border-radius: 25px;
+border : 2px solid #CDE990;
+font-size: 16px;
+width : 650px;
+&:hover {
+  border : 2px solid #AACB73;
+}
+&:focus{
+outline : none;
+}
+
+&[type='submit'] {
+  cursor: pointer;
+  background-color: #CDE990;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #AACB73;
+    color: white;
+  }
+
+  &:focus {
+    outline: none;
+    
+  }
+}
+`;
+
+export const SaveButton = styled.button`
+
+  display: flex;
+  align-items : center;
+  font-size: 16px;
+  color: #222;
+  font-weight : bold;
+  background-color: #CDE990;
+  border: none;
+  padding: 8px 16px;
+  border-radius : 25px;
+  margin-top : 20px;
+  margin-left : auto;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #AACB73;
+    color : white;
+  }
+  `

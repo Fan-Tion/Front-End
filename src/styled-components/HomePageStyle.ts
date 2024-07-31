@@ -8,7 +8,8 @@ interface TextProps {
   $fontColor: string;
 }
 
-export const Wrap = styled.div``;
+export const Wrap = styled.div`
+`;
 export const Category = styled.div`
   padding: 15px 15px 0;
   display: flex;
@@ -49,6 +50,16 @@ export const ProductBox = styled.div<ProductBoxProps>`
 `;
 export const Div = styled.div`
   display: flex;
-  justify-content: space-between;
+
   padding: 0 30px;
+  flex-wrap : wrap;
+
 `;
+
+export const PopBox = styled.div`
+  display: flex;
+  padding: 0 30px;
+  flex-wrap : wrap;
+  justify-content : center;
+  gap : 140px;
+`
