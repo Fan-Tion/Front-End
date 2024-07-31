@@ -41,6 +41,7 @@ interface ProductType {
   favoriteCnt: number;
   endDate: string;
   status: boolean;
+  auctionType: boolean;
 }
 
 export default function SearchResultsPage() {

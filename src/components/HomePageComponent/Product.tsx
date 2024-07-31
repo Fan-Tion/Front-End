@@ -44,7 +44,7 @@ const BidCount = styled.div`
 
 interface ProductProps {
   auctionId: number;
-  auctionImage: Array<string>;
+  auctionImage: string;
   title: string;
   currentBidPrice: number;
   bidCount: number;
