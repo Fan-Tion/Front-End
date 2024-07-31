@@ -3,30 +3,21 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrap = styled.div`
-  display : flex;
-  width : 100%;
-  justify-content : center;
-  align-items : center;
-`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
 
-const CategoryWrap = styled.div`
- 
-`
+const CategoryWrap = styled.div``;
 
 const CategoryTitle = styled.h1`
-  display : flex;
-  font-size : 36px;
-  margin-top : 20px;
-  font-weight : bold;
-
-  
-`
-const CategoryList = styled.div`
-  
-`
-
-
-
+  display: flex;
+  font-size: 36px;
+  margin-top: 20px;
+  font-weight: bold;
+`;
+const CategoryList = styled.div``;
 
 export default function PopularCategoryPageComponent() {
   const location = useLocation();
@@ -42,10 +33,10 @@ export default function PopularCategoryPageComponent() {
 
   return (
     <Wrap>
-    <CategoryWrap>
-      <CategoryTitle>{categoryOption}</CategoryTitle>
-      <CategoryList></CategoryList>
-    </CategoryWrap>
+      <CategoryWrap>
+        <CategoryTitle>{categoryOption}</CategoryTitle>
+        <CategoryList></CategoryList>
+      </CategoryWrap>
     </Wrap>
   );
 }

@@ -22,7 +22,7 @@ const Image = styled.img`
 const CategoryName = styled.div`
   font-size: 20px;
   font-weight: bold;
-  margin-top: 50px;
+  margin-top: 20px;
 `;
 
 interface CategoryCardProps {

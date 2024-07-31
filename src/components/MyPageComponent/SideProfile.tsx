@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { membersApi } from '@api/member';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Modal from '../../utils/Modal';
 import TradeHistory from '../TradeComponent/TradeHistory';
@@ -72,6 +73,8 @@ const ChargeButton = styled.button`
   }
 `;
 const TradeButton = styled(ChargeButton)``;
+
+const ProfileEditButton = styled(ChargeButton)``;
 const Footer = styled.div`
   display: flex;
   flex-direction: column;
@@ -106,22 +109,79 @@ const LogoName = styled.div`
 
 interface SideProfileProps {
   nickname: string;
+  profileImage: string;
+  balance: number;
 }
-export default function SideProfile({ nickname }: SideProfileProps) {
+export default function SideProfile({
+  nickname,
+  profileImage,
+  balance,
+}: SideProfileProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null); //파일저장
+  const [currentProfileImage, setCurrentProfileImage] = useState(profileImage); //현재 프로필 저장
+  const [isFileSelected, setIsFileSelected] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setCurrentProfileImage(profileImage);
+  }, [profileImage]);
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+      setIsFileSelected(true);
+    }
+  };
+
+  const handleProfileImageSubmit = async () => {
+    if (!selectedFile) {
+      //선택된파일이없으면
+      if (fileInputRef.current) {
+        // ref가 참조하는 요소가있으면
+        fileInputRef.current.value = ''; // 파일 입력 초기화후 이전 파일 지우기
+        fileInputRef.current.click(); // 파일 선택 열기
+      }
+      return;
+    }
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    try {
+      const response = await membersApi.ProfileImageEdit(formData);
+      if (response.data.success) {
+        const newProfileImageUrl = response.data.newProfileImageUrl;
+        setCurrentProfileImage(newProfileImageUrl);
+        setIsFileSelected(false);
+      }
+      setSelectedFile(null);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Wrapper>
       <Title>마이 페이지</Title>
-      <AvatarUpload htmlFor="file">
-        <AvatarImg src="https://via.placeholder.com/300" alt="img" />
+      <AvatarUpload onClick={() => fileInputRef.current?.click()}>
+        <AvatarImg src={currentProfileImage} alt="프로필 이미지" />
       </AvatarUpload>
-      <AvatarInput id="file" type="file" />
+      <AvatarInput
+        id="file"
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+      />
+      <ProfileEditButton onClick={handleProfileImageSubmit}>
+        {isFileSelected ? '변경 프로필 확인' : '프로필 변경하기'}
+      </ProfileEditButton>
       <NameTitle>닉네임</NameTitle>
       <Name>{nickname || 'Anonymous'}</Name>
-      <Money>예치금: 50000원</Money>
+      <Money>예치금 : {balance.toLocaleString()} 원</Money>
       <ChargeButton>충전하기</ChargeButton>
       <TradeButton onClick={toggleModal}>거래중</TradeButton>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
@@ -129,7 +189,6 @@ export default function SideProfile({ nickname }: SideProfileProps) {
       </Modal>
       <Footer>
         <SignOutButton>로그아웃</SignOutButton>
-
         <LogoName>Fan-tion</LogoName>
       </Footer>
     </Wrapper>
