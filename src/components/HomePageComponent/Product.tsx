@@ -52,6 +52,7 @@ interface ProductProps {
   favoriteCnt: number;
   endDate: string;
   status: boolean;
+  auctionType: boolean;
 }
 
 export default function Product({
@@ -61,12 +62,15 @@ export default function Product({
   currentBidPrice,
   buyNowPrice,
   bidCount,
+  auctionType,
 }: ProductProps) {
   const navigate = useNavigate();
   return (
     <Card onClick={() => navigate(`/auction/${auctionId}`)}>
       <Image src={auctionImage} alt="Product Image" />
-      <Detail>{title}</Detail>
+      <Detail>
+        {auctionType ? `[공개 입찰] ${title}` : `[비공개 입찰] ${title}`}
+      </Detail>
       <Price>
         <Div>현재 입찰가 :</Div>{' '}
         <Div>{currentBidPrice.toLocaleString('ko-KR')} 원</Div>

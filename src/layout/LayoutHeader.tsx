@@ -112,7 +112,7 @@ const LogOutBtn = styled.button`
 const LogoImage = styled.img`
   width: 110px;
   height: 70px;
-  border-radius: 25%;
+  border-radius: 15px;
   object-fit: cover;
   object-position: center;
 `;
@@ -140,7 +140,7 @@ export default function LayoutHeader() {
     <Wrapper>
       <Link to="/">
         <MenuItem>
-          <LogoImage src="/img/mainLogo.png" /> 
+          <LogoImage src="/img/mainLogo.png" />
         </MenuItem>
       </Link>
       {/* <Link to='/'>
