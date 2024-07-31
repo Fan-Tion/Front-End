@@ -26,7 +26,7 @@ const Button = styled(AllButton)`
 
 interface ProductType {
   auctionId: number;
-  auctionImage: Array<string>;
+  auctionImage: string;
   title: string;
   bidCount: number;
   buyNowPrice: number;
@@ -50,7 +50,6 @@ export default function AllProducts() {
       });
       return Array.isArray(response.data.content) ? response.data.content : [];
     } catch (error) {
-      // console.error('Error fetching products:', error);
       return [];
     }
   };

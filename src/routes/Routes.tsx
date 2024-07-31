@@ -18,6 +18,7 @@ import {
   MyPage,
   PasswordResetPage,
   PopularCategoryPage,
+  SearchItemPage,
   SignInPage,
   SignUpPage,
   SuccessPage,
@@ -46,9 +47,7 @@ export default function Routes() {
         },
         {
           path: '',
-          element: (
-            <HomePage />
-          ),
+          element: <HomePage />,
         },
         {
           path: 'mypage/auction-history',
@@ -121,6 +120,14 @@ export default function Routes() {
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <PopularCategoryPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'search',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <SearchItemPage />
             </Suspense>
           ),
         },

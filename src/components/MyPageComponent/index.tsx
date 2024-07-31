@@ -67,6 +67,10 @@ export default function MyPageComponents() {
     fetchUserInfo();
   }, []);
 
+  const handleUserInfoUpdate = (updatedUserInfo: UserInfo) => {
+    setUserInfo(updatedUserInfo);
+  };
+
   const balance = userInfo?.balance ?? 0;
   const nickname = userInfo?.nickname ?? 'Anonymous';
   const profileImage =
@@ -80,7 +84,7 @@ export default function MyPageComponents() {
         balance={balance}
       />
       <ColumnWrap>
-        <Profile userInfo={userInfo} />
+        <Profile userInfo={userInfo} onUpdate={handleUserInfoUpdate} />
         <HistoryView />
         <PasswordEditButton>
           비밀번호 변경 요청 메일 발송하기

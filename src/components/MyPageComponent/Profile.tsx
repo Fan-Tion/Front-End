@@ -13,6 +13,7 @@ import {
 
 interface ProfileProps {
   userInfo: any;
+  onUpdate: (updatedUserInfo: any) => void;
 }
 
 const formatPhoneNumber = (phoneNumber: string) => {
@@ -22,7 +23,7 @@ const formatPhoneNumber = (phoneNumber: string) => {
   return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
 };
 
-export default function Profile({ userInfo }: ProfileProps) {
+export default function Profile({ userInfo, onUpdate }: ProfileProps) {
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
     nickname: userInfo?.nickname || '',
@@ -53,6 +54,11 @@ export default function Profile({ userInfo }: ProfileProps) {
 
       await membersApi.InfoEdit(data);
       setEditMode(false);
+
+      onUpdate({
+        ...userInfo,
+        ...data,
+      });
     } catch (error) {
       console.error(error);
     }
