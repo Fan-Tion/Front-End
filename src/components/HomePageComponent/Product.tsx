@@ -44,7 +44,7 @@ const BidCount = styled.div`
 
 interface ProductProps {
   auctionId: number;
-  auctionImage: string;
+  auctionImage: Array<string>;
   title: string;
   currentBidPrice: number;
   bidCount: number;
@@ -67,7 +67,7 @@ export default function Product({
   const navigate = useNavigate();
   return (
     <Card onClick={() => navigate(`/auction/${auctionId}`)}>
-      <Image src={auctionImage} alt="Product Image" />
+      <Image src={auctionImage[0]} alt="Product Image" />
       <Detail>
         {auctionType ? `[공개 입찰] ${title}` : `[비공개 입찰] ${title}`}
       </Detail>

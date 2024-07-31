@@ -26,7 +26,7 @@ const Button = styled(AllButton)`
 
 interface ProductType {
   auctionId: number;
-  auctionImage: string;
+  auctionImage: Array<string>;
   title: string;
   bidCount: number;
   buyNowPrice: number;
