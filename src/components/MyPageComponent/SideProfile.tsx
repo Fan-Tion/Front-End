@@ -109,7 +109,11 @@ interface SideProfileProps {
 }
 export default function SideProfile({ nickname }: SideProfileProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalKey, setModalKey] = useState(0);
   const toggleModal = () => {
+    if (!isModalOpen) {
+      setModalKey(prevKey => prevKey + 1);
+    }
     setIsModalOpen(!isModalOpen);
   };
   return (
@@ -125,7 +129,7 @@ export default function SideProfile({ nickname }: SideProfileProps) {
       <ChargeButton>충전하기</ChargeButton>
       <TradeButton onClick={toggleModal}>거래중</TradeButton>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
-        <TradeHistory />
+        <TradeHistory key={modalKey} />
       </Modal>
       <Footer>
         <SignOutButton>로그아웃</SignOutButton>
