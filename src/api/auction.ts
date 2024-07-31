@@ -39,4 +39,9 @@ export const auctionApi = {
     axiosInstance.put('/bid', payload),
   bidNow: (payload: bidNowPayloadType): Promise<bidNowPromise> =>
     axiosInstance.post('/bid', payload),
+  search: (params: {
+    page: number;
+    categoryOption?: string;
+    keyword?: string;
+  }) => axiosInstance.get('/auction/search', { params }),
 };

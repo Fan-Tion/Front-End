@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -28,21 +27,16 @@ const CategoryName = styled.div`
 interface CategoryCardProps {
   title: string;
   imageSrc: string;
-  categoryUrl: string;
+  onClick: () => void;
 }
 
 export default function CategoryCard({
   title,
   imageSrc,
-  categoryUrl,
+  onClick,
 }: CategoryCardProps) {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(categoryUrl);
-  };
   return (
-    <Div onClick={handleClick}>
+    <Div onClick={onClick}>
       <Image src={imageSrc} alt={title} />
       <CategoryName>{title}</CategoryName>
     </Div>

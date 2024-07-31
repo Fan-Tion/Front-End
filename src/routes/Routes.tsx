@@ -1,5 +1,5 @@
-import NaverLoginCallback from '@components/NaverComponent/NaverLoginCallback';
 import LoadingScreen from '@components/LoadingScreen';
+import NaverLoginCallback from '@components/NaverComponent/NaverLoginCallback';
 import RootLayout from '@layout/RootLayout';
 import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -13,13 +13,14 @@ import {
   FailPage,
   FindPasswordPage,
   HomePage,
+  LoadingScreenPage,
   MyPage,
   PasswordResetPage,
   PopularCategoryPage,
+  SearchItemPage,
   SignInPage,
   SignUpPage,
   SuccessPage,
-  LoadingScreenPage,
 } from '../pages';
 
 // const Loader = () => <div>Loading...</div>;
@@ -45,9 +46,7 @@ export default function Routes() {
         },
         {
           path: '',
-          element: (
-            <HomePage />
-          ),
+          element: <HomePage />,
         },
         {
           path: 'mypage/auction-history',
@@ -121,6 +120,14 @@ export default function Routes() {
             </Suspense>
           ),
         },
+        {
+          path: 'search',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <SearchItemPage />
+            </Suspense>
+          ),
+        },
       ],
     },
     {
@@ -158,7 +165,7 @@ export default function Routes() {
     {
       path: 'members/naver/signin',
       element: (
-        <Suspense fallback={<LoadingScreenPage/>}>
+        <Suspense fallback={<LoadingScreenPage />}>
           <NaverLoginCallback />
         </Suspense>
       ),
