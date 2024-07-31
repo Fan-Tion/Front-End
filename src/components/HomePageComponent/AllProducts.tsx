@@ -50,7 +50,6 @@ export default function AllProducts() {
       });
       return Array.isArray(response.data.content) ? response.data.content : [];
     } catch (error) {
-      // console.error('Error fetching products:', error);
       return [];
     }
   };

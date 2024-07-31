@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 36px;
+  font-size: 24px;
   margin-bottom: 20px;
 `;
 
@@ -43,11 +43,11 @@ interface ProductType {
   status: boolean;
 }
 
-export default function PopularCategoryPageComponent() {
+export default function SearchResultsPage() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const categoryOption = queryParams.get('categoryOption') || 'ALL';
   const keyword = queryParams.get('keyword') || '';
+  const categoryOption = queryParams.get('category') || 'ALL';
   const initialPage = parseInt(queryParams.get('page') || '0', 10);
 
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -56,7 +56,7 @@ export default function PopularCategoryPageComponent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const loadProducts = async (page: number) => {
+  const SearchProducts = async (page: number) => {
     setLoading(true);
     setError(null);
     try {
@@ -79,14 +79,14 @@ export default function PopularCategoryPageComponent() {
 
   useEffect(() => {
     const loadData = async () => {
-      const initialProducts = await loadProducts(initialPage);
+      const initialProducts = await SearchProducts(initialPage);
       setProducts(initialProducts);
     };
     loadData();
   }, [categoryOption, keyword, initialPage]);
 
   const fetchMoreData = async () => {
-    const newProducts = await loadProducts(page);
+    const newProducts = await SearchProducts(page);
     if (newProducts.length === 0) {
       setHasMore(false);
     } else {
@@ -97,10 +97,10 @@ export default function PopularCategoryPageComponent() {
 
   return (
     <Wrapper>
-      <Title>{categoryOption}</Title>
+      <Title>검색 결과: "{keyword}"</Title>
       {error && <NoResults>{error}</NoResults>}
       {products.length === 0 && !loading && !error ? (
-        <NoResults>경매 리스트가 없습니다.</NoResults>
+        <NoResults>검색 결과가 없습니다.</NoResults>
       ) : (
         <InfiniteScroll
           dataLength={products.length}

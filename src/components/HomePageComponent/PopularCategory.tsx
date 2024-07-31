@@ -1,5 +1,6 @@
 import { categoryApi } from '@api/popularcategory';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   AllButton,
   Category,
@@ -22,6 +23,7 @@ const categoryImages: { [key: string]: string } = {
   CLOTHES: 'img/CategoryImg/CLOTHES.png',
   FIGURE: 'img/CategoryImg/FIGURE.png',
   GAME: 'img/CategoryImg/GAME.png',
+  OTHER: 'img/CategoryImg/OTHER.png',
   PHOTO_CARD: 'img/CategoryImg/PHOTO_CARD.png',
   POSTER: 'img/CategoryImg/POSTER.png',
   SIGN: 'img/CategoryImg/SIGN.png',
@@ -31,6 +33,7 @@ export default function PopularCategory() {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [showAll, setShowAll] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -53,6 +56,11 @@ export default function PopularCategory() {
   const handleToggleShowAll = () => {
     setShowAll(!showAll);
   };
+  const handleCategoryClick = (categoryTitle: string) => {
+    navigate(
+      `/auction/search?searchOption=CATEGORY&categoryOption=${categoryTitle}&keyword=&page=0`,
+    );
+  };
 
   return (
     <Wrap>
@@ -74,7 +82,7 @@ export default function PopularCategory() {
                 categoryImages[category.title] ||
                 'https://via.placeholder.com/300'
               }
-              categoryUrl={`/auction/search?searchOption=CATEGORY&categoryOption=${category.title}&keyword=&page=0`}
+              onClick={() => handleCategoryClick(category.title)}
             />
           ))}
         </PopBox>

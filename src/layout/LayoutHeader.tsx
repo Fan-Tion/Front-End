@@ -2,7 +2,7 @@ import { membersApi } from '@api/member';
 import { Withdrawal } from '@components/MyPageComponent/Withdrawal';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../icons/SearchIcon';
 
@@ -41,7 +41,7 @@ const SearchInput = styled.input`
   font-size: 16px;
   border: 2px solid #cde990;
   padding: 10px;
-  border-radius: 25px 0 0 25px;
+
   box-sizing: border-box;
   &:hover {
     border: 2px solid #aacb73;
@@ -117,9 +117,69 @@ const LogoImage = styled.img`
   object-position: center;
 `;
 
+const CategorySelect = styled.select`
+  height: 48px;
+  font-size: 16px;
+  border: 2px solid #cde990;
+  border-radius: 25px 0 0 25px;
+  padding: 0 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  box-sizing: border-box;
+
+  &:hover,
+  &:focus {
+    border-color: #aacb73;
+    outline: none;
+  }
+  &::-ms-expand {
+    display: none;
+  }
+`;
+
+const OptionItem = styled.option`
+  background-color: #fff;
+  color: #222;
+  font-size: 16px;
+`;
+const CustomSelectWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    content: '▼';
+    font-size: 12px;
+    color: #222;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+`;
+
 export default function LayoutHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [cookies, , removeCookie] = useCookies(['Authorization']);
+  const [keyword, setKeyword] = useState('');
+  const [categoryOption, setCategoryOption] = useState('ALL');
+
+  const navigate = useNavigate();
+
+  const categories = [
+    'ALL',
+    'ACCESSORIES',
+    'ALBUM',
+    'CLOTHES',
+    'FIGURE',
+    'GAME',
+    'PHOTO_CARD',
+    'POSTER',
+    'SIGN',
+    'OTHER',
+  ];
 
   useEffect(() => {
     setIsLoggedIn(!!cookies.Authorization);
@@ -134,6 +194,13 @@ export default function LayoutHeader() {
     } catch (error) {
       console.error('Logout에러', error);
     }
+  };
+
+  const handleSearch = () => {
+    navigate(
+      `/search?keyword=${encodeURIComponent(keyword)}&category=${encodeURIComponent(categoryOption)}&page=0`,
+    );
+    setKeyword('');
   };
 
   return (
@@ -154,8 +221,25 @@ export default function LayoutHeader() {
         </MenuItem>
       </Link> */}
       <SearchBar>
-        <SearchInput type="text" placeholder="검색" />
-        <SearchButton>
+        <CustomSelectWrapper>
+          <CategorySelect
+            value={categoryOption}
+            onChange={e => setCategoryOption(e.target.value)}
+          >
+            {categories.map(category => (
+              <OptionItem key={category} value={category}>
+                {category}
+              </OptionItem>
+            ))}
+          </CategorySelect>
+        </CustomSelectWrapper>
+        <SearchInput
+          type="text"
+          placeholder="검색"
+          value={keyword}
+          onChange={e => setKeyword(e.target.value)}
+        />
+        <SearchButton onClick={handleSearch}>
           <SearchIcon size={22} color="#222" strokeWidth={1.5} />
         </SearchButton>
       </SearchBar>
