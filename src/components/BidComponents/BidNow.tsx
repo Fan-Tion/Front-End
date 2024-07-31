@@ -113,7 +113,7 @@ export default function BidNow({ currentBidPrice, auctionId, buyNowPrice, toggle
       toggleModal()
       toggleTrigger()
     }
-  }, 600), [])
+  }, 600), [bidPrice, auctionId])
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
