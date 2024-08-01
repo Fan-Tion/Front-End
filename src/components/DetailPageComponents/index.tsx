@@ -254,11 +254,7 @@ export default function DetailPageComponents() {
     navigate('/not-found');
     return;
   }
-  console.log(
-    'auctionDetails.auctionUserNickname:',
-    auctionDetails.auctionUserNickname,
-  );
-  console.log('nickname:', nickname);
+
   return (
     <Container>
       <AuctionContainer>
@@ -279,7 +275,7 @@ export default function DetailPageComponents() {
         </RightContainer>
       </AuctionContainer>
       <Functions>
-        <SteamedButton auctionId={auctionId} />
+        {isLoggedIn && <SteamedButton auctionId={auctionId} />}
         <OwnerDiv>
           {auctionDetails.auctionUserNickname === nickname && (
             <>
