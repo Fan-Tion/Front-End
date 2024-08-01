@@ -116,6 +116,7 @@ const OwnerDiv = styled.div`
 `;
 
 const SellerWrapper = styled.div`
+  margin-left: 30px;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -293,13 +294,13 @@ export default function DetailPageComponents() {
         </OwnerDiv>
         <ReportButton onClick={handleReport}>신고하기</ReportButton>
       </Functions>
-      <ItemDescription description={auctionDetails.description} />
       <SellerWrapper>
-        {auctionDetails.auctionUserNickname}
+        {`판매자 : ${auctionDetails.auctionUserNickname}`}
         {auctionDetails.rating ? (
           <SellerRating rating={auctionDetails.rating} />
         ) : null}
       </SellerWrapper>
+      <ItemDescription description={auctionDetails.description} />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={toggleModal}
