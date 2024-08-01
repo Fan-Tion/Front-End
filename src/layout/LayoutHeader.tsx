@@ -202,6 +202,11 @@ export default function LayoutHeader() {
     );
     setKeyword('');
   };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <Wrapper>
@@ -238,6 +243,7 @@ export default function LayoutHeader() {
           placeholder="검색"
           value={keyword}
           onChange={e => setKeyword(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <SearchButton onClick={handleSearch}>
           <SearchIcon size={22} color="#222" strokeWidth={1.5} />

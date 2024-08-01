@@ -7,16 +7,20 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   padding: 20px;
+  min-height: 100vh;
 `;
 
 const Title = styled.h1`
   font-size: 36px;
   margin-bottom: 20px;
+  width: 1750px;
+  margin: auto;
 `;
 
 const Grid = styled.div`
   display: grid;
   width: 1800px;
+  margin: auto;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 10px;
@@ -49,11 +53,12 @@ export default function PopularCategoryPageComponent() {
   const queryParams = new URLSearchParams(location.search);
   const categoryOption = queryParams.get('categoryOption') || 'ALL';
   const keyword = queryParams.get('keyword') || '';
-  const initialPage = parseInt(queryParams.get('page') || '0', 10);
 
   const [products, setProducts] = useState<ProductType[]>([]);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(initialPage);
+  const [page, setPage] = useState(
+    parseInt(queryParams.get('page') || '0', 10),
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -80,14 +85,14 @@ export default function PopularCategoryPageComponent() {
 
   useEffect(() => {
     const loadData = async () => {
-      const initialProducts = await loadProducts(initialPage);
+      const initialProducts = await loadProducts(page);
       setProducts(initialProducts);
     };
     loadData();
-  }, [categoryOption, keyword, initialPage]);
+  }, [categoryOption, keyword]);
 
   const fetchMoreData = async () => {
-    const newProducts = await loadProducts(page);
+    const newProducts = await loadProducts(page + 1);
     if (newProducts.length === 0) {
       setHasMore(false);
     } else {
@@ -109,7 +114,6 @@ export default function PopularCategoryPageComponent() {
           hasMore={hasMore}
           style={{ overflow: 'visible' }}
           loader={<div></div>}
-          endMessage={<div>더 이상 결과가 없습니다.</div>}
         >
           <Grid>
             {products.map((product, index) => (
