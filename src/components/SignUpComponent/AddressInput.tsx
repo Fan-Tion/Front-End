@@ -49,7 +49,7 @@ export default function AddressInput({ onChange }: AddressInputProps) {
         <Styled.CheckInput
           width="300px"
           height="50px"
-          placeholder=" 주소를 검색해주세요."
+          placeholder="주소를 검색해주세요."
           value={addressPart1}
           onChange={e => handleAddressChange(e, 1)}
           readOnly
@@ -60,7 +60,7 @@ export default function AddressInput({ onChange }: AddressInputProps) {
       </Styled.ButtonWrap>
       <GlobalInput
         width="500px"
-        height="52px"
+        height="57px"
         placeholder="상세주소 : 건물명, 동/호수 등의 상세주소를 입력해주세요 "
         value={addressPart2}
         onChange={e => handleAddressChange(e, 2)}

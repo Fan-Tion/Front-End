@@ -251,7 +251,7 @@ export default function SignUpForm() {
           <Styled.ButtonWrap>
             <Styled.CheckInput
               name="email"
-              placeholder="  email"
+              placeholder="email"
               type="email"
               value={formData.email}
               onChange={handleChange}
