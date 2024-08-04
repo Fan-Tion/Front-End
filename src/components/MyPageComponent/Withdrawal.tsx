@@ -3,21 +3,16 @@ import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
 
 const WithdrawalButton = styled.button`
-  width: 90px;
-  height: 40px;
-  font-weight: bold;
-  background-color: #fc8b8b;
+  margin: 0 20px;
+  font-size: 20px;
   color: #222;
-  padding: 8px 12px;
+  background: none;
   border: none;
-  border-radius: 6px;
-  margin-right: 20px;
-  transition: background-color 0.3s ease;
   cursor: pointer;
-
   &:hover {
-    background-color: #eb4646;
-    color: white;
+    font-weight : bold;
+    font-size : 24px;
+    color: red;
   }
 `;
 
