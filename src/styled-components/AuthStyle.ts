@@ -36,7 +36,7 @@ export const Input = styled.input`
   padding: 15px 20px;
   border-radius: 25px;
   border: 2px solid #cde990;
-  font-size: 16px;
+  font-size: 20px;
   width: 100%;
   &:hover {
     border: 2px solid #aacb73;
@@ -71,13 +71,15 @@ export const SocialButtonWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 9px 20px;
+  padding: 15px 20px;
   border-radius: 25px;
   border: 2px solid #cde990;
   background-color: #cde990;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: bold;
   width: 100%;
   margin-top: 10px;
+  
   cursor: pointer;
   transition: background-color 0.3s ease;
   &:hover {
@@ -107,10 +109,10 @@ export const ButtonWrap = styled.div`
 `;
 export const CheckInput = styled.input`
   width: 400px;
-  height: 52px;
-  font-size: 16px;
+  height: 57px;
+  font-size: 20px;
   border: 2px solid #cde990;
-  padding: 10px;
+  padding: 15px 20px;
   border-radius: 25px 0 0 25px;
   &:hover {
     border: 2px solid #aacb73;
@@ -122,7 +124,7 @@ export const CheckInput = styled.input`
 
 export const CheckButton = styled.button`
   width: 100px;
-  height: 52px;
+  height: 57px;
   background-color: #cde990;
   border: none;
   border-radius: 0 25px 25px 0;
@@ -140,10 +142,16 @@ export const FileInputWrap = styled.div`
 `;
 
 export const FileInputLabel = styled.label`
+  display : flex;
+  align-items : center;
+  justify-content : center;
+  font-size : 20px;
+  font-weight : bold;
   cursor: pointer;
   background-color: #cde990;
   padding: 10px 20px;
   border-radius: 25px;
+  height : 57px;
   transition: background-color 0.3s ease;
   &:hover {
     background-color: #aacb73;

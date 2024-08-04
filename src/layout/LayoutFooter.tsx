@@ -4,7 +4,8 @@ const Wrapper = styled.footer`
   display: flex;
   width: 100%;
   height: 100px;
-  background-color: #ffd4d4;
+  border-top: 1px solid #dee2e6;
+  background-color: white;
   padding: 20px;
   text-align: center;
   justify-content: center;
@@ -28,8 +29,6 @@ const FooterName = styled.div`
   margin: 5px;
   padding: 15px;
   &:hover {
-    border-radius: 25px;
-    background-color: #ffb3b3;
     transform: scale(1.05);
   }
 `;

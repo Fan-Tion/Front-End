@@ -48,7 +48,7 @@ export default function PhoneInput({ onChange }: PhoneInputProps) {
     <PhoneWrap>
       <GlobalInput
         width="160px"
-        height="50px"
+        height="57px"
         placeholder=" 전화번호 (3자리)"
         value={phonePart1}
         onChange={e => handlePhoneChange(e, 1)}
@@ -57,7 +57,7 @@ export default function PhoneInput({ onChange }: PhoneInputProps) {
       />
       <GlobalInput
         width="160px"
-        height="50px"
+        height="57px"
         placeholder=" 전화번호 (4자리)"
         value={phonePart2}
         onChange={e => handlePhoneChange(e, 2)}
@@ -66,7 +66,7 @@ export default function PhoneInput({ onChange }: PhoneInputProps) {
       />
       <GlobalInput
         width="160px"
-        height="50px"
+        height="57px"
         placeholder=" 전화번호 (4자리)"
         value={phonePart3}
         onChange={e => handlePhoneChange(e, 3)}

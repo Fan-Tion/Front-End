@@ -70,7 +70,7 @@ export default function SignInForm() {
             onChange={handleChange}
           />
           {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}
-          <Styled.Input type="submit" value="Sign In" />
+          <Styled.Input type="submit" value="로그인" />
         </Styled.Form>
         <NaverLoginButton />
         <Styled.Switcher>
