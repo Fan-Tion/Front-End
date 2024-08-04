@@ -9,6 +9,8 @@ interface TextProps {
 }
 
 export const Wrap = styled.div`
+  width: 1200px;
+  margin: 0 auto;
 `;
 export const Category = styled.div`
   padding: 15px 15px 0;
@@ -20,6 +22,7 @@ export const Text = styled.span<TextProps>`
   font-size: ${props => props.$fontSize};
   font-weight: bold;
   text-decoration: none;
+  margin-left: 520px;
 `;
 
 export const AllButton = styled.button`
@@ -41,25 +44,30 @@ export const AllButton = styled.button`
 
 export const ProductBox = styled.div<ProductBoxProps>`
   background-color: ${props => props.$bgColor};
-  width: 1800px;
+  // width: 1200px;
   min-height: 500px;
   margin: auto;
   margin-top: 50px;
   border-radius: 15px;
-  border: 2px solid #cde990;
+  // border: 2px solid #cde990;
 `;
 export const Div = styled.div`
   display: flex;
-
   padding: 0 30px;
-  flex-wrap : wrap;
-
+  flex-wrap: wrap;
 `;
 
 export const PopBox = styled.div`
   display: flex;
   padding: 0 30px;
-  flex-wrap : wrap;
-  justify-content : center;
-  gap : 140px;
-`
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  cursor: pointer;
+`;
+export const CategoryBox = styled.div<ProductBoxProps>`
+  background-color: ${props => props.$bgColor};
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 15px;
+`;

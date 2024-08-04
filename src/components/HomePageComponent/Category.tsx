@@ -4,24 +4,23 @@ const Div = styled.div`
   text-align: center;
 `;
 const Image = styled.img`
-  margin-top: 70px;
-  width: 200px;
-  height: 250px;
-  border: 2px solid #cde990;
-  border-radius: 20px;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #c4c4c4;
+  border-radius: 40px;
   transition:
     transform 0.3s,
     border-color 0.3s;
 
   &:hover {
     transform: scale(1.1);
-    border-color: #aacb73;
+    border-color: #c4c4c4;
   }
 `;
 const CategoryName = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #59636f;
 `;
 
 interface CategoryCardProps {

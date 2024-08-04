@@ -14,14 +14,22 @@ import ScrollButton from './ScrollButton';
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  padding-left: 15px;
+  grid-template-columns: repeat(
+    4,
+    minmax(250px, 1fr)
+  ); /* 기본적으로 한 줄에 4개의 상품 */
+  gap: 20px;
+  padding-left: 5px;
 `;
 
 const Button = styled(AllButton)`
   width: 80px;
   height: 40px;
+  background-color: white;
+  &:hover {
+    background-color: white;
+    color: #4fd66e;
+  }
 `;
 
 interface ProductType {
@@ -88,7 +96,7 @@ export default function AllProducts() {
 
   return (
     <Wrap>
-      <ProductBox $bgColor="#FFFFE8">
+      <ProductBox $bgColor="#FFF">
         <Category>
           <Text $fontSize="20px" $fontColor="black">
             전체 상품 리스트

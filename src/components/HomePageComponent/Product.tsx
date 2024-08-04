@@ -2,35 +2,36 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Card = styled.div`
-  width: 304px;
+  width: 100%;
   height: 400px;
   background-color: white;
-  margin: 15px;
   cursor: pointer;
-  border: 2px solid #cde990;
+  // border: 2px solid #cde990;
   border-radius: 15px;
+  margin-top: 30px;
 `;
 const Image = styled.img`
-  width: 300px;
-  height: 300px;
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
+  width: 100%;
+  max-width: 300px; /* 최대 너비를 설정하여 너무 커지지 않도록 제한 */
+  aspect-ratio: 1 / 1; /* 정사각형 비율 유지 */
+  border-radius: 15px;
   display: block;
 `;
 const Detail = styled.div`
   height: 50px;
   padding: 5px;
-  white-space: nowrap;
-  overflow: hidden;
+  line-height: 1.5;
+  // white-space: nowrap;
+  // overflow: hidden;
   text-overflow: ellipsis;
-  border-top: 2px solid #cde990;
 `;
 const Price = styled.div`
   display: grid;
+  padding-right: 5px;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: auto auto auto;
   justify-items: end;
-  font-size: 12px;
+  font-size: 14px;
   align-items: start;
   gap: 4px;
 `;
@@ -40,6 +41,13 @@ const Div2 = styled(Div)`
 `;
 const BidCount = styled.div`
   margin-right: 30px;
+`;
+const Status = styled.div`
+  border-bottom: 3px solid #4fd66e;
+  margin-left: 45px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 70%;
 `;
 
 interface ProductProps {
@@ -71,6 +79,7 @@ export default function Product({
       <Detail>
         {auctionType ? `[공개 입찰] ${title}` : `[비공개 입찰] ${title}`}
       </Detail>
+      <Status />
       <Price>
         <Div>현재 입찰가 :</Div>{' '}
         <Div>{currentBidPrice.toLocaleString('ko-KR')} 원</Div>

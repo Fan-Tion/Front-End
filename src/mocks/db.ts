@@ -295,14 +295,14 @@ export const favoriteCategories = {
 export const productList = {
   message: '성공적으로 경매 리스트를 가져왔습니다.',
   data: {
-    auctionList: Array.from({ length: 65 }, (_, i) => ({
+    content: Array.from({ length: 65 }, (_, i) => ({
       auctionId: i,
-      title: `${i}번 1908-S Saint-Gaudens 더블 이글 금화`,
+      title: `${i}번 상품 독도 앞바다에 가라앉은 무역선의 스페인 금화`,
       auctionType: true,
       currentBidPrice: 12000 + i,
       buyNowPrice: 5000 + (i % 2 === 1 ? i * 300 : i * 200),
       bidCount: (i % 4) + 20,
-      auctionImage: 'https://via.placeholder.com/300',
+      auctionImage: ['https://via.placeholder.com/300'],
       favoriteCnt: i,
       endDate: '2024-06-30T10:00:00',
       status: true,

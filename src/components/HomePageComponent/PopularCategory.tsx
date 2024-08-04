@@ -2,10 +2,8 @@ import { categoryApi } from '@api/popularcategory';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  AllButton,
-  Category,
+  CategoryBox,
   PopBox,
-  ProductBox,
   Text,
   Wrap,
 } from '../../styled-components/HomePageStyle';
@@ -31,7 +29,7 @@ const categoryImages: { [key: string]: string } = {
 
 export default function PopularCategory() {
   const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -53,9 +51,6 @@ export default function PopularCategory() {
     fetchCategories();
   }, []);
 
-  const handleToggleShowAll = () => {
-    setShowAll(!showAll);
-  };
   const handleCategoryClick = (categoryTitle: string) => {
     navigate(
       `/auction/search?searchOption=CATEGORY&categoryOption=${categoryTitle}&keyword=&page=0`,
@@ -64,15 +59,7 @@ export default function PopularCategory() {
 
   return (
     <Wrap>
-      <ProductBox $bgColor="#FFFFE8">
-        <Category>
-          <Text $fontSize="20px" $fontColor="black">
-            인기 카테고리
-          </Text>
-          <AllButton onClick={handleToggleShowAll}>
-            {showAll ? '접기' : '더 보기'}
-          </AllButton>
-        </Category>
+      <CategoryBox $bgColor="white">
         <PopBox>
           {(showAll ? categories : categories.slice(0, 5)).map(category => (
             <CategoryCard
@@ -91,7 +78,7 @@ export default function PopularCategory() {
             {error}
           </Text>
         )}
-      </ProductBox>
+      </CategoryBox>
     </Wrap>
   );
 }
