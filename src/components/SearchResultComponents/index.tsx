@@ -7,16 +7,20 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   padding: 20px;
+  min-height: 100vh;
 `;
 
 const Title = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
+  width: 1750px;
+  margin: auto;
 `;
 
 const Grid = styled.div`
   display: grid;
   width: 1800px;
+  margin: auto;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 10px;
@@ -80,14 +84,14 @@ export default function SearchResultsPage() {
 
   useEffect(() => {
     const loadData = async () => {
-      const initialProducts = await SearchProducts(initialPage);
+      const initialProducts = await SearchProducts(page);
       setProducts(initialProducts);
     };
     loadData();
-  }, [categoryOption, keyword, initialPage]);
+  }, [categoryOption, keyword]); // initialPage를 의존성 배열에서 제거
 
   const fetchMoreData = async () => {
-    const newProducts = await SearchProducts(page);
+    const newProducts = await SearchProducts(page + 1);
     if (newProducts.length === 0) {
       setHasMore(false);
     } else {
@@ -109,7 +113,6 @@ export default function SearchResultsPage() {
           hasMore={hasMore}
           style={{ overflow: 'visible' }}
           loader={<div></div>}
-          endMessage={<div>더 이상 결과가 없습니다.</div>}
         >
           <Grid>
             {products.map((product, index) => (
