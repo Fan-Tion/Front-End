@@ -1,6 +1,6 @@
 import { membersApi } from '@api/member';
 import { Withdrawal } from '@components/MyPageComponent/Withdrawal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -29,7 +29,6 @@ const TopSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
 `;
 
 const Logo = styled.div`
@@ -52,12 +51,11 @@ const UserActions = styled.div`
 const ActionLink = styled(Link)`
   margin-left: 20px;
   font-size: 20px;
-  font-weight : bold;
+  font-weight: bold;
   color: #222;
   text-decoration: none;
 
   &:hover {
-    
     font-size: 24px;
     font-weight: bold;
   }
@@ -68,14 +66,12 @@ const BottomSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-   
 `;
 
 const NavLinks = styled.nav`
   display: flex;
   align-items: center;
-  width : 250px;
+  width: 250px;
 `;
 
 const NavLink = styled(Link)`
@@ -84,7 +80,7 @@ const NavLink = styled(Link)`
   color: #222;
   padding: 10px;
   text-decoration: none;
-  font-weight : bold;
+  font-weight: bold;
   &:hover {
     font-size: 24px;
     font-weight: bold;
@@ -99,8 +95,8 @@ const LogOut = styled.button`
   border: none;
   cursor: pointer;
   &:hover {
-    font-size : 24px;
-    font-weight : bold;
+    font-size: 24px;
+    font-weight: bold;
     color: red;
   }
 `;
@@ -108,7 +104,6 @@ const LogOut = styled.button`
 const SearchBar = styled.div`
   display: flex;
   align-items: center;
- 
 `;
 
 const CategorySelect = styled.select`
@@ -120,12 +115,11 @@ const CategorySelect = styled.select`
   outline: none;
   appearance: none;
   background-color: white;
-  cursor : pointer;
+  cursor: pointer;
 `;
 const CustomSelectWrapper = styled.div`
   position: relative;
   display: inline-block;
- 
 
   &:after {
     content: '▼';
@@ -148,7 +142,7 @@ const SearchInput = styled.input`
   padding: 0 15px;
   outline: none;
   background-color: white;
-  cursor : pointer;
+  cursor: pointer;
 `;
 
 const SearchButton = styled.button`
@@ -169,9 +163,9 @@ const SearchButton = styled.button`
 const MypageWrap = styled.div`
   display: flex;
   justify-content: center;
-  align-items : center;
+  align-items: center;
   padding: 10px;
-  width : 250px;
+  width: 250px;
 `;
 
 export default function LayoutHeader() {
@@ -268,14 +262,14 @@ export default function LayoutHeader() {
           </SearchBar>
           {isLoggedIn ? (
             <MypageWrap>
-            <ActionLink to="/mypage">마이페이지</ActionLink>
-            <ActionLink to="/auction/create">경매 등록</ActionLink>
-          </MypageWrap>
+              <ActionLink to="/mypage">마이페이지</ActionLink>
+              <ActionLink to="/auction/create">경매 등록</ActionLink>
+            </MypageWrap>
           ) : (
-           <MypageWrap>
-            <ActionLink to="/signin">마이페이지</ActionLink>
-            <ActionLink to="/signin">경매 등록</ActionLink>
-          </MypageWrap>
+            <MypageWrap>
+              <ActionLink to="/signin">마이페이지</ActionLink>
+              <ActionLink to="/signin">경매 등록</ActionLink>
+            </MypageWrap>
           )}
         </BottomSection>
       </Container>
