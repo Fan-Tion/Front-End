@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { TradeApi } from '../../api/trade';
 import { AllButton } from '../../styled-components/HomePageStyle';
 import TradeDetail from './TradeDetail';
@@ -46,11 +46,11 @@ const Content = styled.div`
   height: 400px;
   border-radius: 15px;
   background-color: white;
-  margin-top: 40px;
+
   display: flex;
   flex-direction: column;
   padding: 20px;
-  border: 2px solid #cde990;
+  border: 2px solid #e8e9ec;
 `;
 
 const Trading = styled.h2`
@@ -61,16 +61,64 @@ const Trading = styled.h2`
 
 const TradeList = styled.ul`
   list-style: none;
-  padding: 20;
   margin: 0;
   overflow-y: auto;
-  scrollbar-color: #cde990 transparent;
+  scrollbar-color: #e8e9ec transparent;
+`;
+const waveAnimation = keyframes`
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
 `;
 
+const TradeType = styled.button`
+  margin: 15px 10px 5px 0;
+  height: 30px;
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  // border: 2px solid ${props => (props.disabled ? '#4fd66e' : 'transparent')};
+  border: 2px solid transparent;
+  background-color: white;
+  transform: ${props => (props.disabled ? 'scale(1.05)' : 'none')};
+  &:hover {
+    background-color: #4fd66e;
+    transform: scale(1.05);
+    color: #eee;
+  }
+  &:last-of-type {
+    margin-right: 300px;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    bottom: -1px;
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      #4fd66e 25%,
+      transparent 25%,
+      transparent 50%,
+      #4fd66e 50%,
+      #4fd66e 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: ${waveAnimation} 1s linear infinite;
+  }
+`;
 const Trade = styled.div`
   display: flex;
+  height: 50px;
   justify-content: space-between;
-  border-bottom: 1px solid #c4c4c4;
+  border-bottom: 1px solid #e8e9ec;
 `;
 
 const Title = styled.li`
@@ -83,7 +131,10 @@ const Button = styled(AllButton)`
   height: 30px;
   border-radius: 6px;
   color: ${props => (props.disabled ? '#fff' : '#222')};
-  background-color: ${props => (props.disabled ? '#aacb73' : '#cde990')};
+  background-color: #e8e9ec;
+  &:hover {
+    background-color: #4fd66e;
+  }
 `;
 
 export default function TradeHistory() {
@@ -136,15 +187,18 @@ export default function TradeHistory() {
   return (
     <>
       <Trading>거래중</Trading>
-      <Button onClick={() => handleToggleData(true)} disabled={viewingBuyData}>
+      <TradeType
+        onClick={() => handleToggleData(true)}
+        disabled={viewingBuyData}
+      >
         구매중
-      </Button>
-      <Button
+      </TradeType>
+      <TradeType
         onClick={() => handleToggleData(false)}
         disabled={!viewingBuyData}
       >
         판매중
-      </Button>
+      </TradeType>
       <Content>
         {error ? (
           <div>데이터를 불러오는데 실패했습니다. 다시 시도해 주세요.</div>

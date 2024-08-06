@@ -15,9 +15,9 @@ const Content = styled.div`
   height: 190px;
   background-color: white;
   overflow-y: scroll;
-  border: 2px solid #cde990;
-  border-radius: 15px;
-  scrollbar-color: #cde990 transparent;
+  border: 2px solid #e8e9ec;
+  scrollbar-color: #e8e9ec transparent;
+  box-shadow: 0px 3px 14px rgba(127, 138, 140, 0.09);
 `;
 const List = styled.ul`
   list-style: none;
@@ -31,7 +31,7 @@ const ListItem = styled.li`
   cursor: pointer;
   &:hover {
     border-radius: 6px;
-    background-color: #cde990;
+    background-color: #e8e9ec;
   }
 `;
 const Loading = styled.div`

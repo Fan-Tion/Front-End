@@ -68,35 +68,74 @@ const DetailContent = styled.div`
   gap: 10px;
 `;
 
-const BackButton = styled(AllButton)`
+const BackButton = styled.button`
   position: relative;
-  width: 80px;
-  height: 40px;
-  right: 180px;
-  bottom: 180px;
-  border-radius: 6px;
+  right: 220px;
+  bottom: 130px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+  }
+  &:hover {
+    color: #4fd66e;
+  }
 `;
 const Buy = styled.div`
   display: flex;
 `;
 const Button = styled(AllButton)`
   width: 180px;
-  margin-top: 40px;
+  margin-top: 180px;
   font-size: 16px;
   border-radius: 6px;
-  margin-right: 20px;
+  margin-right: 0px;
+  background-color: #4fd66e;
+  &:hover {
+    color: #e8e9ec;
+    background-color: #4fd66e;
+  }
+`;
+const Button2 = styled(AllButton)`
+  width: 320px;
+  margin-top: 180px;
+  font-size: 16px;
+  border-radius: 6px;
+  margin-right: 0px;
+  background-color: #4fd66e;
+  &:hover {
+    color: #e8e9ec;
+    background-color: #4fd66e;
+  }
 `;
 const Cancel = styled(AllButton)`
   width: 180px;
-  margin-top: 40px;
+  margin-top: 180px;
   font-size: 16px;
+  margin-left: 20px;
   border-radius: 6px;
-`;
-const Link = styled(AllButton)`
-  margin-left: 160px;
-  margin-top: 100px;
+  background-color: #e8e9ec;
+  &:hover {
+    background-color: #e8e9ec;
+    color: #4fd66e;
+  }
 `;
 
+const Link = styled.span`
+  cursor: pointer;
+  margin-left: 10px;
+  position: relative;
+`;
+const UnderlinedText = styled.span`
+  text-decoration: underline wavy;
+  color: #4fd66e;
+  &:hover {
+    text-decoration: none;
+  }
+`;
 export default function TradeDetail({
   trade,
   listType,
@@ -138,8 +177,28 @@ export default function TradeDetail({
     <>
       <DetailWrapper>
         <DetailTitle>{trade.title}</DetailTitle>
-        <BackButton onClick={onBack}>뒤로가기</BackButton>
+        <BackButton onClick={onBack}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+            />
+          </svg>
+        </BackButton>
         <DetailContent>
+          <div>
+            <span>경매 제목 : {trade.title}</span>
+            <Link onClick={() => navigate(`/auction/${trade.auctionId}`)}>
+              (<UnderlinedText> 바로가기 </UnderlinedText>)
+            </Link>
+          </div>
           <p>
             {isBuyList ? '판매자' : '구매자'} 메일: {trade.member.email}
           </p>
@@ -150,9 +209,6 @@ export default function TradeDetail({
           <p>
             {isBuyList ? '판매자' : '구매자'} 닉네임: {trade.member.nickname}
           </p>
-          <Link onClick={() => navigate(`/auction/${trade.auctionId}`)}>
-            상세페이지
-          </Link>
         </DetailContent>
         {isBuyList ? (
           <Buy>
@@ -160,7 +216,7 @@ export default function TradeDetail({
             <Cancel onClick={cancelBuy}>구매 철회</Cancel>
           </Buy>
         ) : (
-          <Button onClick={confirmDelivery}>물품 인계 확인</Button>
+          <Button2 onClick={confirmDelivery}>물품 인계 확인</Button2>
         )}
       </DetailWrapper>
     </>

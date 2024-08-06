@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { GlobalButton, GlobalInput } from '../../styled-components/Globalstyle';
+import { GlobalButton } from '../../styled-components/Globalstyle';
 import Modal from '../../utils/Modal';
 import CheckoutPage from './CheckOut';
 
@@ -20,9 +20,22 @@ const Wrapper = styled.div`
 
 const InputWrapper = styled.div`
   position: relative;
-  width: 100%;
+  width: 96%;
+  margin: 0 auto;
 `;
+const Input = styled.input`
+  width: ${props => props.width || '400px'};
+  height: ${props => props.height || '40px'};
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #4fd66e;
+  padding: 10px;
+  box-sizing: border-box;
 
+  &:focus {
+    outline: none;
+  }
+`;
 const Nums = styled.div`
   display: flex;
   justify-content: space-between;
@@ -35,22 +48,31 @@ const ClearButton = styled.button`
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  background: #ccc;
-  border: 1px #ccc;
+  background: #e8e9ec;
+  border: 1px #e8e9ec;
   border-radius: 50%;
   font-size: 1.2em;
   cursor: pointer;
-  color: #fff;
+  color: #333;
+  &:hover {
+    background-color: #ccc;
+  }
 `;
 const Button = styled(GlobalButton)`
   font-size: 16px;
   border-radius: 15px;
-
+  background-color: #e8e9ec;
+  &:hover {
+    color: #eee;
+    background-color: #4fd66e;
+  }
   &:last-of-type {
-    background-color: ${props => (props.disabled ? '#c3c3c3' : '')};
+    background-color: ${props => (props.disabled ? '#e8e9ec' : '')};
     cursor: ${props => (props.disabled ? 'default' : '')};
+
     &:hover {
-      background-color: ${props => (props.disabled ? '#c3c3c3' : '')};
+      background-color: ${props => (props.disabled ? '#e8e9ec' : '')};
+      color: ${props => (props.disabled ? '#222' : '')};
     }
   }
 `;
@@ -137,7 +159,7 @@ export default function ChangePrice() {
   return (
     <Wrapper>
       <InputWrapper>
-        <GlobalInput
+        <Input
           ref={inputRef}
           type="text"
           width="100%"

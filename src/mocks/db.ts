@@ -141,28 +141,51 @@ export const auctions: Map<string, auctionDetailsDataType> = new Map([
 export const DepositHistory = {
   message: '',
   data: {
-    '1months': Array.from({ length: 10 }, (_, i) => ({
-      balance: 20000,
-      type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
-      createDate: 20240628,
-    })),
-    '3months': Array.from({ length: 30 }, (_, i) => ({
-      balance: 20000,
-      type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
-      createDate: 20240428,
-    })),
-    '1year': Array.from({ length: 60 }, (_, i) => ({
-      balance: 20000,
-      type: ['purchase', 'sale', 'charge', 'withdrawal'][i % 4],
-      createDate: 20240128,
-    })),
+    content: {
+      '1months': Array.from({ length: 10 }, (_, i) => ({
+        balance: 20000,
+        type: [
+          'USE',
+          'SALES',
+          'CHARGING',
+          'WITHDRAWAL',
+          'PAYMENTS_CANCEL',
+          'CANCEL',
+        ][i % 6],
+        createTime: '2024-07-30T15:27:28.825519',
+      })),
+      '3months': Array.from({ length: 30 }, (_, i) => ({
+        balance: 20000,
+        type: [
+          'USE',
+          'SALES',
+          'CHARGING',
+          'WITHDRAWAL',
+          'PAYMENTS_CANCEL',
+          'CANCEL',
+        ][i % 6],
+        createTime: '2024-07-30T15:27:28.825519',
+      })),
+      '1year': Array.from({ length: 60 }, (_, i) => ({
+        balance: 20000,
+        type: [
+          'USE',
+          'SALES',
+          'CHARGING',
+          'WITHDRAWAL',
+          'PAYMENTS_CANCEL',
+          'CANCEL',
+        ][i % 6],
+        createTime: '2024-07-30T15:27:28.825519',
+      })),
+    },
   },
 };
 
 export const JoinHistory = {
   message: '',
   data: {
-    auctionList: Array.from({ length: 100 }, (_, i) => ({
+    content: Array.from({ length: 100 }, (_, i) => ({
       auctionId: `${i + 1}`,
       title: `입찰 내역 ${i + 1}`,
       status: true,
@@ -173,7 +196,7 @@ export const JoinHistory = {
 export const BuyHistory = {
   message: '',
   data: {
-    auctionList: Array.from({ length: 60 }, (_, i) => ({
+    content: Array.from({ length: 60 }, (_, i) => ({
       auctionId: `${i + 1}`,
       title: `구매 내역 ${i + 1}`,
       status: true,
@@ -181,10 +204,10 @@ export const BuyHistory = {
     })),
   },
 };
-export const MyHistory = {
+export const SellHistory = {
   message: '',
   data: {
-    auctionList: Array.from({ length: 10 }, (_, i) => ({
+    content: Array.from({ length: 10 }, (_, i) => ({
       auctionId: `${i + 1}`,
       title: `판매 내역 ${i + 1}`,
       status: true,
@@ -196,7 +219,7 @@ export const MyHistory = {
 export const Likes = {
   message: '',
   data: {
-    auctionList: Array.from({ length: 10 }, (_, i) => ({
+    content: Array.from({ length: 10 }, (_, i) => ({
       auctionId: `${i + 1}`,
       title: `찜한 상품 ${i + 1}`,
       status: true,
@@ -209,6 +232,13 @@ export const Deposit = {
   message: '',
   data: {
     balance: 50000,
+  },
+};
+export const BidPrice = {
+  message: '',
+  data: {
+    canUseBalance: 20000,
+    totalBidPrice: 30000,
   },
 };
 export const Checkout = {
@@ -306,6 +336,83 @@ export const productList = {
       favoriteCnt: i,
       endDate: '2024-06-30T10:00:00',
       status: true,
+    })),
+  },
+};
+export const tradeList = {
+  message: '성공적으로 거래중 리스트를 가져왔습니다.',
+  data: {
+    buyList: Array.from({ length: 10 }, (_, i) => ({
+      auctionId: i,
+      member: {
+        memberId: i,
+        email: 'seller12@test.com',
+        password: '1234',
+        nickname: 'seller',
+        auth: true,
+        isKakao: false,
+        isNaver: true,
+        address: 'address2',
+        phoneNumber: '01012341234',
+        totalRating: 10,
+        ratingCnt: 3,
+        rating: 5,
+        status: 'ACTIVE',
+        profileImage: null,
+        linkedEmail: null,
+        createDate: '2025-07-17T10:00:00',
+        withdrawalDate: null,
+      },
+      title: `구매중 목록${i + 1}`,
+      category: null,
+      auctionType: true,
+      auctionImage: null,
+      description: '경매설명',
+      currentBidPrice: 1000,
+      currentBidder: 'tester',
+      buyNowPrice: 5000,
+      favoriteCnt: 10,
+      createDate: '2025-07-15T10:00:00',
+      endDate: '2025-07-17T10:00:00',
+      status: false,
+      sendChk: true,
+      receiveChk: false,
+    })),
+    sellList: Array.from({ length: 10 }, (_, i) => ({
+      auctionId: i,
+      member: {
+        memberId: i,
+        email: 'seller12@test.com',
+        password: '1234',
+        nickname: 'seller',
+        auth: true,
+        isKakao: false,
+        isNaver: true,
+        address: 'address2',
+        phoneNumber: '01012341234',
+        totalRating: 10,
+        ratingCnt: 3,
+        rating: 5,
+        status: 'ACTIVE',
+        profileImage: null,
+        linkedEmail: null,
+        createDate: '2025-07-17T10:00:00',
+        withdrawalDate: null,
+      },
+      title: `판매중 목록${i + 1}`,
+      category: null,
+      auctionType: true,
+      auctionImage: null,
+      description: '경매설명',
+      currentBidPrice: 1000,
+      currentBidder: 'tester',
+      buyNowPrice: 5000,
+      favoriteCnt: 10,
+      createDate: '2025-07-15T10:00:00',
+      endDate: '2025-07-17T10:00:00',
+      status: false,
+      sendChk: true,
+      receiveChk: false,
     })),
   },
 };

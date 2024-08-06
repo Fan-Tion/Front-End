@@ -21,7 +21,7 @@ const Detail = styled.div`
   height: 50px;
   padding: 5px;
   line-height: 1.5;
-  font-weight: bold;
+  font-weight: 600;
   // white-space: nowrap;
   // overflow: hidden;
   text-overflow: ellipsis;
@@ -33,7 +33,7 @@ const Price = styled.div`
   grid-template-rows: auto auto auto;
   justify-items: end;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   align-items: start;
   gap: 4px;
 `;

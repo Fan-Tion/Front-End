@@ -3,6 +3,7 @@ import { http, HttpResponse } from 'msw';
 import {
   auctionDetailsType,
   auctions,
+  BidPrice,
   BuyHistory,
   Checkout,
   Deposit,
@@ -12,10 +13,11 @@ import {
   Likes,
   members,
   membersMapType,
-  MyHistory,
   productList,
   Recharge,
   RechargeFail,
+  SellHistory,
+  tradeList,
 } from './db';
 interface PaymentSuccessRequest {
   orderId: string;
@@ -171,99 +173,94 @@ export const handlers = [
 
       const url = new URL(request.url);
 
-      const pageNumberStr = url.searchParams.get('pageNumber');
-      const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
+      const pageNumberStr = url.searchParams.get('page');
+      const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 0;
 
       const pageSize = 10; // 페이지당 항목 수
-      const startIndex = (pageNumber - 1) * pageSize;
+      const startIndex = pageNumber * pageSize;
       const endIndex = startIndex + pageSize;
 
-      const balanceHistory = DepositHistory.data[search_option] || [];
+      const balanceHistory = DepositHistory.data.content[search_option] || [];
       const paginatedList = balanceHistory.slice(startIndex, endIndex);
 
       return HttpResponse.json({
         message: '',
         data: {
-          totalCount: balanceHistory.length,
-          balanceHistory: paginatedList,
+          totalElements: balanceHistory.length,
+          content: paginatedList,
         },
       });
     },
   ),
   // 입찰 내역 요청
-  http.get(`${API_BASE_URL}/members/join-auction-list`, ({ request }) => {
+  http.get(`${API_BASE_URL}/auction/join-auction-list`, ({ request }) => {
     const url = new URL(request.url);
-    const pageNumberStr = url.searchParams.get('pageNumber');
-    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
+    const pageNumberStr = url.searchParams.get('page');
+    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 0;
     const pageSize = 10; // 페이지당 항목 수
-    const startIndex = (pageNumber - 1) * pageSize;
+    const startIndex = pageNumber * pageSize;
     const endIndex = startIndex + pageSize;
 
-    const paginatedList = JoinHistory.data.auctionList.slice(
-      startIndex,
-      endIndex,
-    );
+    const paginatedList = JoinHistory.data.content.slice(startIndex, endIndex);
 
     return HttpResponse.json({
       message: '',
       data: {
-        totalElements: JoinHistory.data.auctionList.length,
-        auctionList: paginatedList,
+        totalElements: JoinHistory.data.content.length,
+        content: paginatedList,
       },
     });
   }),
   // 구매 내역 요청
-  http.get(`${API_BASE_URL}/members/buy-auction-list`, ({ request }) => {
+  http.get(`${API_BASE_URL}/auction/buy-auction-list`, ({ request }) => {
     const url = new URL(request.url);
-    const pageNumberStr = url.searchParams.get('pageNumber');
-    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
+    const pageNumberStr = url.searchParams.get('page');
+    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 0;
     const pageSize = 10; // 페이지당 항목 수
-    const startIndex = (pageNumber - 1) * pageSize;
+    const startIndex = pageNumber * pageSize;
     const endIndex = startIndex + pageSize;
 
-    const paginatedList = BuyHistory.data.auctionList.slice(
-      startIndex,
-      endIndex,
-    );
+    const paginatedList = BuyHistory.data.content.slice(startIndex, endIndex);
 
     return HttpResponse.json({
       message: '',
       data: {
-        totalElements: BuyHistory.data.auctionList.length,
-        auctionList: paginatedList,
+        totalElements: BuyHistory.data.content.length,
+        content: paginatedList,
       },
     });
   }),
   // 판매 내역 요청
-  http.get(`${API_BASE_URL}/members/my-auction-list`, ({ request }) => {
+  http.get(`${API_BASE_URL}/auction/sell-auction-list`, ({ request }) => {
     const url = new URL(request.url);
-    const pageNumberStr = url.searchParams.get('pageNumber');
-    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 1;
+    const pageNumberStr = url.searchParams.get('page');
+    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 0;
     const pageSize = 10; // 페이지당 항목 수
-    const startIndex = (pageNumber - 1) * pageSize;
+    const startIndex = pageNumber * pageSize;
     const endIndex = startIndex + pageSize;
 
-    const paginatedList = MyHistory.data.auctionList.slice(
-      startIndex,
-      endIndex,
-    );
+    const paginatedList = SellHistory.data.content.slice(startIndex, endIndex);
 
     return HttpResponse.json({
       message: '',
       data: {
-        totalElements: MyHistory.data.auctionList.length,
-        auctionList: paginatedList,
+        totalElements: SellHistory.data.content.length,
+        content: paginatedList,
       },
     });
   }),
 
   // 찜목록 요청
-  http.get(`${API_BASE_URL}/members/my-favorite-auction-list`, () => {
+  http.get(`${API_BASE_URL}/auction/favorite-auction-list`, () => {
     return HttpResponse.json(Likes);
   }),
   // 예치금 요청
-  http.get(`${API_BASE_URL}/members/my-info-deposit`, () => {
+  http.get(`${API_BASE_URL}/members/my-info`, () => {
     return HttpResponse.json(Deposit);
+  }),
+  // 가용예치금 요청
+  http.get(`${API_BASE_URL}/bid/balance`, () => {
+    return HttpResponse.json(BidPrice);
   }),
 
   // 회원정보 보기 프로필
@@ -341,6 +338,17 @@ export const handlers = [
       message: '성공적으로 경매 리스트를 가져왔습니다.',
       data: {
         content: paginatedList,
+      },
+    });
+  }),
+
+  //거래중 내역 리스틎
+  http.get(`${API_BASE_URL}/bid/auction`, async () => {
+    return HttpResponse.json({
+      message: '성공적으로 거래중 리스트를 가져왔습니다.',
+      data: {
+        buyList: tradeList.data.buyList,
+        sellList: tradeList.data.sellList,
       },
     });
   }),

@@ -8,14 +8,15 @@ type Tab = 'join' | 'buy' | 'sell';
 const Content = styled.div`
   width: 100%;
   height: 400px;
-  border-radius: 15px;
+  // border-radius: 15px;
   background-color: white;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  border: 2px solid #cde990;
+  border: 2px solid #e8e9ec;
+  box-shadow: 0px 3px 14px rgba(127, 138, 140, 0.09);
 `;
 
 const List = styled.ul`
@@ -27,12 +28,13 @@ const List = styled.ul`
 const ListItem = styled.li`
   display: flex;
   justify-content: space-between;
+  font-weight: 400;
   padding: 10px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   &:hover {
     border-radius: 6px;
-    background-color: #cde990;
+    background-color: #e8e9ec;
   }
 `;
 
@@ -44,27 +46,34 @@ const Pagination = styled.div`
 
 const Button = styled.button`
   margin: 0 5px;
+  width: 40px;
   padding: 10px 15px;
-  background-color: #ddd;
+  background-color: #e8e9ec;
   color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-
+  font-weight: 500;
   &:disabled {
-    background-color: #cde990;
-    color: #222;
+    border: 1px solid #4fd66e;
+    background-color: #4fd66e;
+    color: #eee;
   }
 `;
 
 const ArrowButton = styled.button`
   margin: 0 5px;
-  padding: 10px 15px;
-  background-color: #ddd;
+  padding: 10px 10px;
+  background-color: #e8e9ec;
   color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  svg {
+    width: 16px;
+    height: 12px;
+    stroke: currentColor;
+  }
 `;
 
 interface AuctionHistoryContentProps {
@@ -179,14 +188,38 @@ export default function AuctionHistoryComponents({
       </Content>
       <Pagination>
         <ArrowButton onClick={handlePrevGroup} disabled={currentGroup === 0}>
-          &lt;
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 19.5 8.25 12l7.5-7.5"
+            />
+          </svg>
         </ArrowButton>
         {renderPageButtons()}
         <ArrowButton
           onClick={handleNextGroup}
           disabled={currentGroup === totalGroups - 1}
         >
-          &gt;
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+            />
+          </svg>
         </ArrowButton>
       </Pagination>
     </>

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { GlobalButton } from '../styled-components/Globalstyle';
 
 const ModalWrapper = styled.div<{ $isOpen: boolean }>`
   display: ${props => (props.$isOpen ? 'flex' : 'none')};
@@ -26,10 +25,19 @@ const ModalContent = styled.div`
   border-radius: 10px;
 `;
 
-const CloseButton = styled(GlobalButton)`
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  width: 24px;
+  height: 24px;
   position: absolute;
   top: 10px;
   right: 20px;
+  cursor: pointer;
+
+  &:hover {
+    color: #4fd66e; /* 호버 시 색상 */
+  }
 `;
 
 interface ModalProps {
@@ -42,8 +50,22 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   return (
     <ModalWrapper $isOpen={isOpen}>
       <ModalContent>
-        <CloseButton type="button" fontSize={'20px'} onClick={onClose}>
-          닫기
+        <CloseButton type="button" onClick={onClose}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            width="24"
+            height="24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
         </CloseButton>
         {children}
       </ModalContent>

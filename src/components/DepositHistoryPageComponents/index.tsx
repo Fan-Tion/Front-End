@@ -6,18 +6,20 @@ type Tab = '1months' | '3months' | '1year';
 
 const Container = styled.div`
   margin: 100px auto;
-  padding: 50px 150px;
-  width: 60%;
-  min-height: 60vh;
-  background-color: #ffffe8;
-  border: 2px solid #aacb73;
+  // padding: 50px 150px;
+  width: 1200px;
+  min-height: 70vh;
+  background-color: #fff;
   border-radius: 15px;
+  // border: 2px solid #aacb73;
 `;
 
 const Title = styled.span`
   display: block;
+  height: 50px;
   font-size: 24px;
   font-weight: bold;
+  border-bottom: 1px solid #222;
 `;
 
 const Div = styled.div`
@@ -27,7 +29,7 @@ const Div = styled.div`
 `;
 
 const Tab = styled.p<{ $isSelected: boolean }>`
-  margin-top: 50px;
+  margin-top: 20px;
   width: 90px;
   height: 20px;
   font-size: 16px;
@@ -42,6 +44,7 @@ const Tab = styled.p<{ $isSelected: boolean }>`
     font-weight: bold;
   }
   font-weight: ${({ $isSelected }) => ($isSelected ? 'bold' : 'none')};
+  color: ${({ $isSelected }) => ($isSelected ? '#4fd66e' : 'none')};
 `;
 
 export default function DepositHistoryComponents() {

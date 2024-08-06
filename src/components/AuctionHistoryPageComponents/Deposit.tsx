@@ -20,7 +20,7 @@ const Content = styled.div`
 `;
 const Price = styled.div`
   background-color: white;
-  border: 2px solid #cde990;
+  border: 2px solid #e8e9ec;
   border-radius: 10px;
   text-align: right;
   line-height: 36px;
@@ -39,6 +39,10 @@ const Charge = styled(AllButton)`
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  background-color: #e8e9ec;
+  &:hover {
+    background-color: #4fd66e;
+  }
 `;
 const DepositHistory = styled(AllButton)`
   margin-top: 20px;
@@ -50,6 +54,10 @@ const DepositHistory = styled(AllButton)`
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  background-color: #e8e9ec;
+  &:hover {
+    background-color: #4fd66e;
+  }
 `;
 const BidPrice = styled.div`
   border-radius: 10px;
