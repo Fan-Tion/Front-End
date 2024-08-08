@@ -1,6 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 import { PhoneWrap } from '../../styled-components/AuthStyle';
-import { GlobalInput } from '../../styled-components/Globalstyle';
+
+const Hyphen = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const PhonInput = styled.input`
+  width: 33%;
+  height: 40px;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  &:hover {
+    border: 2px solid #bbb;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
 
 interface PhoneInputProps {
   value: string;
@@ -46,28 +69,30 @@ export default function PhoneInput({ onChange }: PhoneInputProps) {
 
   return (
     <PhoneWrap>
-      <GlobalInput
-        width="160px"
-        height="57px"
-        placeholder=" 전화번호 (3자리)"
+      <PhonInput
+        width="33%"
+        height="40px"
+        placeholder="전화번호(3자리)"
         value={phonePart1}
         onChange={e => handlePhoneChange(e, 1)}
         maxLength={3}
         ref={part1Ref}
       />
-      <GlobalInput
-        width="160px"
-        height="57px"
-        placeholder=" 전화번호 (4자리)"
+      <Hyphen>-</Hyphen>
+      <PhonInput
+        width="33%"
+        height="40px"
+        placeholder="전화번호(4자리)"
         value={phonePart2}
         onChange={e => handlePhoneChange(e, 2)}
         maxLength={4}
         ref={part2Ref}
       />
-      <GlobalInput
-        width="160px"
-        height="57px"
-        placeholder=" 전화번호 (4자리)"
+      <Hyphen>-</Hyphen>
+      <PhonInput
+        width="33%"
+        height="40px"
+        placeholder="전화번호(4자리)"
         value={phonePart3}
         onChange={e => handlePhoneChange(e, 3)}
         maxLength={4}

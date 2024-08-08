@@ -9,6 +9,7 @@ import SearchIcon from '../icons/SearchIcon';
 const Wrapper = styled.header`
   width: 100%;
   height: 180px;
+  min-width: 1800px;
   background-color: white;
   border-bottom: 1px solid #dee2e6;
   display: flex;
@@ -276,4 +277,3 @@ export default function LayoutHeader() {
     </Wrapper>
   );
 }
-

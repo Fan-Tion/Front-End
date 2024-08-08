@@ -57,14 +57,14 @@ export default function SignInForm() {
         <Styled.Form onSubmit={handleSubmit}>
           <Styled.Input
             name="email"
-            placeholder="email"
+            placeholder="이메일"
             type="email"
             value={formData.email}
             onChange={handleChange}
           />
           <Styled.Input
             name="password"
-            placeholder="password"
+            placeholder="비밀번호"
             type="password"
             value={formData.password}
             onChange={handleChange}
@@ -81,9 +81,6 @@ export default function SignInForm() {
           회원이 아니신가요? <Link to="/signup">회원가입</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
-      <Styled.LogoLink to="/">
-        <Styled.LogoImage src='/img/mainLogo2.png'/>
-      </Styled.LogoLink>
     </Styled.OuterWrapper>
   );
 }
