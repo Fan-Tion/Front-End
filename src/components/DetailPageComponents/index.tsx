@@ -29,10 +29,9 @@ interface CustomJwtPayload {
   exp: number;
 }
 const Container = styled.div`
+  width: 1200px;
   margin: 30px auto;
   text-align: center;
-  max-width: 2048px;
-  width: 80vw;
 `;
 
 const sizes = {
@@ -50,7 +49,7 @@ const media = {
 const AuctionContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 0px;
   @media ${media.tablet} {
     grid-template-columns: 1fr;
   }

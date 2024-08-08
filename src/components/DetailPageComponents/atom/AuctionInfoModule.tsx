@@ -1,11 +1,16 @@
 import { categoryKrMap } from '@constants/category';
-import { calculateTimeLeft, formatDateTime, formatTimeLeft } from '@utils/TimeUtils';
+import {
+  calculateTimeLeft,
+  formatDateTime,
+  formatTimeLeft,
+} from '@utils/TimeUtils';
 import { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { GlobalButton } from '../../../styled-components/Globalstyle';
 
-// styles 
+// styles
 const InfoContainer = styled.div`
+  width: 100%;
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 16px;
@@ -58,16 +63,16 @@ const BuyNowButton = styled(GlobalButton)`
 
 const BidButton = styled(GlobalButton)`
   width: 100%;
-  background-color: #FFD4D4;
+  background-color: #ffd4d4;
   border-radius: 10px;
   font-size: 20px;
   &:hover {
-    background-color: #FFB3B3;
+    background-color: #ffb3b3;
   }
   &:active {
-    background-color: #FFA1A1;
+    background-color: #ffa1a1;
   }
-`
+`;
 
 const Divider = styled.hr`
   border: 1px solid #eee;
@@ -75,7 +80,7 @@ const Divider = styled.hr`
   border-color: black;
   border-style: solid;
   border-width: 1px 0 0 0;
-`
+`;
 
 // initialize
 interface AuctionInfoPropType {
@@ -88,21 +93,29 @@ interface AuctionInfoPropType {
     currentBidPrice: number;
     buyNowPrice: number;
     status: boolean;
-  }
+  };
   buyNow: () => void;
   bidHandler: () => void;
   isLoggedIn: boolean;
 }
 
-export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHandler }: AuctionInfoPropType) {
-  const { title, category, endDate, createDate, currentBidPrice, buyNowPrice } = details;
+export default function AuctionInfoModule({
+  isLoggedIn,
+  details,
+  buyNow,
+  bidHandler,
+}: AuctionInfoPropType) {
+  const { title, category, endDate, createDate, currentBidPrice, buyNowPrice } =
+    details;
   const timeLeftRef = useRef<HTMLDivElement>(null);
   const auctionState = details.status;
 
   const updateTimeLeft = useCallback(() => {
     const newTimeLeft = calculateTimeLeft(endDate);
     if (timeLeftRef.current) {
-      timeLeftRef.current.textContent = auctionState ? formatTimeLeft(newTimeLeft) : '경매 종료됨';
+      timeLeftRef.current.textContent = auctionState
+        ? formatTimeLeft(newTimeLeft)
+        : '경매 종료됨';
     }
   }, [endDate, auctionState]);
 
@@ -115,11 +128,7 @@ export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHand
   return (
     <InfoContainer>
       <Title>
-        {
-          details.auctionType
-            ? '[공개 입찰] '
-            : '[비공개 입찰] '
-        }
+        {details.auctionType ? '[공개 입찰] ' : '[비공개 입찰] '}
         {title}
       </Title>
       <Row>
@@ -133,7 +142,9 @@ export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHand
         <Value>{formatDateTime(endDate)}</Value>
         <Label>남은 시간</Label>
         <HighlightedValue ref={timeLeftRef}>
-          {auctionState ? formatTimeLeft(calculateTimeLeft(endDate)) : '경매 종료됨'}
+          {auctionState
+            ? formatTimeLeft(calculateTimeLeft(endDate))
+            : '경매 종료됨'}
         </HighlightedValue>
       </Row>
       <Divider />
@@ -142,9 +153,17 @@ export default function AuctionInfoModule({ isLoggedIn, details, buyNow, bidHand
         <Value>{currentBidPrice.toLocaleString()} 원</Value>
         <Label>즉시 구매</Label>
         <Value>{buyNowPrice.toLocaleString()} 원</Value>
-        {isLoggedIn && auctionState && <BuyNowButton type='button' onClick={buyNow}>즉시 구매하기</BuyNowButton>}
+        {isLoggedIn && auctionState && (
+          <BuyNowButton type="button" onClick={buyNow}>
+            즉시 구매하기
+          </BuyNowButton>
+        )}
       </Row>
-      {isLoggedIn && auctionState && <BidButton type='button' onClick={bidHandler}>입찰하기</BidButton>}
+      {isLoggedIn && auctionState && (
+        <BidButton type="button" onClick={bidHandler}>
+          입찰하기
+        </BidButton>
+      )}
     </InfoContainer>
-  )
+  );
 }

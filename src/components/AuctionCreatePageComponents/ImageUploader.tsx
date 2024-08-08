@@ -8,11 +8,14 @@ import DraggableFile from './DraggableFile';
 const Container = styled.div`
   padding: 20px;
   max-width: 400px;
+  min-height: 400px;
   margin: auto;
 `;
 
 const DropzoneContainer = styled.div`
-  padding: 20px;
+  margin-top: 10px;
+  padding: 10px;
+  height: 70px;
   border: 2px dashed #cccccc;
   border-radius: 4px;
   text-align: center;
@@ -22,18 +25,27 @@ const DropzoneContainer = styled.div`
 const FileList = styled.div`
   margin-top: 10px;
 `;
+const Limit = styled.p`
+  margin-top: 10px;
+`;
 
 interface ImageUploaderProps {
   onFilesChange: (files: File[]) => void;
+  onMainImageChange: (file: File | null) => void; // 콜백 추가
 }
 
-export default function ImageUploader({ onFilesChange }: ImageUploaderProps) {
+export default function ImageUploader({
+  onFilesChange,
+  onMainImageChange,
+}: ImageUploaderProps) {
   const [files, setFiles] = useState<File[]>([]);
 
   // 파일이 드롭되었을 때 호출되는 콜백 함수
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    const filteredFiles = acceptedFiles.filter(file => file.size <= 5 * 1024 * 1024); // 5MB 이하 파일만 허용
-    setFiles((prevFiles) => {
+    const filteredFiles = acceptedFiles.filter(
+      file => file.size <= 5 * 1024 * 1024,
+    ); // 5MB 이하 파일만 허용
+    setFiles(prevFiles => {
       const newFiles = filteredFiles.slice(0, 5 - prevFiles.length); // 최대 5개 파일만 허용합니다.
       return [...prevFiles, ...newFiles];
     });
@@ -41,11 +53,12 @@ export default function ImageUploader({ onFilesChange }: ImageUploaderProps) {
 
   useEffect(() => {
     onFilesChange(files);
-  }, [files, onFilesChange]);
+    onMainImageChange(files[0] || null); // 0번째 이미지 전달
+  }, [files, onFilesChange, onMainImageChange]);
 
   // 파일의 순서를 변경하는 함수
   const moveFile = (fromIndex: number, toIndex: number) => {
-    setFiles((prevFiles) => {
+    setFiles(prevFiles => {
       const updatedFiles = [...prevFiles];
       const [movedFile] = updatedFiles.splice(fromIndex, 1);
       updatedFiles.splice(toIndex, 0, movedFile);
@@ -55,7 +68,7 @@ export default function ImageUploader({ onFilesChange }: ImageUploaderProps) {
 
   // 파일을 삭제하는 함수
   const removeFile = (index: number) => {
-    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+    setFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
   };
 
   // useDropzone 훅을 사용하여 드롭존을 설정
@@ -73,7 +86,8 @@ export default function ImageUploader({ onFilesChange }: ImageUploaderProps) {
           <h2>Upload Files</h2>
           <DropzoneContainer {...getRootProps()}>
             <input {...getInputProps()} />
-            <p>파일을 끌어 서 내려 놓거나, 클릭해서 파일을 추가하세요.</p>
+            <p>파일을 여기로 끌어오거나 클릭해서 업로드하세요.</p>
+            <Limit>최대 5장의 이미지를 업로드할 수 있습니다.</Limit>
           </DropzoneContainer>
         </div>
         <FileList>

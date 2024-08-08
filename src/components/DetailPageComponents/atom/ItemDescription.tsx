@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Divider = styled.hr`
   border: 1px solid #eee;
-  width: 98%;
+  width: 1200px;
   border-color: black;
   border-style: solid;
   border-width: 1px 0 0 0;

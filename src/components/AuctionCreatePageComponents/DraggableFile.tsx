@@ -12,10 +12,12 @@ const FileItem = styled.div<{ $isDragging: boolean; $isMain: boolean }>`
   padding: 8px;
   border: 1px solid black;
   margin-bottom: 4px;
-  background-color: ${({ $isMain }) =>
-    ($isMain ? '#ffe4e1' : 'white')}; // 메인 파일일 경우 배경색을 변경합니다.
+  border: ${({ $isMain }) =>
+    $isMain
+      ? '2px solid #4fd66e'
+      : '1px solid black'}; // 메인 파일일 경우 배경색을 변경합니다.
   opacity: ${({ $isDragging }) =>
-    ($isDragging ? 0.5 : 1)}; // 드래그 중일 경우 투명도를 조절합니다.
+    $isDragging ? 0.5 : 1}; // 드래그 중일 경우 투명도를 조절합니다.
   position: relative;
 `;
 
@@ -32,11 +34,15 @@ const MainLabel = styled.span`
   position: absolute;
   top: 0;
   right: 0;
-  background-color: red;
-  color: white;
+  background-color: #4fd66e;
+  color: #eee;
   padding: 2px 4px;
   font-size: 12px;
   border-bottom-left-radius: 4px;
+`;
+const Delete = styled(GlobalButton)`
+  width: 50px;
+  height: 30px;
 `;
 
 // 드래그 앤 드롭에서 사용할 아이템 타입을 정의합니다.
@@ -54,12 +60,18 @@ interface FileProps {
 }
 
 // DraggableFile 컴포넌트를 정의하고 기본으로 내보냅니다.
-export default function DraggableFile({ file, index, isMain, moveFile, removeFile }: FileProps) {
+export default function DraggableFile({
+  file,
+  index,
+  isMain,
+  moveFile,
+  removeFile,
+}: FileProps) {
   // useDrag 훅을 사용하여 드래그 가능한 요소로 설정합니다.
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.FILE, // 아이템 타입을 FILE로 설정합니다.
     item: { index }, // 드래그할 때 전달할 데이터 (여기서는 인덱스)
-    collect: (monitor) => ({
+    collect: monitor => ({
       isDragging: monitor.isDragging(), // 드래그 상태를 모니터링하여 isDragging 값을 업데이트합니다.
     }),
   });
@@ -77,12 +89,18 @@ export default function DraggableFile({ file, index, isMain, moveFile, removeFil
 
   return (
     // FileItem에 drag와 drop을 모두 연결하여 드래그와 드롭을 모두 지원합니다.
-    <FileItem ref={(node) => drag(drop(node))} $isDragging={isDragging} $isMain={isMain}>
+    <FileItem
+      ref={node => drag(drop(node))}
+      $isDragging={isDragging}
+      $isMain={isMain}
+    >
       {/* 파일의 미리보기 이미지를 표시합니다. */}
       <Preview src={URL.createObjectURL(file)} alt={file.name} />
-      <span>{file.name}</span>
+      <span>{file.name.slice(0, 20)}...</span>
       {/* 파일을 삭제할 수 있는 버튼을 표시합니다. */}
-      <GlobalButton type='reset' onClick={() => removeFile(index)}>삭제</GlobalButton>
+      <Delete type="reset" onClick={() => removeFile(index)}>
+        삭제
+      </Delete>
       {/* 파일이 메인 파일일 경우 'Main Image' 라벨을 표시합니다. */}
       {isMain && <MainLabel>Main Image</MainLabel>}
     </FileItem>

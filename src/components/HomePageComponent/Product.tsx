@@ -16,6 +16,7 @@ const Image = styled.img`
   aspect-ratio: 1 / 1; /* 정사각형 비율 유지 */
   border-radius: 15px;
   display: block;
+  object-fit: cover; /* 대표이미지가 일그러지지 않도록 */
 `;
 const Detail = styled.div`
   height: 50px;

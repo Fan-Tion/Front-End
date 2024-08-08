@@ -6,7 +6,7 @@ const Button = styled.button<{ $isVisible: boolean }>`
   height: 50px;
   position: fixed;
   bottom: 110px;
-  right: 280px;
+  right: 500px;
   background-color: #cde990;
   color: #222;
   border: none;
