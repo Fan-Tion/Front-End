@@ -62,14 +62,14 @@ const ChargeButton = styled.button`
   font-size: 16px;
   font-weight: bold;
   color: #222;
-  background-color: #cde990;
+  background-color: #e8e9ec;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #aacb73;
+    background-color: #4fd66e;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     color: #fff;
   }
