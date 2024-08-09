@@ -46,7 +46,7 @@ export const Input = styled.input`
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 16px;
-  font-weight : bold;
+  
   border: 1px solid #ddd;
   width: 100%;
   &:hover {
@@ -77,7 +77,7 @@ export const Switcher = styled.span`
   margin-top: 20px;
   margin-bottom: 5px;
   font-size: 16px;
-  font-weight: bold;
+ 
   a {
     color: #cde990;
     text-decoration-line: none;
@@ -92,7 +92,6 @@ export const SocialButtonWrap = styled.div`
   border: none;
   background-color: #cde990;
   font-size: 16px;
-  font-weight: bold;
   width: 100%;
   height: 43px;
 
@@ -162,7 +161,6 @@ export const FileInputLabel = styled.label`
   justify-content: center;
   width: 100%;
   font-size: 16px;
-  font-weight: bold;
   color: #222;
   cursor: pointer;
   background-color: #cde990;
