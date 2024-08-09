@@ -50,6 +50,30 @@ export default function Routes() {
           element: <HomePage />,
         },
         {
+          path: 'signin',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <SignInPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'signup',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <SignUpPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'findpassword',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <FindPasswordPage />
+            </Suspense>
+          ),
+        },
+        {
           path: 'mypage/auction-history',
           element: (
             <Suspense fallback={<LoadingScreen />}>
@@ -132,30 +156,6 @@ export default function Routes() {
           ),
         },
       ],
-    },
-    {
-      path: 'signup',
-      element: (
-        <Suspense fallback={<LoadingScreen />}>
-          <SignUpPage />
-        </Suspense>
-      ),
-    },
-    {
-      path: 'signin',
-      element: (
-        <Suspense fallback={<LoadingScreen />}>
-          <SignInPage />
-        </Suspense>
-      ),
-    },
-    {
-      path: 'findpassword',
-      element: (
-        <Suspense fallback={<LoadingScreen />}>
-          <FindPasswordPage />
-        </Suspense>
-      ),
     },
     {
       path: 'reset-password-page',
