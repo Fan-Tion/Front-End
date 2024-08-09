@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import { Styled } from '../../styled-components/AuthStyle';
-import { GlobalInput } from '../../styled-components/Globalstyle';
 import styled from 'styled-components';
+import { Styled } from '../../styled-components/AuthStyle';
 
 interface AddressInputProps {
   value: string;
@@ -10,7 +9,7 @@ interface AddressInputProps {
 }
 
 const AddressInputs = styled.input`
-  height : 40px;
+  height: 40px;
   padding: 10px 15px;
   border-radius: 5px;
   border: 1px solid #ddd;
@@ -22,7 +21,7 @@ const AddressInputs = styled.input`
   &:focus {
     outline: none;
   }
-`
+`;
 
 export default function AddressInput({ onChange }: AddressInputProps) {
   const [addressPart1, setAddressPart1] = useState('');

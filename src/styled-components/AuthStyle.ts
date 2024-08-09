@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const OuterWrapper = styled.div`
-  width : 100%;
-  min-width : 1800px;
+  width: 100%;
+  min-width: 1800px;
   height: 1000px;
   display: flex;
   justify-content: flex-start;
@@ -17,12 +17,12 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content : center;
-  width: 500px; 
-  padding: 20px; 
-  background-color: white; 
-  border: 1px solid #e8e9ec; 
-  border-radius: 10px; 
+  justify-content: center;
+  width: 500px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #e8e9ec;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 export const Title = styled.h1`
@@ -42,10 +42,10 @@ export const Form = styled.form`
 `;
 
 export const Input = styled.input`
-  height : 40px;
+  height: 40px;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size : 16px;
+  font-size: 16px;
   border: 1px solid #ddd;
   width: 100%;
   &:hover {
@@ -59,7 +59,7 @@ export const Input = styled.input`
     cursor: pointer;
     font-size: 16px;
     background-color: #cde990;
-    color : #222;
+    color: #222;
     transition: background-color 0.3s ease;
     &:hover {
       background-color: #aacb73;
@@ -75,8 +75,8 @@ export const Input = styled.input`
 export const Switcher = styled.span`
   margin-top: 20px;
   margin-bottom: 5px;
-  font-size : 16px;
-  font-weight : bold;
+  font-size: 16px;
+  font-weight: bold;
   a {
     color: #cde990;
     text-decoration-line: none;
@@ -93,9 +93,8 @@ export const SocialButtonWrap = styled.div`
   font-size: 16px;
   font-weight: bold;
   width: 100%;
-  height : 43px;
-  
-  
+  height: 43px;
+
   cursor: pointer;
   transition: background-color 0.3s ease;
   &:hover {
@@ -157,18 +156,18 @@ export const FileInputWrap = styled.div`
 `;
 
 export const FileInputLabel = styled.label`
-  display : flex;
-  align-items : center;
-  justify-content : center;
-  width : 100%;
-  font-size : 16px;
-  font-weight : bold;
-  color : #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
   cursor: pointer;
   background-color: #cde990;
   padding: 10px 25px;
   border-radius: 5px;
-  height : 40px;
+  height: 40px;
   transition: background-color 0.3s ease;
   &:hover {
     background-color: #aacb73;
