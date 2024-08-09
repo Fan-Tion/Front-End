@@ -328,6 +328,7 @@ export const productList = {
     content: Array.from({ length: 65 }, (_, i) => ({
       auctionId: i,
       title: `${i}번 상품 독도 앞바다에 가라앉은 무역선의 스페인 금화`,
+      category: 'FIGURE',
       auctionType: true,
       currentBidPrice: 12000 + i,
       buyNowPrice: 5000 + (i % 2 === 1 ? i * 300 : i * 200),
@@ -413,6 +414,26 @@ export const tradeList = {
       status: false,
       sendChk: true,
       receiveChk: false,
+    })),
+  },
+};
+export const searchList = {
+  message: '검색 결과를 불러오는데 성공했습니다.',
+  data: {
+    totalPages: 17, // 총 페이지 수
+    size: 12, // 한 페이지 당 항목수
+    content: Array.from({ length: 200 }, (_, i) => ({
+      auctionId: i,
+      title: `${i}번 디지몬 피규어`,
+      category: 'FIGURE',
+      auctionType: true,
+      currentBidPrice: 12000 + i,
+      buyNowPrice: 5000 + (i % 2 === 1 ? i * 300 : i * 200),
+      bidCount: (i % 4) + 20,
+      auctionImage: ['/public/img/digimon.jpg'],
+      favoriteCnt: i,
+      endDate: '2024-06-30T10:00:00',
+      status: true,
     })),
   },
 };
