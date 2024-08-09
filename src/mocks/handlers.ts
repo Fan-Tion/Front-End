@@ -16,6 +16,7 @@ import {
   productList,
   Recharge,
   RechargeFail,
+  searchList,
   SellHistory,
   tradeList,
 } from './db';
@@ -342,13 +343,32 @@ export const handlers = [
     });
   }),
 
-  //거래중 내역 리스틎
+  //거래중 내역 리스트
   http.get(`${API_BASE_URL}/bid/auction`, async () => {
     return HttpResponse.json({
       message: '성공적으로 거래중 리스트를 가져왔습니다.',
       data: {
         buyList: tradeList.data.buyList,
         sellList: tradeList.data.sellList,
+      },
+    });
+  }),
+
+  //검색 상품 리스트 or 카테고리를 눌렀을 때 상품 리스트
+  http.get(`${API_BASE_URL}/auction/search`, ({ request }) => {
+    const url = new URL(request.url);
+    const pageNumberStr = url.searchParams.get('page');
+    const pageNumber = pageNumberStr ? parseInt(pageNumberStr, 10) : 0;
+    const pageSize = 12; // 페이지당 항목 수
+    const startIndex = pageNumber * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const paginatedList = searchList.data.content.slice(startIndex, endIndex);
+    return HttpResponse.json({
+      message: '성공적으로 거래중 리스트를 가져왔습니다.',
+      data: {
+        totalPages: searchList.data.totalPages,
+        content: paginatedList,
       },
     });
   }),

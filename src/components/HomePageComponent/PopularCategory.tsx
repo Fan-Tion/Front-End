@@ -15,16 +15,16 @@ interface CategoryType {
 }
 
 const categoryImages: { [key: string]: string } = {
-  ACCESSORIES: 'img/CategoryImg/ACCESSORIES.png',
-  ALBUM: 'img/CategoryImg/ALBUM.png',
-  ALL: 'img/CategoryImg/ALL.png',
-  CLOTHES: 'img/CategoryImg/CLOTHES.png',
-  FIGURE: 'img/CategoryImg/FIGURE.png',
-  GAME: 'img/CategoryImg/GAME.png',
-  OTHER: 'img/CategoryImg/OTHER.png',
-  PHOTO_CARD: 'img/CategoryImg/PHOTO_CARD.png',
-  POSTER: 'img/CategoryImg/POSTER.png',
-  SIGN: 'img/CategoryImg/SIGN.png',
+  ACCESSORIES: '/img/CategoryImg/ACCESSORIES.png',
+  ALBUM: '/img/CategoryImg/ALBUM.png',
+  ALL: '/img/CategoryImg/ALL.png',
+  CLOTHES: '/img/CategoryImg/CLOTHES.png',
+  FIGURE: '/img/CategoryImg/FIGURE.png',
+  GAME: '/img/CategoryImg/GAME.png',
+  OTHER: '/img/CategoryImg/OTHER.png',
+  PHOTO_CARD: '/img/CategoryImg/PHOTO_CARD.png',
+  POSTER: '/img/CategoryImg/POSTER.png',
+  SIGN: '/img/CategoryImg/SIGN.png',
 };
 
 export default function PopularCategory() {

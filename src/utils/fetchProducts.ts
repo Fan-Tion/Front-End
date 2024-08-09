@@ -21,7 +21,7 @@ export const fetchProducts = async ({
 
     return {
       products: Array.isArray(content) ? content : [],
-      hasMore: page < totalPages,
+      totalPages: totalPages,
     };
   } catch (error) {
     console.error(error);
