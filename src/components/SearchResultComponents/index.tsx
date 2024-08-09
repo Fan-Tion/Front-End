@@ -41,7 +41,7 @@ const Pagination = styled.div`
 const Button = styled.button`
   margin: 0 5px;
   width: 40px;
-  padding: 10px 15px;
+  padding: 10px 10px;
   background-color: #e8e9ec;
   color: black;
   border: none;
