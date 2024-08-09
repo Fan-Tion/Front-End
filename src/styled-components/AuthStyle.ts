@@ -46,6 +46,7 @@ export const Input = styled.input`
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 16px;
+  font-weight : bold;
   border: 1px solid #ddd;
   width: 100%;
   &:hover {
