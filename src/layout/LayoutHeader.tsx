@@ -171,7 +171,7 @@ const MypageWrap = styled.div`
 
 export default function LayoutHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cookies, , removeCookie] = useCookies(['Authorization']);
+  const [, , removeCookie] = useCookies(['Authorization']);
   const [keyword, setKeyword] = useState('');
   const [categoryOption, setCategoryOption] = useState('ALL');
   const navigate = useNavigate();
@@ -195,7 +195,7 @@ export default function LayoutHeader() {
 
   const handleLogout = async () => {
     try {
-      const response = await membersApi.signOut();
+      await membersApi.signOut();
       removeCookie('Authorization', { path: '/' });
       setIsLoggedIn(false);
     } catch (error) {
