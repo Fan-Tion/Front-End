@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   text-align: center;
   align-items: center;
-  border-right: 2px solid #cde990;
+  border-right: 2px solid #e8e9ec;
   width: 300px;
   min-width: 240px;
   gap: 20px;
@@ -64,7 +64,7 @@ const ChargeButton = styled.button`
   color: #222;
   background-color: #cde990;
   border: none;
-  border-radius: 25px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
 
@@ -92,7 +92,7 @@ const SignOutButton = styled.button`
   border: none;
   color: #222;
   font-weight: bold;
-  border-radius: 25px;
+  border-radius: 5px;
   transition: background-color 0.3s ease;
 
   background-color: none;
@@ -111,12 +111,12 @@ const LogoName = styled.div`
 const Available = styled.div`
   border-radius: 10px;
   margin-right: 5px;
-
+  font-weight: bold;
   line-height: 36px;
   width: 300px;
   height: 40px;
-  font-size: 14px;
-  color: #0d33b3;
+  font-size: 16px;
+  color: #222;
 `;
 interface SideProfileProps {
   nickname: string;
@@ -214,7 +214,7 @@ export default function SideProfile({
       </Modal>
       <Footer>
         <SignOutButton>로그아웃</SignOutButton>
-        <LogoName>Fan-tion</LogoName>
+        <LogoName>Fan-Tion</LogoName>
       </Footer>
     </Wrapper>
   );

@@ -9,7 +9,6 @@ const Wrapper = styled.footer`
   padding: 20px;
   text-align: center;
   justify-content: center;
-  margin-top: 100px;
   min-width: 1800px;
 `;
 
@@ -23,9 +22,13 @@ const FooterBox = styled.div`
 `;
 
 const FooterName = styled.div`
+  display : flex;
+  justify-content : center;
+  align-items : center;
   color: #222;
   font-weight: bold;
   font-size: 40px;
+
   margin: 5px;
   padding: 15px;
   &:hover {

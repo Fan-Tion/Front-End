@@ -52,14 +52,14 @@ export default function FindPasswordForm() {
         <Styled.Form onSubmit={handleSubmit}>
           <Styled.Input
             name="email"
-            placeholder="email"
+            placeholder="이메일"
             type="email"
             value={formData.email}
             onChange={handleChange}
           />
           <Styled.Input
             name="phoneNumber"
-            placeholder="phone number"
+            placeholder="전화번호"
             value={formData.phoneNumber}
             onChange={handleChange}
           />
@@ -73,9 +73,6 @@ export default function FindPasswordForm() {
           로그인페이지로 <Link to="/signin">로그인페이지로 이동</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
-      <Styled.LogoLink to="/">
-        <Styled.LogoImage src="/img/mainLogo2.png"/>
-      </Styled.LogoLink>
     </Styled.OuterWrapper>
   );
 }

@@ -251,7 +251,7 @@ export default function SignUpForm() {
           <Styled.ButtonWrap>
             <Styled.CheckInput
               name="email"
-              placeholder="email"
+              placeholder="이메일"
               type="email"
               value={formData.email}
               onChange={handleChange}
@@ -265,7 +265,7 @@ export default function SignUpForm() {
           )}
           <Styled.Input
             name="password"
-            placeholder="password"
+            placeholder="비밀번호"
             type="password"
             value={formData.password}
             onChange={handleChange}
@@ -275,7 +275,7 @@ export default function SignUpForm() {
           )}
           <Styled.Input
             name="confirmPassword"
-            placeholder="confirm password"
+            placeholder="비밀번호 확인"
             value={formData.confirmPassword}
             type="password"
             onChange={handleChange}
@@ -286,7 +286,7 @@ export default function SignUpForm() {
           <Styled.ButtonWrap>
             <Styled.CheckInput
               name="nickname"
-              placeholder="nickname"
+              placeholder="닉네임"
               value={formData.nickname}
               onChange={handleChange}
             />
@@ -329,7 +329,7 @@ export default function SignUpForm() {
               <Styled.ImagePreview src={previewUrl} alt="Profile Preview" />
             )}
           </Styled.FileInputWrap>
-          <Styled.Input type="submit" value="Sign up" />
+          <Styled.Input type="submit" value="가입하기" />
           {errors.serverError && (
             <Styled.ErrorMessage>{errors.serverError}</Styled.ErrorMessage>
           )}
@@ -338,9 +338,6 @@ export default function SignUpForm() {
           이미 계정이 있으신가요? <Link to="/signin">로그인 페이지</Link>
         </Styled.Switcher>
       </Styled.Wrapper>
-      <Styled.LogoLink to="/">
-        <Styled.LogoImage src="/img/mainLogo2.png" />
-      </Styled.LogoLink>
     </Styled.OuterWrapper>
   );
 }
