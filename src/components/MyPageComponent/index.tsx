@@ -23,14 +23,14 @@ const PasswordEditButton = styled.button`
   height: 60px;
   font-size: 16px;
   font-weight: bold;
-  background-color: #cde990;
+  background-color: #e8e9ec;
   border: none;
   color: #222;
   margin-bottom: 40px;
   transition: all 0.3s ease;
-  border-radius: 25px;
+  border-radius: 5px;
   &:hover {
-    background-color: #aacb73;
+    background-color: #4fd66e;
     color: white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }

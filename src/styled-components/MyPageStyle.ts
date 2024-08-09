@@ -7,7 +7,7 @@ export const Container = styled.div`
   height: auto;
   border: 2px solid #e8e9ec;
   padding: 20px;
-  background-color: #ffffe8;
+  background-color: white;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 `;
@@ -17,8 +17,9 @@ export const Section = styled.div`
   height: 50px;
   justify-content: space-between;
   align-items: center;
-  background-color: #e8e9ec;
-  padding: 10px 20px;
+  background-color: white;
+  border-bottom: 1px solid #e8e9ec;
+  padding: 30px 20px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 `;
@@ -34,8 +35,8 @@ export const EditButton = styled.button`
   font-size: 16px;
   color: #222;
   font-weight: bold;
-  background-color: #cde990;
-  border: none;
+  border: 2px solid #e8e9ec;
+  background-color: #e8e9ec;
   padding: 8px 16px;
   border-radius: 5px;
   cursor: pointer;
@@ -44,7 +45,8 @@ export const EditButton = styled.button`
     color 0.3s;
 
   &:hover {
-    background-color: #aacb73;
+    border: 1px solid #4fd66e;
+    background-color: #4fd66e;
     color: white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
@@ -57,7 +59,7 @@ export const Info = styled.div`
   font-weight: bold;
   font-size: 20px;
   color: #333;
-  background-color: #ffffe8;
+  background-color: white;
   border-bottom: 1px solid #e8e9ec;
   justify-content: space-between;
 `;
@@ -72,7 +74,7 @@ export const HistoryButton = styled.button`
   width: 90px;
   height: 40px;
   font-weight: bold;
-  background-color: #cde990;
+  background-color: #e8e9ec;
   color: #222;
   padding: 8px 12px;
   border: none;
@@ -81,36 +83,24 @@ export const HistoryButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #aacb73;
+    background-color: #4fd66e;
     color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
 
 export const EditInput = styled.input`
   padding: 15px 20px;
-  border-radius: 25px;
-  border: 2px solid #cde990;
+  border-radius: 5px;
+  border: 2px solid #e8e9ec;
   font-size: 16px;
   width: 650px;
   &:hover {
-    border: 2px solid #aacb73;
+    border: 2px solid #4fd66e;
   }
   &:focus {
+    border: 2px solid #4fd66e;
     outline: none;
-  }
-
-  &[type='submit'] {
-    cursor: pointer;
-    background-color: #cde990;
-    transition: background-color 0.3s ease;
-    &:hover {
-      background-color: #aacb73;
-      color: white;
-    }
-
-    &:focus {
-      outline: none;
-    }
   }
 `;
 
@@ -120,16 +110,18 @@ export const SaveButton = styled.button`
   font-size: 16px;
   color: #222;
   font-weight: bold;
-  background-color: #cde990;
+  background-color: #e8e9ec;
   border: none;
   padding: 8px 16px;
-  border-radius: 25px;
+  border-radius: 5px;
   margin-top: 20px;
   margin-left: auto;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #aacb73;
+    background-color: #4fd66e;
     color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
