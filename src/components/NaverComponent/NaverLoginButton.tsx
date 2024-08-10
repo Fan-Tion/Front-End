@@ -6,9 +6,9 @@ export default function NaverLoginButton() {
     window.location.href = loginRequestUrl;
   };
   return (
-    <Styled.SocialButtonWrap onClick={handleLogin}>
-      <Styled.NaverImg src='/img/naver_login.png'/>
+    <Styled.SignInSocialButtonWrap onClick={handleLogin}>
+      <Styled.NaverImg src="/img/naver_login.png" />
       네이버 로그인
-    </Styled.SocialButtonWrap>
+    </Styled.SignInSocialButtonWrap>
   );
 }
