@@ -7,12 +7,15 @@ const Button = styled.button<{ $isVisible: boolean }>`
   position: fixed;
   bottom: 110px;
   right: 500px;
-  background-color: #cde990;
+  background-color: #e8e9ec;
   color: #222;
   border: none;
   cursor: pointer;
-  font-size: 20px;
-  border-radius: 50%;
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+  border-radius: 12px;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   pointer-events: ${({ $isVisible }) => ($isVisible ? 'auto' : 'none')};
   transition:
@@ -20,7 +23,7 @@ const Button = styled.button<{ $isVisible: boolean }>`
     background-color 0.3s;
   &:hover {
     color: white;
-    background-color: #aacb73;
+    background-color: #4fd66e;
   }
 `;
 export default function ScrollButton() {
@@ -45,7 +48,19 @@ export default function ScrollButton() {
   }, []);
   return (
     <Button onClick={scrollToTop} $isVisible={visible}>
-      ↑
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"
+        />
+      </svg>
     </Button>
   );
 }

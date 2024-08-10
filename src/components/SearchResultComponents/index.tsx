@@ -35,7 +35,7 @@ const NoResults = styled.div`
 const Pagination = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 50px 0;
 `;
 
 const Button = styled.button`

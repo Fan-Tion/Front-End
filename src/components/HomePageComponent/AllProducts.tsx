@@ -20,6 +20,7 @@ const Grid = styled.div`
   ); /* 기본적으로 한 줄에 4개의 상품 */
   gap: 20px;
   padding-left: 5px;
+  margin-bottom: 100px;
 `;
 
 const Button = styled(AllButton)`
