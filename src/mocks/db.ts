@@ -85,7 +85,7 @@ export const auctions: Map<string, auctionDetailsDataType> = new Map([
         title: '타임머신 팝니다.',
         category: 'digital',
         auctionType: true,
-        auctionImage: ['/public/img/car.png', '/public/img/digimon.jpg'],
+        auctionImage: ['/img/car.png', '/img/digimon.jpg'],
         description:
           '목표로 했던 IBM 5100을 입수해서 더이상 필요하지 않게 되었습니다.',
         currentBidder: 'CERN',

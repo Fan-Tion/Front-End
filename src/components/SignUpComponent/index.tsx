@@ -256,7 +256,11 @@ export default function SignUpForm() {
               value={formData.email}
               onChange={handleChange}
             />
-            <Styled.CheckButton onClick={checkEmail} disabled={isEmailChecked}>
+            <Styled.CheckButton
+              onClick={checkEmail}
+              disabled={isEmailChecked}
+              type="button"
+            >
               중복 체크
             </Styled.CheckButton>
           </Styled.ButtonWrap>
@@ -293,6 +297,7 @@ export default function SignUpForm() {
             <Styled.CheckButton
               onClick={checkNickname}
               disabled={isNicknameChecked}
+              type="button"
             >
               중복 체크
             </Styled.CheckButton>

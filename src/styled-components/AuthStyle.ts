@@ -19,6 +19,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 500px;
+  min-height: 600px;
   padding: 20px;
   background-color: white;
   border: 1px solid #e8e9ec;
@@ -46,7 +47,7 @@ export const Input = styled.input`
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 16px;
-  
+
   border: 1px solid #ddd;
   width: 100%;
   &:hover {
@@ -59,13 +60,14 @@ export const Input = styled.input`
   &[type='submit'] {
     cursor: pointer;
     font-size: 16px;
-    background-color: #cde990;
+    background-color: #e8e9ec;
     color: #222;
     transition: background-color 0.3s ease;
     &:hover {
-      background-color: #aacb73;
+      background-color: #4fd66e;
       color: white;
       border: none;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
 
     &:focus {
@@ -77,9 +79,9 @@ export const Switcher = styled.span`
   margin-top: 20px;
   margin-bottom: 5px;
   font-size: 16px;
- 
+
   a {
-    color: #cde990;
+    color: #4fd66e;
     text-decoration-line: none;
   }
 `;
@@ -89,19 +91,45 @@ export const SocialButtonWrap = styled.div`
   align-items: center;
   padding: 10px 15px;
   border-radius: 5px;
+  margin-top: 10px;
   border: none;
-  background-color: #cde990;
+  background-color: #e8e9ec;
   font-size: 16px;
-  width: 100%;
-  height: 43px;
+  width: 300px;
+  height: 50px;
 
   cursor: pointer;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #aacb73;
+    background-color: #4fd66e;
     color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
+
+export const SignInSocialButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #e8e9ec;
+  font-size: 16px;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #4fd66e;
+    color: white;
+
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+`;
+
 export const NaverImg = styled.img`
   width: 20px;
   height: 20px;
@@ -139,13 +167,13 @@ export const CheckInput = styled.input`
 export const CheckButton = styled.button`
   width: 100px;
   height: 40px;
-  background-color: #cde990;
+  background-color: #e8e9ec;
   border: none;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #aacb73;
+    background-color: #4fd66e;
     color: white;
   }
 `;
@@ -163,13 +191,13 @@ export const FileInputLabel = styled.label`
   font-size: 16px;
   color: #222;
   cursor: pointer;
-  background-color: #cde990;
+  background-color: #e8e9ec;
   padding: 10px 25px;
   border-radius: 5px;
   height: 40px;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #aacb73;
+    background-color: #4fd66e;
     color: white;
   }
 `;
@@ -203,9 +231,10 @@ export const LogoLink = styled(Link)`
 `;
 
 export const LogoImage = styled.img`
-  width: 250px;
-  height: 200px;
-  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 5px;
   object-fit: cover;
   object-position: center;
 `;
@@ -230,4 +259,5 @@ export const Styled = {
   LogoText,
   LogoLink,
   LogoImage,
+  SignInSocialButtonWrap,
 };
