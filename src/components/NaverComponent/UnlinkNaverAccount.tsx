@@ -14,7 +14,7 @@ export default function UnlinkNaverAccount() {
   };
   return (
     <Styled.SocialButtonWrap onClick={handleUnlink}>
-      <Styled.LogoImage src='/img/naver_login.png'/>
+      <Styled.LogoImage src="/img/naver_login.png" />
       네이버 계정 연동 해제
     </Styled.SocialButtonWrap>
   );

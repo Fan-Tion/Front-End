@@ -4,6 +4,7 @@ import { membersApi } from '../../api/member';
 import HistoryView from './HistoryView';
 import Profile from './Profile';
 import SideProfile from './SideProfile';
+import SocialLink from './SocialLink';
 
 const Wrapper = styled.div`
   display: flex;
@@ -86,6 +87,7 @@ export default function MyPageComponents() {
       <ColumnWrap>
         <Profile userInfo={userInfo} onUpdate={handleUserInfoUpdate} />
         <HistoryView />
+        <SocialLink />
         <PasswordEditButton>
           비밀번호 변경 요청 메일 발송하기
         </PasswordEditButton>

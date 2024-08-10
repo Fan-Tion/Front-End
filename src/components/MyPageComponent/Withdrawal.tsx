@@ -10,8 +10,8 @@ const WithdrawalButton = styled.button`
   border: none;
   cursor: pointer;
   &:hover {
-    font-weight : bold;
-    font-size : 24px;
+    font-weight: bold;
+    font-size: 24px;
     color: red;
   }
 `;
