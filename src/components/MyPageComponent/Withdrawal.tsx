@@ -4,14 +4,14 @@ import styled from 'styled-components';
 
 const WithdrawalButton = styled.button`
   margin: 0 20px;
-  font-size: 20px;
+  font-size: 16px;
   color: #222;
   background: none;
   border: none;
   cursor: pointer;
   &:hover {
-    font-weight : bold;
-    font-size : 24px;
+    // font-weight: bold;
+    // font-size : 24px;
     color: red;
   }
 `;
