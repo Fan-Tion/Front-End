@@ -10,9 +10,9 @@ export interface formDataType {
   endDate: string;
   auctionType: boolean;
   category: string;
-  auctionImage?: File[];
+  auctionImage?: (string | File)[];
   description?: string;
-  [key: string]: string | number | boolean | File[] | undefined;
+  [key: string]: string | number | boolean | (string | File)[] | undefined;
 }
 
 export const useFormHandler = () => {
@@ -56,11 +56,10 @@ export const useFormHandler = () => {
     },
     [],
   );
-
-  const handleFilesChange = useCallback((files: File[]) => {
+  const handleFilesChange = useCallback((files: (string | File)[]) => {
     setFormData(prevData => ({
       ...prevData,
-      auctionImage: files,
+      auctionImage: files, // string과 File 모두 포함하여 상태에 저장
     }));
   }, []);
 

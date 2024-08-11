@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   AuctionCreatePage,
   AuctionHistoryPage,
+  AuctionModifyPage,
   DepositHistoryPage,
   DetailPage,
   EditorAuctionPage,
@@ -103,6 +104,16 @@ export default function Routes() {
             <Suspense fallback={<LoadingScreen />}>
               <ProtectedRoute>
                 <AuctionCreatePage />
+              </ProtectedRoute>
+            </Suspense>
+          ),
+        },
+        {
+          path: 'auction/modify/:auctionId',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <ProtectedRoute>
+                <AuctionModifyPage />
               </ProtectedRoute>
             </Suspense>
           ),
