@@ -235,7 +235,7 @@ export default function LayoutHeader() {
         </TopSection>
         <BottomSection>
           <NavLinks>
-            <NavLink to="/auction">경매</NavLink>
+            <NavLink to="/">경매</NavLink>
             <NavLink to="/community">커뮤니티</NavLink>
           </NavLinks>
           <SearchBar>
