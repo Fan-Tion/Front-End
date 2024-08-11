@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   width: 300px;
   min-width: 240px;
   gap: 20px;
+  margin-left: 200px;
 `;
 
 const Title = styled.h1`
