@@ -1,6 +1,5 @@
 import LoadingScreen from '@components/LoadingScreen';
 import NaverLoginCallback from '@components/NaverComponent/NaverLoginCallback';
-import ProtectedRoute from '@components/ProtectedRoute';
 import RootLayout from '@layout/RootLayout';
 import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -102,9 +101,9 @@ export default function Routes() {
           path: 'auction/create',
           element: (
             <Suspense fallback={<LoadingScreen />}>
-              <ProtectedRoute>
-                <AuctionCreatePage />
-              </ProtectedRoute>
+              {/* <ProtectedRoute> */}
+              <AuctionCreatePage />
+              {/* </ProtectedRoute> */}
             </Suspense>
           ),
         },
@@ -112,9 +111,9 @@ export default function Routes() {
           path: 'auction/modify/:auctionId',
           element: (
             <Suspense fallback={<LoadingScreen />}>
-              <ProtectedRoute>
-                <AuctionModifyPage />
-              </ProtectedRoute>
+              {/* <ProtectedRoute> */}
+              <AuctionModifyPage />
+              {/* </ProtectedRoute> */}
             </Suspense>
           ),
         },

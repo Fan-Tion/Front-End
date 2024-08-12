@@ -33,6 +33,11 @@ const Input = styled(GlobalInput)`
   &:focus {
     outline: none;
   }
+  &:disabled {
+    background-color: #f8f8f8;
+    border: 2px solid #e8e9ec;
+    cursor: not-allowed;
+  }
 `;
 
 const Price = styled.div`
@@ -56,6 +61,11 @@ const SmallInput = styled(GlobalInput)`
   }
   &:focus {
     outline: none;
+  }
+  &:disabled {
+    background-color: #f8f8f8;
+    border: 2px solid #e8e9ec;
+    cursor: not-allowed;
   }
 `;
 
@@ -89,6 +99,11 @@ const Select = styled.select`
   }
   &:focus {
     outline: none;
+  }
+  &:disabled {
+    background-color: #f8f8f8;
+    border: 2px solid #e8e9ec;
+    cursor: not-allowed;
   }
 `;
 
@@ -177,9 +192,10 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
             name="auctionType"
             value={formData.auctionType ? '1' : '0'}
             onChange={onChange}
+            disabled
           >
-            <option value={1}>비공개 입찰</option>
             <option value={0}>공개 입찰</option>
+            <option value={1}>비공개 입찰</option>
           </Select>
           <CustomArrow />
         </SelectWrapper>
@@ -204,6 +220,7 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
               value={formData.currentBidPrice}
               onChange={onChange}
               required
+              disabled
             />
             {formData.currentBidPrice && <Unit>원</Unit>}
           </SmallInputWrapper>
@@ -216,6 +233,7 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
               value={formData.buyNowPrice}
               onChange={onChange}
               required
+              disabled
             />
             {formData.buyNowPrice && <Unit>원</Unit>}
           </SmallInputWrapper>
@@ -227,11 +245,12 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
             name="endDate"
             type="date"
             placeholder="경매 종료시간"
-            value={formData.endDate}
+            value={formData.endDate.slice(0, 10)}
             onChange={onChange}
             min={minDate}
             max={maxDate}
             required
+            disabled
           />
         </Price>
       </InputWrapper>

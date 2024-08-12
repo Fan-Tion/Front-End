@@ -90,8 +90,9 @@ const NullImage = styled.div`
 export default function AuctionModifyPageComponents() {
   const {
     formData,
+    setFormData,
     handleChange,
-    handleSubmit,
+    handleSubmitModifiedData,
     handleFilesChange,
     buttonDisable,
     editorRef,
@@ -104,18 +105,32 @@ export default function AuctionModifyPageComponents() {
   const navigate = useNavigate();
 
   const [mainImage, setMainImage] = useState<string | File | null>(null); // mainImage 상태 추가
+
   useEffect(() => {
-    if (auctionDetails && auctionDetails.auctionImage.length > 0) {
-      setMainImage(auctionDetails.auctionImage[0]);
+    if (auctionDetails) {
+      // auctionDetails를 사용하여 formData를 초기화
+      setFormData({
+        title: auctionDetails.title || '',
+        currentBidPrice: auctionDetails.currentBidPrice || '',
+        buyNowPrice: auctionDetails.buyNowPrice || '',
+        endDate: auctionDetails.endDate || '',
+        auctionType: auctionDetails.auctionType || false,
+        category: auctionDetails.category || '',
+      });
+
+      if (auctionDetails.auctionImage.length > 0) {
+        setMainImage(auctionDetails.auctionImage[0]);
+      }
     }
-  }, [auctionDetails]);
+  }, [auctionDetails, setFormData]);
+
   const cancelHandler = () => {
     if (confirm('경매 작성을 취소하고 홈 화면으로 돌아갈까요?')) navigate('/');
   };
 
   return (
     <Wrapper>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmitModifiedData}>
         <Row>
           <Col>
             <InputArea onChange={handleChange} formData={formData} />

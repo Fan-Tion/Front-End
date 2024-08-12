@@ -72,6 +72,29 @@ export async function uploadMultipartData<T>(
 
   return axiosInstance.post(url, formData, config);
 }
+export async function uploadModifiedData<T>(
+  url: string,
+  data: Record<string, any>,
+): Promise<T> {
+  const formData = new FormData();
+  Object.keys(data).forEach(key => {
+    if (Array.isArray(data[key])) {
+      data[key].forEach((file: File) => {
+        formData.append(key, file);
+      });
+    } else {
+      formData.append(key, data[key]);
+    }
+  });
+
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  return axiosInstance.put(url, formData, config);
+}
 
 // async function fetchCall<T>(
 //   url: string,

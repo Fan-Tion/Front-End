@@ -1,7 +1,7 @@
 import { auctionApi } from '@api/auction';
 import { Editor } from '@toast-ui/react-editor';
 import { useCallback, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export interface formDataType {
   title: string;
@@ -105,6 +105,52 @@ export const useFormHandler = () => {
     },
     [formData],
   );
+  const handleSubmitModifiedData = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      const error =
+        Number(formData.buyNowPrice) <= Number(formData.currentBidPrice);
+
+      if (error) {
+        alert('즉시 구매가는 경매 시작가보다 작거나 같을 수 없습니다.');
+        return;
+      }
+
+      const editorInstance = editorRef.current?.getInstance();
+      const description = editorInstance ? editorInstance.getHTML() : '';
+
+      // JSON 데이터 생성
+      const jsonPayload = {
+        ...formData,
+        description,
+      };
+
+      const data = {
+        request: new Blob([JSON.stringify(jsonPayload)], {
+          type: 'application/json',
+        }),
+        auctionImage: formData.auctionImage,
+      };
+      const { auctionId } = useParams<{ auctionId: string }>();
+      if (!auctionId) {
+        console.error('auctionId가 정의되지 않았습니다.');
+        return;
+      }
+      try {
+        setButtonDisable(true);
+        const response = (await auctionApi.modify(data, auctionId)) as any;
+        console.log(response);
+        alert(response.message);
+        navigate(`/auction/${response.data.auctionId}`);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setButtonDisable(false);
+      }
+    },
+    [formData],
+  );
 
   const numberFormat = new Intl.NumberFormat();
   const formattedFormData = {
@@ -121,9 +167,11 @@ export const useFormHandler = () => {
 
   return {
     formData: formattedFormData,
+    setFormData,
     handleChange,
     handleFilesChange,
     handleSubmit,
+    handleSubmitModifiedData,
     buttonDisable,
     editorRef,
   };
