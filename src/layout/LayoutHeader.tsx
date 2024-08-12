@@ -173,21 +173,22 @@ export default function LayoutHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [, , removeCookie] = useCookies(['Authorization']);
   const [keyword, setKeyword] = useState('');
-  const [categoryOption, setCategoryOption] = useState('ALL');
+  const [categoryOption, setCategoryOption] = useState('전체');
   const navigate = useNavigate();
 
-  const categories = [
-    'ALL',
-    'ACCESSORIES',
-    'ALBUM',
-    'CLOTHES',
-    'FIGURE',
-    'GAME',
-    'PHOTO_CARD',
-    'POSTER',
-    'SIGN',
-    'OTHER',
-  ];
+  const categoryMappings: Record<string, string> = {
+    전체: 'ALL',
+    액세서리: 'ACCESSORIES',
+    앨범: 'ALBUM',
+    의류: 'CLOTHES',
+    피규어: 'FIGURE',
+    게임: 'GAME',
+    포토카드: 'PHOTO_CARD',
+    포스터: 'POSTER',
+    싸인: 'SIGN',
+    기타: 'OTHER',
+  };
+  const categories = Object.keys(categoryMappings);
 
   // useEffect(() => {
   //   setIsLoggedIn(!!cookies.Authorization);
@@ -204,8 +205,9 @@ export default function LayoutHeader() {
   };
 
   const handleSearch = () => {
+    const categoryInEnglish = categoryMappings[categoryOption];
     navigate(
-      `/search?keyword=${encodeURIComponent(keyword)}&category=${encodeURIComponent(categoryOption)}&page=0`,
+      `/search?keyword=${encodeURIComponent(keyword)}&category=${encodeURIComponent(categoryInEnglish)}&page=0`,
     );
     setKeyword('');
   };

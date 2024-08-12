@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   AuctionCreatePage,
   AuctionHistoryPage,
+  CommunityPage,
   DepositHistoryPage,
   DetailPage,
   EditorAuctionPage,
@@ -152,6 +153,14 @@ export default function Routes() {
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <SearchItemPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'community',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <CommunityPage />
             </Suspense>
           ),
         },
