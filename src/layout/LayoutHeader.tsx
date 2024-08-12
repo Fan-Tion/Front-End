@@ -184,7 +184,7 @@ const MypageWrap = styled.div`
 `;
 
 export default function LayoutHeader() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [, , removeCookie] = useCookies(['Authorization']);
   const [keyword, setKeyword] = useState('');
   const [categoryOption, setCategoryOption] = useState('ALL');
