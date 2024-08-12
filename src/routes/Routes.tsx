@@ -8,6 +8,7 @@ import {
   AuctionCreatePage,
   AuctionHistoryPage,
   CommunityPage,
+  AuctionModifyPage,
   DepositHistoryPage,
   DetailPage,
   EditorAuctionPage,
@@ -104,6 +105,16 @@ export default function Routes() {
             <Suspense fallback={<LoadingScreen />}>
               <ProtectedRoute>
                 <AuctionCreatePage />
+              </ProtectedRoute>
+            </Suspense>
+          ),
+        },
+        {
+          path: 'auction/modify/:auctionId',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <ProtectedRoute>
+                <AuctionModifyPage />
               </ProtectedRoute>
             </Suspense>
           ),
