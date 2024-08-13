@@ -15,7 +15,7 @@ export interface formDataType {
   [key: string]: string | number | boolean | (string | File)[] | undefined;
 }
 
-export const useFormHandler = () => {
+export const useModifyFormHandler = (auctionId: string | undefined) => {
   const [formData, setFormData] = useState<formDataType>({
     title: '',
     currentBidPrice: '',
@@ -56,14 +56,15 @@ export const useFormHandler = () => {
     },
     [],
   );
+
   const handleFilesChange = useCallback((files: (string | File)[]) => {
     setFormData(prevData => ({
       ...prevData,
       auctionImage: files, // string과 File 모두 포함하여 상태에 저장
     }));
   }, []);
-
-  const handleSubmit = useCallback(
+  console.log('Current formData:', formData);
+  const handleSubmitModifiedData = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
 
@@ -78,22 +79,43 @@ export const useFormHandler = () => {
       const editorInstance = editorRef.current?.getInstance();
       const description = editorInstance ? editorInstance.getHTML() : '';
 
-      // JSON 데이터 생성
-      const jsonPayload = {
-        ...formData,
-        description,
-      };
+      // FormData 객체 생성
+      const formDataPayload = new FormData();
+      formDataPayload.append(
+        'request',
+        new Blob(
+          [
+            JSON.stringify({
+              ...formData,
+              description,
+            }),
+          ],
+          {
+            type: 'application/json',
+          },
+        ),
+      );
 
-      const data = {
-        request: new Blob([JSON.stringify(jsonPayload)], {
-          type: 'application/json',
-        }),
-        auctionImage: formData.auctionImage,
-      };
+      formData.auctionImage?.forEach((image, index) => {
+        if (typeof image === 'string') {
+          // 기존 이미지(URL)는 그대로 전달
+          formDataPayload.append(`auctionImageUrl[${index}]`, image);
+        } else {
+          // 새로 추가된 파일(이진 파일)은 파일로 전달
+          formDataPayload.append('auctionImage', image);
+        }
+      });
+      if (!auctionId) {
+        console.error('auctionId가 정의되지 않았습니다.');
+        return;
+      }
 
       try {
         setButtonDisable(true);
-        const response = (await auctionApi.create(data)) as any;
+        const response = (await auctionApi.modify(
+          formDataPayload,
+          auctionId,
+        )) as any;
         console.log(response);
         alert(response.message);
         navigate(`/auction/${response.data.auctionId}`);
@@ -103,7 +125,7 @@ export const useFormHandler = () => {
         setButtonDisable(false);
       }
     },
-    [formData],
+    [formData, auctionId],
   );
 
   const numberFormat = new Intl.NumberFormat();
@@ -124,7 +146,7 @@ export const useFormHandler = () => {
     setFormData,
     handleChange,
     handleFilesChange,
-    handleSubmit,
+    handleSubmitModifiedData,
     buttonDisable,
     editorRef,
   };
