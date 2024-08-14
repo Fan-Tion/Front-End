@@ -1,6 +1,6 @@
 import { membersApi } from '@api/member';
 import { Withdrawal } from '@components/MyPageComponent/Withdrawal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -171,7 +171,7 @@ const MypageWrap = styled.div`
 
 export default function LayoutHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [, , removeCookie] = useCookies(['Authorization']);
+  const [cookies, , removeCookie] = useCookies(['Authorization']);
   const [keyword, setKeyword] = useState('');
   const [categoryOption, setCategoryOption] = useState('ALL');
   const navigate = useNavigate();
@@ -189,9 +189,9 @@ export default function LayoutHeader() {
     'OTHER',
   ];
 
-  // useEffect(() => {
-  //   setIsLoggedIn(!!cookies.Authorization);
-  // }, [cookies]);
+  useEffect(() => {
+    setIsLoggedIn(!!cookies.Authorization);
+  }, [cookies]);
 
   const handleLogout = async () => {
     try {
