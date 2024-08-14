@@ -1,6 +1,6 @@
 import { auctionApi } from '@api/auction';
 import { Editor } from '@toast-ui/react-editor';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface formDataType {
@@ -15,19 +15,30 @@ export interface formDataType {
   [key: string]: string | number | boolean | (string | File)[] | undefined;
 }
 
-export const useModifyFormHandler = (auctionId: string | undefined) => {
+export const useModifyFormHandler = (
+  auctionId: string | undefined,
+  initialImages: (string | File)[],
+) => {
   const [formData, setFormData] = useState<formDataType>({
     title: '',
     currentBidPrice: '',
     buyNowPrice: '',
     endDate: '',
     auctionType: false,
-    auctionImage: [],
+    auctionImage: initialImages, // 초기 이미지로 설정
     category: '',
   });
   const [buttonDisable, setButtonDisable] = useState(false);
   const editorRef = useRef<Editor | null>(null);
   const navigate = useNavigate();
+
+  // 만약 초기 이미지가 변경되면 다시 설정합니다.
+  useEffect(() => {
+    setFormData(prevData => ({
+      ...prevData,
+      auctionImage: initialImages,
+    }));
+  }, [initialImages]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -36,7 +47,7 @@ export const useModifyFormHandler = (auctionId: string | undefined) => {
       if (name === 'auctionType') {
         setFormData(prevData => ({
           ...prevData,
-          [name]: value === '1', // '1'은 true, '0'은 false로 변환
+          [name]: value === '1',
         }));
         return;
       }
@@ -63,7 +74,7 @@ export const useModifyFormHandler = (auctionId: string | undefined) => {
       auctionImage: files, // string과 File 모두 포함하여 상태에 저장
     }));
   }, []);
-  console.log('Current formData:', formData);
+
   const handleSubmitModifiedData = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
@@ -79,32 +90,20 @@ export const useModifyFormHandler = (auctionId: string | undefined) => {
       const editorInstance = editorRef.current?.getInstance();
       const description = editorInstance ? editorInstance.getHTML() : '';
 
-      // FormData 객체 생성
-      const formDataPayload = new FormData();
-      formDataPayload.append(
-        'request',
-        new Blob(
-          [
-            JSON.stringify({
-              ...formData,
-              description,
-            }),
-          ],
-          {
-            type: 'application/json',
-          },
-        ),
-      );
+      const jsonPayload = {
+        ...formData,
+        description,
+      };
 
-      formData.auctionImage?.forEach((image, index) => {
-        if (typeof image === 'string') {
-          // 기존 이미지(URL)는 그대로 전달
-          formDataPayload.append(`auctionImageUrl[${index}]`, image);
-        } else {
-          // 새로 추가된 파일(이진 파일)은 파일로 전달
-          formDataPayload.append('auctionImage', image);
-        }
-      });
+      const data = {
+        request: new Blob([JSON.stringify(jsonPayload)], {
+          type: 'application/json',
+        }),
+        auctionImage: formData.auctionImage?.length
+          ? formData.auctionImage
+          : initialImages, // auctionImage가 없으면 초기 이미지로 설정
+      };
+
       if (!auctionId) {
         console.error('auctionId가 정의되지 않았습니다.');
         return;
@@ -112,10 +111,7 @@ export const useModifyFormHandler = (auctionId: string | undefined) => {
 
       try {
         setButtonDisable(true);
-        const response = (await auctionApi.modify(
-          formDataPayload,
-          auctionId,
-        )) as any;
+        const response = (await auctionApi.modify(data, auctionId)) as any;
         console.log(response);
         alert(response.message);
         navigate(`/auction/${response.data.auctionId}`);
@@ -125,7 +121,7 @@ export const useModifyFormHandler = (auctionId: string | undefined) => {
         setButtonDisable(false);
       }
     },
-    [formData, auctionId],
+    [formData, auctionId, initialImages],
   );
 
   const numberFormat = new Intl.NumberFormat();

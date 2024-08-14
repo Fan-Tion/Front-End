@@ -178,8 +178,8 @@ export default function InputArea({ onChange, formData }: InputAreaProps) {
             value={formData.auctionType ? '1' : '0'}
             onChange={onChange}
           >
-            <option value={0}>공개 입찰</option>
-            <option value={1}>비공개 입찰</option>
+            <option value={0}>비공개 입찰</option>
+            <option value={1}>공개 입찰</option>
           </Select>
           <CustomArrow />
         </SelectWrapper>

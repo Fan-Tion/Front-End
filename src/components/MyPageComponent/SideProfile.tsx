@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Modal from '../../utils/Modal';
 import TradeHistory from '../TradeComponent/TradeHistory';
+import { Withdrawal } from './Withdrawal';
 
 const Wrapper = styled.div`
   display: flex;
@@ -214,7 +215,7 @@ export default function SideProfile({
         <TradeHistory key={modalKey} />
       </Modal>
       <Footer>
-        <SignOutButton>로그아웃</SignOutButton>
+        <Withdrawal />
         <LogoName>Fan-Tion</LogoName>
       </Footer>
     </Wrapper>

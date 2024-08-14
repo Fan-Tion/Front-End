@@ -89,6 +89,8 @@ const NullImage = styled.div`
 `;
 export default function AuctionModifyPageComponents() {
   const { auctionId } = useParams<{ auctionId: string }>();
+  const location = useLocation();
+  const { auctionDetails } = location.state;
   const {
     formData,
     setFormData,
@@ -97,10 +99,7 @@ export default function AuctionModifyPageComponents() {
     handleFilesChange,
     buttonDisable,
     editorRef,
-  } = useModifyFormHandler(auctionId);
-
-  const location = useLocation();
-  const { auctionDetails } = location.state;
+  } = useModifyFormHandler(auctionId, auctionDetails.auctionImage);
 
   const { isModalOpen, toggleModal } = useModalHandler();
   const navigate = useNavigate();

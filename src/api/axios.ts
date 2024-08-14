@@ -86,7 +86,7 @@ export async function uploadModifiedData<T>(
           formData.append(key, item);
         } else {
           // 문자열인 경우 해당 key에 맞춰 추가
-          formData.append(`${key}Url`, item); // URL의 경우 다른 key로 처리하거나 구분할 필요가 있음
+          formData.append(key, item); // URL의 경우 다른 key로 처리하거나 구분할 필요가 있음
         }
       });
     } else {
