@@ -1,6 +1,6 @@
 import { auctionApi } from '@api/auction';
 import { Editor } from '@toast-ui/react-editor';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface formDataType {
@@ -15,19 +15,30 @@ export interface formDataType {
   [key: string]: string | number | boolean | (string | File)[] | undefined;
 }
 
-export const useFormHandler = () => {
+export const useFormHandler = (
+  auctionId?: string,
+  initialImages: (string | File)[] = [],
+) => {
   const [formData, setFormData] = useState<formDataType>({
     title: '',
     currentBidPrice: '',
     buyNowPrice: '',
     endDate: '',
     auctionType: false,
-    auctionImage: [],
+    auctionImage: initialImages,
     category: '',
   });
   const [buttonDisable, setButtonDisable] = useState(false);
   const editorRef = useRef<Editor | null>(null);
   const navigate = useNavigate();
+
+  // 초기 이미지가 변경되면 다시 설정합니다.
+  useEffect(() => {
+    setFormData(prevData => ({
+      ...prevData,
+      auctionImage: initialImages,
+    }));
+  }, [initialImages]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -56,6 +67,7 @@ export const useFormHandler = () => {
     },
     [],
   );
+
   const handleFilesChange = useCallback((files: (string | File)[]) => {
     setFormData(prevData => ({
       ...prevData,
@@ -78,7 +90,6 @@ export const useFormHandler = () => {
       const editorInstance = editorRef.current?.getInstance();
       const description = editorInstance ? editorInstance.getHTML() : '';
 
-      // JSON 데이터 생성
       const jsonPayload = {
         ...formData,
         description,
@@ -88,22 +99,34 @@ export const useFormHandler = () => {
         request: new Blob([JSON.stringify(jsonPayload)], {
           type: 'application/json',
         }),
-        auctionImage: formData.auctionImage,
+        auctionImage: formData.auctionImage?.length
+          ? formData.auctionImage
+          : initialImages,
       };
 
       try {
         setButtonDisable(true);
-        const response = (await auctionApi.create(data)) as any;
-        console.log(response);
-        alert(response.message);
-        navigate(`/auction/${response.data.auctionId}`);
+
+        if (auctionId) {
+          // 수정 요청
+          const response = (await auctionApi.modify(data, auctionId)) as any;
+          console.log(response);
+          alert(response.message);
+          navigate(`/auction/${response.data.auctionId}`);
+        } else {
+          // 생성 요청
+          const response = (await auctionApi.create(data)) as any;
+          console.log(response);
+          alert(response.message);
+          navigate(`/auction/${response.data.auctionId}`);
+        }
       } catch (error) {
         console.error(error);
       } finally {
         setButtonDisable(false);
       }
     },
-    [formData],
+    [formData, auctionId, initialImages],
   );
 
   const numberFormat = new Intl.NumberFormat();
