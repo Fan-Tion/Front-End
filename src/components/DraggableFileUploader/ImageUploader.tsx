@@ -25,20 +25,28 @@ const DropzoneContainer = styled.div`
 const FileList = styled.div`
   margin-top: 10px;
 `;
+
 const Limit = styled.p`
   margin-top: 10px;
 `;
 
 interface ImageUploaderProps {
-  onFilesChange: (files: File[]) => void;
-  onMainImageChange: (file: File | null) => void; // 콜백 추가
+  onFilesChange: (files: Array<File | string>) => void;
+  onMainImageChange: (file: File | string | null) => void;
+  initialImages?: string[]; // 기존 이미지들의 URL 배열
 }
 
 export default function ImageUploader({
   onFilesChange,
   onMainImageChange,
+  initialImages = [],
 }: ImageUploaderProps) {
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<Array<File | string>>(initialImages);
+
+  // 컴포넌트가 마운트될 때 기존 이미지를 초기화
+  useEffect(() => {
+    setFiles(initialImages);
+  }, [initialImages]);
 
   // 파일이 드롭되었을 때 호출되는 콜백 함수
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -46,14 +54,14 @@ export default function ImageUploader({
       file => file.size <= 5 * 1024 * 1024,
     ); // 5MB 이하 파일만 허용
     setFiles(prevFiles => {
-      const newFiles = filteredFiles.slice(0, 5 - prevFiles.length); // 최대 5개 파일만 허용합니다.
+      const newFiles = filteredFiles.slice(0, 5 - prevFiles.length); // 최대 5개 파일만 허용
       return [...prevFiles, ...newFiles];
     });
   }, []);
 
   useEffect(() => {
     onFilesChange(files);
-    onMainImageChange(files[0] || null); // 0번째 이미지 전달
+    onMainImageChange(files[0] || null); // 0번째 파일을 메인 이미지로 전달
   }, [files, onFilesChange, onMainImageChange]);
 
   // 파일의 순서를 변경하는 함수
@@ -94,7 +102,7 @@ export default function ImageUploader({
           {files.map((file, index) => (
             // DraggableFile 컴포넌트를 사용하여 파일을 표시하고 드래그 앤 드롭 기능을 추가
             <DraggableFile
-              key={`${file.name}-${index}`}
+              key={`${typeof file === 'string' ? file : file.name}-${index}`}
               file={file}
               index={index}
               isMain={index === 0} // 첫 번째 파일을 메인 파일로 설정
