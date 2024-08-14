@@ -1,5 +1,4 @@
 import { membersApi } from '@api/member';
-import { Withdrawal } from '@components/MyPageComponent/Withdrawal';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
@@ -57,8 +56,20 @@ const ActionLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    font-size: 24px;
+    // font-size: 24px;
     font-weight: bold;
+    color: #4fd66e;
+  }
+`;
+const LogInLink = styled(Link)`
+  margin-left: 20px;
+  font-size: 16px;
+  color: #222;
+  text-decoration: none;
+
+  &:hover {
+    font-weight: bold;
+    color: #4fd66e;
   }
 `;
 
@@ -83,20 +94,21 @@ const NavLink = styled(Link)`
   text-decoration: none;
   font-weight: bold;
   &:hover {
-    font-size: 24px;
-    font-weight: bold;
+    // font-size: 24px;
+    // font-weight: 900;
+    color: #4fd66e;
   }
 `;
 
 const LogOut = styled.button`
   margin: 0 20px;
-  font-size: 20px;
+  font-size: 16px;
   color: #222;
   background: none;
   border: none;
   cursor: pointer;
   &:hover {
-    font-size: 24px;
+    // font-size: 24px;
     font-weight: bold;
     color: red;
   }
@@ -140,6 +152,7 @@ const SearchInput = styled.input`
   font-size: 14px;
   border: 1px solid #ced4da;
   border-left: none;
+  border-right: none;
   padding: 0 15px;
   outline: none;
   background-color: white;
@@ -157,7 +170,7 @@ const SearchButton = styled.button`
   align-items: center;
   justify-content: center;
   &:hover {
-    background-color: #0056b3;
+    background-color: #ced4da;
   }
 `;
 
@@ -223,12 +236,11 @@ export default function LayoutHeader() {
             {isLoggedIn ? (
               <>
                 <LogOut onClick={handleLogout}>로그아웃</LogOut>
-                <Withdrawal />
               </>
             ) : (
               <>
-                <ActionLink to="/signin">로그인</ActionLink>
-                <ActionLink to="/signup">회원가입</ActionLink>
+                <LogInLink to="/signin">로그인</LogInLink>
+                <LogInLink to="/signup">회원가입</LogInLink>
               </>
             )}
           </UserActions>

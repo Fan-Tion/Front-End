@@ -3,19 +3,23 @@ import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
 
 const WithdrawalButton = styled.button`
-  margin: 0 20px;
-  font-size: 20px;
-  color: #222;
-  background: none;
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  background-color: ##e8e9ec;
   border: none;
+  color: #222;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
   cursor: pointer;
+  background-color: none;
   &:hover {
-    font-weight: bold;
-    font-size: 24px;
-    color: red;
+    color: white;
+    background-color: #ffb3b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
-
 export function Withdrawal() {
   const [, , removeCookie] = useCookies(['Authorization']);
 

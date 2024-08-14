@@ -17,3 +17,5 @@ export const FailPage = lazy(() => import('./FailPage'));
 export const LoadingScreenPage = lazy(() => import('./LoadingScreenPage'));
 export const EditorAuctionPage = lazy(() => import('./EditorAuctionPage'));
 export const SearchItemPage = lazy(() => import('./SearchItemPage'));
+export const AuctionModifyPage = lazy(() => import('./AuctionModifyPage'));
+export const CommunityListPage = lazy(() => import('./CommunityListPage'));

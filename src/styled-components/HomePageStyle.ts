@@ -44,7 +44,6 @@ export const AllButton = styled.button`
 
 export const ProductBox = styled.div<ProductBoxProps>`
   background-color: ${props => props.$bgColor};
-  // width: 1200px;
   min-height: 500px;
   margin: auto;
   margin-top: 50px;
@@ -59,15 +58,34 @@ export const Div = styled.div`
 
 export const PopBox = styled.div`
   display: flex;
-  padding: 0 30px;
-  flex-wrap: wrap;
-  justify-content: center;
+  padding: 20px 20px;
+  overflow: hidden;
+  white-space: nowrap; // 한 줄로 정렬
   gap: 20px;
   cursor: pointer;
+  transition: transform 0.3s ease-in-out; // 애니메이션 추가
 `;
 export const CategoryBox = styled.div<ProductBoxProps>`
+  display: flex;
+  width: 1050px;
+  justify-content: center;
   background-color: ${props => props.$bgColor};
   margin: auto;
-  margin-top: 50px;
+  margin-top: 30px;
   border-radius: 15px;
+`;
+export const ScrollButton = styled.button`
+  // margin: 0 10px;
+  background-color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  :hover {
+    color: #4fd66e;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 `;
