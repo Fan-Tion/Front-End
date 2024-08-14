@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { GlobalButton } from '../../styled-components/Globalstyle';
 
 // 스타일드 컴포넌트를 사용하여 파일 아이템의 스타일을 정의합니다.
-// $isDragging: 드래그 중인지 여부를 나타냅니다.
-// $isMain: 메인 파일인지 여부를 나타냅니다.
 const FileItem = styled.div<{ $isDragging: boolean; $isMain: boolean }>`
   display: flex;
   justify-content: space-between;
@@ -13,11 +11,8 @@ const FileItem = styled.div<{ $isDragging: boolean; $isMain: boolean }>`
   border: 1px solid black;
   margin-bottom: 4px;
   border: ${({ $isMain }) =>
-    $isMain
-      ? '2px solid #4fd66e'
-      : '1px solid black'}; // 메인 파일일 경우 배경색을 변경합니다.
-  opacity: ${({ $isDragging }) =>
-    $isDragging ? 0.5 : 1}; // 드래그 중일 경우 투명도를 조절합니다.
+    $isMain ? '2px solid #4fd66e' : '1px solid black'}; // 메인 파일일 경우 배경색을 변경합니다.
+  opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)}; // 드래그 중일 경우 투명도를 조절합니다.
   position: relative;
 `;
 
@@ -40,6 +35,7 @@ const MainLabel = styled.span`
   font-size: 12px;
   border-bottom-left-radius: 4px;
 `;
+
 const Delete = styled(GlobalButton)`
   width: 50px;
   height: 30px;
@@ -52,7 +48,7 @@ const ItemTypes = {
 
 // 컴포넌트에 전달될 props의 타입을 정의합니다.
 interface FileProps {
-  file: File | string; // 파일 객체
+  file: File | string; // 파일 객체 또는 URL 문자열
   index: number; // 파일의 인덱스
   isMain: boolean; // 메인 파일 여부
   moveFile: (fromIndex: number, toIndex: number) => void; // 파일 순서를 변경하는 함수
@@ -86,14 +82,13 @@ export default function DraggableFile({
       }
     },
   });
+
+  // 파일이 string일 경우 URL, 그렇지 않으면 File 객체로 처리
   const imageUrl = typeof file === 'string' ? file : URL.createObjectURL(file);
+
   return (
     // FileItem에 drag와 drop을 모두 연결하여 드래그와 드롭을 모두 지원합니다.
-    <FileItem
-      ref={node => drag(drop(node))}
-      $isDragging={isDragging}
-      $isMain={isMain}
-    >
+    <FileItem ref={node => drag(drop(node))} $isDragging={isDragging} $isMain={isMain}>
       {/* 파일의 미리보기 이미지를 표시합니다. */}
       <Preview
         src={imageUrl}

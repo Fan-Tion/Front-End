@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { GlobalButton } from '../../styled-components/Globalstyle';
 
 const InputArea = lazy(() => import('./InputArea'));
-const ImageUploader = lazy(() => import('./ImageUploader'));
+const ImageUploader = lazy(() => import('../DraggableFileUploader/ImageUploader'));
 const TextEditor = lazy(() => import('@utils/TextEditor'));
 
 const Wrapper = styled.section`
