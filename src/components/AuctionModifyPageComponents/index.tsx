@@ -1,5 +1,5 @@
+import { useFormHandler } from '@hooks/useFormHandler';
 import { useModalHandler } from '@hooks/useModalHandler';
-import { useModifyFormHandler } from '@hooks/useModifyFormHandler';
 import Modal from '@utils/Modal';
 import { lazy, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -95,11 +95,11 @@ export default function AuctionModifyPageComponents() {
     formData,
     setFormData,
     handleChange,
-    handleSubmitModifiedData,
+    handleSubmit: handleSubmitModifiedData,
     handleFilesChange,
     buttonDisable,
     editorRef,
-  } = useModifyFormHandler(auctionId, auctionDetails.auctionImage);
+  } = useFormHandler(auctionId, auctionDetails.auctionImage);
 
   const { isModalOpen, toggleModal } = useModalHandler();
   const navigate = useNavigate();
