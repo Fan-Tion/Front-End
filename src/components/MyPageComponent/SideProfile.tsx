@@ -86,24 +86,6 @@ const Footer = styled.div`
   gap: 10px;
   margin-top: auto;
 `;
-const SignOutButton = styled.button`
-  width: 100px;
-  height: 40px;
-  font-size: 16px;
-  background-color: #ffd4d4;
-  border: none;
-  color: #222;
-  font-weight: bold;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-
-  background-color: none;
-  &:hover {
-    color: white;
-    background-color: #ffb3b3;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  }
-`;
 
 const LogoName = styled.div`
   font-size: 16px;
