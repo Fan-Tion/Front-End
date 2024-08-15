@@ -5,6 +5,7 @@ import {
   auctions,
   BidPrice,
   BuyHistory,
+  ChannelData,
   Checkout,
   Deposit,
   DepositHistory,
@@ -390,6 +391,33 @@ export const handlers = [
       },
     });
   }),
+
+  http.get(`${API_BASE_URL}/community/channels`, async ({}) => {
+    return HttpResponse.json(ChannelData);
+  }),
+  http.get(
+    `${API_BASE_URL}/community/channels/:channelId`,
+    async ({ params }) => {
+      const channelId = Array.isArray(params.channelId)
+        ? params.channelId[0]
+        : params.channelId;
+      const channel = ChannelData.data.find(
+        c => c.id === parseInt(channelId, 10),
+      );
+
+      if (!channel) {
+        return HttpResponse.json(
+          { message: '채널을 찾을 수 없습니다' },
+          { status: 404 },
+        );
+      }
+
+      return HttpResponse.json(
+        { message: '성공', data: channel },
+        { status: 200 },
+      );
+    },
+  ),
 ];
 
 // const allPosts = new Map();
