@@ -28,8 +28,6 @@ import {
   SuccessPage,
 } from '../pages';
 
-// const Loader = () => <div>Loading...</div>;
-
 export default function Routes() {
   const router = createBrowserRouter([
     {
@@ -174,11 +172,14 @@ export default function Routes() {
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <CommunityPage />
+            </Suspense>
+          ),
+        },
+        {
           path: 'community-list',
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <CommunityListPage />
-
             </Suspense>
           ),
         },
