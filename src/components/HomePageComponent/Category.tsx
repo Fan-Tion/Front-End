@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Div = styled.div`
+  width: 100px;
   text-align: center;
 `;
 const Image = styled.img<{ selected: boolean }>`
@@ -13,11 +14,13 @@ const Image = styled.img<{ selected: boolean }>`
     border-color 0.3s;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     border-color: #4fd66e;
   }
 `;
 const CategoryName = styled.div`
+  width: 100px;
+  overflow: hidden;
   font-size: 16px;
   font-weight: 600;
   color: #59636f;

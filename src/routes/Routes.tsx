@@ -8,6 +8,8 @@ import {
   AuctionCreatePage,
   AuctionHistoryPage,
   CommunityPage,
+  AuctionModifyPage,
+  CommunityListPage,
   DepositHistoryPage,
   DetailPage,
   EditorAuctionPage,
@@ -110,6 +112,16 @@ export default function Routes() {
           ),
         },
         {
+          path: 'auction/modify/:auctionId',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <ProtectedRoute>
+                <AuctionModifyPage />
+              </ProtectedRoute>
+            </Suspense>
+          ),
+        },
+        {
           path: 'auction/:auctionId',
           element: (
             <Suspense fallback={<LoadingScreen />}>
@@ -162,6 +174,11 @@ export default function Routes() {
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <CommunityPage />
+          path: 'community-list',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <CommunityListPage />
+
             </Suspense>
           ),
         },

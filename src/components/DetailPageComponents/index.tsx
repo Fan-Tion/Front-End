@@ -277,11 +277,25 @@ export default function DetailPageComponents() {
       <Functions>
         {isLoggedIn && <SteamedButton auctionId={auctionId} />}
         <OwnerDiv>
+          <EditButton
+            type="button"
+            onClick={() =>
+              navigate(`/auction/modify/${auctionId}`, {
+                state: { auctionDetails },
+              })
+            }
+          >
+            경매 수정
+          </EditButton>
           {auctionDetails.auctionUserNickname === nickname && (
             <>
               <EditButton
                 type="button"
-                onClick={() => navigate(`/auction/editor/${auctionId}`)}
+                onClick={() =>
+                  navigate(`/auction/modify/${auctionId}`, {
+                    state: { auctionDetails },
+                  })
+                }
               >
                 경매 수정
               </EditButton>
