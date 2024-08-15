@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { ArrowIcon } from '../../icons/ArrowIcon';
 import {
   ChannelSection,
@@ -23,11 +24,17 @@ interface ChannelListProps {
 }
 
 export default function ChannelList({ channels }: ChannelListProps) {
+  const navigate = useNavigate();
+
+  const handleCannelClick = (channelId: number) => {
+    navigate(`/community/channels/${channelId}`);
+  };
+
   return (
     <>
       {channels.map(channel => (
         <ChannelSection key={channel.id}>
-          <TitleWrap>
+          <TitleWrap onClick={() => handleCannelClick(channel.id)}>
             <SectionTitle>{channel.title}</SectionTitle>
             <ArrowIcon />
           </TitleWrap>

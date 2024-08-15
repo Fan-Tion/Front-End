@@ -71,3 +71,63 @@ export const ListItem = styled.li`
     border-bottom: none;
   }
 `;
+
+export const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+`;
+export const ChannelTitle = styled.h1`
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #4fd66e;
+  padding-bottom: 10px;
+  text-align: center;
+  width: 100%;
+`;
+
+export const BoardListContainer = styled.div`
+  width: 100%;
+`;
+
+export const BoardListHeader = styled.div`
+  display: grid;
+  grid-template-columns: 50px 1fr 150px 120px 80px 80px;
+  padding: 10px 20px;
+  background-color: #e8e9ec;
+  border-bottom: 2px solid #e8e9ec;
+  font-weight: bold;
+  color: #222;
+`;
+export const BoarderCell = styled.div`
+  min-width: 70px;
+`;
+
+export const BoardListItem = styled.div`
+  display: grid;
+  grid-template-columns: 50px 1fr 150px 120px 80px 80px;
+  padding: 15px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #e8e9ec;
+  font-size: 16px;
+  font-weight: 500;
+  color: #222;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    border-bottom: 1px solid #4fd66e;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+`;

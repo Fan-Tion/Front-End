@@ -16,6 +16,7 @@ import {
   FindPasswordPage,
   HomePage,
   LoadingScreenPage,
+  MainBoardPage,
   MyPage,
   PasswordResetPage,
   PopularCategoryPage,
@@ -161,6 +162,14 @@ export default function Routes() {
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <CommunityPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'community/channels/:channelId',
+          element: (
+            <Suspense fallback={<LoadingScreenPage />}>
+              <MainBoardPage />
             </Suspense>
           ),
         },
