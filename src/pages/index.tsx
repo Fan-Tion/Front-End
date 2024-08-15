@@ -19,3 +19,4 @@ export const EditorAuctionPage = lazy(() => import('./EditorAuctionPage'));
 export const SearchItemPage = lazy(() => import('./SearchItemPage'));
 export const CommunityPage = lazy (() => import('./CommunityPage'))
 export const AuctionModifyPage = lazy(() => import('./AuctionModifyPage'));
+export const CommunityListPage = lazy(() => import('./CommunityListPage'));

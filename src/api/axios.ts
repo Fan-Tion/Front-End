@@ -77,10 +77,17 @@ export async function uploadModifiedData<T>(
   data: Record<string, any>,
 ): Promise<T> {
   const formData = new FormData();
+
   Object.keys(data).forEach(key => {
     if (Array.isArray(data[key])) {
-      data[key].forEach((file: File) => {
-        formData.append(key, file);
+      data[key].forEach((item: string | File) => {
+        if (item instanceof File) {
+          // 파일인 경우 FormData에 추가
+          formData.append(key, item);
+        } else {
+          // 문자열인 경우 해당 key에 맞춰 추가
+          formData.append(key, item); // URL의 경우 다른 key로 처리하거나 구분할 필요가 있음
+        }
       });
     } else {
       formData.append(key, data[key]);

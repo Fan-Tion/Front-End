@@ -9,6 +9,7 @@ import {
   AuctionHistoryPage,
   CommunityPage,
   AuctionModifyPage,
+  CommunityListPage,
   DepositHistoryPage,
   DetailPage,
   EditorAuctionPage,
@@ -172,6 +173,11 @@ export default function Routes() {
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <CommunityPage />
+          path: 'community-list',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <CommunityListPage />
+
             </Suspense>
           ),
         },

@@ -1,8 +1,8 @@
-import { useFormHandler } from '@hooks/useFormHandler';
 import { useModalHandler } from '@hooks/useModalHandler';
+import { useModifyFormHandler } from '@hooks/useModifyFormHandler';
 import Modal from '@utils/Modal';
 import { lazy, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { GlobalButton } from '../../styled-components/Globalstyle';
 
@@ -88,6 +88,9 @@ const NullImage = styled.div`
   cursor: pointer;
 `;
 export default function AuctionModifyPageComponents() {
+  const { auctionId } = useParams<{ auctionId: string }>();
+  const location = useLocation();
+  const { auctionDetails } = location.state;
   const {
     formData,
     setFormData,
@@ -96,10 +99,7 @@ export default function AuctionModifyPageComponents() {
     handleFilesChange,
     buttonDisable,
     editorRef,
-  } = useFormHandler();
-
-  const location = useLocation();
-  const { auctionDetails } = location.state;
+  } = useModifyFormHandler(auctionId, auctionDetails.auctionImage);
 
   const { isModalOpen, toggleModal } = useModalHandler();
   const navigate = useNavigate();

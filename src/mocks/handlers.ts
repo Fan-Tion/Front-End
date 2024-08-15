@@ -159,6 +159,24 @@ export const handlers = [
 
     return HttpResponse.json(auctionDetails, { status: 201 });
   }),
+  // 경매 수정
+  http.put(`${API_BASE_URL}/auction/:auctionId`, async ({ request }) => {
+    const auctionInfo = (await request.json()) as auctionDetailsType;
+
+    if (!auctionInfo) return HttpResponse.json(auctionInfo, { status: 401 });
+
+    // auctionUserRating 필드 추가
+    const auctionDetails = {
+      data: {
+        ...auctionInfo,
+        auctionUserRating: 10,
+      },
+    };
+
+    auctions.set(`${new Date()}`, auctionDetails);
+
+    return HttpResponse.json(auctionDetails, { status: 201 });
+  }),
 
   // 예치금 입출금 내역 요청
   http.get(

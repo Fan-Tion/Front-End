@@ -1,9 +1,10 @@
 import { categoryApi } from '@api/popularcategory';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   CategoryBox,
   PopBox,
+  ScrollButton,
   Text,
   Wrap,
 } from '../../styled-components/HomePageStyle';
@@ -45,6 +46,7 @@ export default function PopularCategory() {
   const [showAll] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -69,11 +71,36 @@ export default function PopularCategory() {
       `/auction/search?searchOption=CATEGORY&categoryOption=${categoryTitle}&keyword=&page=0`,
     );
   };
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 122, behavior: 'smooth' });
+    }
+  };
 
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -122, behavior: 'smooth' });
+    }
+  };
   return (
     <Wrap>
       <CategoryBox $bgColor="white">
-        <PopBox>
+        <ScrollButton onClick={scrollLeft}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 19.5 8.25 12l7.5-7.5"
+            />
+          </svg>
+        </ScrollButton>{' '}
+        <PopBox ref={scrollRef}>
           {(showAll ? categories : categories.slice(0, 5)).map(category => (
             <CategoryCard
               key={category.title}
@@ -86,6 +113,22 @@ export default function PopularCategory() {
             />
           ))}
         </PopBox>
+        <ScrollButton onClick={scrollRight}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </ScrollButton>{' '}
+        {/* 오른쪽 이동 버튼 */}
         {error && (
           <Text $fontSize="16px" $fontColor="red">
             {error}
