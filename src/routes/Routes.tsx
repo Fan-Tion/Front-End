@@ -10,6 +10,7 @@ import {
   AuctionHistoryPage,
   AuctionModifyPage,
   CommunityListPage,
+  CommunityPage,
   DepositHistoryPage,
   DetailPage,
   EditorAuctionPage,
@@ -18,6 +19,7 @@ import {
   FindPasswordPage,
   HomePage,
   LoadingScreenPage,
+  MainBoardPage,
   MyPage,
   PasswordResetPage,
   PopularCategoryPage,
@@ -26,8 +28,6 @@ import {
   SignUpPage,
   SuccessPage,
 } from '../pages';
-
-// const Loader = () => <div>Loading...</div>;
 
 export default function Routes() {
   const router = createBrowserRouter([
@@ -169,10 +169,26 @@ export default function Routes() {
           ),
         },
         {
+          path: 'community',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <CommunityPage />
+            </Suspense>
+          ),
+        },
+        {
           path: 'community-list',
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <CommunityListPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'community/channels/:channelId',
+          element: (
+            <Suspense fallback={<LoadingScreenPage />}>
+              <MainBoardPage />
             </Suspense>
           ),
         },

@@ -15,6 +15,19 @@ interface CategoryType {
   category: string;
 }
 
+const categoryName: { [key: string]: string } = {
+  ACCESSORIES: '액세서리',
+  ALBUM: '앨범',
+  ALL: '전체',
+  CLOTHES: '의류',
+  FIGURE: '피규어',
+  GAME: '게임',
+  OTHER: '기타',
+  PHOTO_CARD: '포토카드',
+  POSTER: '포스터',
+  SIGN: '싸인',
+};
+
 const categoryImages: { [key: string]: string } = {
   ACCESSORIES: '/img/CategoryImg/ACCESSORIES.png',
   ALBUM: '/img/CategoryImg/ALBUM.png',
@@ -91,7 +104,7 @@ export default function PopularCategory() {
           {(showAll ? categories : categories.slice(0, 5)).map(category => (
             <CategoryCard
               key={category.title}
-              title={category.title}
+              title={categoryName[category.title] || category.title}
               imageSrc={
                 categoryImages[category.title] ||
                 'https://via.placeholder.com/300'
