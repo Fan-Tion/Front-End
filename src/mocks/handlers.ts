@@ -18,6 +18,7 @@ import {
   RechargeFail,
   searchList,
   SellHistory,
+  testImageUrl,
   tradeList,
 } from './db';
 interface PaymentSuccessRequest {
@@ -388,6 +389,12 @@ export const handlers = [
         totalPages: searchList.data.totalPages,
         content: paginatedList,
       },
+    });
+  }),
+  //게시글이미지업로드
+  http.post(`${API_BASE_URL}/community/:communityId/image`, async () => {
+    return HttpResponse.json({
+      data: { url: testImageUrl.data.url },
     });
   }),
 ];

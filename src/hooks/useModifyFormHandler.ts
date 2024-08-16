@@ -91,18 +91,28 @@ export const useModifyFormHandler = (
       const description = editorInstance ? editorInstance.getHTML() : '';
 
       const jsonPayload = {
-        ...formData,
+        title: formData.title,
+        currentBidPrice: formData.currentBidPrice,
+        buyNowPrice: formData.buyNowPrice,
+        endDate: formData.endDate,
+        auctionType: formData.auctionType,
+        category: formData.category,
         description,
       };
 
-      const data = {
-        request: new Blob([JSON.stringify(jsonPayload)], {
-          type: 'application/json',
-        }),
-        auctionImage: formData.auctionImage?.length
-          ? formData.auctionImage
-          : initialImages, // auctionImage가 없으면 초기 이미지로 설정
-      };
+      const data = new FormData();
+      data.append(
+        'request',
+        new Blob([JSON.stringify(jsonPayload)], { type: 'application/json' }),
+      );
+
+      formData.auctionImage?.forEach((item, index) => {
+        const type = typeof item === 'string' ? 'url' : 'file';
+        const value = typeof item === 'string' ? item : item;
+
+        data.append(`auctionImage[${index}].type`, type);
+        data.append(`auctionImage[${index}].value`, value);
+      });
 
       if (!auctionId) {
         console.error('auctionId가 정의되지 않았습니다.');
@@ -121,7 +131,7 @@ export const useModifyFormHandler = (
         setButtonDisable(false);
       }
     },
-    [formData, auctionId, initialImages],
+    [formData, auctionId],
   );
 
   const numberFormat = new Intl.NumberFormat();

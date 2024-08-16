@@ -437,3 +437,8 @@ export const searchList = {
     })),
   },
 };
+export const testImageUrl = {
+  data: {
+    url: '/public/img/digimon.jpg',
+  },
+};

@@ -1,5 +1,5 @@
 import CommunityListComponents from '@components/CommunityListComponents';
 
-export default function AuctionModifyPage() {
+export default function CommunityListPage() {
   return <CommunityListComponents />;
 }
