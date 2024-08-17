@@ -8,16 +8,18 @@ import SocialLink from './SocialLink';
 
 const Wrapper = styled.div`
   display: flex;
-  width: 100%;
+  width: 1200px;
   height: 100%;
+  margin: 0 auto;
 `;
 const ColumnWrap = styled.div`
   display: flex;
   align-items: center;
-  width: 1800px;
+  // width: 1000px;
   flex-direction: column;
-  gap: 100px;
+  gap: 40px;
   margin-top: 40px;
+  margin-left: 50px;
 `;
 const PasswordEditButton = styled.button`
   width: 350px;

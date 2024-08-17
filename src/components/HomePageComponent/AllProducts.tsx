@@ -14,6 +14,7 @@ import ScrollButton from './ScrollButton';
 
 const Grid = styled.div`
   display: grid;
+  min-height: 650px;
   grid-template-columns: repeat(
     4,
     minmax(250px, 1fr)
