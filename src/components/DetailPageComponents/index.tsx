@@ -88,20 +88,27 @@ const ReportButton = styled.button`
 
 const EditButton = styled(GlobalButton)`
   font-size: 16px;
+  background-color: #4fd66e;
+  color: #222;
+  font-weight: 600;
+  &:hover {
+    color: #eee;
+    background-color: #3fa959;
+  }
 `;
 
 const DeleteButton = styled(GlobalButton)`
   align-items: center;
-  background-color: #ffaaaa;
-  border: 1px solid #ffaaaa;
+  background-color: #e8e9ec;
+
   cursor: pointer;
   font-size: 16px;
-  color: #eee;
+  font-weight: 600;
+  color: #222;
 
   &:hover {
     color: #eee;
     background-color: #ff6666;
-    border: 1px solid #ff6666;
   }
 `;
 
@@ -277,16 +284,6 @@ export default function DetailPageComponents() {
       <Functions>
         {isLoggedIn && <SteamedButton auctionId={auctionId} />}
         <OwnerDiv>
-          <EditButton
-            type="button"
-            onClick={() =>
-              navigate(`/auction/modify/${auctionId}`, {
-                state: { auctionDetails },
-              })
-            }
-          >
-            경매 수정
-          </EditButton>
           {auctionDetails.auctionUserNickname === nickname && (
             <>
               <EditButton

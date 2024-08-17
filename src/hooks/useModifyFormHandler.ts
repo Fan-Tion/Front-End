@@ -90,6 +90,7 @@ export const useModifyFormHandler = (
       const editorInstance = editorRef.current?.getInstance();
       const description = editorInstance ? editorInstance.getHTML() : '';
 
+      // JSON payload 준비
       const jsonPayload = {
         title: formData.title,
         currentBidPrice: formData.currentBidPrice,
@@ -100,19 +101,11 @@ export const useModifyFormHandler = (
         description,
       };
 
-      const data = new FormData();
-      data.append(
-        'request',
-        new Blob([JSON.stringify(jsonPayload)], { type: 'application/json' }),
-      );
-
-      formData.auctionImage?.forEach((item, index) => {
-        const type = typeof item === 'string' ? 'url' : 'file';
-        const value = typeof item === 'string' ? item : item;
-
-        data.append(`auctionImage[${index}].type`, type);
-        data.append(`auctionImage[${index}].value`, value);
-      });
+      // `uploadModifiedData` 함수에 전달할 데이터 구성
+      const data = {
+        request: jsonPayload,
+        auctionImage: formData.auctionImage,
+      };
 
       if (!auctionId) {
         console.error('auctionId가 정의되지 않았습니다.');

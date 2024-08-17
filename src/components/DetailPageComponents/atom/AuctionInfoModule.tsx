@@ -10,7 +10,7 @@ import { GlobalButton } from '../../../styled-components/Globalstyle';
 
 // styles
 const InfoContainer = styled.div`
-  width: 100%;
+  width: 634px;
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 16px;
@@ -57,20 +57,28 @@ const HighlightedValue = styled(Value)`
 const BuyNowButton = styled(GlobalButton)`
   width: 200px;
   align-self: center;
-  border-radius: 10px;
-  font-size: 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #e8e9ec;
+  &:hover {
+    background-color: #007bff;
+    color: #eee;
+  }
 `;
 
 const BidButton = styled(GlobalButton)`
   width: 100%;
-  background-color: #ffd4d4;
-  border-radius: 10px;
-  font-size: 20px;
+  background-color: #4fd66e;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
   &:hover {
-    background-color: #ffb3b3;
+    background-color: #3fa959;
+    color: #eee;
   }
   &:active {
-    background-color: #ffa1a1;
+    background-color: #3fa959;
   }
 `;
 

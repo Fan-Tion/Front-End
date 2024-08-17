@@ -80,15 +80,23 @@ export async function uploadModifiedData<T>(
 
   Object.keys(data).forEach(key => {
     if (Array.isArray(data[key])) {
-      data[key].forEach((item: string | File) => {
+      data[key].forEach((item: string | File, index: number) => {
         if (item instanceof File) {
           // 파일인 경우 FormData에 추가
-          formData.append(key, item);
+          formData.append(`${key}[${index}].type`, 'file');
+          formData.append(`${key}[${index}].value`, item);
         } else {
-          // 문자열인 경우 해당 key에 맞춰 추가
-          formData.append(key, item); // URL의 경우 다른 key로 처리하거나 구분할 필요가 있음
+          // 문자열인 경우 URL로 처리
+          formData.append(`${key}[${index}].type`, 'url');
+          formData.append(`${key}[${index}].value`, item);
         }
       });
+    } else if (key === 'request') {
+      // JSON payload를 'request'라는 key에 추가
+      formData.append(
+        key,
+        new Blob([JSON.stringify(data[key])], { type: 'application/json' }),
+      );
     } else {
       formData.append(key, data[key]);
     }
