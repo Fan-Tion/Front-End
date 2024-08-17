@@ -8,6 +8,10 @@ import {
   BoarderCell,
   ChannelTitle,
   PageContainer,
+  ChannelWrap,
+  ChannelDescription,
+  ChannelImage,
+  ChannelItemContainer,
 } from '../../styled-components/CommunityStyle';
 
 interface Board {
@@ -16,8 +20,13 @@ interface Board {
 }
 
 interface Channel {
-  id: number;
+  channelId: number;
+  organizer: string;
   title: string;
+  description: string;
+  status: string;
+  createDate: string;
+  image: string | null;
   boards: Board[];
 }
 
@@ -44,7 +53,13 @@ export default function BoardPage() {
 
   return (
     <PageContainer>
+      <ChannelWrap>
+      {channel.image && <ChannelImage src={channel.image} alt={channel.title} />}
+      <ChannelItemContainer>
       <ChannelTitle>{channel.title}</ChannelTitle>
+      <ChannelDescription>{channel.description}</ChannelDescription>
+      </ChannelItemContainer>
+      </ChannelWrap>
       <BoardListContainer>
         <BoardListHeader>
           <BoarderCell>번호</BoarderCell>

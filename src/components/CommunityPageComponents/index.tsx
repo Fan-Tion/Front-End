@@ -5,6 +5,7 @@ import {
   ContentWrapper,
 } from '../../styled-components/CommunityStyle';
 import ChannelList from './ChannelList';
+import AllChannelList from './AllChannelList';
 
 interface Board {
   id: number;
@@ -12,8 +13,13 @@ interface Board {
 }
 
 interface Channel {
-  id: number;
+  channelId: number;
+  organizer: string;
   title: string;
+  description: string;
+  status: string;
+  createDate: string;
+  image: string | null;
   boards: Board[];
 }
 
@@ -26,7 +32,6 @@ export default function CommunityComponents() {
         const response = await communityApi.getChannels();
 
         setChannels(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error('index에러', error);
       }
@@ -36,6 +41,7 @@ export default function CommunityComponents() {
 
   return (
     <Container>
+      <AllChannelList/>
       <ContentWrapper>
         <ChannelList channels={channels} />
       </ContentWrapper>

@@ -14,8 +14,13 @@ interface Board {
 }
 
 interface Channel {
-  id: number;
+  channelId: number;
+  organizer: string;
   title: string;
+  description: string;
+  status: string;
+  createDate: string;
+  image: string | null;
   boards: Board[];
 }
 
@@ -33,8 +38,8 @@ export default function ChannelList({ channels }: ChannelListProps) {
   return (
     <>
       {channels.map(channel => (
-        <ChannelSection key={channel.id}>
-          <TitleWrap onClick={() => handleCannelClick(channel.id)}>
+        <ChannelSection key={channel.channelId}>
+          <TitleWrap onClick={() => handleCannelClick(channel.channelId)}>
             <SectionTitle>{channel.title}</SectionTitle>
             <ArrowIcon />
           </TitleWrap>

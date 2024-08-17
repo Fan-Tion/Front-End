@@ -83,16 +83,43 @@ export const PageContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 `;
+
+export const ChannelWrap = styled.div`
+  display: flex;
+ justify-content : center;
+  align-items: center;
+  width: 100%;
+  border-bottom: 2px solid #4fd66e;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+`
+export const ChannelImage = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 20px;
+`;
+
+export const ChannelItemContainer = styled.div`
+`
+
 export const ChannelTitle = styled.h1`
   font-size: 32px;
   font-weight: bold;
   color: #333;
-  margin-bottom: 30px;
-  border-bottom: 2px solid #4fd66e;
+  margin-bottom: 10px;
   padding-bottom: 10px;
   text-align: center;
   width: 100%;
 `;
+
+export const ChannelDescription = styled.h2`
+  font-size : 20px;
+  margin-bottom: 10px;
+  
+  
+`
 
 export const BoardListContainer = styled.div`
   width: 100%;
