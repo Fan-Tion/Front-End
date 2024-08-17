@@ -1,17 +1,22 @@
 import { communityApi } from '@api/community';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import SearchIcon from '../../icons/SearchIcon';
 import {
   BoardListContainer,
   BoardListHeader,
   BoardListItem,
   BoarderCell,
-  ChannelTitle,
-  PageContainer,
-  ChannelWrap,
+  BottomWrap,
   ChannelDescription,
   ChannelImage,
   ChannelItemContainer,
+  ChannelTitle,
+  ChannelWrap,
+  ComSearchButton,
+  ComSearchInput,
+  PageContainer,
+  Wrap,
 } from '../../styled-components/CommunityStyle';
 
 interface Board {
@@ -52,34 +57,44 @@ export default function BoardPage() {
   }
 
   return (
-    <PageContainer>
-      <ChannelWrap>
-      {channel.image && <ChannelImage src={channel.image} alt={channel.title} />}
-      <ChannelItemContainer>
-      <ChannelTitle>{channel.title}</ChannelTitle>
-      <ChannelDescription>{channel.description}</ChannelDescription>
-      </ChannelItemContainer>
-      </ChannelWrap>
-      <BoardListContainer>
-        <BoardListHeader>
-          <BoarderCell>번호</BoarderCell>
-          <BoarderCell>제목</BoarderCell>
-          <BoarderCell>작성자</BoarderCell>
-          <BoarderCell>작성일</BoarderCell>
-          <BoarderCell>조회수</BoarderCell>
-          <BoarderCell>추천</BoarderCell>
-        </BoardListHeader>
-        {channel.boards.map(board => (
-          <BoardListItem key={board.id}>
-            <BoarderCell>{board.id}</BoarderCell>
-            <BoarderCell>{board.title}</BoarderCell>
+    <Wrap>
+      <PageContainer>
+        <ChannelWrap>
+          {channel.image && (
+            <ChannelImage src={channel.image} alt={channel.title} />
+          )}
+          <ChannelItemContainer>
+            <ChannelTitle>{channel.title}</ChannelTitle>
+            <ChannelDescription>{channel.description}</ChannelDescription>
+          </ChannelItemContainer>
+        </ChannelWrap>
+        <BoardListContainer>
+          <BoardListHeader>
+            <BoarderCell>번호</BoarderCell>
+            <BoarderCell>제목</BoarderCell>
             <BoarderCell>작성자</BoarderCell>
-            <BoarderCell>2024-08-15</BoarderCell>
-            <BoarderCell>123</BoarderCell>
-            <BoarderCell>10</BoarderCell>
-          </BoardListItem>
-        ))}
-      </BoardListContainer>
-    </PageContainer>
+            <BoarderCell>작성일</BoarderCell>
+            <BoarderCell>조회수</BoarderCell>
+            <BoarderCell>추천</BoarderCell>
+          </BoardListHeader>
+          {channel.boards.map(board => (
+            <BoardListItem key={board.id}>
+              <BoarderCell>{board.id}</BoarderCell>
+              <BoarderCell>{board.title}</BoarderCell>
+              <BoarderCell>작성자</BoarderCell>
+              <BoarderCell>2024-08-15</BoarderCell>
+              <BoarderCell>123</BoarderCell>
+              <BoarderCell>10</BoarderCell>
+            </BoardListItem>
+          ))}
+        </BoardListContainer>
+      </PageContainer>
+      <BottomWrap>
+        <ComSearchInput type="text" placeholder="검색" />
+        <ComSearchButton>
+          <SearchIcon />
+        </ComSearchButton>
+      </BottomWrap>
+    </Wrap>
   );
 }

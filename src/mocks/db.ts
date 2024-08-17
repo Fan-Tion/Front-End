@@ -444,7 +444,7 @@ export const ChannelData = {
     {
       channelId: 1,
       title: '자유 게시판 채널',
-      description: "테스트 채널 설명",
+      description: '테스트 채널 설명란',
       image: ['/img/mainLogo1.png'],
       boards: [
         { id: 1, title: '게시글 1' },
@@ -472,7 +472,7 @@ export const ChannelData = {
     {
       channelId: 2,
       title: '핫딜 채널',
-      description: "테스트 채널 설명",
+      description: '테스트 채널 설명란',
       image: null,
       boards: [
         { id: 1, title: '게시글 1' },
@@ -490,7 +490,7 @@ export const ChannelData = {
     {
       channelId: 3,
       title: '게임 정보 채널',
-      description: "테스트 채널 설명",
+      description: '테스트 채널 설명란',
       image: null,
       boards: [
         { id: 1, title: '게시글 1' },
@@ -508,7 +508,7 @@ export const ChannelData = {
     {
       channelId: 4,
       title: '아이돌 팬덤 채널',
-      description: "테스트 채널 설명",
+      description: '테스트 채널 설명란',
       image: null,
       boards: [
         { id: 1, title: '게시글 1' },
@@ -526,7 +526,7 @@ export const ChannelData = {
     {
       channelId: 5,
       title: '리그 오브 레전드 채널',
-      description: "테스트 채널 설명",
+      description: '테스트 채널 설명란',
       image: null,
       boards: [
         { id: 1, title: '게시글 1' },
@@ -544,7 +544,7 @@ export const ChannelData = {
     {
       channelId: 6,
       title: '메이플스토리 채널',
-      description: "테스트 채널 설명",
+      description: '테스트 채널 설명란',
       image: null,
       boards: [
         { id: 1, title: '게시글 1' },
@@ -562,7 +562,7 @@ export const ChannelData = {
     {
       channelId: 7,
       title: '유희왕 채널',
-      description: "테스트 채널 설명",
+      description: '테스트 채널 설명란',
       image: null,
       boards: [
         { id: 1, title: '게시글 1' },

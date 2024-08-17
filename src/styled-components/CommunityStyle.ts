@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+export const Wrap = styled.div`
+  width: 100%;
+  min-width: 1800px;
+  margin-top: 40px;
+`;
+
 export const Container = styled.div`
   width: 100%;
   max-width: 1400px;
@@ -76,8 +82,7 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 1400px;
+  width: 1400px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
@@ -86,13 +91,12 @@ export const PageContainer = styled.div`
 
 export const ChannelWrap = styled.div`
   display: flex;
- justify-content : center;
   align-items: center;
   width: 100%;
   border-bottom: 2px solid #4fd66e;
   padding-bottom: 20px;
   margin-bottom: 20px;
-`
+`;
 export const ChannelImage = styled.img`
   width: 100px;
   height: 100px;
@@ -101,8 +105,7 @@ export const ChannelImage = styled.img`
   margin-right: 20px;
 `;
 
-export const ChannelItemContainer = styled.div`
-`
+export const ChannelItemContainer = styled.div``;
 
 export const ChannelTitle = styled.h1`
   font-size: 32px;
@@ -115,11 +118,9 @@ export const ChannelTitle = styled.h1`
 `;
 
 export const ChannelDescription = styled.h2`
-  font-size : 20px;
+  font-size: 20px;
   margin-bottom: 10px;
-  
-  
-`
+`;
 
 export const BoardListContainer = styled.div`
   width: 100%;
@@ -156,5 +157,41 @@ export const BoardListItem = styled.div`
 
   &:last-child {
     border-bottom: none;
+  }
+`;
+
+export const BottomWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 1800px;
+  height: 100px;
+`;
+
+export const ComSearchInput = styled.input`
+  height: 45px;
+  width: 348px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  padding: 0 15px;
+  outline: none;
+  background-color: white;
+  border-radius: 25px 0 0 25px;
+  cursor: pointer;
+`;
+
+export const ComSearchButton = styled.button`
+  height: 45px;
+  padding: 0 15px;
+  background-color: white;
+  border: 1px solid #ced4da;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: #ced4da;
   }
 `;
