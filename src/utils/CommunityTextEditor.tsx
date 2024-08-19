@@ -2,11 +2,10 @@ import { communityApi } from '@api/community';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor, EditorProps } from '@toast-ui/react-editor';
-import { forwardRef, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 
 const CommunityTextEditor = forwardRef<Editor, EditorProps>(
   ({ initialValue, onPostIdChange, postId }, ref) => {
-    const [isInitial, setIsInitial] = useState(true);
     const currentPostIdRef = useRef<number | null>(postId || null);
 
     const toolbarItems = [
@@ -19,20 +18,19 @@ const CommunityTextEditor = forwardRef<Editor, EditorProps>(
 
     const language = 'ko-KR';
 
-    const handleFocus = () => {
-      if (isInitial && ref && typeof ref !== 'function' && ref.current) {
+    useEffect(() => {
+      if (ref && typeof ref !== 'function' && ref.current) {
         const editorInstance = ref.current.getInstance();
         const currentContent = editorInstance.getMarkdown();
 
         if (
-          currentContent.trim() ===
-          '부적절한 내용을 게시할 경우 불이익이 발생할 수 있습니다.'
+          currentContent.includes('편집하기') ||
+          currentContent.includes('미리보기')
         ) {
-          editorInstance.setMarkdown('');
-          setIsInitial(false);
+          editorInstance.setMarkdown(''); // 초기화
         }
       }
-    };
+    }, []);
 
     const handleImageUpload = async (
       blob: Blob,
@@ -91,7 +89,6 @@ const CommunityTextEditor = forwardRef<Editor, EditorProps>(
           hideModeSwitch={true}
           language={language}
           height="500px"
-          onFocus={handleFocus}
           hooks={{ addImageBlobHook: handleImageUpload }}
         />
       </div>

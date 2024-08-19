@@ -17,7 +17,7 @@ export interface formDataType {
 
 export const useModifyFormHandler = (
   auctionId: string | undefined,
-  initialImages: (string | File)[],
+  initialImages: string[],
 ) => {
   const [formData, setFormData] = useState<formDataType>({
     title: '',
@@ -25,7 +25,7 @@ export const useModifyFormHandler = (
     buyNowPrice: '',
     endDate: '',
     auctionType: false,
-    auctionImage: initialImages, // 초기 이미지로 설정
+    auctionImage: initialImages.length > 0 ? initialImages : [], // 초기 이미지로 설정
     category: '',
   });
   const [buttonDisable, setButtonDisable] = useState(false);
@@ -36,7 +36,7 @@ export const useModifyFormHandler = (
   useEffect(() => {
     setFormData(prevData => ({
       ...prevData,
-      auctionImage: initialImages,
+      auctionImage: initialImages.length > 0 ? initialImages : [], // 빈 배열로 초기화
     }));
   }, [initialImages]);
 
@@ -71,7 +71,7 @@ export const useModifyFormHandler = (
   const handleFilesChange = useCallback((files: (string | File)[]) => {
     setFormData(prevData => ({
       ...prevData,
-      auctionImage: files, // string과 File 모두 포함하여 상태에 저장
+      auctionImage: files.length > 0 ? files : prevData.auctionImage, // 빈 배열이 아닌 경우만 변경
     }));
   }, []);
 

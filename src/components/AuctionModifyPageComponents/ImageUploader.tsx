@@ -40,12 +40,12 @@ export default function ImageUploader({
   onMainImageChange,
   initialImages = [], // 기존 이미지들을 기본값으로 설정
 }: ImageUploaderProps) {
-  const [files, setFiles] = useState<Array<File | string>>(initialImages);
+  const [files, setFiles] = useState<Array<File | string>>([]);
 
   // 컴포넌트가 마운트될 때 기존 이미지를 초기화
   useEffect(() => {
     setFiles(initialImages);
-  }, [initialImages]);
+  }, []);
 
   // 파일이 드롭되었을 때 호출되는 콜백 함수
   const onDrop = useCallback((acceptedFiles: File[]) => {
