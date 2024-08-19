@@ -1,14 +1,14 @@
 import { communityApi } from '@api/community';
-import '@toast-ui/editor/dist/i18n/ko-kr'; // 툴바 한글로 표시하기 위한 모듈
+import '@toast-ui/editor/dist/i18n/ko-kr';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor, EditorProps } from '@toast-ui/react-editor';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useRef, useState } from 'react';
 
 const CommunityTextEditor = forwardRef<Editor, EditorProps>(
-  ({ initialValue }, ref) => {
-    const [isInitial, setIsInitial] = useState(true); // 초기 상태를 관리
+  ({ initialValue, onPostIdChange, postId }, ref) => {
+    const [isInitial, setIsInitial] = useState(true);
+    const currentPostIdRef = useRef<number | null>(postId || null);
 
-    // 이미지 업로드 기능을 사용하게 툴바에 이미지 버튼 추가
     const toolbarItems = [
       ['heading', 'bold', 'italic', 'strike'],
       ['hr', 'quote'],
@@ -22,31 +22,69 @@ const CommunityTextEditor = forwardRef<Editor, EditorProps>(
     const handleFocus = () => {
       if (isInitial && ref && typeof ref !== 'function' && ref.current) {
         const editorInstance = ref.current.getInstance();
-        const currentContent = editorInstance.getMarkdown(); // Markdown으로 내용을 가져옴
+        const currentContent = editorInstance.getMarkdown();
 
         if (
           currentContent.trim() ===
           '부적절한 내용을 게시할 경우 불이익이 발생할 수 있습니다.'
         ) {
-          editorInstance.setMarkdown(''); // 초기 값 지우기
-          setIsInitial(false); // 초기 상태를 false로 설정
+          editorInstance.setMarkdown('');
+          setIsInitial(false);
         }
       }
     };
 
+    const handleImageUpload = async (
+      blob: Blob,
+      callback: (url: string, text: string) => void,
+    ) => {
+      const formData = new FormData();
+      formData.append('file', blob);
+
+      try {
+        const channelId = 1;
+        let response;
+
+        if (currentPostIdRef.current === null) {
+          // 첫 번째 이미지 업로드: postId 없이 요청
+          response = await communityApi.uploadImage(formData, channelId, null);
+          const result = response.data;
+
+          if (result && result.postId) {
+            currentPostIdRef.current = result.postId; // useRef를 통해 postId 저장
+            if (onPostIdChange) onPostIdChange(result.postId);
+          }
+
+          if (result && result.imageUrl[0]) {
+            callback(result.imageUrl[0], 'alt text');
+          } else {
+            console.error('Invalid response structure:', result);
+          }
+        } else {
+          // 이후 이미지 업로드: postId를 쿼리 파라미터로 전달
+          response = await communityApi.uploadImage(
+            formData,
+            channelId,
+            currentPostIdRef.current,
+          );
+          const result = response.data;
+
+          if (result && result.imageUrl[0]) {
+            callback(result.imageUrl[0], 'alt text');
+          } else {
+            console.error('Invalid response structure:', result);
+          }
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    };
+
     return (
-      <div
-        style={{
-          width: '100%',
-          margin: '10px 0',
-        }}
-      >
+      <div style={{ width: '100%', margin: '10px 0' }}>
         <Editor
           ref={ref}
-          initialValue={
-            initialValue ||
-            '부적절한 내용을 게시할 경우 불이익이 발생할 수 있습니다.'
-          }
+          initialValue={initialValue || ''}
           initialEditType="wysiwyg"
           useCommandShortcut={true}
           toolbarItems={toolbarItems}
@@ -54,36 +92,7 @@ const CommunityTextEditor = forwardRef<Editor, EditorProps>(
           language={language}
           height="500px"
           onFocus={handleFocus}
-          hooks={{
-            addImageBlobHook: async (
-              blob: Blob, // blob 타입 명시
-              callback: (url: string, text: string) => void, // callback 타입 명시
-            ) => {
-              // 이미지 업로드 로직
-              const formData = new FormData();
-              formData.append('file', blob);
-
-              try {
-                const communityId = '1';
-                const response = await communityApi.uploadImage(
-                  formData,
-                  communityId,
-                );
-                const result = response.data;
-
-                console.log('Response:', response); // 전체 응답 객체를 출력
-                console.log('Response data:', result); // 응답 데이터 구조 확인
-
-                if (result && result.url) {
-                  callback(result.url, 'alt text');
-                } else {
-                  console.error('Invalid response structure:', result);
-                }
-              } catch (error) {
-                console.error('Error uploading image:', error);
-              }
-            },
-          }}
+          hooks={{ addImageBlobHook: handleImageUpload }}
         />
       </div>
     );

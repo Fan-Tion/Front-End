@@ -42,10 +42,7 @@ const TextEditor = forwardRef<Editor, EditorProps>(({ initialValue }, ref) => {
     >
       <Editor
         ref={ref}
-        initialValue={
-          initialValue ||
-          '부적절한 내용을 게시할 경우 불이익이 발생할 수 있습니다.'
-        }
+        initialValue={initialValue || ''}
         initialEditType="wysiwyg"
         useCommandShortcut={true}
         toolbarItems={toolbarItems}

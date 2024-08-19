@@ -24,7 +24,7 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`; //요청 헤더에 토큰 추가
     }
-    console.log('Request Config:', config);
+    // console.log('Request Config:', config);
     return config;
   },
   error => {
