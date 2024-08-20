@@ -1,7 +1,7 @@
 import { membersApi } from '@api/member';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../icons/SearchIcon';
 
@@ -184,11 +184,12 @@ const MypageWrap = styled.div`
 `;
 
 export default function LayoutHeader() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [cookies, , removeCookie] = useCookies(['Authorization']);
   const [keyword, setKeyword] = useState('');
   const [categoryOption, setCategoryOption] = useState('전체');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const categoryMappings: Record<string, string> = {
     전체: 'ALL',
@@ -225,6 +226,8 @@ export default function LayoutHeader() {
     );
     setKeyword('');
   };
+
+  const isCommunityPage = location.pathname.startsWith('/community');
 
   return (
     <Wrapper>
@@ -276,17 +279,31 @@ export default function LayoutHeader() {
               <SearchIcon size={22} color="#222" strokeWidth={1.5} />
             </SearchButton>
           </SearchBar>
-          {isLoggedIn ? (
-            <MypageWrap>
-              <ActionLink to="/mypage">마이페이지</ActionLink>
-              <ActionLink to="/auction/create">경매 등록</ActionLink>
-            </MypageWrap>
-          ) : (
-            <MypageWrap>
-              <ActionLink to="/signin">마이페이지</ActionLink>
-              <ActionLink to="/signin">경매 등록</ActionLink>
-            </MypageWrap>
-          )}
+          <MypageWrap>
+            {isLoggedIn ? (
+              <>
+                {isCommunityPage ? (
+                  <ActionLink to="community/channel/create">
+                    채널 생성
+                  </ActionLink>
+                ) : (
+                  <ActionLink to="/auction/create">경매 등록</ActionLink>
+                )}
+                <ActionLink to="/mypage">마이페이지</ActionLink>
+              </>
+            ) : (
+              <>
+                <ActionLink to="/signin">마이페이지</ActionLink>
+                {isCommunityPage ? (
+                  <ActionLink to="community/channel/create">
+                    채널 생성
+                  </ActionLink>
+                ) : (
+                  <ActionLink to="/signin">경매 등록</ActionLink>
+                )}
+              </>
+            )}
+          </MypageWrap>
         </BottomSection>
       </Container>
     </Wrapper>

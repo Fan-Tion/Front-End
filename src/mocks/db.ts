@@ -442,8 +442,10 @@ export const ChannelData = {
   message: '성공적으로 데이터를 가져왔습니다.',
   data: [
     {
-      id: 1,
+      channelId: 1,
       title: '자유 게시판 채널',
+      description: '테스트 채널 설명란',
+      image: ['/img/mainLogo1.png'],
       boards: [
         { id: 1, title: '게시글 1' },
         { id: 2, title: '게시글 2' },
@@ -468,8 +470,10 @@ export const ChannelData = {
       ],
     },
     {
-      id: 2,
+      channelId: 2,
       title: '핫딜 채널',
+      description: '테스트 채널 설명란',
+      image: null,
       boards: [
         { id: 1, title: '게시글 1' },
         { id: 2, title: '게시글 2' },
@@ -484,8 +488,10 @@ export const ChannelData = {
       ],
     },
     {
-      id: 3,
+      channelId: 3,
       title: '게임 정보 채널',
+      description: '테스트 채널 설명란',
+      image: null,
       boards: [
         { id: 1, title: '게시글 1' },
         { id: 2, title: '게시글 2' },
@@ -500,8 +506,10 @@ export const ChannelData = {
       ],
     },
     {
-      id: 4,
+      channelId: 4,
       title: '아이돌 팬덤 채널',
+      description: '테스트 채널 설명란',
+      image: null,
       boards: [
         { id: 1, title: '게시글 1' },
         { id: 2, title: '게시글 2' },
@@ -516,8 +524,10 @@ export const ChannelData = {
       ],
     },
     {
-      id: 5,
+      channelId: 5,
       title: '리그 오브 레전드 채널',
+      description: '테스트 채널 설명란',
+      image: null,
       boards: [
         { id: 1, title: '게시글 1' },
         { id: 2, title: '게시글 2' },
@@ -532,8 +542,10 @@ export const ChannelData = {
       ],
     },
     {
-      id: 6,
+      channelId: 6,
       title: '메이플스토리 채널',
+      description: '테스트 채널 설명란',
+      image: null,
       boards: [
         { id: 1, title: '게시글 1' },
         { id: 2, title: '게시글 2' },
@@ -548,8 +560,10 @@ export const ChannelData = {
       ],
     },
     {
-      id: 7,
+      channelId: 7,
       title: '유희왕 채널',
+      description: '테스트 채널 설명란',
+      image: null,
       boards: [
         { id: 1, title: '게시글 1' },
         { id: 2, title: '게시글 2' },
