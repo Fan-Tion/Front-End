@@ -396,7 +396,7 @@ export const handlers = [
     return HttpResponse.json(ChannelData);
   }),
   http.get(
-    `${API_BASE_URL}/community/channels/:channelId`,
+    `${API_BASE_URL}/community/:channelId`,
     async ({ params }) => {
       const channelId = Array.isArray(params.channelId)
         ? params.channelId[0]

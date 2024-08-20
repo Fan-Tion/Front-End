@@ -139,11 +139,11 @@ export default function ChannelCreatePageComponents() {
     if (!validateForm()) return;
 
     try {
-      const data = new FormData();
-      data.append('title', formData.title);
-      data.append('description', formData.description);
-      if (formData.image) {
-        data.append('file', formData.image);
+      const jsonChannelData = JSON.stringify(formData);
+      const request = new Blob([jsonChannelData], {type : 'application/json'});
+      const data = {
+        request: request,
+        file: formData.image
       }
        await communityApi.postChannel(data);
        

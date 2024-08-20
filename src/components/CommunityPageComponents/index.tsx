@@ -7,9 +7,16 @@ import {
 import ChannelList from './ChannelList';
 import AllChannelList from './AllChannelList';
 
-interface Board {
-  id: number;
+interface PostList {
+  postId: number;
+  channelName: string;
+  nickname: string;
   title: string;
+  content: string;
+  likeCnt: number;
+  viewCnt: number;
+  createDate: string;
+  status: string;
 }
 
 interface Channel {
@@ -20,7 +27,7 @@ interface Channel {
   status: string;
   createDate: string;
   image: string | null;
-  boards: Board[];
+  postList: PostList[];
 }
 
 export default function CommunityComponents() {
@@ -30,7 +37,6 @@ export default function CommunityComponents() {
     async function fetchChannels() {
       try {
         const response = await communityApi.getChannels();
-
         setChannels(response.data);
       } catch (error) {
         console.error('index에러', error);

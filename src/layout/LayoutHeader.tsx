@@ -1,5 +1,5 @@
 import { membersApi } from '@api/member';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -204,9 +204,9 @@ export default function LayoutHeader() {
   };
   const categories = Object.keys(categoryMappings);
 
-  // useEffect(() => {
-  //   setIsLoggedIn(!!cookies.Authorization);
-  // }, [cookies]);
+  useEffect(() => {
+    setIsLoggedIn(!!cookies.Authorization);
+  }, [cookies]);
 
   const handleLogout = async () => {
     try {

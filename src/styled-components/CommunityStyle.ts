@@ -128,8 +128,9 @@ export const BoardListContainer = styled.div`
 
 export const BoardListHeader = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr 150px 120px 80px 80px;
+  grid-template-columns: 50px 1fr 150px 200px 80px 80px;
   padding: 10px 20px;
+
   background-color: #e8e9ec;
   border-bottom: 2px solid #e8e9ec;
   font-weight: bold;
@@ -141,7 +142,8 @@ export const BoarderCell = styled.div`
 
 export const BoardListItem = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr 150px 120px 80px 80px;
+  
+  grid-template-columns: 50px 1fr 150px 200px 80px 80px;
   padding: 15px 20px;
   background-color: #fff;
   border-bottom: 1px solid #e8e9ec;
@@ -168,6 +170,35 @@ export const BottomWrap = styled.div`
   min-width: 1800px;
   height: 100px;
 `;
+export const CustomSelectWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    content: '▼';
+    font-size: 12px;
+    color: #222;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+`;
+
+
+export const CategorySelect = styled.select`
+  width : 150px;
+  height: 45px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  padding: 0 15px;
+  border-radius: 25px 0 0 25px;
+  outline: none;
+  appearance: none;
+  background-color: white;
+  cursor: pointer;
+`;
 
 export const ComSearchInput = styled.input`
   height: 45px;
@@ -177,7 +208,6 @@ export const ComSearchInput = styled.input`
   padding: 0 15px;
   outline: none;
   background-color: white;
-  border-radius: 25px 0 0 25px;
   cursor: pointer;
 `;
 

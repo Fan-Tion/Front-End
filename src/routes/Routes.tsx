@@ -1,3 +1,4 @@
+import React from 'react';
 import LoadingScreen from '@components/LoadingScreen';
 import NaverLoginCallback from '@components/NaverComponent/NaverLoginCallback';
 import ProtectedRoute from '@components/ProtectedRoute';
@@ -185,7 +186,7 @@ export default function Routes() {
           ),
         },
         {
-          path: 'community/channels/:channelId',
+          path: 'community/:channelId',
           element: (
             <Suspense fallback={<LoadingScreenPage />}>
               <MainBoardPage />
