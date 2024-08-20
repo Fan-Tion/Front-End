@@ -200,7 +200,10 @@ export default function Routes() {
           element: (
             <Suspense fallback={<LoadingScreenPage />}>
               <ChannelCreatePage />
-
+            </Suspense>
+          ),
+        },
+        {
           path: 'community/:channelId/new',
           element: (
             <Suspense fallback={<LoadingScreen />}>
