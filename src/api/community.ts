@@ -1,6 +1,18 @@
 import { axiosInstance, uploadMultipartData } from './axios';
 
 export const communityApi = {
+  post: (payload: any, channelId: number) =>
+    axiosInstance.post(`/community/${channelId}/post`, payload),
+  uploadImage: (payload: any, channelId: number, postId: number | null) =>
+    axiosInstance.post(`/community/${channelId}/image`, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      params: {
+        postId: postId, // postId를 쿼리 파라미터로 포함
+      },
+    }),
+
   getChannels: async () => {
     return axiosInstance.get('/community/channel/random');
   },
@@ -24,4 +36,12 @@ export const communityApi = {
       },
     });
   },
+  getPosts: (communityId: number, postId: number) =>
+    axiosInstance.get(`/community/${communityId}/post/${postId}`),
+
+  modifyPosts: (payload: any, channelId: number, postId: number) =>
+    axiosInstance.put(`/community/${channelId}/post/${postId}`, payload),
+  deletePosts: (channelId: number, postId: number) =>
+    axiosInstance.delete(`/community/${channelId}/post/${postId}`),
+  getAllChannels: () => axiosInstance.get('/community/channel/all'),
 };

@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   padding: 0px;
-  min-height: 100vh;
 `;
 
 const Grid = styled.div`

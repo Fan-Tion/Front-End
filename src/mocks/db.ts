@@ -579,3 +579,8 @@ export const ChannelData = {
     },
   ],
 };
+export const testImageUrl = {
+  data: {
+    url: '/public/img/digimon.jpg',
+  },
+};

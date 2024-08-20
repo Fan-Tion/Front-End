@@ -22,3 +22,6 @@ export const MainBoardPage = lazy(() => import('./MainBoardPage'));
 export const AuctionModifyPage = lazy(() => import('./AuctionModifyPage'));
 export const CommunityListPage = lazy(() => import('./CommunityListPage'));
 export const ChannelCreatePage = lazy(() => import('./ChannelCreatePage'));
+export const CommunityPostPage = lazy(() => import('./CommunityPostPage'));
+export const PostDetailPage = lazy(() => import('./PostDetailPage'));
+export const ModifyPostPage = lazy(() => import('./ModifyPostPage'));

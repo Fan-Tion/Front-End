@@ -17,7 +17,7 @@ export interface formDataType {
 
 export const useModifyFormHandler = (
   auctionId: string | undefined,
-  initialImages: (string | File)[],
+  initialImages: string[],
 ) => {
   const [formData, setFormData] = useState<formDataType>({
     title: '',
@@ -25,7 +25,7 @@ export const useModifyFormHandler = (
     buyNowPrice: '',
     endDate: '',
     auctionType: false,
-    auctionImage: initialImages, // 초기 이미지로 설정
+    auctionImage: initialImages.length > 0 ? initialImages : [], // 초기 이미지로 설정
     category: '',
   });
   const [buttonDisable, setButtonDisable] = useState(false);
@@ -36,7 +36,7 @@ export const useModifyFormHandler = (
   useEffect(() => {
     setFormData(prevData => ({
       ...prevData,
-      auctionImage: initialImages,
+      auctionImage: initialImages.length > 0 ? initialImages : [], // 빈 배열로 초기화
     }));
   }, [initialImages]);
 
@@ -71,7 +71,7 @@ export const useModifyFormHandler = (
   const handleFilesChange = useCallback((files: (string | File)[]) => {
     setFormData(prevData => ({
       ...prevData,
-      auctionImage: files, // string과 File 모두 포함하여 상태에 저장
+      auctionImage: files.length > 0 ? files : prevData.auctionImage, // 빈 배열이 아닌 경우만 변경
     }));
   }, []);
 
@@ -90,18 +90,21 @@ export const useModifyFormHandler = (
       const editorInstance = editorRef.current?.getInstance();
       const description = editorInstance ? editorInstance.getHTML() : '';
 
+      // JSON payload 준비
       const jsonPayload = {
-        ...formData,
+        title: formData.title,
+        currentBidPrice: formData.currentBidPrice,
+        buyNowPrice: formData.buyNowPrice,
+        endDate: formData.endDate,
+        auctionType: formData.auctionType,
+        category: formData.category,
         description,
       };
 
+      // `uploadModifiedData` 함수에 전달할 데이터 구성
       const data = {
-        request: new Blob([JSON.stringify(jsonPayload)], {
-          type: 'application/json',
-        }),
-        auctionImage: formData.auctionImage?.length
-          ? formData.auctionImage
-          : initialImages, // auctionImage가 없으면 초기 이미지로 설정
+        request: jsonPayload,
+        auctionImage: formData.auctionImage,
       };
 
       if (!auctionId) {
@@ -121,7 +124,7 @@ export const useModifyFormHandler = (
         setButtonDisable(false);
       }
     },
-    [formData, auctionId, initialImages],
+    [formData, auctionId],
   );
 
   const numberFormat = new Intl.NumberFormat();

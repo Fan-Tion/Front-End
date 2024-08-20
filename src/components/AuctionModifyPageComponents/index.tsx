@@ -163,10 +163,7 @@ export default function AuctionModifyPageComponents() {
         </Row>
         <TextEditor
           ref={editorRef}
-          initialValue={
-            auctionDetails.description ||
-            '부적절한 내용을 게시할 경우 불이익이 발생할 수 있습니다.'
-          }
+          initialValue={auctionDetails.description || ''}
         />
         <ButtonArea>
           <Button type="submit" disabled={buttonDisable}>

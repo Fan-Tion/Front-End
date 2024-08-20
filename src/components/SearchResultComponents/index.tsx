@@ -5,9 +5,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  min-height: 100vh;
-`;
+const Wrapper = styled.div``;
 
 const Title = styled.h1`
   font-size: 20px;
