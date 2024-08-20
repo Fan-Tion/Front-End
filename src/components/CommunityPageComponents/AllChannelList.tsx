@@ -27,7 +27,7 @@ export default function AllChannelList() {
   const navigate = useNavigate();
 
   const handleAllChannel = () => {
-    navigate('/community-list')
+    navigate('/community/all')
   }
 
   return(
