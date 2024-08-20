@@ -13,10 +13,7 @@ const Wrapper = styled.div`
   text-align: center;
   align-items: center;
   border-right: 2px solid #e8e9ec;
-  width: 300px;
-  min-width: 240px;
   gap: 20px;
-  margin-left: 200px;
 `;
 
 const Title = styled.h1`
@@ -33,7 +30,6 @@ const AvatarUpload = styled.label`
   overflow: hidden;
   height: 100px;
   border-radius: 50%;
-
   cursor: pointer;
 `;
 const AvatarImg = styled.img`
@@ -97,7 +93,7 @@ const Available = styled.div`
   margin-right: 5px;
   font-weight: bold;
   line-height: 36px;
-  width: 300px;
+  width: 200px;
   height: 40px;
   font-size: 16px;
   color: #222;

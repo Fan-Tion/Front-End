@@ -1,4 +1,23 @@
+import { communityApi } from '@api/community';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+// 먼저 데이터 구조에 맞는 타입을 정의합니다.
+interface Channel {
+  channelId: number;
+  organizer: string;
+  title: string;
+  description: string;
+  image: string | null;
+  status: string;
+  createDate: string;
+  postList: any | null;
+}
+
+interface ChannelGroup {
+  character: string;
+  channelList: Channel[];
+}
 
 const Container = styled.div`
   margin: 30px auto;
@@ -9,6 +28,8 @@ const Container = styled.div`
 
 const ListCategory = styled.div`
   margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
 `;
 
 const List = styled.ul`
@@ -27,6 +48,9 @@ const ListItem = styled.li`
   border: 2px solid #e8e9ec;
   box-sizing: border-box;
   cursor: pointer;
+  &:hover {
+    border: 2px solid #4fd66e;
+  }
 `;
 
 const Title = styled.div`
@@ -41,14 +65,14 @@ const Title = styled.div`
 const Intro = styled.div`
   font-size: 14px;
   margin-top: 10px;
-  height: 42px; // 높이를 2줄 텍스트에 맞게 조정
+  height: 42px;
   display: -webkit-box;
-  -webkit-line-clamp: 2; // 2줄까지만 표시
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2em; // 줄 간격 조정
-  max-height: 2.4em; // 2줄에 해당하는 최대 높이 설정
+  line-height: 1.2em;
+  max-height: 2.4em;
 `;
 
 const Arrow = styled.button`
@@ -67,399 +91,106 @@ const Arrow = styled.button`
     height: 24px;
   }
 `;
+
 const Divider = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
+const consonantOrder = [
+  'ㄱ',
+  'ㄴ',
+  'ㄷ',
+  'ㄹ',
+  'ㅁ',
+  'ㅂ',
+  'ㅅ',
+  'ㅇ',
+  'ㅈ',
+  'ㅊ',
+  'ㅋ',
+  'ㅌ',
+  'ㅍ',
+  'ㅎ',
+];
+
+function convertToHangulJamo(character: string): string {
+  const compatibilityJamo = 'ᄀᄂᄃᄅᄆᄇᄉᄋᄌᄎᄏᄐᄑᄒ';
+  const hangulJamo = 'ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ';
+
+  const index = compatibilityJamo.indexOf(character);
+  return index !== -1 ? hangulJamo[index] : character;
+}
+
 export default function CommunityList() {
+  const [data, setData] = useState<ChannelGroup[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const allChannels = async () => {
+      try {
+        const response = await communityApi.getAllChannels();
+
+        // 자음 변환 및 정렬
+        const sortedData = response.data
+          .map((group: ChannelGroup) => ({
+            ...group,
+            character: convertToHangulJamo(group.character),
+          }))
+          .sort((a: ChannelGroup, b: ChannelGroup) => {
+            return (
+              consonantOrder.indexOf(a.character) -
+              consonantOrder.indexOf(b.character)
+            );
+          });
+
+        setData(sortedData);
+      } catch (error) {
+        console.error('Failed to fetch channels:', error);
+      }
+    };
+    allChannels();
+  }, []);
+
   return (
     <Container>
-      <ListCategory>ㄱ으로 시작하는</ListCategory>
-      <List>
-        <ListItem>
-          <Divider>
-            <Title>강철의 연금술사 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
+      {data.map(group => (
+        <div key={group.character}>
+          <ListCategory>"{group.character}"</ListCategory>
+          <List>
+            {group.channelList.map(channel => (
+              <ListItem
+                key={channel.channelId}
+                onClick={() =>
+                  navigate(`community/channels/${channel.channelId}`)
+                }
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>
-            강철의 연금술사 토론 게시판 강철의 연금술사 토론 게시판 강철의
-            연금술사 토론 게시판 강철의 연금술사 토론 게시판
-          </Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>강철의 연금술사 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>
-            강철의 연금술사 토론 게시판 강철의 연금술사 토론 게시판 강철의
-            연금술사 토론 게시판 강철의 연금술사 토론 게시판
-          </Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>강철의 연금술사 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>
-            강철의 연금술사 토론 게시판 강철의 연금술사 토론 게시판 강철의
-            연금술사 토론 게시판 강철의 연금술사 토론 게시판
-          </Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>강철의 연금술사 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>
-            강철의 연금술사 토론 게시판 강철의 연금술사 토론 게시판 강철의
-            연금술사 토론 게시판 강철의 연금술사 토론 게시판
-          </Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>강철의 연금술사 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>
-            강철의 연금술사 토론 게시판 강철의 연금술사 토론 게시판 강철의
-            연금술사 토론 게시판 강철의 연금술사 토론 게시판
-          </Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>강철의 연금술사 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>
-            강철의 연금술사 토론 게시판 강철의 연금술사 토론 게시판 강철의
-            연금술사 토론 게시판 강철의 연금술사 토론 게시판
-          </Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>강철의 연금술사 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>
-            강철의 연금술사 토론 게시판 강철의 연금술사 토론 게시판 강철의
-            연금술사 토론 게시판 강철의 연금술사 토론 게시판
-          </Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>강철의 연금술사 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>
-            강철의 연금술사 토론 게시판 강철의 연금술사 토론 게시판 강철의
-            연금술사 토론 게시판 강철의 연금술사 토론 게시판
-          </Intro>
-        </ListItem>
-      </List>
-      <ListCategory>ㄴ으로 시작하는</ListCategory>
-      <List>
-        <ListItem>
-          <Divider>
-            <Title>낚시 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>낚시를 취미로 하는 사람들의 모임</Intro>
-        </ListItem>
-      </List>
-      <ListCategory>ㅍ으로 시작하는</ListCategory>
-      <List>
-        <ListItem>
-          <Divider>
-            <Title>포켓몬스터 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>포켓몬을 좋아하시는 분들이라면 언제든지 환영합니다.</Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>포켓몬스터 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>포켓몬을 좋아하시는 분들이라면 언제든지 환영합니다.</Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>포켓몬스터 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>포켓몬을 좋아하시는 분들이라면 언제든지 환영합니다.</Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>포켓몬스터 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>포켓몬을 좋아하시는 분들이라면 언제든지 환영합니다.</Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>포켓몬스터 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>포켓몬을 좋아하시는 분들이라면 언제든지 환영합니다.</Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>포켓몬스터 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>포켓몬을 좋아하시는 분들이라면 언제든지 환영합니다.</Intro>
-        </ListItem>
-        <ListItem>
-          <Divider>
-            <Title>포켓몬스터 게시판</Title>
-            <Arrow>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Arrow>
-          </Divider>
-          <Intro>포켓몬을 좋아하시는 분들이라면 언제든지 환영합니다.</Intro>
-        </ListItem>
-      </List>
+                <Divider>
+                  <Title>{channel.title}</Title>
+                  <Arrow>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  </Arrow>
+                </Divider>
+                <Intro>{channel.description}</Intro>
+              </ListItem>
+            ))}
+          </List>
+        </div>
+      ))}
     </Container>
   );
 }

@@ -12,6 +12,7 @@ import {
   ChannelCreatePage,
   CommunityListPage,
   CommunityPage,
+  CommunityPostPage,
   DepositHistoryPage,
   DetailPage,
   EditorAuctionPage,
@@ -21,9 +22,11 @@ import {
   HomePage,
   LoadingScreenPage,
   MainBoardPage,
+  ModifyPostPage,
   MyPage,
   PasswordResetPage,
   PopularCategoryPage,
+  PostDetailPage,
   SearchItemPage,
   SignInPage,
   SignUpPage,
@@ -178,7 +181,7 @@ export default function Routes() {
           ),
         },
         {
-          path: 'community-list',
+          path: 'community/all',
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <CommunityListPage />
@@ -198,6 +201,27 @@ export default function Routes() {
           element: (
             <Suspense fallback={<LoadingScreenPage />}>
               <ChannelCreatePage />
+
+          path: 'community/:channelId/new',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <CommunityPostPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'community/:channelId/:postId',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <PostDetailPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'community/:channelId/:postId/modify',
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <ModifyPostPage />
             </Suspense>
           ),
         },

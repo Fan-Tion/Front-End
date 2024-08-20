@@ -6,7 +6,7 @@ const WithdrawalButton = styled.button`
   width: 100px;
   height: 40px;
   font-size: 16px;
-  background-color: ##e8e9ec;
+  background-color: #e8e9ec;
   border: none;
   color: #222;
   font-weight: bold;
