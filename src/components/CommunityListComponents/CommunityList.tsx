@@ -162,9 +162,7 @@ export default function CommunityList() {
             {group.channelList.map(channel => (
               <ListItem
                 key={channel.channelId}
-                onClick={() =>
-                  navigate(`community/channels/${channel.channelId}`)
-                }
+                onClick={() => navigate(`/community/${channel.channelId}`)}
               >
                 <Divider>
                   <Title>{channel.title}</Title>

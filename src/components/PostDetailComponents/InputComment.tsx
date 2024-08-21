@@ -17,7 +17,7 @@ const TextArea = styled.textarea`
   }
 `;
 
-const CommentSubmit = styled.button`
+const CommentSubmit = styled.button<{ disabled: boolean }>`
   width: 100px;
   height: 30px;
   font-weight: 600;
@@ -25,9 +25,14 @@ const CommentSubmit = styled.button`
   border: none;
   border-radius: 6px;
   outline: none;
+  background-color: ${({ disabled }) => (disabled ? '#e8e9ec' : '#4fd66e')};
+  color: ${({ disabled }) => (disabled ? '#222' : '#fff')};
   &:focus {
     outline: none;
     border: 2px solid #4fd66e;
+  }
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 const ButtonArea = styled.div`
@@ -79,7 +84,9 @@ export default function InputComment({
     <form onSubmit={handleSubmit}>
       <TextArea value={data} onChange={handleTextChange}></TextArea>
       <ButtonArea>
-        <CommentSubmit type="submit">등록하기</CommentSubmit>
+        <CommentSubmit type="submit" disabled={!data.trim()}>
+          등록하기
+        </CommentSubmit>
       </ButtonArea>
     </form>
   );

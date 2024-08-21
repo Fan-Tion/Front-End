@@ -30,6 +30,10 @@ const CommentSubmit = styled.button`
     outline: none;
     border: 2px solid #4fd66e;
   }
+  &:nth-child(1) {
+    background-color: #4fd66e;
+    color: #eee;
+  }
 `;
 const ButtonArea = styled.div`
   display: flex;

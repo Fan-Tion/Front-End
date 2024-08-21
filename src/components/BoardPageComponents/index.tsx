@@ -1,6 +1,6 @@
 import { communityApi } from '@api/community';
 import { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../../icons/SearchIcon';
 import {
@@ -9,6 +9,7 @@ import {
   BoardListItem,
   BoarderCell,
   BottomWrap,
+  CategorySelect,
   ChannelDescription,
   ChannelImage,
   ChannelItemContainer,
@@ -16,10 +17,9 @@ import {
   ChannelWrap,
   ComSearchButton,
   ComSearchInput,
+  CustomSelectWrapper,
   PageContainer,
   Wrap,
-  CategorySelect,
-  CustomSelectWrapper,
 } from '../../styled-components/CommunityStyle';
 
 const Pagination = styled.div`
@@ -59,7 +59,24 @@ const ArrowButton = styled.button`
     stroke: currentColor;
   }
 `;
-
+const PostContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 50px;
+  justify-content: flex-end;
+  padding-right: 50px;
+`;
+const Post = styled.button`
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  border: 2px solid #4fd66e;
+  background-color: #4fd66e;
+  border-radius: 6px;
+  color: #eee;
+  font-weight: 600;
+  justify-content: flex-end;
+`;
 interface Board {
   postId: number;
   title: string;
@@ -73,22 +90,25 @@ interface Board {
 }
 
 export default function BoardPage() {
+  const navigate = useNavigate();
   const { channelId } = useParams<{ channelId: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(
     Number(searchParams.get('page')) || 1,
   );
   const [totalPages, setTotalPages] = useState(0);
-  const [searchOption, setSearchOption] = useState(searchParams.get('searchOption') || 'TITLE');
+  const [searchOption, setSearchOption] = useState(
+    searchParams.get('searchOption') || 'TITLE',
+  );
   const [boards, setBoards] = useState<Board[]>([]);
   const [keyword, setKeyword] = useState(searchParams.get('keyword') || '');
   const PAGE_GROUP_SIZE = 5;
 
-  const BoardMapping : Record<string, string> = {
+  const BoardMapping: Record<string, string> = {
     게시글제목: 'TITLE',
     게시글내용: 'CONTENT',
     닉네임: 'NICKNAME',
-  }
+  };
   const selectBoards = Object.keys(BoardMapping);
 
   useEffect(() => {
@@ -144,14 +164,14 @@ export default function BoardPage() {
     handlePageChange(nextPage);
   };
 
-  const handleSearchOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSearchOptionChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     setSearchOption(BoardMapping[e.target.value]);
   };
 
-
   const handleSearch = async () => {
     try {
-      
       const response = await communityApi.searchBoard(
         Number(channelId),
         searchOption,
@@ -168,8 +188,6 @@ export default function BoardPage() {
       console.error('게시글 검색 중 오류가 발생했습니다.', error);
     }
   };
-
-
 
   return (
     <Wrap>
@@ -198,7 +216,12 @@ export default function BoardPage() {
             <BoarderCell>추천</BoarderCell>
           </BoardListHeader>
           {boards.map(board => (
-            <BoardListItem key={board.postId}>
+            <BoardListItem
+              key={board.postId}
+              onClick={() =>
+                navigate(`/community/${channelId}/${board.postId}`)
+              }
+            >
               <BoarderCell>{board.postId}</BoarderCell>
               <BoarderCell>{board.title}</BoarderCell>
               <BoarderCell>{board.nickname}</BoarderCell>
@@ -208,6 +231,11 @@ export default function BoardPage() {
             </BoardListItem>
           ))}
         </BoardListContainer>
+        <PostContainer>
+          <Post onClick={() => navigate(`/community/${channelId}/new`)}>
+            글쓰기
+          </Post>
+        </PostContainer>
         <Pagination>
           <ArrowButton onClick={handlePrevGroup}>
             <svg
@@ -246,15 +274,18 @@ export default function BoardPage() {
         </Pagination>
       </PageContainer>
       <BottomWrap>
-      <CustomSelectWrapper>
-          <CategorySelect value={selectBoards.find(key => BoardMapping[key] === searchOption)} onChange={handleSearchOptionChange}>
-            {selectBoards.map((option) => (
+        <CustomSelectWrapper>
+          <CategorySelect
+            value={selectBoards.find(key => BoardMapping[key] === searchOption)}
+            onChange={handleSearchOptionChange}
+          >
+            {selectBoards.map(option => (
               <option key={option} value={option}>
                 {option}
               </option>
             ))}
           </CategorySelect>
-      </CustomSelectWrapper>
+        </CustomSelectWrapper>
         <ComSearchInput
           type="text"
           placeholder="게시판 검색"

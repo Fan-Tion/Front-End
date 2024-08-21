@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import CommunityList from './CommunityList';
-import Navigation from './Navigation';
 const Wrap = styled.div`
   margin: 10px auto;
   width: 1200px;
@@ -10,7 +9,7 @@ const Wrap = styled.div`
 export default function CommunityListComponents() {
   return (
     <Wrap>
-      <Navigation />
+      {/* <Navigation /> */}
       <CommunityList />
     </Wrap>
   );
