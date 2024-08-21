@@ -1,4 +1,6 @@
 import { communityApi } from '@api/community';
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -55,11 +57,26 @@ const Handler = styled.div`
   padding-bottom: 20px;
 `;
 const ModifyBtn = styled.button`
+  margin-top: 50px;
   cursor: pointer;
   width: 60px;
   height: 40px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  &:hover {
+    border: 2px solid #4fd66e;
+    background-color: #eee;
+  }
 `;
-
+interface CustomJwtPayload {
+  sub: string;
+  memberId: number;
+  nickname: string;
+  roles: string[];
+  iat: number;
+  exp: number;
+}
 function convertMarkdownToHtml(markdown: string) {
   // 정규 표현식을 사용하여 Markdown 이미지 구문을 찾고 변환
   return markdown
@@ -72,9 +89,30 @@ export default function Post() {
     channelId: string;
     postId: string;
   }>();
+  if (!channelId || !postId) {
+    return <div>Invalid parameters</div>;
+  }
   const [data, setData] = useState<any | null>(null);
+  const [nickname, setNickname] = useState('');
   const navigate = useNavigate();
   const [htmlContent, setHtmlContent] = useState<string>('');
+  useEffect(() => {
+    const accessToken = Cookies.get('Authorization');
+
+    if (accessToken) {
+      try {
+        const decodedToken = jwtDecode<CustomJwtPayload>(accessToken);
+
+        const storedNickname = decodedToken.nickname;
+
+        if (storedNickname) {
+          setNickname(storedNickname);
+        }
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const getPost = async () => {
@@ -124,18 +162,22 @@ export default function Post() {
         </Info>
         <Content dangerouslySetInnerHTML={{ __html: htmlContent }} />
         <Handler>
-          <ModifyBtn
-            onClick={() =>
-              navigate(`/community/${channelId}/${data.postId}/modify`, {
-                state: { data },
-              })
-            }
-          >
-            수정
-          </ModifyBtn>
-          <Delete />
+          {data.nickname === nickname && (
+            <>
+              <ModifyBtn
+                onClick={() =>
+                  navigate(`/community/${channelId}/${data.postId}/modify`, {
+                    state: { data },
+                  })
+                }
+              >
+                수정
+              </ModifyBtn>
+              <Delete />
+            </>
+          )}
         </Handler>
-        <Comment />
+        <Comment channelId={channelId} postId={postId} nickname={nickname} />
       </Container>
     </Wrap>
   );

@@ -27,4 +27,25 @@ export const communityApi = {
   deletePosts: (channelId: number, postId: number) =>
     axiosInstance.delete(`/community/${channelId}/post/${postId}`),
   getAllChannels: () => axiosInstance.get('/community/channel/all'),
+  commentPost: (payload: any, channelId: number, postId: number) =>
+    axiosInstance.post(
+      `/community/${channelId}/post/${postId}/comment`,
+      payload,
+    ),
+  getComments: (communityId: number, postId: number) =>
+    axiosInstance.get(`/community/${communityId}/post/${postId}/comment`),
+  modifyComment: (
+    payload: any,
+    channelId: number,
+    postId: number,
+    commentId: number,
+  ) =>
+    axiosInstance.put(
+      `/community/${channelId}/post/${postId}/comment/${commentId}`,
+      payload,
+    ),
+  deleteComment: (channelId: number, postId: number, commentId: number) =>
+    axiosInstance.delete(
+      `/community/${channelId}/post/${postId}/comment/${commentId}`,
+    ),
 };

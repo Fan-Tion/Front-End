@@ -3,9 +3,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const DeleteBtn = styled.button`
+  margin-top: 50px;
   cursor: pointer;
   width: 60px;
   height: 40px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  &:hover {
+    border: 2px solid #ff0000;
+    background-color: #eee;
+  }
 `;
 
 export default function Delete() {
