@@ -8,6 +8,7 @@ import {
   AuctionCreatePage,
   AuctionHistoryPage,
   AuctionModifyPage,
+  ChannelCreatePage,
   CommunityListPage,
   CommunityPage,
   CommunityPostPage,
@@ -187,10 +188,18 @@ export default function Routes() {
           ),
         },
         {
-          path: 'community/channels/:channelId',
+          path: 'community/:channelId',
           element: (
             <Suspense fallback={<LoadingScreenPage />}>
               <MainBoardPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'community/channel/create',
+          element: (
+            <Suspense fallback={<LoadingScreenPage />}>
+              <ChannelCreatePage />
             </Suspense>
           ),
         },

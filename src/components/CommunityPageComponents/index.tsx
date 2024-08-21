@@ -5,16 +5,29 @@ import {
   ContentWrapper,
 } from '../../styled-components/CommunityStyle';
 import ChannelList from './ChannelList';
+import AllChannelList from './AllChannelList';
 
-interface Board {
-  id: number;
+interface PostList {
+  postId: number;
+  channelName: string;
+  nickname: string;
   title: string;
+  content: string;
+  likeCnt: number;
+  viewCnt: number;
+  createDate: string;
+  status: string;
 }
 
 interface Channel {
-  id: number;
+  channelId: number;
+  organizer: string;
   title: string;
-  boards: Board[];
+  description: string;
+  status: string;
+  createDate: string;
+  image: string | null;
+  postList: PostList[];
 }
 
 export default function CommunityComponents() {
@@ -24,9 +37,7 @@ export default function CommunityComponents() {
     async function fetchChannels() {
       try {
         const response = await communityApi.getChannels();
-
         setChannels(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error('index에러', error);
       }
@@ -36,6 +47,7 @@ export default function CommunityComponents() {
 
   return (
     <Container>
+      <AllChannelList/>
       <ContentWrapper>
         <ChannelList channels={channels} />
       </ContentWrapper>

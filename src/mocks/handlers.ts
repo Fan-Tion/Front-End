@@ -393,17 +393,17 @@ export const handlers = [
     });
   }),
 
-  http.get(`${API_BASE_URL}/community/channels`, async ({}) => {
+  http.get(`${API_BASE_URL}/community/channel/random`, async ({}) => {
     return HttpResponse.json(ChannelData);
   }),
   http.get(
-    `${API_BASE_URL}/community/channels/:channelId`,
+    `${API_BASE_URL}/community/:channelId`,
     async ({ params }) => {
       const channelId = Array.isArray(params.channelId)
         ? params.channelId[0]
         : params.channelId;
       const channel = ChannelData.data.find(
-        c => c.id === parseInt(channelId, 10),
+        c => c.channelId === parseInt(channelId, 10),
       );
 
       if (!channel) {

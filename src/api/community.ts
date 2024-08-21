@@ -1,4 +1,4 @@
-import { axiosInstance } from './axios';
+import { axiosInstance, uploadMultipartData } from './axios';
 
 export const communityApi = {
   post: (payload: any, channelId: number) =>
@@ -14,10 +14,27 @@ export const communityApi = {
     }),
 
   getChannels: async () => {
-    return axiosInstance.get('/community/channels');
+    return axiosInstance.get('/community/channel/random');
   },
-  getBoards: async (channelId: number) => {
-    return axiosInstance.get(`/community/channels/${channelId}`);
+  getBoards: async (channelId: number, params: { page: number }) => {
+    return axiosInstance.get(`/community/${channelId}`, { params });
+  },
+  postChannel: (payload: any) =>
+    uploadMultipartData('/community/channel', payload),
+
+  searchBoard: (
+    channelId: number,
+    searchOption: string,
+    keyword: string,
+    page: number,
+  ) => {
+    return axiosInstance.get(`/community/${channelId}/search`, {
+      params: {
+        searchOption,
+        keyword,
+        page,
+      },
+    });
   },
   getPosts: (communityId: number, postId: number) =>
     axiosInstance.get(`/community/${communityId}/post/${postId}`),

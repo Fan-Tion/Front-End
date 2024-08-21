@@ -8,15 +8,27 @@ import {
 } from '../../styled-components/CommunityStyle';
 import BoardList from './BoardList';
 
-interface Board {
-  id: number;
+interface PostList {
+  postId: number;
+  channelName: string;
+  nickname: string;
   title: string;
+  content: string;
+  likeCnt: number;
+  viewCnt: number;
+  createDate: string;
+  status: string;
 }
 
 interface Channel {
-  id: number;
+  channelId: number;
+  organizer: string;
   title: string;
-  boards: Board[];
+  description: string;
+  status: string;
+  createDate: string;
+  image: string | null;
+  postList: PostList[];
 }
 
 interface ChannelListProps {
@@ -26,20 +38,21 @@ interface ChannelListProps {
 export default function ChannelList({ channels }: ChannelListProps) {
   const navigate = useNavigate();
 
-  const handleCannelClick = (channelId: number) => {
-    navigate(`/community/channels/${channelId}`);
+
+  const handleChannelClick = async ( channelId: number, page: number = 1) => {
+      navigate(`/community/${channelId}?page=${page}`);
   };
 
   return (
     <>
-      {channels.map(channel => (
-        <ChannelSection key={channel.id}>
-          <TitleWrap onClick={() => handleCannelClick(channel.id)}>
+      {channels.map((channel) => (
+        <ChannelSection key={channel.channelId}>
+          <TitleWrap onClick={() => handleChannelClick(channel.channelId)}>
             <SectionTitle>{channel.title}</SectionTitle>
             <ArrowIcon />
           </TitleWrap>
           <List>
-            <BoardList boards={channel.boards} />
+            <BoardList boards={channel.postList}/>
           </List>
         </ChannelSection>
       ))}
