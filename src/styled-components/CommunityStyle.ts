@@ -117,7 +117,6 @@ export const ChannelTitle = styled.h1`
   color: #333;
   margin-bottom: 10px;
   padding-bottom: 10px;
-  text-align: center;
   width: 100%;
 `;
 

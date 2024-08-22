@@ -32,6 +32,7 @@ const PasswordEditButton = styled.button`
   margin-bottom: 40px;
   transition: all 0.3s ease;
   border-radius: 5px;
+  cursor: pointer;
   &:hover {
     background-color: #4fd66e;
     color: white;
@@ -50,21 +51,14 @@ interface UserInfo {
 
 export default function MyPageComponents() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  // const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        // Axios Response에서 data를 추출
         const response = await membersApi.myInfo();
-        //데이터 추출
         const data = response.data;
-        //유저 인포에 저장
-        console.log(data);
         setUserInfo(data);
-      } catch (error) {
-        // setError('사용자 정보를 가져오는데 실패했습니다.');
-      }
+      } catch (error) {}
     };
 
     fetchUserInfo();
@@ -72,6 +66,20 @@ export default function MyPageComponents() {
 
   const handleUserInfoUpdate = (updatedUserInfo: UserInfo) => {
     setUserInfo(updatedUserInfo);
+  };
+
+  const handlePasswordResetRequest = async () => {
+    if (userInfo) {
+      try {
+        await membersApi.requestPasswordReset({
+          email: userInfo.email,
+          phoneNumber: userInfo.phoneNumber,
+        });
+        alert('비밀번호 변경 요청 메일이 발송되었습니다.');
+      } catch (error) {
+        console.error('비밀번호 요청 실패', error);
+      }
+    }
   };
 
   const balance = userInfo?.balance ?? 0;
@@ -90,7 +98,7 @@ export default function MyPageComponents() {
         <Profile userInfo={userInfo} onUpdate={handleUserInfoUpdate} />
         <HistoryView />
         <SocialLink />
-        <PasswordEditButton>
+        <PasswordEditButton onClick={handlePasswordResetRequest}>
           비밀번호 변경 요청 메일 발송하기
         </PasswordEditButton>
       </ColumnWrap>
