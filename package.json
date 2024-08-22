@@ -17,6 +17,7 @@
     "@types/react-modal": "^3.16.3",
     "axios": "^1.7.2",
     "dompurify": "^3.1.6",
+    "event-source-polyfill": "^1.0.31",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
+    "@types/event-source-polyfill": "^1.0.5",
     "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.3.3",
     "@types/react-daum-postcode": "^1.6.1",

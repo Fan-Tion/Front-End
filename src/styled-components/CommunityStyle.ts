@@ -1,23 +1,27 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   min-width: 1800px;
   margin-top: 40px;
 `;
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  max-width: 1400px;
-  justify-content: center;
+  min-width: 1800px;
   align-items: center;
-  margin: 0 260px;
   background-color: white;
 `;
 
 export const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(400px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   padding: 20px;
 `;
@@ -49,7 +53,6 @@ export const TitleWrap = styled.div`
 
 export const SectionTitle = styled.span`
   font-size: 18px;
-
   color: #222;
   margin-bottom: 5px;
   font-weight: bold;
@@ -82,6 +85,7 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 1400px;
   margin: 0 auto;
   padding: 20px;
@@ -113,7 +117,6 @@ export const ChannelTitle = styled.h1`
   color: #333;
   margin-bottom: 10px;
   padding-bottom: 10px;
-  text-align: center;
   width: 100%;
 `;
 
@@ -142,7 +145,7 @@ export const BoarderCell = styled.div`
 
 export const BoardListItem = styled.div`
   display: grid;
-  
+
   grid-template-columns: 50px 1fr 150px 200px 80px 80px;
   padding: 15px 20px;
   background-color: #fff;
@@ -186,9 +189,8 @@ export const CustomSelectWrapper = styled.div`
   }
 `;
 
-
 export const CategorySelect = styled.select`
-  width : 150px;
+  width: 150px;
   height: 45px;
   font-size: 14px;
   border: 1px solid #ced4da;

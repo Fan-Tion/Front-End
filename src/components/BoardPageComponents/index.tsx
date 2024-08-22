@@ -77,6 +77,16 @@ const Post = styled.button`
   font-weight: 600;
   justify-content: flex-end;
 `;
+interface Channel {
+  channelId: number;
+  organizer: string;
+  title: string;
+  description: string;
+  status: string;
+  createDate: string;
+  image: string | null;
+}
+
 interface Board {
   postId: number;
   title: string;
@@ -101,6 +111,7 @@ export default function BoardPage() {
     searchParams.get('searchOption') || 'TITLE',
   );
   const [boards, setBoards] = useState<Board[]>([]);
+  const [channels, setChannels] = useState<Channel | null>(null);
   const [keyword, setKeyword] = useState(searchParams.get('keyword') || '');
   const PAGE_GROUP_SIZE = 5;
 
@@ -128,6 +139,19 @@ export default function BoardPage() {
 
     fetchBoards();
   }, [channelId, currentPage]);
+
+  useEffect(() => {
+    const fetchChannels = async () => {
+      try {
+        const response = await communityApi.getChannelInfo(Number(channelId));
+        console.log(response);
+        setChannels(response.data);
+      } catch (error) {
+        console.error('채널을 불러오는중 오류가 발생했습니다.', error);
+      }
+    };
+    fetchChannels();
+  }, [channelId]);
 
   const renderPageButtons = () => {
     const startPage =
@@ -193,17 +217,12 @@ export default function BoardPage() {
     <Wrap>
       <PageContainer>
         <ChannelWrap>
-          {boards[0]?.channelImage && (
-            <ChannelImage
-              src={boards[0].channelImage}
-              alt={boards[0].channelName}
-            />
+          {channels?.image && (
+            <ChannelImage src={channels.image} alt={channels.title} />
           )}
           <ChannelItemContainer>
-            <ChannelTitle>{boards[0]?.channelName}</ChannelTitle>
-            <ChannelDescription>
-              {boards[0]?.channelDescription}
-            </ChannelDescription>
+            <ChannelTitle>{channels?.title}</ChannelTitle>
+            <ChannelDescription>{channels?.description}</ChannelDescription>
           </ChannelItemContainer>
         </ChannelWrap>
         <BoardListContainer>

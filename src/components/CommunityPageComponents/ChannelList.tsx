@@ -38,21 +38,23 @@ interface ChannelListProps {
 export default function ChannelList({ channels }: ChannelListProps) {
   const navigate = useNavigate();
 
-
-  const handleChannelClick = async ( channelId: number, page: number = 1) => {
-      navigate(`/community/${channelId}?page=${page}`);
+  const handleChannelClick = async (channelId: number, page: number = 1) => {
+    navigate(`/community/${channelId}?page=${page}`);
   };
 
   return (
     <>
-      {channels.map((channel) => (
+      {channels.map(channel => (
         <ChannelSection key={channel.channelId}>
           <TitleWrap onClick={() => handleChannelClick(channel.channelId)}>
             <SectionTitle>{channel.title}</SectionTitle>
             <ArrowIcon />
           </TitleWrap>
           <List>
-            <BoardList boards={channel.postList}/>
+            <BoardList
+              boards={channel.postList}
+              channelId={channel.channelId}
+            />
           </List>
         </ChannelSection>
       ))}
