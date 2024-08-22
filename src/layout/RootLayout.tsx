@@ -5,6 +5,8 @@ import LayoutHeader from './LayoutHeader';
 
 const MainContent = styled.main`
   flex-grow: 1;
+  width : 100%;
+  min-width : 1800px;
   min-height: calc(100vh - 240px);
 `;
 

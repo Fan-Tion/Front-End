@@ -65,4 +65,7 @@ export const communityApi = {
     axiosInstance.delete(
       `/community/${channelId}/post/${postId}/comment/${commentId}`,
     ),
+
+  getChannelInfo: (channelId: number) =>
+    axiosInstance.get(`/community/channel/${channelId}`),
 };
