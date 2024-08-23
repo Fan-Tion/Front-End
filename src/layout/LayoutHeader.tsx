@@ -65,6 +65,7 @@ const ActionLink = styled(Link)`
 const LogInLink = styled(Link)`
   margin-left: 20px;
   font-size: 16px;
+  font-weight: bold;
   color: #222;
   text-decoration: none;
 
@@ -107,9 +108,9 @@ const LogOut = styled.button`
   color: #222;
   background: none;
   border: none;
+  font-weight: bold;
   cursor: pointer;
   &:hover {
-    // font-size: 24px;
     font-weight: bold;
     color: red;
   }

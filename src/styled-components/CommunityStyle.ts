@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   min-width: 1800px;
   width: 1200px;
@@ -9,17 +13,17 @@ export const Wrap = styled.div`
 `;
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  max-width: 1400px;
-  justify-content: center;
+  min-width: 1800px;
   align-items: center;
-  margin: 0 260px;
   background-color: white;
 `;
 
 export const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(400px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   padding: 20px;
 `;
@@ -51,7 +55,6 @@ export const TitleWrap = styled.div`
 
 export const SectionTitle = styled.span`
   font-size: 18px;
-
   color: #222;
   margin-bottom: 5px;
   font-weight: bold;
@@ -84,7 +87,8 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1200px;
+  justify-content: center;
+  width: 1400px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
@@ -115,7 +119,6 @@ export const ChannelTitle = styled.h1`
   color: #333;
   margin-bottom: 10px;
   padding-bottom: 10px;
-  text-align: center;
   width: 100%;
 `;
 

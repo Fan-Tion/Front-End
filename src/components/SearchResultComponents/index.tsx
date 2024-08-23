@@ -27,6 +27,10 @@ const Grid = styled.div`
 `;
 
 const NoResults = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
   font-size: 16px;
   color: #666;
 `;

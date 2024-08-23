@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   BoardSection,
   List,
@@ -18,9 +19,12 @@ interface Board {
 
 interface BoardListProps {
   boards: Board[];
+  channelId: Number;
 }
 
-export default function BoardList({ boards }: BoardListProps) {
+export default function BoardList({ boards, channelId }: BoardListProps) {
+  const navigate = useNavigate();
+
   if (!boards || boards.length === 0) {
     return <ListItem>게시글이 없습니다.</ListItem>;
   }
@@ -28,7 +32,12 @@ export default function BoardList({ boards }: BoardListProps) {
     <BoardSection>
       <List>
         {boards.map(board => (
-          <ListItem key={board.postId}>{board.title}</ListItem>
+          <ListItem
+            key={board.postId}
+            onClick={() => navigate(`/community/${channelId}/${board.postId}`)}
+          >
+            {board.title}
+          </ListItem>
         ))}
       </List>
     </BoardSection>

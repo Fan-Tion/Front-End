@@ -23,6 +23,11 @@ const Grid = styled.div`
 `;
 
 const NoResults = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 100px;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
   color: #666;
 `;

@@ -71,6 +71,9 @@ export const communityApi = {
     axiosInstance.delete(
       `/community/${channelId}/post/${postId}/comment/${commentId}`,
     ),
+
+  getChannelInfo: (channelId: number) =>
+    axiosInstance.get(`/community/channel/${channelId}`),
   getIsLiked: (channelId: number, postId: number) =>
     axiosInstance.get(`/community/${channelId}/postLike/${postId}`),
   toggleLike: (channelId: number, postId: number) =>

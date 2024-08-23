@@ -37,16 +37,18 @@ export default function BidingHistory({ auctionId }: BidingHistoryType) {
       eventSourceRef.current.close();
     }
 
-    const eventSource = new EventSource(`${import.meta.env.VITE_API_BASE_URL}/bid/${auctionId}`);
+    const eventSource = new EventSource(
+      `${import.meta.env.VITE_API_BASE_URL}/bid/${auctionId}`,
+    );
 
     eventSource.addEventListener('addBid', (e: MessageEvent) => {
       const receivedConnectData: BidType = JSON.parse(e.data);
       console.log('connect event data: ', receivedConnectData); // "connected!"
 
-      setBiddingHistory((prevHistory) => [...prevHistory, receivedConnectData]);
+      setBiddingHistory(prevHistory => [...prevHistory, receivedConnectData]);
     });
 
-    eventSource.onerror = (error) => {
+    eventSource.onerror = error => {
       console.error('EventSource failed:', error);
       eventSource.close();
     };
@@ -86,7 +88,7 @@ export default function BidingHistory({ auctionId }: BidingHistoryType) {
 
   return (
     <Container>
-      {biddingHistory.map((bid) => (
+      {biddingHistory.map(bid => (
         <Row key={bid.createDate}>
           <div>
             <p>bidder: {bid.bidder}</p>

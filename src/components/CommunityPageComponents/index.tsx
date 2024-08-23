@@ -37,6 +37,7 @@ export default function CommunityComponents() {
     async function fetchChannels() {
       try {
         const response = await communityApi.getChannels();
+        console.log(response);
         setChannels(response.data);
       } catch (error) {
         console.error('index에러', error);
