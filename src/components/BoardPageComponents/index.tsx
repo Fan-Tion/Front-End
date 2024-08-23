@@ -213,6 +213,12 @@ export default function BoardPage() {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <Wrap>
       <PageContainer>
@@ -310,6 +316,7 @@ export default function BoardPage() {
           placeholder="게시판 검색"
           value={keyword}
           onChange={e => setKeyword(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <ComSearchButton onClick={handleSearch}>
           <SearchIcon />
