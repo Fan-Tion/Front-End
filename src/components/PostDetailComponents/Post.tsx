@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Comment from './Comment';
 import Delete from './Delete';
 import Like from './Like';
+import Report from './Report';
 
 const Wrap = styled.div`
   width: 1200px;
@@ -180,6 +181,7 @@ export default function Post() {
             </>
           )}
         </Handler>
+        <Report />
         <Comment channelId={channelId} postId={postId} nickname={nickname} />
       </Container>
     </Wrap>
