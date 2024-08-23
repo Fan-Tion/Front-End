@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import Cookies from 'js-cookie';
 
 const Container = styled.div`
   margin: 10px 0 0 0;
@@ -31,19 +33,22 @@ interface BidingHistoryType {
 export default function BidingHistory({ auctionId }: BidingHistoryType) {
   const [biddingHistory, setBiddingHistory] = useState<BidType[]>([]);
   const eventSourceRef = useRef<EventSource | null>(null);
-
+  const token = Cookies.get('Authorization');
+  
   const startEventSource = useCallback(() => {
     if (eventSourceRef.current) {
       eventSourceRef.current.close();
     }
 
-    const eventSource = new EventSource(
-      `${import.meta.env.VITE_API_BASE_URL}/bid/${auctionId}`,
-    );
+    const eventSource = new EventSourcePolyfill(`${import.meta.env.VITE_API_BASE_URL}/bid/${auctionId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,  
+      },
+    });
 
-    eventSource.addEventListener('addBid', (e: MessageEvent) => {
-      const receivedConnectData: BidType = JSON.parse(e.data);
-      console.log('connect event data: ', receivedConnectData); // "connected!"
+    eventSource.addEventListener('addBid', (event) => {
+      const receivedConnectData: BidType = JSON.parse((event as unknown as MessageEvent).data);
+      console.log('connect event data: ', receivedConnectData);
 
       setBiddingHistory(prevHistory => [...prevHistory, receivedConnectData]);
     });
@@ -54,7 +59,7 @@ export default function BidingHistory({ auctionId }: BidingHistoryType) {
     };
 
     eventSourceRef.current = eventSource;
-  }, [auctionId]);
+  }, [auctionId,]);
 
   const stopEventSource = useCallback(() => {
     if (eventSourceRef.current) {
