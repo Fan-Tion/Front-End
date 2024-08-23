@@ -6,6 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Comment from './Comment';
 import Delete from './Delete';
+import Like from './Like';
+import Report from './Report';
 
 const Wrap = styled.div`
   width: 1200px;
@@ -13,6 +15,7 @@ const Wrap = styled.div`
 `;
 const Container = styled.div`
   margin-top: 30px;
+  margin-bottom: 50px;
   padding: 30px 50px;
   box-shadow: 0px 3px 14px rgba(127, 138, 140, 0.09);
   border: 2px solid #e8e9ec;
@@ -161,6 +164,7 @@ export default function Post() {
           <Time>{new Date(data.createDate).toLocaleString()}</Time>
         </Info>
         <Content dangerouslySetInnerHTML={{ __html: htmlContent }} />
+        <Like likeCnt={data.likeCnt as number} />
         <Handler>
           {data.nickname === nickname && (
             <>
@@ -177,6 +181,7 @@ export default function Post() {
             </>
           )}
         </Handler>
+        <Report />
         <Comment channelId={channelId} postId={postId} nickname={nickname} />
       </Container>
     </Wrap>

@@ -7,6 +7,8 @@ export const Wrap = styled.div`
   align-items: center;
   width: 100%;
   min-width: 1800px;
+  width: 1200px;
+  margin: 0 auto;
   margin-top: 40px;
 `;
 
