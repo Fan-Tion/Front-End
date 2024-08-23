@@ -1,6 +1,7 @@
 import { communityApi } from '@api/community';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Pagination from './CommentPagination';
 import DeleteComment from './DeleteComment';
 import InputComment from './InputComment';
 import ModifyComment from './ModifyComment';
@@ -12,7 +13,7 @@ const Wrap = styled.div`
 const Head = styled.div`
   border: 2px solid white;
   border-bottom: none;
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 20px;
   width: 100%;
   height: 30px;
@@ -90,6 +91,8 @@ interface CommentData {
 export default function Comment({ channelId, postId, nickname }: CommentProps) {
   const [comments, setComments] = useState<CommentData[]>([]);
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [page, setPage] = useState(0);
 
   // 댓글을 가져오는 함수
   const getComments = async () => {
@@ -97,7 +100,9 @@ export default function Comment({ channelId, postId, nickname }: CommentProps) {
       const response = await communityApi.getComments(
         parseInt(channelId, 10),
         parseInt(postId, 10),
+        { page },
       );
+      setTotalPages(response.data.totalPages);
       setComments(response.data.content);
     } catch (error) {
       console.error('Failed to fetch comments:', error);
@@ -106,7 +111,7 @@ export default function Comment({ channelId, postId, nickname }: CommentProps) {
 
   useEffect(() => {
     getComments();
-  }, []);
+  }, [page]);
 
   const handleEditClick = (commentId: number) => {
     setEditCommentId(commentId);
@@ -129,13 +134,16 @@ export default function Comment({ channelId, postId, nickname }: CommentProps) {
 
   const handleCommentSubmit = (newComment: CommentData) => {
     setComments(prevComments => [...prevComments, newComment]); // 새로운 댓글을 목록에 추가
+    setPage(totalPages - 1);
   };
   const handleDeleteComment = (commentId: number) => {
     setComments(prevComments =>
       prevComments.filter(comment => comment.commentId !== commentId),
     );
   };
-
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
   return (
     <Wrap>
       <Head>댓글({comments.length})</Head>
@@ -174,6 +182,11 @@ export default function Comment({ channelId, postId, nickname }: CommentProps) {
           )}
         </Com>
       ))}
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
       <InputComment
         channelId={channelId}
         postId={postId}

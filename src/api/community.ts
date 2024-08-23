@@ -49,8 +49,14 @@ export const communityApi = {
       `/community/${channelId}/post/${postId}/comment`,
       payload,
     ),
-  getComments: (communityId: number, postId: number) =>
-    axiosInstance.get(`/community/${communityId}/post/${postId}/comment`),
+  getComments: (
+    communityId: number,
+    postId: number,
+    params: { page: number },
+  ) =>
+    axiosInstance.get(`/community/${communityId}/post/${postId}/comment`, {
+      params,
+    }),
   modifyComment: (
     payload: any,
     channelId: number,
@@ -65,4 +71,8 @@ export const communityApi = {
     axiosInstance.delete(
       `/community/${channelId}/post/${postId}/comment/${commentId}`,
     ),
+  getIsLiked: (channelId: number, postId: number) =>
+    axiosInstance.get(`/community/${channelId}/postLike/${postId}`),
+  toggleLike: (channelId: number, postId: number) =>
+    axiosInstance.post(`/community/${channelId}/postLike/${postId}`),
 };

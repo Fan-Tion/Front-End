@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Wrap = styled.div`
   width: 100%;
   min-width: 1800px;
+  width: 1200px;
+  margin: 0 auto;
   margin-top: 40px;
 `;
 
@@ -82,7 +84,7 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1400px;
+  width: 1200px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
@@ -142,7 +144,7 @@ export const BoarderCell = styled.div`
 
 export const BoardListItem = styled.div`
   display: grid;
-  
+
   grid-template-columns: 50px 1fr 150px 200px 80px 80px;
   padding: 15px 20px;
   background-color: #fff;
@@ -186,9 +188,8 @@ export const CustomSelectWrapper = styled.div`
   }
 `;
 
-
 export const CategorySelect = styled.select`
-  width : 150px;
+  width: 150px;
   height: 45px;
   font-size: 14px;
   border: 1px solid #ced4da;
