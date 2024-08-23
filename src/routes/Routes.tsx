@@ -19,7 +19,6 @@ import {
   FailPage,
   FindPasswordPage,
   HomePage,
-  LoadingScreenPage,
   MainBoardPage,
   ModifyPostPage,
   MyPage,
@@ -190,7 +189,7 @@ export default function Routes() {
         {
           path: 'community/:channelId',
           element: (
-            <Suspense fallback={<LoadingScreenPage />}>
+            <Suspense fallback={<LoadingScreen />}>
               <MainBoardPage />
             </Suspense>
           ),
@@ -198,7 +197,7 @@ export default function Routes() {
         {
           path: 'community/channel/create',
           element: (
-            <Suspense fallback={<LoadingScreenPage />}>
+            <Suspense fallback={<LoadingScreen />}>
               <ChannelCreatePage />
             </Suspense>
           ),
@@ -240,7 +239,7 @@ export default function Routes() {
     {
       path: 'members/naver/signin',
       element: (
-        <Suspense fallback={<LoadingScreenPage />}>
+        <Suspense fallback={<LoadingScreen />}>
           <NaverLoginCallback />
         </Suspense>
       ),
