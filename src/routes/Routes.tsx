@@ -198,7 +198,9 @@ export default function Routes() {
           path: 'community/channel/create',
           element: (
             <Suspense fallback={<LoadingScreen />}>
-              <ChannelCreatePage />
+              <ProtectedRoute>
+                <ChannelCreatePage />
+              </ProtectedRoute>
             </Suspense>
           ),
         },
@@ -206,7 +208,9 @@ export default function Routes() {
           path: 'community/:channelId/new',
           element: (
             <Suspense fallback={<LoadingScreen />}>
-              <CommunityPostPage />
+              <ProtectedRoute>
+                <CommunityPostPage />
+              </ProtectedRoute>
             </Suspense>
           ),
         },

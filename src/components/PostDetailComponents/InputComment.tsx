@@ -76,7 +76,7 @@ export default function InputComment({
       setData(''); // 전송 후 입력 필드를 비웁니다.
       onCommentSubmit(response.data); // 새로운 댓글을 부모 컴포넌트로 전달
     } catch (error) {
-      console.error('Error submitting comment:', error);
+      alert('댓글 작성에는 로그인이 필요합니다.');
     }
   };
 

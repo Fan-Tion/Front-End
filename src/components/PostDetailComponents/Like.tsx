@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 interface ButtonProps {
-  isLiked: boolean;
+  $isLiked: boolean;
 }
 const Svg = styled.div`
   width: 24px;
@@ -20,10 +20,10 @@ const Button = styled.div<ButtonProps>`
   border-radius: 6px;
   transition: transform 0.3s ease;
   cursor: pointer;
-  color: ${({ isLiked }) => (isLiked ? '#222' : 'inherit')};
-  border: ${({ isLiked }) => (isLiked ? '2px solid #4fd66e' : 'inherit')};
+  color: ${({ $isLiked }) => ($isLiked ? '#222' : 'inherit')};
+  border: ${({ $isLiked }) => ($isLiked ? '2px solid #4fd66e' : 'inherit')};
   & > ${Svg} + p + p {
-    color: ${({ isLiked }) => (isLiked ? '#4fd66e' : '#222')};
+    color: ${({ $isLiked }) => ($isLiked ? '#4fd66e' : '#222')};
   }
 
   &:hover {
@@ -31,7 +31,7 @@ const Button = styled.div<ButtonProps>`
     background-color: #4fd66e;
     color: #eee;
     & > ${Svg} + p + p {
-      color: ${({ isLiked }) => (isLiked ? '#003366' : '#003366')};
+      color: ${({ $isLiked }) => ($isLiked ? '#003366' : '#003366')};
     }
   }
 `;
@@ -97,7 +97,7 @@ export default function Like({ likeCnt }: LikeProps) {
   };
   return (
     <ButtonContainer>
-      <Button onClick={fetchData} isLiked={isLiked}>
+      <Button onClick={fetchData} $isLiked={isLiked}>
         <Svg>
           <svg
             xmlns="http://www.w3.org/2000/svg"

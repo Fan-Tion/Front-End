@@ -78,4 +78,6 @@ export const communityApi = {
     axiosInstance.get(`/community/${channelId}/postLike/${postId}`),
   toggleLike: (channelId: number, postId: number) =>
     axiosInstance.post(`/community/${channelId}/postLike/${postId}`),
+  report: (payload: any) =>
+    axiosInstance.post('/community/postReport', payload),
 };

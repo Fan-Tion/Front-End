@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { TradeApi } from '../../api/trade';
 import { AllButton } from '../../styled-components/HomePageStyle';
 import TradeDetail from './TradeDetail';
@@ -75,6 +75,7 @@ const waveAnimation = keyframes`
 `;
 
 const TradeType = styled.button`
+  position: relative;
   margin: 15px 10px 5px 0;
   height: 30px;
   color: black;
@@ -94,7 +95,7 @@ const TradeType = styled.button`
     margin-right: 300px;
   }
   &::after {
-    content: '';
+    content: ${props => (props.disabled ? "''" : 'none')};
     position: absolute;
     left: 6px;
     bottom: -1px;
@@ -111,7 +112,12 @@ const TradeType = styled.button`
       transparent
     );
     background-size: 200% 100%;
-    animation: ${waveAnimation} 1s linear infinite;
+    animation: ${props =>
+      props.disabled
+        ? css`
+            ${waveAnimation} 1s linear infinite
+          `
+        : 'none'};
   }
 `;
 const Trade = styled.div`
@@ -171,7 +177,6 @@ export default function TradeHistory() {
 
   const handleBack = () => {
     setSelectedTrade(null);
-    fetchData();
   };
 
   const handleToggleData = (isBuy: boolean) => {

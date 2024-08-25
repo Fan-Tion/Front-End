@@ -7,11 +7,11 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get('Authorization'))
+  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get('Authorization'));
 
   useEffect(() => {
-    setIsLoggedIn(!!Cookies.get('Authorization'))
-  }, [Cookies])
+    setIsLoggedIn(!!Cookies.get('Authorization'));
+  }, [Cookies]);
 
   //api 를 통해 로그인 상태를 확인하도록 수정할 부분
   if (isLoggedIn === false) {

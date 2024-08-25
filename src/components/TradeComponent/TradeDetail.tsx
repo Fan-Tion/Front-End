@@ -1,7 +1,9 @@
 import { TradeApi } from '@api/trade';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AllButton } from '../../styled-components/HomePageStyle';
+import RatingModal from './Rating';
 
 interface Member {
   memberId: number;
@@ -145,10 +147,11 @@ export default function TradeDetail({
   const isBuyList = listType === 'buyList';
   // const [searchParams] = useSearchParams();
   const auctionId = trade.auctionId;
+  const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
   const confirmReceipt = async () => {
     try {
       await TradeApi.receipt({ auctionId });
-
+      setIsRatingModalOpen(true); // 평점 모달 열기
       alert('물품 인수 확인이 완료되었습니다.');
     } catch (error) {
       alert('물품 인수에 실패했습니다.\n물품 인계 전에는 인수할 수 없습니다.');
@@ -172,7 +175,9 @@ export default function TradeDetail({
       alert('구매 철회에 실패했습니다, 물품이 이미 인계되었습니다.');
     }
   };
-
+  const handleCloseModal = () => {
+    setIsRatingModalOpen(false); // 모달 닫기
+  };
   return (
     <>
       <DetailWrapper>
@@ -219,6 +224,9 @@ export default function TradeDetail({
           <Button2 onClick={confirmDelivery}>물품 인계 확인</Button2>
         )}
       </DetailWrapper>
+      {isRatingModalOpen && (
+        <RatingModal onClose={handleCloseModal} auctionId={auctionId} />
+      )}
     </>
   );
 }

@@ -50,4 +50,5 @@ export const auctionApi = {
     categoryOption?: string;
     keyword?: string;
   }) => axiosInstance.get('/auction/search', { params }),
+  rating: (payload: any) => axiosInstance.put('/member/rating', payload),
 };

@@ -1,9 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.footer`
   display: flex;
   width: 100%;
-  min-width : 1800px;
+  min-width: 1800px;
   height: 150px;
   background-color: white;
   padding: 20px 0;
@@ -13,10 +14,10 @@ const Wrapper = styled.footer`
 `;
 
 const FooterBox = styled.div`
-  width : 1400px;
+  width: 1400px;
   display: flex;
   align-items: center;
-  justify-content : center;
+  justify-content: center;
   gap: 80px;
   color: #ffffff;
   white-space: nowrap;
@@ -60,10 +61,11 @@ const FooterLinks = styled.div`
 `;
 
 export default function LayoutFooter() {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <FooterBox>
-        <FooterName>Fan-Tion</FooterName>
+        <FooterName onClick={() => navigate('/')}>Fan-Tion</FooterName>
         <FooterLinks>
           <FooterLink href="#">About Us</FooterLink>
           <FooterLink href="#">Contact</FooterLink>

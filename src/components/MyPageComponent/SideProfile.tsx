@@ -72,7 +72,9 @@ const ChargeButton = styled.button`
     color: #fff;
   }
 `;
-const TradeButton = styled(ChargeButton)``;
+const TradeButton = styled(ChargeButton)`
+  width: 104px;
+`;
 
 const ProfileEditButton = styled(ChargeButton)``;
 const Footer = styled.div`
