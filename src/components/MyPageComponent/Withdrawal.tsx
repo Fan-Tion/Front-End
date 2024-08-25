@@ -16,7 +16,7 @@ const WithdrawalButton = styled.button`
   background-color: none;
   &:hover {
     color: white;
-    background-color: #ffb3b3;
+    background-color: red;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
