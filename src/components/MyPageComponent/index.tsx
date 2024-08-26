@@ -59,7 +59,6 @@ export default function MyPageComponents() {
       try {
         const response = await membersApi.myInfo();
         const data = response.data;
-        console.log(response);
         setUserInfo(data);
       } catch (error) {}
     };
