@@ -1,7 +1,8 @@
 import { naverLoginApi } from '@api/naverLogin';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 
 const Wrap = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const Message = styled.div`
 export default function NaverLinkConfirmPage() {
   const { search } = useLocation();
   const [statusMessage, setStatusMessage] = useState('연동 확인 중입니다...');
+  const navigate = useNavigate();
 
   const queryParams = new URLSearchParams(search);
   const linkEmail = queryParams.get('linkEmail');
@@ -39,6 +41,7 @@ export default function NaverLinkConfirmPage() {
           console.log(response.data);
           if (response.data.success) {
             setStatusMessage('연동이 성공적으로 완료되었습니다.');
+            navigate('/');
           } else {
             setStatusMessage('연동에 실패했습니다. 다시 시도해 주세요.');
           }
@@ -57,6 +60,7 @@ export default function NaverLinkConfirmPage() {
   return (
     <Wrap>
       <Message>{statusMessage}</Message>
+      
     </Wrap>
   );
 }
