@@ -38,8 +38,8 @@ export default function NaverLinkConfirmPage() {
       if (linkEmail && uuid) {
         try {
           const response = await naverLoginApi.linkNaverAccount({ linkEmail, uuid });
-          console.log(response);
-          if (response.status === 200) {
+          console.log(response.data);
+          if (response.data.success) {
             setStatusMessage('연동이 성공적으로 완료되었습니다.');
           } else {
             setStatusMessage('연동에 실패했습니다. 다시 시도해 주세요.');
