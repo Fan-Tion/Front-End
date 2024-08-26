@@ -93,6 +93,7 @@ export default function Comment({ channelId, postId, nickname }: CommentProps) {
   const [editCommentId, setEditCommentId] = useState<number | null>(null);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [page, setPage] = useState(0);
+  const [totalComments, setTotalComments] = useState<number>(0);
 
   // 댓글을 가져오는 함수
   const getComments = async () => {
@@ -103,6 +104,7 @@ export default function Comment({ channelId, postId, nickname }: CommentProps) {
         { page },
       );
       setTotalPages(response.data.totalPages);
+      setTotalComments(response.data.totalElements);
       setComments(response.data.content);
     } catch (error) {
       console.error('Failed to fetch comments:', error);
@@ -146,7 +148,7 @@ export default function Comment({ channelId, postId, nickname }: CommentProps) {
   };
   return (
     <Wrap>
-      <Head>댓글({comments.length})</Head>
+      <Head>댓글({totalComments})</Head>
       {comments.map(comment => (
         <Com key={comment.commentId}>
           <Info>

@@ -105,7 +105,14 @@ export default function BuyNow({
             `${response.buyNowPrice.toLocaleString()}원에 구매 성공했습니다. 남은 예치금 : ${response.balance.toLocaleString()}원`,
           );
         } catch (error) {
-          console.error(error);
+          const errorResponse = error as {
+            response: {
+              data: { errorCode: string; message: string; status: string };
+            };
+          };
+          const { message } = errorResponse.response.data;
+
+          alert(message);
         } finally {
           toggleModal();
           toggleTrigger();

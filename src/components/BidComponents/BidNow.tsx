@@ -122,7 +122,14 @@ export default function BidNow({
           `${response.data.bidPrice.toLocaleString()}원에 입찰 성공했습니다.`,
         );
       } catch (error) {
-        console.error(error);
+        const errorResponse = error as {
+          response: {
+            data: { errorCode: string; message: string; status: string };
+          };
+        };
+        const { message } = errorResponse.response.data;
+
+        alert(message);
       } finally {
         toggleModal();
         toggleTrigger();

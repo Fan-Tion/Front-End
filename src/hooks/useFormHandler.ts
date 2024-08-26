@@ -98,7 +98,14 @@ export const useFormHandler = () => {
         alert(response.message);
         navigate(`/auction/${response.data.auctionId}`);
       } catch (error) {
-        console.error(error);
+        const errorResponse = error as {
+          response: {
+            data: { errorCode: string; message: string; status: string };
+          };
+        };
+        const { message } = errorResponse.response.data;
+
+        alert(message);
       } finally {
         setButtonDisable(false);
       }
