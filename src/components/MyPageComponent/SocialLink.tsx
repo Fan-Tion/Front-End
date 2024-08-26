@@ -14,8 +14,12 @@ import {
   Title,
 } from '../../styled-components/MyPageStyle';
 
-export default function SocialLink() {
-  const [isSocialLink] = useState(false);
+interface SocialLinkProps {
+  auth: boolean;
+  linkedEmail?: string;
+}
+
+export default function SocialLink({ auth, linkedEmail }: SocialLinkProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [linkEmail, setLinkEmail] = useState('');
 
@@ -42,9 +46,9 @@ export default function SocialLink() {
       <Section>
         <Title>연동정보</Title>
       </Section>
-      {isSocialLink ? (
+      {auth ? (
         <Info>
-          네이버 로그인 연동 : O
+          네이버 로그인 연동 : {linkedEmail}
           <UnlinkNaverAccount />
         </Info>
       ) : (
