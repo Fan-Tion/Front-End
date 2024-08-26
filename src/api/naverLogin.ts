@@ -15,7 +15,8 @@ export const naverLoginApi = {
     uuid: string;
   }) =>
     axiosInstance.put('/members/naver/link', {
-      params: { linkEmail, uuid },
+      linkEmail,
+      uuid,
     }),
   // 네이버 로그인 연동 해제
   unlinkNaverAccount: () => axiosInstance.put('/members/naver/unlink'),
