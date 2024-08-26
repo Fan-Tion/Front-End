@@ -125,3 +125,90 @@ export const SaveButton = styled.button`
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
+
+export const SocialLinkBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content : center;
+  height : 50px;
+  width : 250px;
+  font-size: 16px;
+  color: #222;
+  font-weight: bold;
+  background-color: #e8e9ec;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-left: auto;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #4fd66e;
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+`
+
+export const ModalContent = styled.div`
+display : flex;
+flex-direction : column;
+align-items : center;
+margin: 0 auto;
+padding: 20px;
+border: 1px solid #e8e9ec;
+width: 80%;
+height : 300px;
+max-width: 500px;
+border-radius: 10px;
+text-align: center;
+`;
+
+export const ModalInput = styled.input`
+  width: 100%;
+  height : 50px;
+  padding: 10px;
+  margin-top: 70px;
+  border-radius: 5px;
+  border: 1px solid #e8e9ec;
+  font-size: 16px;
+  
+  &:hover {
+    border: 2px solid #4fd66e;
+  }
+  &:focus {
+    border: 2px solid #4fd66e;
+    outline: none;
+  }
+`;
+
+export const ModalTitle = styled.h1`
+  display : flex;
+  align-items : center;
+  justify-content : center;
+  font-size : 24px;
+
+
+`
+
+export const ModalBtn = styled.button`
+display : flex;
+align-items : center;
+justify-content : center;
+width : 300px;
+height : 50px;
+font-size : 16px;
+font-weight : bold;
+margin-top : 70px;
+border : none;
+cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #4fd66e;
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+`
+

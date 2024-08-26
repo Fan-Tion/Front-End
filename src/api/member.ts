@@ -17,8 +17,8 @@ export interface WithdrawalResponse {
 }
 
 export interface PasswordResetResponse {
-    success: boolean;
-    uuid: string;
+  success: boolean;
+  uuid: string;
 }
 
 export const membersApi = {
@@ -40,8 +40,8 @@ export const membersApi = {
   signOut: () => axiosInstance.post('/members/signout'),
   withdrawal: (): Promise<WithdrawalResponse> =>
     axiosInstance.post('/members/withdrawal'),
-  InfoEdit : (payload:any) => axiosInstance.put('/members/my-info', payload),
-  ProfileImageEdit: (formData: FormData) => 
+  InfoEdit: (payload: any) => axiosInstance.put('/members/my-info', payload),
+  ProfileImageEdit: (formData: FormData) =>
     axiosInstance.put('/members/profile-image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
