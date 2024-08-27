@@ -24,6 +24,25 @@ interface Member {
   createDate: string;
   withdrawalDate: string | null;
 }
+interface CurrentBidder {
+  memberId: number;
+  email: string;
+  password: string;
+  nickname: string;
+  auth: boolean;
+  isKakao: boolean;
+  isNaver: boolean;
+  address: string;
+  phoneNumber: string;
+  totalRating: number;
+  ratingCnt: number;
+  rating: number;
+  status: string;
+  profileImage: string | null;
+  linkedEmail: string | null;
+  createDate: string;
+  withdrawalDate: string | null;
+}
 
 interface Trade {
   auctionId: number;
@@ -34,7 +53,7 @@ interface Trade {
   auctionImage: string | null;
   description: string;
   currentBidPrice: number;
-  currentBidder: string;
+  currentBidder: CurrentBidder;
   buyNowPrice: number;
   favoriteCnt: number;
   createDate: string;
@@ -205,14 +224,16 @@ export default function TradeDetail({
             </Link>
           </div>
           <p>
-            {isBuyList ? '판매자' : '구매자'} 메일: {trade.member.email}
+            {isBuyList ? '판매자' : '구매자'} 메일:{' '}
+            {isBuyList ? trade.member.email : trade.currentBidder.email}
           </p>
           <p>
             {isBuyList ? '판매자' : '구매자'} 전화번호:
-            {trade.member.phoneNumber}
+            {isBuyList ? trade.member.email : trade.currentBidder.phoneNumber}
           </p>
           <p>
-            {isBuyList ? '판매자' : '구매자'} 닉네임: {trade.member.nickname}
+            {isBuyList ? '판매자' : '구매자'} 닉네임:{' '}
+            {isBuyList ? trade.member.email : trade.currentBidder.email}
           </p>
         </DetailContent>
         {isBuyList ? (

@@ -22,6 +22,25 @@ interface Member {
   createDate: string;
   withdrawalDate: string | null;
 }
+interface CurrentBidder {
+  memberId: number;
+  email: string;
+  password: string;
+  nickname: string;
+  auth: boolean;
+  isKakao: boolean;
+  isNaver: boolean;
+  address: string;
+  phoneNumber: string;
+  totalRating: number;
+  ratingCnt: number;
+  rating: number;
+  status: string;
+  profileImage: string | null;
+  linkedEmail: string | null;
+  createDate: string;
+  withdrawalDate: string | null;
+}
 interface Trade {
   auctionId: number;
   title: string;
@@ -31,7 +50,7 @@ interface Trade {
   auctionImage: string | null;
   description: string;
   currentBidPrice: number;
-  currentBidder: string;
+  currentBidder: CurrentBidder;
   buyNowPrice: number;
   favoriteCnt: number;
   createDate: string;
