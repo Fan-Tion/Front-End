@@ -25,3 +25,4 @@ export const ChannelCreatePage = lazy(() => import('./ChannelCreatePage'));
 export const CommunityPostPage = lazy(() => import('./CommunityPostPage'));
 export const PostDetailPage = lazy(() => import('./PostDetailPage'));
 export const ModifyPostPage = lazy(() => import('./ModifyPostPage'));
+export const NaverLinkPage = lazy(() => import('./NaverLinkPage'));

@@ -22,6 +22,7 @@ import {
   MainBoardPage,
   ModifyPostPage,
   MyPage,
+  NaverLinkPage,
   PasswordResetPage,
   PopularCategoryPage,
   PostDetailPage,
@@ -229,7 +230,7 @@ export default function Routes() {
               <ModifyPostPage />
             </Suspense>
           ),
-        },
+        }
       ],
     },
     {
@@ -245,6 +246,14 @@ export default function Routes() {
       element: (
         <Suspense fallback={<LoadingScreen />}>
           <NaverLoginCallback />
+        </Suspense>
+      ),
+    },
+    {
+      path: 'naverLink',
+      element: (
+        <Suspense fallback={<LoadingScreen />}>
+          <NaverLinkPage />
         </Suspense>
       ),
     },

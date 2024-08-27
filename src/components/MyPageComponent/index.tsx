@@ -47,6 +47,8 @@ interface UserInfo {
   email: string;
   balance: number;
   profileImage: string | null;
+  auth : boolean;
+  linkedEmail: string | null;
 }
 
 export default function MyPageComponents() {
@@ -85,8 +87,9 @@ export default function MyPageComponents() {
   const balance = userInfo?.balance ?? 0;
   const nickname = userInfo?.nickname ?? 'Anonymous';
   const profileImage =
-    userInfo?.profileImage ?? 'https://via.placeholder.com/300';
-
+  userInfo?.profileImage ?? 'https://via.placeholder.com/300';
+  const auth = userInfo?.auth ?? false;
+  const linkedEmail = userInfo?.linkedEmail ?? undefined; 
   return (
     <Wrapper>
       <SideProfile
@@ -97,7 +100,7 @@ export default function MyPageComponents() {
       <ColumnWrap>
         <Profile userInfo={userInfo} onUpdate={handleUserInfoUpdate} />
         <HistoryView />
-        <SocialLink />
+        <SocialLink linkedEmail ={linkedEmail} auth= {auth}/>
         <PasswordEditButton onClick={handlePasswordResetRequest}>
           비밀번호 변경 요청 메일 발송하기
         </PasswordEditButton>
