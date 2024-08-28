@@ -64,3 +64,10 @@ Fan-Tion은 팬덤 커뮤니티와 굿즈 거래를 한 곳에서 해결할 수 
 - [프로젝트 상세 기획](https://mica-marten-635.notion.site/cf3158de604b4e739d28e5df5aecea6a)
 - [프론트엔드 트러블슈팅](https://mica-marten-635.notion.site/FE_Trouble-Shooting-24888d351fe446b78c79e9f011adf5e3)
 - [백엔드 트러블슈팅](https://mica-marten-635.notion.site/Trouble-Shooting-0825251b2b794473bfd0b1b39139a3be)
+
+## 팀원 소개
+|<img src="https://avatars.githubusercontent.com/u/117416583?v=4" width="130" height="130">|<img src="https://avatars.githubusercontent.com/u/70841944?v=4" width="130" height="130">|<img src="https://avatars.githubusercontent.com/u/67907707?v=4" width="130" height="130">|<img src="https://avatars.githubusercontent.com/u/78160955?v=4" width="130" height="130">|<img src="https://avatars.githubusercontent.com/u/156321800?v=4" width="130" height="130">|<img src="https://avatars.githubusercontent.com/u/156177276?v=4" width="130" height="130">  |
+|:-------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|
+| Back-End | Back-End | Back-End | Front-End | Front-End | Front-End |
+| 박상준 | 유석균 | 고성태 | 윤진영 | 권도형 | 민병현 |
+|[itpark1018 github](https://github.com/itpark1018)|[ysg2020 github](https://github.com/ysg2020)|[Go0211 github](https://github.com/Go0211)|[Hira-Yuki github](https://github.com/Hira-Yuki)|[DoHyeongKwonn github](https://github.com/DoHyeongKwonn)|[hwang-jubin github](https://github.com/Min-byeonghyun)|
