@@ -7,11 +7,7 @@ export default function UnlinkNaverAccount() {
     try {
       const response = await naverLoginApi.unlinkNaverAccount();
       console.log(response);
-      if (response.data.success) {
-        alert('계정 연동 해제 성공');
-      } else {
-        alert('계정 연동 해제 실패');
-      }
+      alert('계정 연동 해제 성공');
     } catch (error) {
       console.log('계정 연동 해제 실패', error);
     }
