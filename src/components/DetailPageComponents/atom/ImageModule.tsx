@@ -100,6 +100,7 @@ const modalStyle = {
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    zIndex: 2, // SOLD OUT label 보다 높기만하면 됨
   },
 };
 
